@@ -23,6 +23,9 @@ export interface CandlestickSignalMarker {
   isValid?: boolean;
   episodeRole?: string | null;
   episodeTransition?: string | null;
+  riskLevel?: string | null;
+  tier?: string | null;
+  telegramSent?: boolean;
 }
 
 interface CandlestickChartProps {
@@ -465,14 +468,21 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
 
         if (signalTimestamp === undefined) return [];
 
-        const probabilityText = signal.probability != null && Number.isFinite(signal.probability)
-          ? `${formatSignalTime(signal.time, true)} · ${(signal.probability).toFixed(1)}%`
-          : `${formatSignalTime(signal.time, true)} · ${t('chart_distrib_label')}`;
+        const isHighConfidence = signal.tier === 'HIGH_CONFIDENCE' ||
+          (signal.probability != null && signal.probability >= 41) ||
+          ['HIGH', 'CAO', 'HIGH_CONFIDENCE'].includes(String(signal.riskLevel).toUpperCase());
 
-        
+        const tierLabel = isHighConfidence ? t('chart_distrib_label') : t('chart_watch_label');
+        const probStr = signal.probability != null && Number.isFinite(signal.probability)
+          ? ` · ${(signal.probability).toFixed(1)}%`
+          : '';
+        const probabilityText = `${formatSignalTime(signal.time, true)} · ${tierLabel}${probStr}`;
+
         const isFirst = signal.episodeRole === 'FIRST' || !signal.episodeRole; // Fallback for legacy signals
         const shape = isFirst ? 'arrowDown' : 'circle';
-        const color = isFirst ? (signal.isActive ? '#f59e0b' : '#f97316') : '#94a3b8'; // gray for updates
+        const color = isHighConfidence
+          ? (isFirst ? (signal.isActive ? '#ef4444' : '#f97316') : '#94a3b8')
+          : (isFirst ? (signal.isActive ? '#f59e0b' : '#eab308') : '#94a3b8');
         const size = isFirst ? (signal.isActive ? 1.2 : 1) : 0.5;
 
         return [{
@@ -724,29 +734,37 @@ export const CandlestickChart: React.FC<CandlestickChartProps> = ({
           {isFullscreen ? <Minimize2 className="h-3.5 w-3.5" /> : <Maximize2 className="h-3.5 w-3.5" />}
         </button>
       </div>
-      {visibleSignalMarkers.length > 0 && (
-        <div className="pointer-events-none absolute left-2 top-12 z-10 flex items-center gap-1.5 overflow-hidden rounded-md border border-amber-500/40 bg-slate-950/90 px-2 py-1 text-[10px] shadow-lg shadow-black/20 sm:top-2 sm:max-w-[70%] sm:gap-2">
-          <span className="font-bold uppercase tracking-wide text-amber-400 shrink-0">
-            {t('chart_distrib_alert')}
-          </span>
-          {visibleSignalMarkers[visibleSignalMarkers.length - 1].probability != null && Number.isFinite(visibleSignalMarkers[visibleSignalMarkers.length - 1].probability) && (
-            <span className="font-mono font-bold text-red-400 shrink-0">
-              {visibleSignalMarkers[visibleSignalMarkers.length - 1].probability?.toFixed(1)}%
+      {visibleSignalMarkers.length > 0 && (() => {
+        const latestMarker = visibleSignalMarkers[visibleSignalMarkers.length - 1];
+        const isLatestHigh = latestMarker.tier === 'HIGH_CONFIDENCE' ||
+          (latestMarker.probability != null && latestMarker.probability >= 41) ||
+          ['HIGH', 'CAO', 'HIGH_CONFIDENCE'].includes(String(latestMarker.riskLevel).toUpperCase());
+        return (
+          <div className={`pointer-events-none absolute left-2 top-12 z-10 flex items-center gap-1.5 overflow-hidden rounded-md border ${
+            isLatestHigh ? 'border-red-500/50 bg-slate-950/90 shadow-red-500/10' : 'border-amber-500/40 bg-slate-950/90 shadow-black/20'
+          } px-2 py-1 text-[10px] shadow-lg sm:top-2 sm:max-w-[70%] sm:gap-2`}>
+            <span className={`font-bold uppercase tracking-wide shrink-0 ${isLatestHigh ? 'text-red-400' : 'text-amber-400'}`}>
+              {isLatestHigh ? t('chart_distrib_alert') : t('chart_watch_alert')}
             </span>
-          )}
-          <span className="hidden sm:inline font-mono text-slate-300 truncate">
-            {t('chart_latest_time')} {formatSignalTime(visibleSignalMarkers[visibleSignalMarkers.length - 1].time)}
-          </span>
-          {visibleSignalMarkers.length > 1 && (
-            <span className="hidden sm:inline font-mono font-bold text-slate-300">
-              {visibleSignalMarkers.length} {t('feed_signals_count')}
+            {latestMarker.probability != null && Number.isFinite(latestMarker.probability) && (
+              <span className={`font-mono font-bold shrink-0 ${isLatestHigh ? 'text-red-400' : 'text-amber-300'}`}>
+                {latestMarker.probability?.toFixed(1)}%
+              </span>
+            )}
+            <span className="hidden sm:inline font-mono text-slate-300 truncate">
+              {t('chart_latest_time')} {formatSignalTime(latestMarker.time)}
             </span>
-          )}
-          {allSignalMarkers.length > visibleSignalMarkers.length && (
-            <span className="hidden sm:inline font-mono text-slate-500">/{allSignalMarkers.length} · {getAlertVisibilityLabel(alertVisibility)}</span>
-          )}
-        </div>
-      )}
+            {visibleSignalMarkers.length > 1 && (
+              <span className="hidden sm:inline font-mono font-bold text-slate-300">
+                {visibleSignalMarkers.length} {t('feed_signals_count')}
+              </span>
+            )}
+            {allSignalMarkers.length > visibleSignalMarkers.length && (
+              <span className="hidden sm:inline font-mono text-slate-500">/{allSignalMarkers.length} · {getAlertVisibilityLabel(alertVisibility)}</span>
+            )}
+          </div>
+        );
+      })()}
     </div>
   );
 };

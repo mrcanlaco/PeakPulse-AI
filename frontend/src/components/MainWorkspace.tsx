@@ -482,27 +482,39 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
 
     const coinSignals: CandlestickSignalMarker[] = signals
       .filter(signal => signal.symbol === displayDetail.symbol)
-      .map(signal => ({
-        id: signal.id,
-        time: signal.signal_time,
-        probability: signal.probability * 100,
-        isActive: selectedSignal?.id === signal.id,
-        isValid: signal.validity_hours_left > 0,
-        episodeRole: signal.episode_role,
-        episodeTransition: signal.episode_transition,
-      }));
+      .map(signal => {
+        const prob = signal.probability * 100;
+        const isHigh = prob >= 41 || ['HIGH', 'CAO', 'HIGH_CONFIDENCE'].includes(String(signal.risk_level).toUpperCase());
+        return {
+          id: signal.id,
+          time: signal.signal_time,
+          probability: prob,
+          isActive: selectedSignal?.id === signal.id,
+          isValid: signal.validity_hours_left > 0,
+          episodeRole: signal.episode_role,
+          episodeTransition: signal.episode_transition,
+          riskLevel: signal.risk_level,
+          tier: isHigh ? 'HIGH_CONFIDENCE' : 'WATCH',
+          telegramSent: signal.telegram_sent,
+        };
+      });
 
     if (
       selectedSignal &&
       selectedSignal.symbol === displayDetail.symbol &&
       !coinSignals.some(signal => signal.id === selectedSignal.id)
     ) {
+      const prob = selectedSignal.probability * 100;
+      const isHigh = prob >= 41 || ['HIGH', 'CAO', 'HIGH_CONFIDENCE'].includes(String(selectedSignal.risk_level).toUpperCase());
       coinSignals.push({
         id: selectedSignal.id,
         time: selectedSignal.signal_time,
-        probability: selectedSignal.probability * 100,
+        probability: prob,
         isActive: true,
         isValid: selectedSignal.validity_hours_left > 0,
+        riskLevel: selectedSignal.risk_level,
+        tier: isHigh ? 'HIGH_CONFIDENCE' : 'WATCH',
+        telegramSent: selectedSignal.telegram_sent,
       });
     }
 
@@ -511,12 +523,16 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
       displayDetail.signal_timestamp &&
       Boolean(displayDetail.has_alert)
     ) {
+      const prob = displayDetail.probability;
+      const isHigh = (prob != null && prob >= 41) || ['HIGH', 'CAO', 'HIGH_CONFIDENCE'].includes(String(displayDetail.risk_level).toUpperCase());
       coinSignals.push({
         id: `${displayDetail.symbol}-${displayDetail.signal_timestamp}`,
         time: displayDetail.signal_timestamp,
         probability: displayDetail.probability,
         isActive: true,
         isValid: true,
+        riskLevel: displayDetail.risk_level,
+        tier: isHigh ? 'HIGH_CONFIDENCE' : 'WATCH',
       });
     }
 

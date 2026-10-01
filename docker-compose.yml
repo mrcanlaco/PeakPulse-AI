@@ -8,6 +8,25 @@
 # ============================================================
 
 services:
+  execution:
+    profiles: ["trading"]
+    build: .
+    container_name: dao_vang_execution
+    user: "${DAO_VANG_RUNTIME_UID:-1001}:${DAO_VANG_RUNTIME_GID:-1004}"
+    restart: unless-stopped
+    env_file:
+      - .env.docker
+    volumes:
+      - ./data:/app/data_live
+      - ./artifacts:/app/artifacts:ro
+      - ./configs:/app/configs:ro
+    command: dao-vang execution start --config configs/live.yaml
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "3"
+
   scanner:
     build: .
     container_name: dao_vang_scanner
@@ -24,7 +43,7 @@ services:
     command: >
       dao-vang scanner start --config configs/live.yaml
     healthcheck:
-      test: ["CMD", "python", "/app/src/dao_vang/scanner/healthcheck.py", "--path", "/app/data_live/scanner_heartbeat.json"]
+      test: ["CMD", "python", "/app/src/dao_vang/scanner/healthcheck.py", "--path", "/app/data_live/scanner_heartbeat.json", "--snapshot", "/app/data_live/candidate_snapshot.json", "--stats", "/app/data_live/system_data_stats.json"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -66,6 +85,7 @@ services:
       - ./configs:/app/configs
       - ./.git:/app/.git:ro
       - ./CHANGELOG.md:/app/CHANGELOG.md:ro
+      - ./frontend/dist:/app/frontend/dist:ro
     depends_on:
       - scanner
     healthcheck:
