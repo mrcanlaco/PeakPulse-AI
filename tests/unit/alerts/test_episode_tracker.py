@@ -82,3 +82,17 @@ def test_get_episode_tracking_symbols(tmp_path):
     symbols = store.get_episode_tracking_symbols()
     assert "SOL" in symbols
     assert "ADA" in symbols
+
+
+def test_migration_removes_mutable_status_index_preserving_episodes(tmp_path):
+    store = AlertStore(str(tmp_path / "migration.duckdb"))
+    stamp = datetime.now(timezone.utc)
+    opened = store.process_snapshot("BTCUSDT", 24, .9, .7, True, stamp)
+    with store._conn() as conn:
+        conn.execute("CREATE INDEX idx_alert_episodes_status ON alert_episodes(status, lane_id)")
+    store = AlertStore(str(tmp_path / "migration.duckdb"))
+    with store._conn() as conn:
+        assert not conn.execute("SELECT 1 FROM duckdb_indexes() WHERE index_name='idx_alert_episodes_status'").fetchall()
+        assert conn.execute("SELECT episode_id FROM alert_episodes").fetchone()[0] == opened.episode_id
+    closed = store.process_snapshot("BTCUSDT", 24, .1, .7, True, stamp + timedelta(minutes=5), flap_limit=1)
+    assert closed.transition == "CLOSED"

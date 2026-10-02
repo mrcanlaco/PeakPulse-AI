@@ -1360,6 +1360,8 @@ class APIHandler(BaseHTTPRequestHandler):
         scanner = inspect_heartbeat(
             HEARTBEAT_PATH,
             max_age_seconds=max_age_seconds,
+            snapshot_path=CANDIDATE_SNAPSHOT_PATH,
+            stats_path=SYSTEM_STATS_PATH,
         )
         disk = _disk_readiness(data_dir_path)
         ready = bool(scanner["healthy"] and disk["healthy"])
@@ -1373,6 +1375,7 @@ class APIHandler(BaseHTTPRequestHandler):
                     "reason": scanner["reason"],
                     "heartbeat_age_seconds": scanner["age_seconds"],
                     "last_cycle_status": scanner["last_cycle_status"],
+                    "snapshot_age_seconds": scanner.get("snapshot_age_seconds"),
                 },
                 "disk": {
                     "status": disk["status"],
@@ -4910,6 +4913,7 @@ class APIHandler(BaseHTTPRequestHandler):
         res = {
             "generated_at": system_now().isoformat(),
             "stats_snapshot_generated_at": stats_snapshot_generated_at,
+            "candidate_comparison_enabled": _settings.candidate_comparison.enabled,
             "db_path": str(_settings.scanner.db_path),
             "data_stats": data_stats,
             "scanner": {

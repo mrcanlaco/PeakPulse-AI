@@ -82,7 +82,10 @@ CREATE TABLE IF NOT EXISTS alert_episodes (
     start_time TIMESTAMPTZ NOT NULL,
     updated_at TIMESTAMPTZ NOT NULL
 );
-CREATE INDEX IF NOT EXISTS idx_alert_episodes_status ON alert_episodes(status, lane_id);
+-- Status changes frequently. A secondary ART index rewrites entire episode
+-- rows on close and has caused fatal index corruption on the live database.
+-- Episode lookups already use the primary key; this index is unnecessary.
+DROP INDEX IF EXISTS idx_alert_episodes_status;
 """
 
 # Columns added after the initial release — applied via ALTER TABLE so that

@@ -1138,12 +1138,14 @@ class ScannerDaemon:
             }
             _atomic_json_write(self._candidate_snapshot_path, payload)
         except Exception as exc:
-            # A serving artifact failure must not abort scoring or alerting.
             logger.warning(
                 "candidate_snapshot_publish_failed",
                 path=str(self._candidate_snapshot_path),
                 error=str(exc),
             )
+            # A loop that cannot publish is not successful. Exit so the
+            # supervisor can reopen an invalidated DuckDB connection.
+            raise
 
     def _publish_system_stats(self, db: DuckDBQueryLayer) -> None:
         """Publish current DuckDB table stats without requiring a web lock.
@@ -1164,7 +1166,8 @@ class ScannerDaemon:
                 for row in conn.execute(
                     "SELECT table_name FROM duckdb_tables() "
                     "WHERE schema_name='main' AND NOT temporary "
-                    "AND NOT starts_with(table_name, 'bf_') ORDER BY table_name"
+                    "AND NOT starts_with(table_name, 'bf_') "
+                    "AND NOT starts_with(table_name, '_source_') ORDER BY table_name"
                 ).fetchall()
             ]
             ts_candidates = (
@@ -1275,7 +1278,6 @@ class ScannerDaemon:
                 },
             )
         except Exception as exc:
-            # Health telemetry must never stop scoring or alerting.
             logger.warning(
                 "system_stats_publish_failed",
                 path=str(self._system_stats_path),

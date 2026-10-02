@@ -65,4 +65,5 @@ def test_installer_preserves_unrelated_jobs_and_removes_legacy_reset(
     assert installed.count("# BEGIN DAO_VANG_MANAGED") == 1
     assert installed.count("backup_to_gdrive.sh") == 1
     assert installed.count("prune_old_data.sh --apply") == 1
+    assert installed.count("production_watchdog.py --apply") == 1
     assert list((project / "backups" / "crontab").glob("crontab-*.txt"))

@@ -985,6 +985,7 @@ export interface SelfLearningStatus {
 
 export interface SystemHistoryData {
   generated_at: string;
+  candidate_comparison_enabled?: boolean;
   stats_snapshot_generated_at?: string | null;
   db_path?: string;
   freshness?: Record<string, { max_time?: string | null; row_count?: number | null }>;

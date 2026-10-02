@@ -55,6 +55,7 @@ awk '
 
 {
     echo "# BEGIN DAO_VANG_MANAGED"
+    echo "*/2 * * * * cd $PROJECT_DIR && flock -n data/watchdog.lock python3 scripts/production_watchdog.py --apply >> data/watchdog.log 2>&1"
     echo "10 2 * * * cd $PROJECT_DIR && bash scripts/backup_to_gdrive.sh"
     echo "0 4 * * * cd $PROJECT_DIR && bash scripts/prune_old_data.sh --apply >> data/prune.log 2>&1"
     echo "# END DAO_VANG_MANAGED"

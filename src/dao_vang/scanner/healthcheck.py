@@ -14,6 +14,8 @@ def inspect_heartbeat(
     *,
     now: datetime | None = None,
     max_age_seconds: float = 900,
+    snapshot_path: Path | None = None,
+    stats_path: Path | None = None,
 ) -> dict[str, Any]:
     """Return a safe, structured scanner-health decision.
 
@@ -68,6 +70,58 @@ def inspect_heartbeat(
     else:
         result["healthy"] = True
         result["reason"] = "ok"
+    # Heartbeats can advance while scoring/publication repeatedly fails.
+    # Production checks must verify the output as well as process liveness.
+    if result["healthy"] and snapshot_path is not None:
+        output = inspect_snapshot(snapshot_path, now=clock, max_age_seconds=max_age_seconds)
+        result["snapshot_age_seconds"] = output["age_seconds"]
+        if not output["healthy"]:
+            result.update(healthy=False, reason=output["reason"])
+    if result["healthy"] and stats_path is not None:
+        stats = inspect_snapshot(stats_path, now=clock, max_age_seconds=max_age_seconds,
+                                 rows_key="data_stats")
+        if not stats["healthy"]:
+            result.update(healthy=False, reason="stats_" + stats["reason"])
+    return result
+
+
+def inspect_snapshot(path: Path, *, now: datetime | None = None,
+                     max_age_seconds: float = 900, rows_key: str = "rows") -> dict[str, Any]:
+    result: dict[str, Any] = {"healthy": False, "reason": "snapshot_invalid", "age_seconds": None}
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(payload, dict) or not isinstance(payload.get(rows_key), list):
+            return result
+        stamp = datetime.fromisoformat(payload["generated_at"].replace("Z", "+00:00"))
+        if stamp.tzinfo is None:
+            stamp = stamp.replace(tzinfo=timezone.utc)
+        clock = now or datetime.now(timezone.utc)
+        age = (clock - stamp).total_seconds()
+        result["age_seconds"] = round(age, 1)
+        if age < -60:
+            result["reason"] = "snapshot_clock_skew"
+        elif age > max_age_seconds:
+            result["reason"] = "snapshot_stale"
+        else:
+            result.update(healthy=True, reason="ok")
+        if result["healthy"] and rows_key == "data_stats":
+            tables = {row.get("table"): row for row in payload[rows_key] if isinstance(row, dict)}
+            for name in ("kline", "raw_timeline", "feature_results", "open_interest"):
+                latest = tables.get(name, {}).get("max_time")
+                if not latest:
+                    result.update(healthy=False, reason="source_missing_" + name)
+                    break
+                source_time = datetime.fromisoformat(latest.replace("Z", "+00:00"))
+                if source_time.tzinfo is None:
+                    source_time = source_time.replace(tzinfo=timezone.utc)
+                source_age = (clock - source_time).total_seconds()
+                if source_age < -60 or source_age > max_age_seconds:
+                    result.update(healthy=False, reason="source_stale_" + name)
+                    break
+    except FileNotFoundError:
+        result["reason"] = "snapshot_missing"
+    except (OSError, ValueError, TypeError, KeyError, AttributeError):
+        result.update(healthy=False, reason="snapshot_invalid")
     return result
 
 
@@ -90,13 +144,17 @@ def main() -> int:
         default=Path("data_live/scanner_heartbeat.json"),
     )
     parser.add_argument("--max-age-seconds", type=float, default=900)
+    parser.add_argument("--snapshot", type=Path)
+    parser.add_argument("--stats", type=Path)
     args = parser.parse_args()
     return (
         0
-        if heartbeat_is_healthy(
+        if inspect_heartbeat(
             args.path,
             max_age_seconds=args.max_age_seconds,
-        )
+            snapshot_path=args.snapshot,
+            stats_path=args.stats,
+        )["healthy"]
         else 1
     )
 

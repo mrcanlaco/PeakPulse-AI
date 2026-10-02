@@ -258,15 +258,22 @@ export const SystemHistoryTab: React.FC = () => {
       desc: t('pipe_scanner_desc'),
     },
     {
-      table: 'candidate_market_observations',
-      fallbackTable: 'funding',
-      label: t('pipe_funding') + ' & OI',
+      table: data?.candidate_comparison_enabled === false ? 'open_interest' : 'candidate_market_observations',
+      fallbackTable: data?.candidate_comparison_enabled === false ? undefined : 'funding',
+      label: data?.candidate_comparison_enabled === false ? 'Open Interest' : t('pipe_funding') + ' & OI',
       expectedMin: 15,
       desc: t('pipe_funding_desc'),
     },
     {
-      table: 'candidate_filter_decisions',
-      fallbackTable: 'open_interest',
+      table: 'funding',
+      label: t('pipe_funding'),
+      // Settled funding is emitted at funding intervals, not every scan.
+      expectedMin: 480,
+      desc: t('pipe_funding_desc'),
+    },
+    {
+      table: data?.candidate_comparison_enabled === false ? 'scan_results' : 'candidate_filter_decisions',
+      fallbackTable: data?.candidate_comparison_enabled === false ? undefined : 'open_interest',
       label: language === 'zh' ? '候选决策' : language === 'ko' ? '후보 결정' : language === 'en' ? 'Candidate Filter' : 'Bộ Lọc Ứng Viên',
       expectedMin: 15,
       desc: language === 'zh' ? '实时做空候选筛选打分' : language === 'ko' ? '실시간 덤프 후보 필터링 및 점수화' : language === 'en' ? 'Real-time candidate dump scoring' : 'Bộ lọc và chấm điểm ứng viên xả thời gian thực',
@@ -339,7 +346,9 @@ export const SystemHistoryTab: React.FC = () => {
       (spec.fallbackTable ? data?.freshness?.[spec.fallbackTable] || dataStatsMap.get(spec.fallbackTable) : undefined);
     const maxTime = tableData?.max_time;
     const rowCount = 'row_count' in (tableData || {}) ? (tableData as any).row_count : (tableData as any)?.rows;
-    const ageMin = computeAgeMin(maxTime, data?.stats_snapshot_generated_at || data?.generated_at || '');
+    // Measure against the current report, never against an old snapshot's
+    // own clock, which freezes displayed ages during scanner outages.
+    const ageMin = computeAgeMin(maxTime, data?.generated_at || '');
     const status = getStatus(ageMin, spec.expectedMin, spec.onDemand);
     return {
       ...spec,
@@ -403,7 +412,7 @@ export const SystemHistoryTab: React.FC = () => {
           {freshnessRows.map(r => {
             const st = statusStyles[r.status] || statusStyles.gray;
             return (
-              <div key={r.table} className={`bg-slate-900 border ${st.ring} rounded-lg p-2`}>
+              <div key={`${r.table}:${r.label}`} className={`bg-slate-900 border ${st.ring} rounded-lg p-2`}>
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span className={`w-2 h-2 rounded-full ${st.dot} shrink-0 ${r.status === 'red' ? 'animate-pulse' : ''}`} />

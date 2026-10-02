@@ -26,6 +26,15 @@ def web(tmp_path, monkeypatch):
     monkeypatch.setattr(api._settings.web, "public_url", "http://localhost")
     monkeypatch.setattr(api, "_AUTH_FAILURES", {})
     monkeypatch.setattr(api, "_dismissals", SignalDismissals(tmp_path / "dismissals.json"))
+    snapshot = tmp_path / "candidate_snapshot.json"
+    snapshot.write_text(json.dumps({"rows": [], "generated_at": datetime.now(timezone.utc).isoformat()}))
+    monkeypatch.setattr(api, "CANDIDATE_SNAPSHOT_PATH", snapshot)
+    stats = tmp_path / "system_data_stats.json"
+    stats.write_text(json.dumps({"data_stats": [
+        {"table": name, "max_time": datetime.now(timezone.utc).isoformat()}
+        for name in ("kline", "raw_timeline", "feature_results", "open_interest")
+    ], "generated_at": datetime.now(timezone.utc).isoformat()}))
+    monkeypatch.setattr(api, "SYSTEM_STATS_PATH", stats)
     server = ThreadingHTTPServer(("127.0.0.1", 0), api.APIHandler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -119,6 +128,12 @@ def test_readiness_requires_fresh_successful_scanner_heartbeat(
     assert status == 200
     assert json.loads(body)["status"] == "ok"
     assert call(web, "/api/ready", method="HEAD")[0] == 200
+
+    api.CANDIDATE_SNAPSHOT_PATH.write_text(json.dumps({"rows": [], "generated_at":
+        (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()}))
+    status, body, _ = call(web, "/api/ready")
+    assert status == 503
+    assert json.loads(body)["checks"]["scanner"]["reason"] == "snapshot_stale"
 
     heartbeat["last_cycle_status"] = "failed"
     heartbeat_path.write_text(json.dumps(heartbeat), encoding="utf-8")

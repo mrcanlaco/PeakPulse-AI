@@ -258,6 +258,7 @@ def process_raw_to_parquet(settings: AppSettings, dataset_version: str = "1.0.0"
     latest_index = _get_latest_index(settings.paths.data_dir)
     index_dirty = False
     created_files = 0
+    normalized_names: dict[Path, set[str]] = {}
 
     for collector_type, normalizer_func in NORMALIZER_MAP.items():
         collector_raw_dir = raw_dir / collector_type
@@ -269,10 +270,13 @@ def process_raw_to_parquet(settings: AppSettings, dataset_version: str = "1.0.0"
             # Incorporate parent directory name (e.g. date=2026-08-01) to avoid conflicts if same run_id across dates
             date_dir = jsonl_file.parent.name
             target_dir = normalized_dir / collector_type / date_dir
-            target_dir.mkdir(parents=True, exist_ok=True)
+            if target_dir not in normalized_names:
+                target_dir.mkdir(parents=True, exist_ok=True)
+                with os.scandir(target_dir) as entries:
+                    normalized_names[target_dir] = {entry.name for entry in entries}
             
             parquet_file = target_dir / f"{jsonl_file.stem}.parquet"
-            if parquet_file.exists():
+            if parquet_file.name in normalized_names[target_dir]:
                 # Skip already processed
                 continue
 
@@ -287,6 +291,7 @@ def process_raw_to_parquet(settings: AppSettings, dataset_version: str = "1.0.0"
 
             if normalized_items:
                 write_normalized_to_parquet(parquet_file, normalized_items)
+                normalized_names[target_dir].add(parquet_file.name)
                 created_files += 1
 
             spec = _TIMESTAMP_SPECS.get(collector_type)
@@ -369,13 +374,19 @@ def build_raw_timeline(db: DuckDBQueryLayer, settings: AppSettings, *, materiali
         patterns = _get_recent_parquet_patterns(normalized_dir, subdir, days=days)
         patterns_sql = ", ".join(f"'{p}'" for p in patterns)
         
-        has_files = any(list(Path(p.replace("*.parquet", "")).glob("*.parquet")) for p in patterns)
+        has_files = any(next(Path(p.replace("*.parquet", "")).glob("*.parquet"), None) is not None for p in patterns)
         if not has_files:
-            has_files = bool(list((normalized_dir / subdir).rglob("*.parquet")))
+            has_files = next((normalized_dir / subdir).rglob("*.parquet"), None) is not None
             if has_files:
-                patterns_sql = f"'{str(normalized_dir / subdir / '**/*.parquet').replace(chr(92), '/')}'"
+                patterns = [str(normalized_dir / subdir / '**/*.parquet').replace(chr(92), '/')]
+                patterns_sql = f"'{patterns[0]}'"
 
         if has_files:
+            if materialize_sources:
+                from dao_vang.data.source_cache import materialize_source
+
+                materialize_source(db.conn, view_name, patterns, time_col)
+                continue
             for kind in ("VIEW", "TABLE"):
                 try:
                     db.conn.execute(f"DROP {kind} {view_name}")
@@ -395,9 +406,9 @@ def build_raw_timeline(db: DuckDBQueryLayer, settings: AppSettings, *, materiali
             logger.warning(f"No parquet files found for {view_name} at {patterns_sql}")
 
     # Build the intermediate exact 5m alignment
-    position_view = "top_position_ratio" if list(
-        (normalized_dir / "top_position_ratio").rglob("*.parquet")
-    ) else None
+    position_view = "top_position_ratio" if next(
+        (normalized_dir / "top_position_ratio").rglob("*.parquet"), None
+    ) is not None else None
     align_exact_5m(
         db,
         output_view="aligned_5m",
