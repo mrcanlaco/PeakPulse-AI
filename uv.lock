@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = "==3.12.*"
 resolution-markers = [
     "sys_platform == 'win32'",
@@ -131,71 +131,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44", size = 27697, upload-time = "2022-10-25T02:36:22.414Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6", size = 25335, upload-time = "2022-10-25T02:36:20.889Z" },
-]
-
-[[package]]
-name = "dao-vang"
-version = "2.0.0rc2"
-source = { editable = "." }
-dependencies = [
-    { name = "duckdb" },
-    { name = "fastapi" },
-    { name = "httpx" },
-    { name = "lightgbm" },
-    { name = "pandas" },
-    { name = "plotly" },
-    { name = "pyarrow" },
-    { name = "pydantic" },
-    { name = "pydantic-core" },
-    { name = "pydantic-settings" },
-    { name = "pytz" },
-    { name = "pyyaml" },
-    { name = "scikit-learn" },
-    { name = "streamlit" },
-    { name = "structlog" },
-    { name = "tenacity" },
-    { name = "typer" },
-    { name = "uvicorn" },
-    { name = "websockets" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "pyright" },
-    { name = "pytest" },
-    { name = "ruff" },
-    { name = "tzdata" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "duckdb", specifier = ">=1.0.0" },
-    { name = "fastapi", specifier = ">=0.111.0" },
-    { name = "httpx", specifier = ">=0.28.1" },
-    { name = "lightgbm", specifier = ">=4.0.0" },
-    { name = "pandas", specifier = ">=3.0.5" },
-    { name = "plotly", specifier = ">=6.9.0" },
-    { name = "pyarrow", specifier = ">=15.0.0" },
-    { name = "pydantic", specifier = "==2.13.4" },
-    { name = "pydantic-core", specifier = "==2.46.4" },
-    { name = "pydantic-settings", specifier = "==2.14.2" },
-    { name = "pytz", specifier = ">=2024.1" },
-    { name = "pyyaml", specifier = "==6.0.3" },
-    { name = "scikit-learn", specifier = ">=1.9.0" },
-    { name = "streamlit", specifier = ">=1.30.0" },
-    { name = "structlog", specifier = "==26.1.0" },
-    { name = "tenacity", specifier = ">=9.1.4" },
-    { name = "typer", specifier = ">=0.27.0" },
-    { name = "uvicorn", specifier = ">=0.30.0" },
-    { name = "websockets", specifier = ">=12.0" },
-]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pyright", specifier = ">=1.1.0" },
-    { name = "pytest", specifier = ">=8.0.0" },
-    { name = "ruff", specifier = ">=0.5.0" },
-    { name = "tzdata", specifier = ">=2024.1" },
 ]
 
 [[package]]
@@ -504,6 +439,71 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/f3/9a/ffbd852d58bd74a617fe2f8ee6a58a96982271ce41cf981eab22190b4a4b/pandas-3.0.5-cp312-cp312-pyemscripten_2024_0_wasm32.whl", hash = "sha256:b2acb4650527eec6822c3dadb2b771277b65e7dae7a267d4bccf65fd1bb3fbce", size = 7197652, upload-time = "2026-07-22T22:18:22.502Z" },
     { url = "https://files.pythonhosted.org/packages/70/b5/d2d3e9ae73362ba4229651b0ee1455cf78073a1ce585f6ff693782ce263e/pandas-3.0.5-cp312-cp312-win_amd64.whl", hash = "sha256:80a611068e8a3ac23f7398c6c14eb46dc974e5cc9997f653e2dcfd1da74edd41", size = 9831691, upload-time = "2026-07-22T22:18:24.534Z" },
     { url = "https://files.pythonhosted.org/packages/52/51/dea1e89d6a6796b9c43f85a09b484ee03edb8a4c4842e73e200a8c11301c/pandas-3.0.5-cp312-cp312-win_arm64.whl", hash = "sha256:25ff585b972a18ef1fe9ffa3ac6544d9950508aa76832e5147640b6022821e49", size = 9105796, upload-time = "2026-07-22T22:18:27.064Z" },
+]
+
+[[package]]
+name = "peakpulse-ai"
+version = "2.0.0rc2"
+source = { editable = "." }
+dependencies = [
+    { name = "duckdb" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "lightgbm" },
+    { name = "pandas" },
+    { name = "plotly" },
+    { name = "pyarrow" },
+    { name = "pydantic" },
+    { name = "pydantic-core" },
+    { name = "pydantic-settings" },
+    { name = "pytz" },
+    { name = "pyyaml" },
+    { name = "scikit-learn" },
+    { name = "streamlit" },
+    { name = "structlog" },
+    { name = "tenacity" },
+    { name = "typer" },
+    { name = "uvicorn" },
+    { name = "websockets" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyright" },
+    { name = "pytest" },
+    { name = "ruff" },
+    { name = "tzdata" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "duckdb", specifier = ">=1.0.0" },
+    { name = "fastapi", specifier = ">=0.111.0" },
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "lightgbm", specifier = ">=4.0.0" },
+    { name = "pandas", specifier = ">=3.0.5" },
+    { name = "plotly", specifier = ">=6.9.0" },
+    { name = "pyarrow", specifier = ">=15.0.0" },
+    { name = "pydantic", specifier = "==2.13.4" },
+    { name = "pydantic-core", specifier = "==2.46.4" },
+    { name = "pydantic-settings", specifier = "==2.14.2" },
+    { name = "pytz", specifier = ">=2024.1" },
+    { name = "pyyaml", specifier = "==6.0.3" },
+    { name = "scikit-learn", specifier = ">=1.9.0" },
+    { name = "streamlit", specifier = ">=1.30.0" },
+    { name = "structlog", specifier = "==26.1.0" },
+    { name = "tenacity", specifier = ">=9.1.4" },
+    { name = "typer", specifier = ">=0.27.0" },
+    { name = "uvicorn", specifier = ">=0.30.0" },
+    { name = "websockets", specifier = ">=12.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyright", specifier = ">=1.1.0" },
+    { name = "pytest", specifier = ">=8.0.0" },
+    { name = "ruff", specifier = ">=0.5.0" },
+    { name = "tzdata", specifier = ">=2024.1" },
 ]
 
 [[package]]
