@@ -1,0 +1,24 @@
+{
+  "status": "USER_REQUIRED",
+  "applies_to": "Fibo Trend Short research from v4.0.9 onward",
+  "scenarios": {
+    "standard_vip6": {
+      "fee_bps": 2.5,
+      "slippage_bps": 10.0
+    },
+    "stress_regular": {
+      "fee_bps": 5.0,
+      "slippage_bps": 50.0
+    }
+  },
+  "unit": "bps PER FILL, including each partial exit;1bp=0.01%",
+  "venue": "Binance USDT-M Futures",
+  "liquidity": "taker",
+  "bnb_discount": false,
+  "funding_required": "Signed historical event rate times remaining quantity times settlement mark. Acquire missing data; never silently use zero. Label any price proxy and provide exact-data requirements.",
+  "data_ceiling": "2025-12-31 until user changes it",
+  "source_protocol": "C:\\Rapid Coding\\dao_vang\\artifacts\\fibo_trend_short\\research_v4_0_9\\PROTOCOL.json",
+  "protocol_sha256": "b756f022dac992d2918725d6a9ce1adfb42852d543bee8cdce42edcb199c34f6",
+  "latest_verified_report": "C:\\Rapid Coding\\dao_vang\\artifacts\\fibo_trend_short\\research_v4_0_9\\REPORT.md",
+  "oos": "Preserve chronological locks and disclose globally reused history."
+}

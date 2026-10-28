@@ -1,0 +1,486 @@
+{
+  "manifest_version": "4.0.5",
+  "generated_at_utc": "2026-10-17T13:42:11.385313+00:00",
+  "git_commit_sha": "52d43e10ed970423d5c6a778f3c038d5122193ea",
+  "pytest_verification": "27 passed in 1.94s",
+  "universe_input_fingerprint_sha256": "c292e5f3858714f81b74a0378c505765ce72e095bce5d4efdda20cc82de46a7e",
+  "universe_input_fingerprint_mode": "FULL_BYTE_CONTENT_SHA256_ACROSS_CODE_MCAP_5M_1H_AND_FUNDING_PARQUETS",
+  "input_manifest_verification": {
+    "input_fingerprint_sha256": "c292e5f3858714f81b74a0378c505765ce72e095bce5d4efdda20cc82de46a7e",
+    "shared_funding_dir_configured": "D:/SharedMarketData/multiyear_2020_2026/funding_8h",
+    "total_files_hashed": 825,
+    "total_parquet_files_hashed": 809,
+    "code_files_hashed": 13,
+    "extra_files_hashed": 3,
+    "six_shared_funding_8h_files_sha256": {
+      "BTCUSDT": "bf02e6a449f5acc1c6fe45945ac72e5f6fc1ce2895b7dfb3f1c17bfc24415c05",
+      "ETHUSDT": "a7ca705f7dff7c2524db2041c1494ad336c587d7e80d60ce41ff7b70afbd97e5",
+      "SOLUSDT": "c95f6ad946e14974a0150a56dc7bc96ffcb586cda94e6d319ada0852df81f3d1",
+      "BNBUSDT": "49f86dcde827b9a4e31b3ee4878bd4af0f770dad6a52756714fdcc45425653b7",
+      "LTCUSDT": "87abea1c9250ba43f7781ba3440da4248264f4daaa22227e716e1779c1685909",
+      "BCHUSDT": "320f2edd7cd99369879703756004fe2341786caaff0c611c6020ec460aac4322"
+    },
+    "traced_loader_read_files_count": 499,
+    "unhashed_read_files": [],
+    "all_loader_read_files_hashed": true
+  },
+  "markdown_json_consistency_verified": true,
+  "consistency_checks_count": 1598,
+  "accepted_vs_executed_mismatches_count": 0,
+  "universe_coupled_nodes_with_trade_ids_checked": 112,
+  "negative_mutation_tests_passed": true,
+  "negative_mutations_tested_count": 16,
+  "historical_preservation_verification": {
+    "baseline_file": "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_5.json",
+    "total_historical_artifacts_checked": 80,
+    "all_unchanged_100pct": true,
+    "artifacts": {
+      "artifacts/fibo_trend_short/alpha_wiki_registry.json": {
+        "baseline_sha256": "afabc7d9f55614085ac3ded9ce09445cbfa92f7b2047f66a96e79e8812beaf03",
+        "current_sha256": "afabc7d9f55614085ac3ded9ce09445cbfa92f7b2047f66a96e79e8812beaf03",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/backtest_in_sample_2025.json": {
+        "baseline_sha256": "7252565385027cc602e96400ff253f98d5f50ffe90df4f2d96e22987ec37a79b",
+        "current_sha256": "7252565385027cc602e96400ff253f98d5f50ffe90df4f2d96e22987ec37a79b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/CHATGPT_INDEPENDENT_AUDIT_DOSSIER.md": {
+        "baseline_sha256": "70da55825f1443e83694c91c43f2a7431857c536f2d0c121c707f623198e6a82",
+        "current_sha256": "70da55825f1443e83694c91c43f2a7431857c536f2d0c121c707f623198e6a82",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/coin_universe_study_2026.json": {
+        "baseline_sha256": "525c7522ec6d9613200daba4952055d6bfd87bb6a36ae542a4fb85ca5d3b2e99",
+        "current_sha256": "525c7522ec6d9613200daba4952055d6bfd87bb6a36ae542a4fb85ca5d3b2e99",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/coingecko_marketcap_cache.json": {
+        "baseline_sha256": "ee3759dd6f708b10cce07461bebc7914fb55c7fc7864b752fde32f4f9077f0bf",
+        "current_sha256": "ee3759dd6f708b10cce07461bebc7914fb55c7fc7864b752fde32f4f9077f0bf",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor1_ma_deep_dive_2025.json": {
+        "baseline_sha256": "1db81efc6d24a35d534351ca8fe757bf750f1ff936437cfa00a4ab081228ab8b",
+        "current_sha256": "1db81efc6d24a35d534351ca8fe757bf750f1ff936437cfa00a4ab081228ab8b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor1_ma_structure_study_2025.json": {
+        "baseline_sha256": "b2e7c988c71cd5093b0571a7e2f5b1a0b1288eb21d67086cb569d78ce6949293",
+        "current_sha256": "b2e7c988c71cd5093b0571a7e2f5b1a0b1288eb21d67086cb569d78ce6949293",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor1_multi_repo_study_2025.json": {
+        "baseline_sha256": "77a7694a6f53fabe4d4a4fbea83212c201e45ce0c721d9fdd226355cfbfa845f",
+        "current_sha256": "77a7694a6f53fabe4d4a4fbea83212c201e45ce0c721d9fdd226355cfbfa845f",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor1_pysystemtrade_study_2025.json": {
+        "baseline_sha256": "38429b9fd7ed40094634cb764389827f8af61b7130ec8ff1569e3b59f5368b73",
+        "current_sha256": "38429b9fd7ed40094634cb764389827f8af61b7130ec8ff1569e3b59f5368b73",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor1_scoring_study_2025.json": {
+        "baseline_sha256": "4f136abca6d645900a5197d042ce738b6c346ae4a8357ededdc550d37bfa6133",
+        "current_sha256": "4f136abca6d645900a5197d042ce738b6c346ae4a8357ededdc550d37bfa6133",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor2_3_4_complete_study_2025.json": {
+        "baseline_sha256": "1d79c4973cf9739cc61b7a213d8adacc64de268f6ea8749275d6a17c6314ff36",
+        "current_sha256": "1d79c4973cf9739cc61b7a213d8adacc64de268f6ea8749275d6a17c6314ff36",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/factor2_impulse_study_2025.json": {
+        "baseline_sha256": "fc69412173751ec547514069a5254b55974547d04aa0e2e8de89b342f6481a31",
+        "current_sha256": "fc69412173751ec547514069a5254b55974547d04aa0e2e8de89b342f6481a31",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/fibo_alpha_research_2025.html": {
+        "baseline_sha256": "3f5f684eb31772cadee9c9cf04c868a2be51d8abbd62793b8e99d90055fe3807",
+        "current_sha256": "3f5f684eb31772cadee9c9cf04c868a2be51d8abbd62793b8e99d90055fe3807",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/fibo_coin_universe_config.json": {
+        "baseline_sha256": "731b536d5ac3c3bdc717c4ccffdceab0d077a7c1ea0267cc8f4a349f5321ba46",
+        "current_sha256": "731b536d5ac3c3bdc717c4ccffdceab0d077a7c1ea0267cc8f4a349f5321ba46",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_data_probe_v402.py": {
+        "baseline_sha256": "08189380e70c66f7010d47d86299cb163caedafb4304c4a8b295db9362935293",
+        "current_sha256": "08189380e70c66f7010d47d86299cb163caedafb4304c4a8b295db9362935293",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_v404_ace_replay.py": {
+        "baseline_sha256": "fbf574f4cb2c4aa5027229683bece9f3f99ce18b65cf642c2badf29970f027d9",
+        "current_sha256": "fbf574f4cb2c4aa5027229683bece9f3f99ce18b65cf642c2badf29970f027d9",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_v404_ace_replay_result.json": {
+        "baseline_sha256": "3f2472797fbfc082ce67ac8f49ebc74f9b3225bd3a5ac1ffe1759ddd0601d74c",
+        "current_sha256": "3f2472797fbfc082ce67ac8f49ebc74f9b3225bd3a5ac1ffe1759ddd0601d74c",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_v404_additional_probes.py": {
+        "baseline_sha256": "5534688d20ae974dc902532c21ea3c923c214aa819dc5f4b1e4a7e5ad761f179",
+        "current_sha256": "5534688d20ae974dc902532c21ea3c923c214aa819dc5f4b1e4a7e5ad761f179",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_v404_fingerprint_check.json": {
+        "baseline_sha256": "ada7b02eb4eb8dbf56a102fe9eef2900c5f7adc6835bda1086299ca8e37d411b",
+        "current_sha256": "ada7b02eb4eb8dbf56a102fe9eef2900c5f7adc6835bda1086299ca8e37d411b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_v404_gap_coverage.json": {
+        "baseline_sha256": "321bf385ae243039c46e1b84670d9c7b4f89cee605181f17d3baa7626d22f4fd",
+        "current_sha256": "321bf385ae243039c46e1b84670d9c7b4f89cee605181f17d3baa7626d22f4fd",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_2_EVIDENCE.json": {
+        "baseline_sha256": "84b675b9be719f327e741841c1493145f087bbeeb3470980902c4df2b6d500cb",
+        "current_sha256": "84b675b9be719f327e741841c1493145f087bbeeb3470980902c4df2b6d500cb",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_3_EVIDENCE.json": {
+        "baseline_sha256": "a1ce906df72b8ef4f4d1a63e0a06054fd8e858e48f522e84dfbeae8ef9d66069",
+        "current_sha256": "a1ce906df72b8ef4f4d1a63e0a06054fd8e858e48f522e84dfbeae8ef9d66069",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_4_EVIDENCE.json": {
+        "baseline_sha256": "11d524bd87b4d490c8dca34f9c3b5d641e86d2e8ee08e920b2ecbc1027c03148",
+        "current_sha256": "11d524bd87b4d490c8dca34f9c3b5d641e86d2e8ee08e920b2ecbc1027c03148",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_verify_v402_independent.py": {
+        "baseline_sha256": "2e43a472c62997eef53d869df7796048906720ab01896f702e6b54eaf87f39c4",
+        "current_sha256": "2e43a472c62997eef53d869df7796048906720ab01896f702e6b54eaf87f39c4",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_verify_v403_independent.py": {
+        "baseline_sha256": "970c1a115766b65affe3bfd657a30be0fa484a14e86a28aea5b650f744555e68",
+        "current_sha256": "970c1a115766b65affe3bfd657a30be0fa484a14e86a28aea5b650f744555e68",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/final_signoff_verify_v404_independent.py": {
+        "baseline_sha256": "ae398bb3896e3f835ebb7e234b4d7a11951d05a77f5be20aa83b315a3714e203",
+        "current_sha256": "ae398bb3896e3f835ebb7e234b4d7a11951d05a77f5be20aa83b315a3714e203",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json": {
+        "baseline_sha256": "0c6dca3bf0948c417b89c75e834851adface479e1543a6e60712a95509a4a3da",
+        "current_sha256": "0c6dca3bf0948c417b89c75e834851adface479e1543a6e60712a95509a4a3da",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_4.json": {
+        "baseline_sha256": "9239389f88ee101991ee6ac1d55a6dd75b85face5bf4627f6110368a1a036c9e",
+        "current_sha256": "9239389f88ee101991ee6ac1d55a6dd75b85face5bf4627f6110368a1a036c9e",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/independent_audit_study.json": {
+        "baseline_sha256": "056c7b85a72ef32ccc5873dfca3a09bfcda2fbf210f13229e9af870fac8c506e",
+        "current_sha256": "056c7b85a72ef32ccc5873dfca3a09bfcda2fbf210f13229e9af870fac8c506e",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/insample_2020_2025_by_year_study.json": {
+        "baseline_sha256": "3f50f92290412348e2517fb9143f8bdfce2b1f027a19bde75e7decacb61ed790",
+        "current_sha256": "3f50f92290412348e2517fb9143f8bdfce2b1f027a19bde75e7decacb61ed790",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/marketcap_and_pit_universe_study_2026.json": {
+        "baseline_sha256": "1c46a2c13e3a8e8ae0f887ab5ae1f3c131847ef25a829a57a9dd9a9fe97c4af0",
+        "current_sha256": "1c46a2c13e3a8e8ae0f887ab5ae1f3c131847ef25a829a57a9dd9a9fe97c4af0",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/oos_2026_7_milestones_study.json": {
+        "baseline_sha256": "8d3a80dbbe7879252f609f2c7c483e72132dd895804235562cfdc4f1d569fefb",
+        "current_sha256": "8d3a80dbbe7879252f609f2c7c483e72132dd895804235562cfdc4f1d569fefb",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/pump_amplitude_study_2025.json": {
+        "baseline_sha256": "28bbc6090fa5046ae16da6343bfdc31f0a45aa8e29b7fe60fd178662a2a18826",
+        "current_sha256": "28bbc6090fa5046ae16da6343bfdc31f0a45aa8e29b7fe60fd178662a2a18826",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json": {
+        "baseline_sha256": "833e31762a9dcf080d3b2a56022222b09d34c27dafba3a80c3d31e0dae35bf48",
+        "current_sha256": "833e31762a9dcf080d3b2a56022222b09d34c27dafba3a80c3d31e0dae35bf48",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json": {
+        "baseline_sha256": "2ee8990bf54eefbed53cc05a054b13a92958567f243d7854aba53870dc4c61bb",
+        "current_sha256": "2ee8990bf54eefbed53cc05a054b13a92958567f243d7854aba53870dc4c61bb",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md": {
+        "baseline_sha256": "93d467239aa4615413379d2af2e8f243f10f35dd66a222e097d518d22cfd92e3",
+        "current_sha256": "93d467239aa4615413379d2af2e8f243f10f35dd66a222e097d518d22cfd92e3",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json": {
+        "baseline_sha256": "00cce5da4556f265cc63ca10e1552419eedcd2ae537aec160946c27a9d2f2a3d",
+        "current_sha256": "00cce5da4556f265cc63ca10e1552419eedcd2ae537aec160946c27a9d2f2a3d",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json": {
+        "baseline_sha256": "70e7c96065b295ab11e60e9d89d7441aa4b39c90f36131dd0b0307c638386e63",
+        "current_sha256": "70e7c96065b295ab11e60e9d89d7441aa4b39c90f36131dd0b0307c638386e63",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json": {
+        "baseline_sha256": "06b0b6428927a74796dc60804589fa13a8b4f1612e04ecd9e604f9d1b0aa230d",
+        "current_sha256": "06b0b6428927a74796dc60804589fa13a8b4f1612e04ecd9e604f9d1b0aa230d",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_4.json": {
+        "baseline_sha256": "c3c4309238e83ad4291fc00d3e26ec51b536cc1c17ec2efe3f049125b1a2429b",
+        "current_sha256": "c3c4309238e83ad4291fc00d3e26ec51b536cc1c17ec2efe3f049125b1a2429b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md": {
+        "baseline_sha256": "e5a1522425074faff8c7c9f83236c30b969133b89b717b9610edf292d3413454",
+        "current_sha256": "e5a1522425074faff8c7c9f83236c30b969133b89b717b9610edf292d3413454",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md": {
+        "baseline_sha256": "690bc04597ed7cf7f238f3476811e939008487c70e3f00fae369369c7396568a",
+        "current_sha256": "690bc04597ed7cf7f238f3476811e939008487c70e3f00fae369369c7396568a",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_4_2026-10-17.md": {
+        "baseline_sha256": "1319cf999bd7aaab10c8b4b0d33e49d6f0c9787b42d733ee3851ab206b231540",
+        "current_sha256": "1319cf999bd7aaab10c8b4b0d33e49d6f0c9787b42d733ee3851ab206b231540",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/backtest.py": {
+        "baseline_sha256": "8de231a770b455462311bfd040794a52b4b9d0f3d273bfc0117c5829800b5bac",
+        "current_sha256": "8de231a770b455462311bfd040794a52b4b9d0f3d273bfc0117c5829800b5bac",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/detector.py": {
+        "baseline_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "current_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/settings.py": {
+        "baseline_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "current_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/test_fibo_short.py": {
+        "baseline_sha256": "68a15da42450d6677ffb82ac5a74adeb85f968893402b7b6e30a72cb312913a6",
+        "current_sha256": "68a15da42450d6677ffb82ac5a74adeb85f968893402b7b6e30a72cb312913a6",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/universe_reaudit_v402_worker.py": {
+        "baseline_sha256": "d7aec6efa064553e021793d066e4634f804cdae468562e489246a02c01738417",
+        "current_sha256": "d7aec6efa064553e021793d066e4634f804cdae468562e489246a02c01738417",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_audit_2026.py": {
+        "baseline_sha256": "6b495acfcc9e5332d4aea471fedc7ae085d5e000cc44c3f0f699031a953e4490",
+        "current_sha256": "6b495acfcc9e5332d4aea471fedc7ae085d5e000cc44c3f0f699031a953e4490",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_reaudit_v402.py": {
+        "baseline_sha256": "83a353e0e667811e835d0518ed77e2bf40001bc4de89638fdbfb81d98ad3e71f",
+        "current_sha256": "83a353e0e667811e835d0518ed77e2bf40001bc4de89638fdbfb81d98ad3e71f",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/backtest.py": {
+        "baseline_sha256": "ca29dde5380faf66677c4d06833f7e1823ead78b2c2e2944d37c45ee59e324a3",
+        "current_sha256": "ca29dde5380faf66677c4d06833f7e1823ead78b2c2e2944d37c45ee59e324a3",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/detector.py": {
+        "baseline_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "current_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/settings.py": {
+        "baseline_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "current_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/test_fibo_short.py": {
+        "baseline_sha256": "a0c6d91ae3b16ed1d3702a47af0affdc785113d8c39f5380ef480f97a96bf137",
+        "current_sha256": "a0c6d91ae3b16ed1d3702a47af0affdc785113d8c39f5380ef480f97a96bf137",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/universe_reaudit_v402_worker.py": {
+        "baseline_sha256": "c7419b69f85d4557f1b5567f095c6203df44699548814b67be7915e03c4b4d2e",
+        "current_sha256": "c7419b69f85d4557f1b5567f095c6203df44699548814b67be7915e03c4b4d2e",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_audit_2026.py": {
+        "baseline_sha256": "22db93a173b6a9477bcf7fb8928859b66b5f08f163c3a0651b30ae8f231de624",
+        "current_sha256": "22db93a173b6a9477bcf7fb8928859b66b5f08f163c3a0651b30ae8f231de624",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v402.py": {
+        "baseline_sha256": "9602ccd987c9fe17c7e7d96fd357ef278b9e8826434e10f1fe6ce5564a2505c0",
+        "current_sha256": "9602ccd987c9fe17c7e7d96fd357ef278b9e8826434e10f1fe6ce5564a2505c0",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v403.py": {
+        "baseline_sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+        "current_sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/backtest.py": {
+        "baseline_sha256": "e0cf3e214b41370be6fc309896e197e9c481fea62f567892baf0aeec69528ee2",
+        "current_sha256": "e0cf3e214b41370be6fc309896e197e9c481fea62f567892baf0aeec69528ee2",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/detector.py": {
+        "baseline_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "current_sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/settings.py": {
+        "baseline_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "current_sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_coin_universe_selection_2026.py": {
+        "baseline_sha256": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+        "current_sha256": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_factor1_multi_repo_benchmark_2025.py": {
+        "baseline_sha256": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+        "current_sha256": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_factor2_3_4_complete_2025.py": {
+        "baseline_sha256": "3ca97b62e070f05b5d6ba06f951ac8ccfad54a63fdc266578dbc6cb4354b4f3b",
+        "current_sha256": "3ca97b62e070f05b5d6ba06f951ac8ccfad54a63fdc266578dbc6cb4354b4f3b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_independent_audit_metrics.py": {
+        "baseline_sha256": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+        "current_sha256": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_insample_2020_2025_by_year.py": {
+        "baseline_sha256": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+        "current_sha256": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/study_oos_2026_all_7_milestones.py": {
+        "baseline_sha256": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+        "current_sha256": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/test_fibo_short.py": {
+        "baseline_sha256": "6c547bea06f6f9bb89fcd62cf74e72dd9f44781fa053b5dcbbb79a2eb0790807",
+        "current_sha256": "6c547bea06f6f9bb89fcd62cf74e72dd9f44781fa053b5dcbbb79a2eb0790807",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/universe_reaudit_v402_worker.py": {
+        "baseline_sha256": "f06029bd1b508307bd47d1abb6c5c5a8447fdc4999451e7f18b02bbbae2b45a1",
+        "current_sha256": "f06029bd1b508307bd47d1abb6c5c5a8447fdc4999451e7f18b02bbbae2b45a1",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_audit_2026.py": {
+        "baseline_sha256": "6ced6b6ef111983784bccad01755bcb59306b1825ad94f0be2be581f219def9e",
+        "current_sha256": "6ced6b6ef111983784bccad01755bcb59306b1825ad94f0be2be581f219def9e",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v402.py": {
+        "baseline_sha256": "ad9c13ca88f01384daa9f53dc720a40513e9a2e2e8a1be3453f605deaa309926",
+        "current_sha256": "ad9c13ca88f01384daa9f53dc720a40513e9a2e2e8a1be3453f605deaa309926",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v403.py": {
+        "baseline_sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+        "current_sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v404.py": {
+        "baseline_sha256": "8e568399ec21aa19539501211d6653d7e49c1abf6d33bad52fea6238d277847b",
+        "current_sha256": "8e568399ec21aa19539501211d6653d7e49c1abf6d33bad52fea6238d277847b",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json": {
+        "baseline_sha256": "1f2ad011d264fb13ad6aac562ec153178b975861cc06e9de90e614eda0df9468",
+        "current_sha256": "1f2ad011d264fb13ad6aac562ec153178b975861cc06e9de90e614eda0df9468",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json": {
+        "baseline_sha256": "c69cb5afd6d88313d3ce0b4b7b66ea1da550205d1b781eeb944f28425db6ed37",
+        "current_sha256": "c69cb5afd6d88313d3ce0b4b7b66ea1da550205d1b781eeb944f28425db6ed37",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_4_summary.json": {
+        "baseline_sha256": "281cd3edfed2aa962630ea0051088035da25673a99aeee1d3133d4aea83f6e43",
+        "current_sha256": "281cd3edfed2aa962630ea0051088035da25673a99aeee1d3133d4aea83f6e43",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST.json": {
+        "baseline_sha256": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924",
+        "current_sha256": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_2.json": {
+        "baseline_sha256": "b91a34273b9889b00640d59596ae8765da38e8f8ba4e87341c70dbbbb8982eb6",
+        "current_sha256": "b91a34273b9889b00640d59596ae8765da38e8f8ba4e87341c70dbbbb8982eb6",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_3.json": {
+        "baseline_sha256": "9bbedba6d503f8445fcba49984253bcf5ce6c3061fced31752d36980272fe829",
+        "current_sha256": "9bbedba6d503f8445fcba49984253bcf5ce6c3061fced31752d36980272fe829",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_4.json": {
+        "baseline_sha256": "512d19901c4cfd7cfe3349139993211f149aee48371059e6515d40e335b46099",
+        "current_sha256": "512d19901c4cfd7cfe3349139993211f149aee48371059e6515d40e335b46099",
+        "unchanged": true
+      }
+    }
+  },
+  "code_snapshots": {
+    "v4_0_2": "artifacts/fibo_trend_short/snapshots/v4_0_2",
+    "v4_0_3": "artifacts/fibo_trend_short/snapshots/v4_0_3",
+    "v4_0_4": "artifacts/fibo_trend_short/snapshots/v4_0_4",
+    "v4_0_5": "artifacts/fibo_trend_short/snapshots/v4_0_5"
+  },
+  "sha256_checksums": {
+    "src/dao_vang/config/settings.py": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "src/dao_vang/fibo_short/detector.py": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "src/dao_vang/fibo_short/backtest.py": "5e5bda9b0551c9b380a67fca3831b7580fde92677c4d72dc8a73ff1343381a96",
+    "tests/unit/fibo_short/test_fibo_short.py": "eaeb08695ec08c4b2165593d5880d67292d04b188004fbc10cfbc8a7a865a1d1",
+    "scripts/fibo_research/verify_red_team_audit_2026.py": "7662fdb29343103f8f01148e15ec3ba93e8770938cedbe81ed35ad22fe6d71d2",
+    "scripts/fibo_research/verify_red_team_reaudit_v402.py": "dd02d622b12a2a39f7e0ace5318d7bac58cba13c100698cc61db99fe0dacaa29",
+    "scripts/fibo_research/verify_red_team_reaudit_v403.py": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+    "scripts/fibo_research/verify_red_team_reaudit_v404.py": "8e568399ec21aa19539501211d6653d7e49c1abf6d33bad52fea6238d277847b",
+    "scripts/fibo_research/verify_red_team_reaudit_v405.py": "cb57637873096632da11a375fecb1975508098378c5917cab7f7809ecfd0df5a",
+    "scripts/fibo_research/universe_reaudit_v402_worker.py": "732f77a57e4be5c6ea1df2faff00af380406d3d7c68be493d1b3a1d6344a5b7c",
+    "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+    "scripts/fibo_research/study_factor2_3_4_complete_2025.py": "3370f27541af0263771c39d3dadf49f343a5a608e390e9d0935e213039931dc3",
+    "scripts/fibo_research/study_independent_audit_metrics.py": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+    "scripts/fibo_research/study_insample_2020_2025_by_year.py": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+    "scripts/fibo_research/study_oos_2026_all_7_milestones.py": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+    "scripts/fibo_research/study_coin_universe_selection_2026.py": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/settings.py": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/detector.py": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/backtest.py": "5e5bda9b0551c9b380a67fca3831b7580fde92677c4d72dc8a73ff1343381a96",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/test_fibo_short.py": "eaeb08695ec08c4b2165593d5880d67292d04b188004fbc10cfbc8a7a865a1d1",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_audit_2026.py": "7662fdb29343103f8f01148e15ec3ba93e8770938cedbe81ed35ad22fe6d71d2",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v402.py": "dd02d622b12a2a39f7e0ace5318d7bac58cba13c100698cc61db99fe0dacaa29",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v403.py": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v404.py": "8e568399ec21aa19539501211d6653d7e49c1abf6d33bad52fea6238d277847b",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v405.py": "cb57637873096632da11a375fecb1975508098378c5917cab7f7809ecfd0df5a",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/universe_reaudit_v402_worker.py": "732f77a57e4be5c6ea1df2faff00af380406d3d7c68be493d1b3a1d6344a5b7c",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_factor1_multi_repo_benchmark_2025.py": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_factor2_3_4_complete_2025.py": "3370f27541af0263771c39d3dadf49f343a5a608e390e9d0935e213039931dc3",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_independent_audit_metrics.py": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_insample_2020_2025_by_year.py": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_oos_2026_all_7_milestones.py": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_coin_universe_selection_2026.py": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+    "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_5.json": "c81f697929d58e24d96cd7f101714321b9083bc81d165bfe567ad62c542d1f08",
+    "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_5_2026-10-17.md": "8ab41af207f71fa55d9e3080f56fdb4a5d947b607e23f4b92de710100fcb3877",
+    "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_5_summary.json": "e33bb82f4b2c82d197e8266c61c146e595e911e715875425664aa05ea1665ff0",
+    "artifacts/fibo_trend_short/coupled_trade_ledgers_v4_0_5.json": "e0e5a2e61a99627e674ce85063d564378a2e340b065277aea78ebd69a7114a85",
+    "artifacts/fibo_trend_short/INPUT_DATA_AND_CODE_MANIFEST_v4_0_5.json": "25f9af69725419b58f4ae553a0961f64640f1c843d919c051b5e8295b700591a",
+    "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_5.json": "dfd7c01c9e24bb5fa10c8e2624fbc9d74ace8b8f4f56261a0bdd1f691bd07088"
+  }
+}

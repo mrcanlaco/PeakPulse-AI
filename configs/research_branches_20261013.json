@@ -1,0 +1,27 @@
+{
+  "version": "small_alpha_round2_v1",
+  "date_local": "2026-10-13",
+  "timezone": "Asia/Saigon",
+  "names": {"v3": "Đảo Chiều", "trend": "Thuận Sóng", "flow": "Dòng Tiền"},
+  "purpose": "Find small incremental effects and test fixed-capital complementarity without optimizing basket weights on observed results.",
+  "history_status": "Previously inspected history. Every result is exploratory, not a new independent holdout.",
+  "promotion_allowed": false,
+  "live_changes_allowed": false,
+  "combination": {
+    "design": "segregated fixed-initial-capital sleeves; no rebalancing, cross-margin, netting or capital sharing",
+    "baseline_only": true,
+    "two_branch_weights": {"trend": 0.5, "flow": 0.5},
+    "three_branch_weights": {"v3": 0.3333333333333333, "trend": 0.3333333333333333, "flow": 0.3333333333333333},
+    "start_date": "2026-01-01",
+    "end_date": "2026-08-31",
+    "valuation_convention": "daily_close_utc",
+    "normalization": "first_daily_close_10000",
+    "period_note": "Mix measures first daily close to last daily close, not January 1 open. Do not compare this slice directly with full-window standalone PnL.",
+    "missing_branch_policy": "Do not manufacture NAV from event-return averages; report unavailable three-branch mix separately.",
+    "missing_dates_policy": "Reject. Never fill missing dates or align by silently dropping rows.",
+    "unverified_funding_policy": "Allow explicitly declared complete proxy-account curves for diagnostic mixing only. Never label the mix financially verified.",
+    "inputs_required": ["daily equity including open positions", "cost and funding assumptions", "same calendar and valuation", "explicit diagnostic eligibility"],
+    "primary_outputs": ["total return", "daily-close maximum drawdown", "pairwise daily return correlation", "ending capital contribution per sleeve"],
+    "causal_interpretation": "Low return correlation is possible complementarity, not proof of alpha. Mixing may reduce risk without increasing returns. Small losing branches are not rescued merely by addition."
+  }
+}

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PeakPulse AI — Báo Cáo Xuất Bản Kết Quả Chiến Lược Fibo Trend Short (v4.0.26 &amp; Paper OOS v1)</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --panel: #111827;
+      --panel-alt: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-bg: rgba(16, 185, 129, 0.14);
+      --cyan: #06b6d4;
+      --cyan-bg: rgba(6, 182, 212, 0.14);
+      --amber: #f59e0b;
+      --amber-bg: rgba(245, 158, 11, 0.14);
+      --rose: #f43f5e;
+      --rose-bg: rgba(244, 63, 94, 0.14);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 32px 20px 64px;
+    }
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+    .hero {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+    .badge.emerald { background: var(--emerald-bg); color: #34d399; border-color: rgba(16, 185, 129, 0.4); }
+    .badge.cyan { background: var(--cyan-bg); color: #22d3ee; border-color: rgba(6, 182, 212, 0.4); }
+    .badge.amber { background: var(--amber-bg); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4); }
+    .badge.rose { background: var(--rose-bg); color: #fb7185; border-color: rgba(244, 63, 94, 0.4); }
+    h1 {
+      margin: 0 0 10px;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 14.5px;
+      margin: 0;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .kpi-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .kpi-label {
+      color: var(--muted);
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .kpi-note {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .pos { color: #34d399; font-weight: 600; }
+    .neg { color: #fb7185; font-weight: 600; }
+    .neu { color: #fbbf24; font-weight: 600; }
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    .section h2 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      color: #f1f5f9;
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 13.5px;
+      margin-bottom: 18px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 11px 12px;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.65);
+      text-align: right;
+    }
+    th:first-child, td:first-child,
+    th:nth-child(2), td:nth-child(2) {
+      text-align: left;
+    }
+    th {
+      background: rgba(30, 41, 59, 0.75);
+      color: #cbd5e1;
+      font-weight: 600;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:hover td {
+      background: rgba(30, 41, 59, 0.45);
+    }
+    .insight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .insight-card {
+      background: rgba(30, 41, 59, 0.55);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--cyan);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .insight-card.emerald { border-left-color: var(--emerald); }
+    .insight-card.amber { border-left-color: var(--amber); }
+    .insight-card.rose { border-left-color: var(--rose); }
+    .insight-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+    }
+    .insight-card p {
+      margin: 0;
+      font-size: 13.5px;
+      color: #cbd5e1;
+    }
+    code {
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 12.5px;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 2px 6px;
+      border-radius: 5px;
+      color: #38bdf8;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top: 36px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="badges">
+        <span class="badge emerald">Báo Cáo Xuất Bản Chính Thức • v4.0.26</span>
+        <span class="badge cyan">Trần Dữ Liệu Lịch Sử: 2025-12-31T23:59:59Z</span>
+        <span class="badge amber">Paper OOS v1: OBSERVING (PID 28988 • Rev 781)</span>
+        <span class="badge rose">Live Sign-off: NOT_GRANTED (CASH Gate)</span>
+      </div>
+      <h1>PeakPulse AI — Tổng Kết &amp; Xuất Bản Kết Quả Chiến Lược Fibo Trend Short</h1>
+      <p class="subtitle">
+        Hồ sơ tổng hợp kết quả kiểm toán độc lập từ <code>v4.0.0</code> đến <code>v4.0.26</code> trên vũ trụ 338 mã đã khử thiên lệch, phân rã chi phí khớp lệnh thực tế (<code>VIP6 12.5 bps/fill</code> vs <code>Stress Regular 55.0 bps/fill</code>) và trạng thái vận hành Paper OOS thời gian thực tính đến <strong>20/10/2026 22:55 (Giờ VN)</strong>.
+      </p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Ứng Viên Dẫn Đầu Toàn Kỳ (2020–2025)</div>
+        <div class="kpi-value pos">+26.19%</div>
+        <div class="kpi-note"><code>Elite + Sniper</code> • Chuẩn VIP6 (12.5 bps/fill) • MaxDD <strong>15.33%</strong> (790 lệnh)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Ứng Viên Dẫn Đầu 2024–2025 (Risk-Sized)</div>
+        <div class="kpi-value pos">+21.46%</div>
+        <div class="kpi-note"><code>Sniper RR &ge; 1 (Max 24h)</code> • CI 95% tuần: <strong>[+0.073%; +0.299%]</strong> • Stress: <strong>+1.70%</strong></div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Tỷ Lệ Cấu Hình Sinh Lời (Chuẩn VIP6)</div>
+        <div class="kpi-value pos">4 / 6 (Toàn Kỳ)</div>
+        <div class="kpi-note"><strong>6 / 6</strong> cấu hình dương giai đoạn <code>2024–2025</code> • <strong>3 / 6</strong> dương cả ở bản Stress 2024–2025</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Trạng Thái Paper OOS v1 Thực Tế</div>
+        <div class="kpi-value neu">NAV 100.00</div>
+        <div class="kpi-note">12/12 tài khoản • <code>0</code> lệnh mở/đóng • <code>0</code> lỗi nghiêm trọng • Đang đồng bộ 100% realtime</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>1. Hiệu Suất NAV Toàn Kỳ 6 Năm (2020–2025) Trên Vũ Trụ 338 Mã Đã Sửa Thiên Lệch (v4.0.21)</h2>
+      <div class="section-desc">
+        Tất cả chi phí được trừ trực tiếp trên từng lần khớp lệnh (kể cả chốt lời từng phần TP1, TP2, TP3/SL/Time-exit), không giảm phí BNB, cộng/trừ funding lịch sử thực tế trên khối lượng còn mở.
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã Cấu Hình</th>
+            <th>Tên Cấu Hình &amp; Cơ Chế Quản Trị Vốn</th>
+            <th>NAV Chuẩn (VIP6 + 10 bps)</th>
+            <th>MaxDD (Chuẩn)</th>
+            <th>Số Lệnh (Chuẩn)</th>
+            <th>NAV Stress (Reg + 50 bps)</th>
+            <th>MaxDD (Stress)</th>
+            <th>Số Lệnh (Stress)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>elite_sniper_risk</code></td>
+            <td><strong>Elite + Sniper</strong> (Rủi ro 0.5% NAV theo Stop)</td>
+            <td class="pos">+26.19%</td>
+            <td>15.33%</td>
+            <td>790</td>
+            <td class="neg">-14.48%</td>
+            <td>26.16%</td>
+            <td>813</td>
+          </tr>
+          <tr>
+            <td><code>sniper_risk</code></td>
+            <td><strong>Sniper</strong> (Rủi ro 0.5% NAV theo Stop)</td>
+            <td class="pos">+14.54%</td>
+            <td>18.05%</td>
+            <td>940</td>
+            <td class="neg">-23.05%</td>
+            <td>31.54%</td>
+            <td>969</td>
+          </tr>
+          <tr>
+            <td><code>sniper_rr1_horizon24</code></td>
+            <td><strong>Sniper RR &ge; 1, Tối đa 24h</strong> (0.5% NAV theo Stop)</td>
+            <td class="pos">+7.91%</td>
+            <td>17.34%</td>
+            <td>1,025</td>
+            <td class="neg">-30.13%</td>
+            <td>34.68%</td>
+            <td>1,043</td>
+          </tr>
+          <tr>
+            <td><code>sniper_horizon24</code></td>
+            <td><strong>Sniper, Tối đa 24h</strong> (0.5% NAV theo Stop)</td>
+            <td class="pos">+7.14%</td>
+            <td>18.45%</td>
+            <td>1,263</td>
+            <td class="neg">-35.57%</td>
+            <td>37.92%</td>
+            <td>1,277</td>
+          </tr>
+          <tr>
+            <td><code>m6_risk</code></td>
+            <td>M6 Mở Rộng (Rủi ro 0.5% NAV theo Stop)</td>
+            <td class="neg">-1.61%</td>
+            <td>28.72%</td>
+            <td>1,124</td>
+            <td class="neg">-40.22%</td>
+            <td>48.28%</td>
+            <td>1,149</td>
+          </tr>
+          <tr>
+            <td><code>reference_m6_fixed</code></td>
+            <td>M6 Tham Chiếu Gốc (Khối lượng cố định)</td>
+            <td class="neg">-16.89%</td>
+            <td>66.84%</td>
+            <td>1,255</td>
+            <td class="neg">-91.35%</td>
+            <td>94.42%</td>
+            <td>1,225</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>2. Hiệu Suất Giai Đoạn 2 Năm Gần Nhất (2024–2025 Hồi Cứu) &amp; Khoảng Tin Cậy Bootstrap 95%</h2>
+      <div class="section-desc">
+        Bootstrap vòng theo khối 4 tuần (10,000 mẫu, seed 412). Ba cấu hình nhóm Sniper có cận dưới khoảng tin cậy 95% lợi nhuận trung bình tuần lớn hơn 0 ở bản Chuẩn, và 3 cấu hình giữ được lợi nhuận dương ngay cả ở kịch bản Stress (55 bps/fill).
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã Cấu Hình</th>
+            <th>Tên Cấu Hình</th>
+            <th>Lợi Nhuận Chuẩn (2024–2025)</th>
+            <th>CI 95% Trung Bình Tuần (Chuẩn)</th>
+            <th>Lợi Nhuận Stress (2024–2025)</th>
+            <th>CI 95% Trung Bình Tuần (Stress)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>reference_m6_fixed</code></td>
+            <td>M6 Khối lượng cố định</td>
+            <td class="pos">+66.06%</td>
+            <td>[-0.1989%; +1.3555%]</td>
+            <td class="neg">-24.93%</td>
+            <td>[-1.0191%; +0.6569%]</td>
+          </tr>
+          <tr>
+            <td><code>sniper_rr1_horizon24</code></td>
+            <td><strong>Sniper RR &ge; 1, Tối đa 24h</strong></td>
+            <td class="pos">+21.46%</td>
+            <td class="pos">[+0.0727%; +0.2992%]</td>
+            <td class="pos">+1.70%</td>
+            <td>[-0.0908%; +0.1205%]</td>
+          </tr>
+          <tr>
+            <td><code>m6_risk</code></td>
+            <td>M6 Khối lượng theo Stop</td>
+            <td class="pos">+19.73%</td>
+            <td>[-0.0383%; +0.3863%]</td>
+            <td class="neg">-3.04%</td>
+            <td>[-0.2411%; +0.1742%]</td>
+          </tr>
+          <tr>
+            <td><code>sniper_risk</code></td>
+            <td><strong>Sniper</strong></td>
+            <td class="pos">+18.80%</td>
+            <td class="pos">[+0.0032%; +0.3335%]</td>
+            <td class="pos">+4.76%</td>
+            <td>[-0.1200%; +0.2075%]</td>
+          </tr>
+          <tr>
+            <td><code>elite_sniper_risk</code></td>
+            <td><strong>Elite + Sniper</strong></td>
+            <td class="pos">+15.32%</td>
+            <td>[-0.0017%; +0.2788%]</td>
+            <td class="pos">+3.91%</td>
+            <td>[-0.1094%; +0.1791%]</td>
+          </tr>
+          <tr>
+            <td><code>sniper_horizon24</code></td>
+            <td><strong>Sniper, Tối đa 24h</strong></td>
+            <td class="pos">+13.89%</td>
+            <td class="pos">[+0.0048%; +0.2416%]</td>
+            <td class="neg">-4.81%</td>
+            <td>[-0.1712%; +0.0688%]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>3. Phân Rã Dòng Tiền &amp; Hiệu Suất Từng Năm (Giải Phẫu Lý Do Chỉ Số Thực Tế Khác Với Bản Đầu)</h2>
+      <div class="section-desc">
+        Công thức hạch toán: <code>PnL Ròng = PnL Giá Tham Chiếu &minus; Phí Taker &minus; Trượt Giá + Funding</code> (Số liệu phân rã dòng tiền tại <code>v4.0.9</code>).
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Cấu Hình &amp; Kịch Bản</th>
+            <th>Chế Độ Phí</th>
+            <th>PnL Giá Tham Chiếu</th>
+            <th>Phí Taker</th>
+            <th>Trượt Giá (Slippage)</th>
+            <th>Funding Ròng</th>
+            <th>Lợi Nhuận Ròng (v4.0.9)</th>
+            <th>Lợi Nhuận Ròng (Vũ trụ v4.0.21)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>reference_m6_fixed</code></td>
+            <td>Chuẩn (12.5 bps/fill)</td>
+            <td class="pos">+53.63%</td>
+            <td class="neg">-12.03%</td>
+            <td class="neg">-48.14%</td>
+            <td class="pos">+19.74%</td>
+            <td class="pos">+13.21%</td>
+            <td class="neg">-16.89%</td>
+          </tr>
+          <tr>
+            <td><code>reference_m6_fixed</code></td>
+            <td>Stress (55.0 bps/fill)</td>
+            <td class="pos">+2.91%</td>
+            <td class="neg">-9.28%</td>
+            <td class="neg">-92.76%</td>
+            <td class="pos">+11.87%</td>
+            <td class="neg">-87.26%</td>
+            <td class="neg">-91.35%</td>
+          </tr>
+          <tr>
+            <td><code>elite_sniper_risk</code></td>
+            <td>Chuẩn (12.5 bps/fill)</td>
+            <td class="pos">+20.80%</td>
+            <td class="neg">-2.12%</td>
+            <td class="neg">-8.47%</td>
+            <td class="pos">+3.24%</td>
+            <td class="pos">+13.45%</td>
+            <td class="pos">+26.19%</td>
+          </tr>
+          <tr>
+            <td><code>elite_sniper_risk</code></td>
+            <td>Stress (55.0 bps/fill)</td>
+            <td class="pos">+16.43%</td>
+            <td class="neg">-3.33%</td>
+            <td class="neg">-33.28%</td>
+            <td class="pos">+2.80%</td>
+            <td class="neg">-17.38%</td>
+            <td class="neg">-14.48%</td>
+          </tr>
+          <tr>
+            <td><code>sniper_rr1_horizon24</code></td>
+            <td>Chuẩn (12.5 bps/fill)</td>
+            <td class="pos">+15.98%</td>
+            <td class="neg">-2.68%</td>
+            <td class="neg">-10.73%</td>
+            <td class="pos">+1.90%</td>
+            <td class="pos">+4.47%</td>
+            <td class="pos">+7.91%</td>
+          </tr>
+          <tr>
+            <td><code>sniper_rr1_horizon24</code></td>
+            <td>Stress (55.0 bps/fill)</td>
+            <td class="pos">+11.78%</td>
+            <td class="neg">-3.98%</td>
+            <td class="neg">-39.75%</td>
+            <td class="pos">+1.58%</td>
+            <td class="neg">-30.37%</td>
+            <td class="neg">-30.13%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="insight-grid">
+        <div class="insight-card emerald">
+          <h3>1. Sức Mạnh Của Bộ Lọc Elite + Sniper</h3>
+          <p>Nhờ lọc bỏ tín hiệu nhiễu và địnhجنگ khối lượng theo khoảng cách Stop (0.5% NAV risk), <code>Elite + Sniper</code> kéo chi phí trượt giá toàn kỳ từ <code>-48.14%</code> (ở M6 cố định) xuống chỉ còn <code>-8.47%</code>, giữ MaxDD ở mức <code>15.33%</code> và nâng lợi nhuận ròng lên <strong>+26.19%</strong>.</p>
+        </div>
+        <div class="insight-card amber">
+          <h3>2. Điểm Nhạy Cảm: Trượt Giá &amp; Năm 2023</h3>
+          <p>Do cơ chế chốt lời nhiều bậc (TP1, TP2, TP3), mỗi lệnh chịu nhiều lần khớp. Nếu trượt giá thực tế vọt lên <code>50 bps/fill</code> (kịch bản Stress), riêng trượt giá ngốn mất <code>-33.28%</code> đến <code>-92.76%</code> NAV. Ngoài ra, năm 2023 thị trường hồi phục làm tất cả cấu hình Short đều lỗ nhẹ (<code>Elite + Sniper</code> lỗ <code>-8.15%</code> năm 2023).</p>
+        </div>
+        <div class="insight-card rose">
+          <h3>3. Vì Sao Cổng Tự Động Giữ Trạng Thái CASH?</h3>
+          <p>Quy tắc Walk-Forward đã đăng ký đòi hỏi mọi năm trước phải dương ở bản Chuẩn <strong>VÀ tổng lợi nhuận bản Stress (trượt giá 50 bps) không được âm</strong>. Điều kiện Stress 50 bps và năm 2023 khiến bộ chọn tự động trả về <code>CASH</code> và chờ bằng chứng từ <code>paper_oos_v1</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>4. Trạng Thái Vận Hành Thực Tế Hệ Thống Paper OOS (paper_oos_v1)</h2>
+      <div class="section-desc">
+        Giao thức đã khóa cứng (<code>protocol_sha256: 3b394d2dc14e001a9c8794ce989014639ef7425ce87b512fa2f9499d543c28f8</code>), theo dõi 50 mã USDT-M Futures thanh khoản cao trên 12 tài khoản độc lập (6 cấu hình &times; 2 kịch bản chi phí).
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Thông Số Vận Hành</th>
+            <th>Giá Trị Ghi Nhận Mới Nhất</th>
+            <th>Trạng Thái &amp; Ý Nghĩa Kiểm Toán</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Tiến trình &amp; Trạng thái</strong></td>
+            <td><code>PID 28988 • OBSERVING</code></td>
+            <td class="pos">Đang chạy ổn định, <code>error = null</code>, <code>sqlite_integrity = ok</code></td>
+          </tr>
+          <tr>
+            <td><strong>Heartbeat &amp; Revision</strong></td>
+            <td><code>2026-10-20T15:55:29Z (Rev 781)</code></td>
+            <td class="pos">Khớp 100% thời gian thực (22:55:29 ngày 20/10/2026 giờ VN)</td>
+          </tr>
+          <tr>
+            <td><strong>Nến 5m &amp; Tín hiệu H1 Mới Nhất</strong></td>
+            <td><code>Bar: 15:55Z • Signal: 15:00Z</code></td>
+            <td class="pos">Đã chạy liên tục &gt;32 giờ không phát sinh bất kỳ batch trễ nào</td>
+          </tr>
+          <tr>
+            <td><strong>12 Tài Khoản Paper (NAV / Lệnh)</strong></td>
+            <td><code>NAV = 100.00 • 0 lệnh mở/đóng</code></td>
+            <td class="neu">Chưa xuất hiện tín hiệu hội tụ đủ điều kiện vào lệnh mới từ 18/10/2026</td>
+          </tr>
+          <tr>
+            <td><strong>Sự Cố Hệ Thống / Cơ Hội</strong></td>
+            <td><code>Critical: 0 • Opportunity: 176</code></td>
+            <td class="pos">176 sự kiện trễ từ đợt máy ngủ/reboot ngày 19/10 đã được bỏ qua đúng luật nhân quả</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      PeakPulse AI (Đảo Vàng) • Hồ Sơ Xuất Bản Kết Quả Chiến Lược Fibo Trend Short v4.0.26 &amp; Paper OOS v1 • Xuất bản ngày 20/10/2026
+    </footer>
+  </div>
+</body>
+</html>

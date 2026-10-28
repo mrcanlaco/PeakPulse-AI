@@ -1,0 +1,684 @@
+{
+  "ledger_count": 112,
+  "all_passed": true,
+  "results": {
+    "/universe_338__ALL_338_UNFILTERED__is_2024_2025__m4_f2_elite": {
+      "records_checked": 605,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026__m4_f2_elite": {
+      "records_checked": 260,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 260,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 260,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 833,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_expanded": {
+      "records_checked": 402,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 402,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 402,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 655,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_sniper": {
+      "records_checked": 268,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 268,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 268,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 530,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 228,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 228,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 228,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m4_f2_elite": {
+      "records_checked": 280,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m4_f2_elite": {
+      "records_checked": 56,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 56,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 56,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 375,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_expanded": {
+      "records_checked": 71,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 71,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 71,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 300,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_sniper": {
+      "records_checked": 60,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 60,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 60,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 250,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 45,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 45,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 45,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m4_f2_elite": {
+      "records_checked": 292,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m4_f2_elite": {
+      "records_checked": 49,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 49,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 49,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 384,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_expanded": {
+      "records_checked": 65,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 65,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 65,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 309,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_sniper": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 242,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 40,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 40,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 40,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__is_2024_2025__m4_f2_elite": {
+      "records_checked": 183,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026__m4_f2_elite": {
+      "records_checked": 29,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 29,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 29,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 242,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026__m6_f4_expanded": {
+      "records_checked": 37,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 37,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 37,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 200,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026__m6_f4_sniper": {
+      "records_checked": 33,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 33,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 33,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 163,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 26,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 26,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 26,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m4_f2_elite": {
+      "records_checked": 291,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m4_f2_elite": {
+      "records_checked": 52,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 52,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 52,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 409,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_expanded": {
+      "records_checked": 75,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 75,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 75,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 324,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_sniper": {
+      "records_checked": 63,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 63,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 63,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 255,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 46,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 46,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 46,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m4_f2_elite": {
+      "records_checked": 307,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m4_f2_elite": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 55,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 427,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_expanded": {
+      "records_checked": 73,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 73,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 73,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 331,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_sniper": {
+      "records_checked": 59,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 59,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 59,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 257,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 44,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 44,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 44,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__is_2024_2025__m4_f2_elite": {
+      "records_checked": 509,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026__m4_f2_elite": {
+      "records_checked": 255,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "records_checked": 255,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "records_checked": 255,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__is_2024_2025__m6_f4_expanded": {
+      "records_checked": 715,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026__m6_f4_expanded": {
+      "records_checked": 395,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "records_checked": 395,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "records_checked": 395,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper": {
+      "records_checked": 556,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026__m6_f4_sniper": {
+      "records_checked": 257,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "records_checked": 257,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "records_checked": 257,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper": {
+      "records_checked": 447,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026__m6_f4_elite_sniper": {
+      "records_checked": 219,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "records_checked": 219,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    },
+    "/universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "records_checked": 219,
+      "duplicate_ids": [],
+      "errors": [],
+      "all_passed": true
+    }
+  },
+  "historical_artifacts_unchanged": 75,
+  "inputs_unchanged": {
+    "all_unchanged": true,
+    "files_checked": 838,
+    "manifest_sha256": "1fa6870dfdd555cd3a25ea6ebef10502c00b587036de66c07d1a52b345b3e2ce"
+  }
+}

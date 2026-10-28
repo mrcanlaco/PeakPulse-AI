@@ -50,7 +50,6 @@ const VersionHistoryTab = lazy(() =>
   import('./VersionHistoryTab').then(({ VersionHistoryTab: component }) => ({ default: component }))
 );
 const ModelsDocTab = lazy(() => import('./ModelsDocTab'));
-const V3ResearchPanel = lazy(() => import('./V3ResearchPanel').then(m => ({ default: m.V3ResearchPanel })));
 const TrackingWatchlist = lazy(() =>
   import('./TrackingWatchlist').then(({ TrackingWatchlist: component }) => ({ default: component }))
 );
@@ -59,6 +58,9 @@ const SystemSettingsTab = lazy(() =>
 );
 const CandlestickChart = lazy(() =>
   import('./CandlestickChart').then(({ CandlestickChart: component }) => ({ default: component }))
+);
+const FiboShortWorkspace = lazy(() =>
+  import('./FiboShortWorkspace').then(({ FiboShortWorkspace: component }) => ({ default: component }))
 );
 
 interface MainWorkspaceProps {
@@ -573,17 +575,11 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   };
 
 
-  const [showV3, setShowV3] = useState(false);
-  if (showV3) return <div className="bg-slate-900/80 border border-slate-800 rounded-xl lg:h-full overflow-hidden">
-    <ErrorBoundary fallbackTitle="V3 research unavailable"><Suspense fallback={<p className="p-4 text-slate-400">Loading v3…</p>}>
-      <V3ResearchPanel onClose={() => setShowV3(false)} />
-    </Suspense></ErrorBoundary>
-  </div>;
 
   return (
     <div
       data-testid="main-workspace"
-      className="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5 sm:p-3.5 flex flex-col h-auto lg:h-full overflow-visible lg:overflow-hidden relative"
+      className="bg-slate-900/80 border border-slate-800 rounded-xl p-2.5 sm:p-3.5 flex flex-col h-auto lg:min-h-full overflow-visible relative"
     >
 
       {/* Real-time Scanning Progress Overlay Banner */}
@@ -600,15 +596,6 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
       )}
 
       {/* Workspace Tab Bar (Grouped & Responsive for Desktop + Mobile) */}
-      <button
-        type="button"
-        onClick={() => setShowV3(true)}
-        data-testid="open-v3-research"
-        className="self-start mb-2 px-2.5 py-1 border border-amber-500/40 bg-amber-500/10 rounded-lg text-[11px] font-semibold text-amber-300 hover:bg-amber-500/20 flex items-center gap-1.5 transition"
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-        <span>{language === 'vi' ? 'Thử nghiệm V3 · Champion (Pump ≥25% + Đảo chiều)' : 'V3 Champion · (Pump ≥25% + Reversal)'}</span>
-      </button>
       <WorkspaceTabBar
         isDevMode={isDevMode}
         activeTab={activeTab}
@@ -665,6 +652,12 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
             setTelegramFilter={setTelegramFilter || (() => {})}
           />
         </div>
+      )}
+
+      {activeTab === 'FIBO_SHORT' && (
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Fibo Trend-Short">
+          <FiboShortWorkspace onSelectCoin={onSelectCandidate} />
+        </ErrorBoundary>
       )}
 
       {activeTab === 'WATCHLIST' && (

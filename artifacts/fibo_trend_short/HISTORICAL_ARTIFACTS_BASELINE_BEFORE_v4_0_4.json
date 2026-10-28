@@ -1,0 +1,182 @@
+{
+  "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json": {
+    "sha256": "833e31762a9dcf080d3b2a56022222b09d34c27dafba3a80c3d31e0dae35bf48",
+    "size_bytes": 7840
+  },
+  "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json": {
+    "sha256": "2ee8990bf54eefbed53cc05a054b13a92958567f243d7854aba53870dc4c61bb",
+    "size_bytes": 59691
+  },
+  "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md": {
+    "sha256": "93d467239aa4615413379d2af2e8f243f10f35dd66a222e097d518d22cfd92e3",
+    "size_bytes": 32580
+  },
+  "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json": {
+    "sha256": "00cce5da4556f265cc63ca10e1552419eedcd2ae537aec160946c27a9d2f2a3d",
+    "size_bytes": 43049
+  },
+  "artifacts/fibo_trend_short/VERSION_MANIFEST.json": {
+    "sha256": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924",
+    "size_bytes": 3633
+  },
+  "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json": {
+    "sha256": "70e7c96065b295ab11e60e9d89d7441aa4b39c90f36131dd0b0307c638386e63",
+    "size_bytes": 927456
+  },
+  "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json": {
+    "sha256": "1f2ad011d264fb13ad6aac562ec153178b975861cc06e9de90e614eda0df9468",
+    "size_bytes": 597820
+  },
+  "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md": {
+    "sha256": "e5a1522425074faff8c7c9f83236c30b969133b89b717b9610edf292d3413454",
+    "size_bytes": 41730
+  },
+  "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_2.json": {
+    "sha256": "b91a34273b9889b00640d59596ae8765da38e8f8ba4e87341c70dbbbb8982eb6",
+    "size_bytes": 2825
+  },
+  "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_2_EVIDENCE.json": {
+    "sha256": "84b675b9be719f327e741841c1493145f087bbeeb3470980902c4df2b6d500cb",
+    "size_bytes": 92624
+  },
+  "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json": {
+    "sha256": "0c6dca3bf0948c417b89c75e834851adface479e1543a6e60712a95509a4a3da",
+    "size_bytes": 3059
+  },
+  "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json": {
+    "sha256": "06b0b6428927a74796dc60804589fa13a8b4f1612e04ecd9e604f9d1b0aa230d",
+    "size_bytes": 1694977
+  },
+  "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json": {
+    "sha256": "c69cb5afd6d88313d3ce0b4b7b66ea1da550205d1b781eeb944f28425db6ed37",
+    "size_bytes": 1141005
+  },
+  "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md": {
+    "sha256": "690bc04597ed7cf7f238f3476811e939008487c70e3f00fae369369c7396568a",
+    "size_bytes": 61722
+  },
+  "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_3.json": {
+    "sha256": "9bbedba6d503f8445fcba49984253bcf5ce6c3061fced31752d36980272fe829",
+    "size_bytes": 6371
+  },
+  "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_3_EVIDENCE.json": {
+    "sha256": "a1ce906df72b8ef4f4d1a63e0a06054fd8e858e48f522e84dfbeae8ef9d66069",
+    "size_bytes": 73981
+  },
+  "src/dao_vang/config/settings.py": {
+    "sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "size_bytes": 34136
+  },
+  "src/dao_vang/fibo_short/detector.py": {
+    "sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "size_bytes": 30650
+  },
+  "src/dao_vang/fibo_short/backtest.py": {
+    "sha256": "ca29dde5380faf66677c4d06833f7e1823ead78b2c2e2944d37c45ee59e324a3",
+    "size_bytes": 30521
+  },
+  "tests/unit/fibo_short/test_fibo_short.py": {
+    "sha256": "a0c6d91ae3b16ed1d3702a47af0affdc785113d8c39f5380ef480f97a96bf137",
+    "size_bytes": 54662
+  },
+  "scripts/fibo_research/verify_red_team_audit_2026.py": {
+    "sha256": "22db93a173b6a9477bcf7fb8928859b66b5f08f163c3a0651b30ae8f231de624",
+    "size_bytes": 75435
+  },
+  "scripts/fibo_research/verify_red_team_reaudit_v402.py": {
+    "sha256": "9602ccd987c9fe17c7e7d96fd357ef278b9e8826434e10f1fe6ce5564a2505c0",
+    "size_bytes": 94068
+  },
+  "scripts/fibo_research/verify_red_team_reaudit_v403.py": {
+    "sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+    "size_bytes": 115004
+  },
+  "scripts/fibo_research/universe_reaudit_v402_worker.py": {
+    "sha256": "c7419b69f85d4557f1b5567f095c6203df44699548814b67be7915e03c4b4d2e",
+    "size_bytes": 75073
+  },
+  "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py": {
+    "sha256": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+    "size_bytes": 25308
+  },
+  "scripts/fibo_research/study_factor2_3_4_complete_2025.py": {
+    "sha256": "229a29196d2a4a1efa68033dd51ea5269e3bf6268746e2ee7748e8212cbc69aa",
+    "size_bytes": 37581
+  },
+  "scripts/fibo_research/study_independent_audit_metrics.py": {
+    "sha256": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+    "size_bytes": 19654
+  },
+  "scripts/fibo_research/study_insample_2020_2025_by_year.py": {
+    "sha256": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+    "size_bytes": 22333
+  },
+  "scripts/fibo_research/study_oos_2026_all_7_milestones.py": {
+    "sha256": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+    "size_bytes": 22248
+  },
+  "scripts/fibo_research/study_coin_universe_selection_2026.py": {
+    "sha256": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+    "size_bytes": 54199
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/backtest.py": {
+    "sha256": "8de231a770b455462311bfd040794a52b4b9d0f3d273bfc0117c5829800b5bac",
+    "size_bytes": 28429
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/detector.py": {
+    "sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "size_bytes": 30650
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/settings.py": {
+    "sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "size_bytes": 34136
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/test_fibo_short.py": {
+    "sha256": "68a15da42450d6677ffb82ac5a74adeb85f968893402b7b6e30a72cb312913a6",
+    "size_bytes": 33057
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/universe_reaudit_v402_worker.py": {
+    "sha256": "d7aec6efa064553e021793d066e4634f804cdae468562e489246a02c01738417",
+    "size_bytes": 45008
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_audit_2026.py": {
+    "sha256": "6b495acfcc9e5332d4aea471fedc7ae085d5e000cc44c3f0f699031a953e4490",
+    "size_bytes": 63529
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_reaudit_v402.py": {
+    "sha256": "83a353e0e667811e835d0518ed77e2bf40001bc4de89638fdbfb81d98ad3e71f",
+    "size_bytes": 82121
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/backtest.py": {
+    "sha256": "ca29dde5380faf66677c4d06833f7e1823ead78b2c2e2944d37c45ee59e324a3",
+    "size_bytes": 30521
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/detector.py": {
+    "sha256": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "size_bytes": 30650
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/settings.py": {
+    "sha256": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "size_bytes": 34136
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/test_fibo_short.py": {
+    "sha256": "a0c6d91ae3b16ed1d3702a47af0affdc785113d8c39f5380ef480f97a96bf137",
+    "size_bytes": 54662
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/universe_reaudit_v402_worker.py": {
+    "sha256": "c7419b69f85d4557f1b5567f095c6203df44699548814b67be7915e03c4b4d2e",
+    "size_bytes": 75073
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_audit_2026.py": {
+    "sha256": "22db93a173b6a9477bcf7fb8928859b66b5f08f163c3a0651b30ae8f231de624",
+    "size_bytes": 75435
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v402.py": {
+    "sha256": "9602ccd987c9fe17c7e7d96fd357ef278b9e8826434e10f1fe6ce5564a2505c0",
+    "size_bytes": 94068
+  },
+  "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v403.py": {
+    "sha256": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+    "size_bytes": 115004
+  }
+}

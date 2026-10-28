@@ -1,0 +1,246 @@
+{
+  "audit_date_local": "2026-10-16",
+  "scope": "Static source review, aggregate arithmetic reconciliation, targeted synthetic execution checks, and local data coverage inspection. No complete seven-year independent replay.",
+  "return_unit": "Sum of individual trade return percentage points; not account NAV returns.",
+  "input_sha256": {
+    "independent_audit_study.json": "056c7b85a72ef32ccc5873dfca3a09bfcda2fbf210f13229e9af870fac8c506e",
+    "insample_2020_2025_by_year_study.json": "3f50f92290412348e2517fb9143f8bdfce2b1f027a19bde75e7decacb61ed790",
+    "coin_universe_study_2026.json": "525c7522ec6d9613200daba4952055d6bfd87bb6a36ae542a4fb85ca5d3b2e99",
+    "VERSION_MANIFEST.json": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924"
+  },
+  "regime_cost_reconciliation": {
+    "m4_f2_elite": {
+      "six_year_breakeven_bps": 162.8,
+      "backcast_trades": 198,
+      "backcast_net_pp": 143.94,
+      "backcast_pf": 1.18,
+      "backcast_40bps_net_pp": 84.54,
+      "backcast_breakeven_bps_from_rounded_inputs": 82.7,
+      "calibration_net_pp": 312.84,
+      "calibration_breakeven_bps": 319.7
+    },
+    "m6_f4_expanded": {
+      "six_year_breakeven_bps": 128.0,
+      "backcast_trades": 295,
+      "backcast_net_pp": 42.0,
+      "backcast_pf": 1.03,
+      "backcast_40bps_net_pp": -21.44,
+      "backcast_breakeven_bps_from_rounded_inputs": 33.24,
+      "calibration_net_pp": 475.95,
+      "calibration_breakeven_bps": 312.9
+    },
+    "m6_f4_sniper": {
+      "six_year_breakeven_bps": 149.8,
+      "backcast_trades": 160,
+      "backcast_net_pp": 48.8,
+      "backcast_pf": 1.06,
+      "backcast_40bps_net_pp": 12.63,
+      "backcast_breakeven_bps_from_rounded_inputs": 46.98,
+      "calibration_net_pp": 323.94,
+      "calibration_breakeven_bps": 324.7
+    },
+    "m6_f4_elite_sniper": {
+      "six_year_breakeven_bps": 202.8,
+      "backcast_trades": 101,
+      "backcast_net_pp": 107.53,
+      "backcast_pf": 1.22,
+      "backcast_40bps_net_pp": 83.18,
+      "backcast_breakeven_bps_from_rounded_inputs": 108.32,
+      "calibration_net_pp": 271.33,
+      "calibration_breakeven_bps": 337.2
+    }
+  },
+  "oos_wilson_95_iid_reference": {
+    "4A": {
+      "wins": 11,
+      "trades": 15,
+      "lower_pct": 48.0,
+      "upper_pct": 89.1,
+      "limitation": "Assumes independent Bernoulli trials; does not establish positive return expectancy."
+    },
+    "6B": {
+      "wins": 19,
+      "trades": 25,
+      "lower_pct": 56.6,
+      "upper_pct": 88.5,
+      "limitation": "Assumes independent Bernoulli trials; does not establish positive return expectancy."
+    },
+    "6A": {
+      "wins": 12,
+      "trades": 15,
+      "lower_pct": 54.8,
+      "upper_pct": 93.0,
+      "limitation": "Assumes independent Bernoulli trials; does not establish positive return expectancy."
+    },
+    "6S": {
+      "wins": 7,
+      "trades": 9,
+      "lower_pct": 45.3,
+      "upper_pct": 93.7,
+      "limitation": "Assumes independent Bernoulli trials; does not establish positive return expectancy."
+    }
+  },
+  "broader_universe_oos": {
+    "ALL_340_UNFILTERED": {
+      "coins": 338,
+      "milestones": {
+        "m4_f2_elite": {
+          "total_trades": 582,
+          "total_net_return_pct": -483.97,
+          "profit_factor": 0.85
+        },
+        "m6_f4_expanded": {
+          "total_trades": 866,
+          "total_net_return_pct": -1207.34,
+          "profit_factor": 0.78
+        },
+        "m6_f4_elite_sniper": {
+          "total_trades": 336,
+          "total_net_return_pct": -303.05,
+          "profit_factor": 0.87
+        }
+      }
+    },
+    "PIT_A1E6CA7D_TOP50_VOL": {
+      "coins": 50,
+      "milestones": {
+        "m4_f2_elite": {
+          "total_trades": 57,
+          "total_net_return_pct": 63.89,
+          "profit_factor": 1.39
+        },
+        "m6_f4_expanded": {
+          "total_trades": 86,
+          "total_net_return_pct": 96.25,
+          "profit_factor": 1.37
+        },
+        "m6_f4_elite_sniper": {
+          "total_trades": 40,
+          "total_net_return_pct": 50.66,
+          "profit_factor": 1.46
+        }
+      }
+    },
+    "PIT_ZERO_BIAS_MCAP_FLOAT": {
+      "coins": 64,
+      "milestones": {
+        "m4_f2_elite": {
+          "total_trades": 70,
+          "total_net_return_pct": 170.06,
+          "profit_factor": 2.1
+        },
+        "m6_f4_expanded": {
+          "total_trades": 106,
+          "total_net_return_pct": 235.48,
+          "profit_factor": 2.01
+        },
+        "m6_f4_elite_sniper": {
+          "total_trades": 48,
+          "total_net_return_pct": 154.86,
+          "profit_factor": 2.79
+        }
+      }
+    },
+    "TIER_S_CORE": {
+      "coins": 40,
+      "milestones": {
+        "m4_f2_elite": {
+          "total_trades": 49,
+          "total_net_return_pct": 213.71,
+          "profit_factor": 4.16
+        },
+        "m6_f4_expanded": {
+          "total_trades": 74,
+          "total_net_return_pct": 330.12,
+          "profit_factor": 4.4
+        },
+        "m6_f4_elite_sniper": {
+          "total_trades": 39,
+          "total_net_return_pct": 205.45,
+          "profit_factor": 5.07
+        }
+      }
+    },
+    "TIER_S_PLUS_A_WHITELIST": {
+      "coins": 68,
+      "milestones": {
+        "m4_f2_elite": {
+          "total_trades": 79,
+          "total_net_return_pct": 250.76,
+          "profit_factor": 2.47
+        },
+        "m6_f4_expanded": {
+          "total_trades": 112,
+          "total_net_return_pct": 400.09,
+          "profit_factor": 2.84
+        },
+        "m6_f4_elite_sniper": {
+          "total_trades": 63,
+          "total_net_return_pct": 261.83,
+          "profit_factor": 3.16
+        }
+      }
+    }
+  },
+  "confirmed_synthetic_checks": {
+    "ratcheted_stop_in_same_bar": {
+      "entry": 100,
+      "initial_stop": 110,
+      "targets": [
+        90,
+        80,
+        70
+      ],
+      "bars": [
+        {
+          "open": 100,
+          "high": 105,
+          "low": 89,
+          "close": 102
+        },
+        {
+          "open": 99,
+          "high": 99,
+          "low": 69,
+          "close": 72
+        }
+      ],
+      "observed_engine_gross_pct": 17,
+      "causal_stop_gross_pct": 5
+    },
+    "one_right_htf_bar_peak_accepted": true,
+    "prior_low_same_timestamp_as_swing_high_accepted": true,
+    "backfill_prefix_invariance_violation": "At bar 5, full-series robust_vol=7.869324181010134 while truncated-series robust_vol=NaN. Early warmup only; trade impact not quantified.",
+    "fee_bps_parameter_semantics": "fee_bps=10 subtracts 0.10% in baseline simulator and 0.20% in custom simulator."
+  },
+  "coverage_note": "Shared H1 files for six major symbols end 2026-09-29 23:00 UTC. Eight altcoin fallback 5m files end 2026-08-31 23:55 UTC.",
+  "dossier_arithmetic_errors": {
+    "score_s_annual_sum_pp": 146.8,
+    "score_s_reported_total_pp": 106.2,
+    "baseline_profitable_symbols_from_pasted_rows": 3,
+    "baseline_reported_profitable_symbols": 2
+  },
+  "source_dossier_differences": {
+    "m0_calibration_trades": {
+      "pasted": 4706,
+      "six_year_json": 5075
+    },
+    "m1_calibration_trades": {
+      "pasted": 480,
+      "six_year_json": 496
+    },
+    "m6s_calibration_trades": {
+      "pasted": 67,
+      "audit_json": 68
+    },
+    "m6s_calibration_total_pp": {
+      "pasted": 270.4,
+      "audit_json": 271.33
+    }
+  },
+  "interpretation": "Broader-universe results are pre-existing research outputs, not independently rerun findings. Their selection, data, and simulation limitations also require review.",
+  "marketcap_cache_last_updated_range": [
+    "2026-03-20T21:06:00.000Z",
+    "2026-10-16T06:38:55.000Z"
+  ]
+}

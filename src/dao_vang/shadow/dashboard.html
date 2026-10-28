@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeakPulse Quantitative Shadow Supervisor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
+            darkbg: '#0b0f17',
+            cardbg: '#111827',
+            bordercol: '#1f2937'
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { background-color: #080c14; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .glass-panel { background: rgba(17, 24, 39, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    .pulse-dot { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col">
+
+  <!-- Top Header Navigation -->
+  <header class="border-b border-gray-800 bg-gray-950/80 sticky top-0 z-50 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-chart-line text-white text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg font-bold tracking-tight text-white">PEAKPULSE <span class="text-emerald-400">SHADOW</span></h1>
+            <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">QUANT LAB v2.0</span>
+          </div>
+          <p class="text-xs text-slate-400">Ultra-Lightweight Shared Multi-Shadow Supervisor</p>
+        </div>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <!-- Shared Feeder Health Badge -->
+        <div class="hidden md:flex items-center space-x-2 px-3 py-1 rounded-lg bg-gray-900 border border-gray-800 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span class="text-gray-400">Shared Binance Feeder:</span>
+          <span class="text-emerald-300 font-medium" id="feeder-status">Active (0% Load)</span>
+        </div>
+
+        <!-- BTC Macro Regime Pill -->
+        <div class="flex items-center space-x-2 px-3 py-1 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs">
+          <i class="fa-brands fa-bitcoin text-amber-400"></i>
+          <span class="text-gray-400">BTC Regime:</span>
+          <span class="text-amber-300 font-bold" id="btc-regime-status">CALCULATING...</span>
+        </div>
+
+        <!-- Refresh Button -->
+        <button onclick="refreshAll()" class="p-2 rounded-lg bg-gray-900 border border-gray-800 hover:bg-gray-800 text-gray-300 transition" title="Làm mới ngay">
+          <i class="fa-solid fa-rotate text-sm" id="refresh-icon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+    <!-- KPI Summary Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      
+      <!-- Total Shadow Equity -->
+      <div class="glass-panel rounded-2xl p-4 relative overflow-hidden">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Tổng Vốn Paper (USD)</div>
+        <div class="text-2xl font-bold text-white mt-1" id="total-equity">$0.00</div>
+        <div class="text-xs text-gray-400 mt-2 flex items-center justify-between">
+          <span>Tiền mặt khả dụng:</span>
+          <span class="text-gray-200 font-medium" id="total-cash">$0.00</span>
+        </div>
+      </div>
+
+      <!-- Realized PnL -->
+      <div class="glass-panel rounded-2xl p-4 relative overflow-hidden">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Lợi Nhuận Đã Chốt (Realized)</div>
+        <div class="text-2xl font-bold mt-1" id="total-realized-pnl">+$0.00</div>
+        <div class="text-xs text-gray-400 mt-2 flex items-center justify-between">
+          <span>Tỷ lệ lãi/vốn:</span>
+          <span class="font-medium" id="total-realized-pct">+0.00%</span>
+        </div>
+      </div>
+
+      <!-- Unrealized PnL -->
+      <div class="glass-panel rounded-2xl p-4 relative overflow-hidden">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Lãi/Lỗ Tạm Tính (Unrealized)</div>
+        <div class="text-2xl font-bold mt-1" id="total-unrealized-pnl">$0.00</div>
+        <div class="text-xs text-gray-400 mt-2 flex items-center justify-between">
+          <span>Vị thế đang mở:</span>
+          <span class="text-gray-200 font-medium" id="active-positions-count">0 lệnh</span>
+        </div>
+      </div>
+
+      <!-- Running Shadows Count -->
+      <div class="glass-panel rounded-2xl p-4 relative overflow-hidden">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Shadow Đang Chạy</div>
+        <div class="text-2xl font-bold text-emerald-400 mt-1" id="active-shadows-count">0 / 0</div>
+        <div class="text-xs text-gray-400 mt-2 flex items-center justify-between">
+          <span>Đang tạm dừng:</span>
+          <span class="text-amber-400 font-medium" id="paused-shadows-count">0</span>
+        </div>
+      </div>
+
+      <!-- Total Trades & Win Rate -->
+      <div class="glass-panel rounded-2xl p-4 relative overflow-hidden">
+        <div class="text-xs font-medium text-gray-400 uppercase tracking-wider">Hiệu Suất Tổng Thể</div>
+        <div class="text-2xl font-bold text-white mt-1" id="global-win-rate">0.0%</div>
+        <div class="text-xs text-gray-400 mt-2 flex items-center justify-between">
+          <span>Tổng số lệnh khớp:</span>
+          <span class="text-gray-200 font-medium" id="global-total-trades">0 trades</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Live Market Ticker Row -->
+    <div class="glass-panel rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div class="flex items-center space-x-2 text-gray-400 font-medium">
+        <i class="fa-solid fa-tower-broadcast text-emerald-400"></i>
+        <span>GIÁ THỊ TRƯỜNG BINANCE LIVE (CẬP NHẬT CHUNG):</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-4" id="live-quotes-container">
+        <span class="text-gray-500">Đang tải báo giá...</span>
+      </div>
+    </div>
+
+    <!-- Control Actions & Filters Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center space-x-2">
+        <h2 class="text-base font-bold text-white flex items-center space-x-2">
+          <span>DANH SÁCH ỨNG VIÊN SHADOW PAPER TRADING</span>
+          <span class="px-2 py-0.5 text-xs rounded-full bg-gray-800 text-gray-300" id="shadow-table-count">0</span>
+        </h2>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <button onclick="controlAll('RUNNING')" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-600/20 transition flex items-center space-x-1">
+          <i class="fa-solid fa-play text-[10px]"></i>
+          <span>BẬT TẤT CẢ (START ALL)</span>
+        </button>
+        <button onclick="controlAll('PAUSED')" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-lg shadow-amber-600/20 transition flex items-center space-x-1">
+          <i class="fa-solid fa-pause text-[10px]"></i>
+          <span>TẠM DỪNG (PAUSE ALL)</span>
+        </button>
+        <button onclick="controlAll('FLATTEN')" class="px-3 py-1.5 rounded-lg bg-red-600/80 hover:bg-red-500 text-white text-xs font-semibold shadow-lg shadow-red-600/20 transition flex items-center space-x-1">
+          <i class="fa-solid fa-hand text-[10px]"></i>
+          <span>ĐÓNG HẾT LỆNH (FLATTEN)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Shadow Bots Table -->
+    <div class="glass-panel rounded-2xl overflow-hidden shadow-xl border border-gray-800">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-gray-800 bg-gray-900/60 text-gray-400 font-semibold uppercase tracking-wider text-[11px]">
+              <th class="py-3.5 px-4">Ứng Viên / Chiến Lược</th>
+              <th class="py-3.5 px-3">Trạng Thái</th>
+              <th class="py-3.5 px-3">Vũ Trụ Cặp</th>
+              <th class="py-3.5 px-3">Vị Thế Mở Hiện Tại</th>
+              <th class="py-3.5 px-3 text-right">Vốn / Equity</th>
+              <th class="py-3.5 px-3 text-right">Lãi Đã Chốt</th>
+              <th class="py-3.5 px-3 text-right">Lãi Tạm Tính</th>
+              <th class="py-3.5 px-3 text-center">Calmar 2020-26</th>
+              <th class="py-3.5 px-3 text-center">CAGR / MaxDD</th>
+              <th class="py-3.5 px-4 text-center">Thao Tác</th>
+            </tr>
+          </thead>
+          <tbody id="shadows-table-body" class="divide-y divide-gray-800/60">
+            <tr>
+              <td colspan="10" class="py-8 text-center text-gray-500">
+                <i class="fa-solid fa-spinner fa-spin mr-2"></i> Đang tải danh sách shadow...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Live Closed Trades Audit Log -->
+    <div class="glass-panel rounded-2xl p-5 border border-gray-800">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-2">
+          <i class="fa-solid fa-list-check text-cyan-400"></i>
+          <h3 class="text-sm font-bold text-white">NHẬT KÝ LỆNH ĐÃ ĐÓNG GẦN ĐÂY (CLOSED TRADES LOG)</h3>
+        </div>
+        <span class="text-xs text-gray-400" id="trades-count">0 giao dịch được ghi nhận</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="border-b border-gray-800 text-gray-400 font-medium text-[11px]">
+              <th class="py-2 px-3">Thời Điểm Đóng</th>
+              <th class="py-2 px-3">Mã Shadow</th>
+              <th class="py-2 px-3">Cặp Giao Dịch</th>
+              <th class="py-2 px-3">Chiều</th>
+              <th class="py-2 px-3 text-right">Khối Lượng</th>
+              <th class="py-2 px-3 text-right">Giá Vào</th>
+              <th class="py-2 px-3 text-right">Giá Ra</th>
+              <th class="py-2 px-3 text-right">Lãi/Lỗ ($)</th>
+              <th class="py-2 px-3 text-right">Tỷ Lệ (%)</th>
+              <th class="py-2 px-3 text-right">Phí Khớp</th>
+            </tr>
+          </thead>
+          <tbody id="trades-table-body" class="divide-y divide-gray-800/40">
+            <tr>
+              <td colspan="10" class="py-6 text-center text-gray-500">Chưa có giao dịch đóng nào phát sinh.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-900 bg-gray-950 py-4 mt-auto text-center text-xs text-gray-500">
+    PeakPulse Quantitative AI Engine • Siêu Hệ Thống Shadow Paper Trading Siêu Nhẹ • Zero-Overload API Architecture
+  </footer>
+
+  <script>
+    async function fetchStatus() {
+      try {
+        const res = await fetch('/api/status');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        
+        const totalEq = data.total_equity ?? 0;
+        const totalCash = data.total_cash ?? 0;
+        document.getElementById('total-equity').innerText = '$' + totalEq.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('total-cash').innerText = '$' + totalCash.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        
+        const rPnl = data.total_realized_pnl ?? 0;
+        const rPnlEl = document.getElementById('total-realized-pnl');
+        rPnlEl.innerText = (rPnl >= 0 ? '+$' : '-$') + Math.abs(rPnl).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        rPnlEl.className = 'text-2xl font-bold mt-1 ' + (rPnl >= 0 ? 'text-emerald-400' : 'text-red-400');
+        
+        const rPct = data.total_realized_pct ?? 0;
+        const rPctEl = document.getElementById('total-realized-pct');
+        rPctEl.innerText = (rPct >= 0 ? '+' : '') + rPct.toFixed(2) + '%';
+        rPctEl.className = 'font-medium ' + (rPct >= 0 ? 'text-emerald-400' : 'text-red-400');
+
+        const uPnl = data.total_unrealized_pnl ?? 0;
+        const uPnlEl = document.getElementById('total-unrealized-pnl');
+        uPnlEl.innerText = (uPnl >= 0 ? '+$' : '-$') + Math.abs(uPnl).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        uPnlEl.className = 'text-2xl font-bold mt-1 ' + (uPnl >= 0 ? 'text-emerald-400' : 'text-red-400');
+
+        const posCount = data.active_positions_count ?? 0;
+        document.getElementById('active-positions-count').innerText = posCount + ' vị thế';
+
+        const runCount = data.running_count ?? data.active_shadows_count ?? 0;
+        const totCount = data.total_count ?? data.total_shadows_count ?? 0;
+        document.getElementById('active-shadows-count').innerText = `${runCount} / ${totCount}`;
+
+        const pausedCount = data.paused_count ?? data.paused_shadows_count ?? 0;
+        document.getElementById('paused-shadows-count').innerText = pausedCount;
+
+        const winRate = data.global_win_rate ?? data.win_rate ?? 0;
+        document.getElementById('global-win-rate').innerText = Number(winRate).toFixed(1) + '%';
+
+        const totTrades = data.global_total_trades ?? data.total_trades ?? 0;
+        document.getElementById('global-total-trades').innerText = totTrades + ' trades';
+        
+        const regime = data.btc_macro_regime ?? data.btc_regime ?? 'NEUTRAL';
+        const regimeEl = document.getElementById('btc-regime-status');
+        regimeEl.innerText = regime;
+        regimeEl.className = 'font-bold ' + (regime.includes('BULL') ? 'text-emerald-400' : 'text-amber-400');
+
+        const apiCalls = data.api_call_count ?? 0;
+        document.getElementById('feeder-status').innerText = `Active (${apiCalls} calls, 0% load)`;
+      } catch (err) {
+        console.error("Error fetching status:", err);
+      }
+    }
+
+    async function fetchShadows() {
+      const tbody = document.getElementById('shadows-table-body');
+      try {
+        const res = await fetch('/api/shadows');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const shadows = await res.json();
+        
+        document.getElementById('shadow-table-count').innerText = shadows.length;
+        
+        if (!shadows || shadows.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="py-6 text-center text-gray-500">Chưa có shadow nào được đăng ký.</td></tr>';
+          return;
+        }
+
+        let html = '';
+        for (const s of shadows) {
+          const isRunning = (s.status === 'RUNNING');
+          const statusBadge = isRunning 
+            ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1 pulse-dot"></span>ĐANG CHẠY</span>'
+            : '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20"><span class="w-1.5 h-1.5 rounded-full bg-amber-400 mr-1"></span>TẠM DỪNG</span>';
+
+          // Universe parsing
+          let univList = s.universe || (s.spec && s.spec.universe) || [];
+          if (typeof univList === 'string') {
+            try { univList = JSON.parse(univList); } catch(e) { univList = []; }
+          }
+
+          // Active positions string
+          let posHtml = '<span class="text-gray-500">100% Tiền Mặt</span>';
+          const activePos = s.active_positions || [];
+          if (activePos && activePos.length > 0) {
+            posHtml = activePos.map(p => {
+              const unrPnl = p.unrealized_pnl ?? 0;
+              const unrPct = p.unrealized_pnl_pct ?? 0;
+              const pnlColor = unrPnl >= 0 ? 'text-emerald-400' : 'text-red-400';
+              return `<span class="inline-block px-2 py-0.5 rounded bg-gray-900 border border-gray-700 font-mono text-[11px] mb-1">
+                <b class="text-white">${p.symbol}</b> 
+                <span class="${pnlColor}">(${unrPct >= 0 ? '+' : ''}${unrPct.toFixed(2)}%)</span>
+              </span>`;
+            }).join(' ');
+          }
+
+          const rPnl = s.realized_pnl ?? 0;
+          const uPnl = s.unrealized_pnl ?? 0;
+          const rColor = rPnl >= 0 ? 'text-emerald-400 font-medium' : 'text-red-400 font-medium';
+          const uColor = uPnl >= 0 ? 'text-emerald-400 font-medium' : 'text-red-400 font-medium';
+          
+          const calmarVal = Number(s.calmar_benchmark ?? (s.metrics && s.metrics.full_calmar) ?? 0);
+          const cagrVal = Number(s.cagr_benchmark ?? (s.metrics && s.metrics.full_cagr) ?? 0);
+          const maxddVal = Number(s.maxdd_benchmark ?? (s.metrics && s.metrics.full_maxdd) ?? 0);
+          const equityVal = Number(s.equity ?? 10000);
+
+          const calmarBadge = calmarVal >= 3.244 
+            ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">${calmarVal.toFixed(3)} ★</span>`
+            : `<span class="px-1.5 py-0.5 rounded bg-gray-800 text-gray-300 font-medium">${calmarVal.toFixed(3)}</span>`;
+
+          html += `
+          <tr class="hover:bg-gray-800/40 transition">
+            <td class="py-3 px-4">
+              <div class="font-bold text-white font-mono text-xs">${s.id}</div>
+              <div class="text-[11px] text-gray-400 truncate max-w-[200px]">${s.name || ''}</div>
+            </td>
+            <td class="py-3 px-3">${statusBadge}</td>
+            <td class="py-3 px-3">
+              <div class="flex flex-wrap gap-1 max-w-[130px]">
+                ${univList.map(u => `<span class="text-[9px] px-1 rounded bg-gray-800 text-gray-400">${String(u).replace('USDT','')}</span>`).join('')}
+              </div>
+            </td>
+            <td class="py-3 px-3">${posHtml}</td>
+            <td class="py-3 px-3 text-right font-mono font-medium text-white">$${equityVal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+            <td class="py-3 px-3 text-right font-mono ${rColor}">$${rPnl.toFixed(2)}</td>
+            <td class="py-3 px-3 text-right font-mono ${uColor}">$${uPnl.toFixed(2)}</td>
+            <td class="py-3 px-3 text-center">${calmarBadge}</td>
+            <td class="py-3 px-3 text-center text-gray-400 font-mono text-[11px]">${cagrVal.toFixed(1)}% / ${maxddVal.toFixed(1)}%</td>
+            <td class="py-3 px-4 text-center">
+              <div class="inline-flex rounded-lg shadow-sm">
+                ${isRunning 
+                  ? `<button onclick="controlShadow('${s.id}', 'PAUSED')" class="px-2 py-1 bg-amber-600/30 hover:bg-amber-600/50 text-amber-300 rounded-l border border-amber-600/40 text-[10px]" title="Tạm dừng">
+                      <i class="fa-solid fa-pause"></i>
+                     </button>`
+                  : `<button onclick="controlShadow('${s.id}', 'RUNNING')" class="px-2 py-1 bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 rounded-l border border-emerald-600/40 text-[10px]" title="Bật chạy">
+                      <i class="fa-solid fa-play"></i>
+                     </button>`
+                }
+                <button onclick="controlShadow('${s.id}', 'FLATTEN')" class="px-2 py-1 bg-red-600/20 hover:bg-red-600/40 text-red-300 rounded-r border border-red-600/30 text-[10px]" title="Đóng vị thế về tiền mặt">
+                  <i class="fa-solid fa-ban"></i>
+                </button>
+              </div>
+            </td>
+          </tr>`;
+        }
+
+        tbody.innerHTML = html;
+      } catch (err) {
+        console.error("Error fetching shadows:", err);
+        tbody.innerHTML = `<tr><td colspan="10" class="py-6 text-center text-red-400">Lỗi nạp danh sách: ${err.message}</td></tr>`;
+      }
+    }
+
+    async function fetchMarketQuotes() {
+      try {
+        const res = await fetch('/api/market');
+        const quotes = await res.json();
+        const container = document.getElementById('live-quotes-container');
+        
+        let html = '';
+        for (const [sym, q] of Object.entries(quotes)) {
+          const shortSym = sym.replace('USDT', '');
+          html += `
+          <div class="flex items-center space-x-1.5 bg-gray-900/80 px-2.5 py-1 rounded border border-gray-800">
+            <span class="font-bold text-gray-300">${shortSym}:</span>
+            <span class="font-mono text-emerald-400 font-semibold">$${q.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            <span class="text-[10px] text-gray-500 font-mono">(${q.funding_rate >= 0 ? '+' : ''}${(q.funding_rate*100).toFixed(4)}%)</span>
+          </div>`;
+        }
+        if (html) container.innerHTML = html;
+      } catch (err) {
+        console.error("Error fetching quotes:", err);
+      }
+    }
+
+    async function fetchTrades() {
+      try {
+        const res = await fetch('/api/trades');
+        const trades = await res.json();
+        document.getElementById('trades-count').innerText = `${trades.length} giao dịch gần đây`;
+        const tbody = document.getElementById('trades-table-body');
+        
+        if (!trades || trades.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="py-4 text-center text-gray-500">Chưa có lệnh đóng phát sinh.</td></tr>';
+          return;
+        }
+
+        let html = '';
+        for (const t of trades.slice(0, 15)) {
+          const dt = new Date(t.closed_at * 1000).toLocaleString();
+          const pnlColor = t.pnl >= 0 ? 'text-emerald-400' : 'text-red-400';
+          html += `
+          <tr class="hover:bg-gray-800/30 transition">
+            <td class="py-2 px-3 text-gray-400">${dt}</td>
+            <td class="py-2 px-3 font-mono text-white">${t.shadow_id}</td>
+            <td class="py-2 px-3 font-bold">${t.symbol}</td>
+            <td class="py-2 px-3 text-emerald-400">${t.side}</td>
+            <td class="py-2 px-3 text-right font-mono">${t.qty.toFixed(4)}</td>
+            <td class="py-2 px-3 text-right font-mono">$${t.entry_price.toFixed(2)}</td>
+            <td class="py-2 px-3 text-right font-mono">$${t.exit_price.toFixed(2)}</td>
+            <td class="py-2 px-3 text-right font-mono ${pnlColor}">$${t.pnl.toFixed(2)}</td>
+            <td class="py-2 px-3 text-right font-mono ${pnlColor}">${t.pnl_pct.toFixed(2)}%</td>
+            <td class="py-2 px-3 text-right font-mono text-gray-500">$${t.fee.toFixed(2)}</td>
+          </tr>`;
+        }
+        tbody.innerHTML = html;
+      } catch (err) {
+        console.error("Error fetching trades:", err);
+      }
+    }
+
+    async function controlShadow(id, action) {
+      try {
+        await fetch(`/api/shadows/${id}/action`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({action})
+        });
+        refreshAll();
+      } catch (err) {
+        alert("Lỗi thực hiện thao tác: " + err);
+      }
+    }
+
+    async function controlAll(action) {
+      if (action === 'FLATTEN' && !confirm("Bạn có chắc chắn muốn đóng toàn bộ vị thế của tất cả các shadow không?")) return;
+      try {
+        await fetch('/api/shadows/control-all', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({action})
+        });
+        refreshAll();
+      } catch (err) {
+        alert("Lỗi thực hiện thao tác hàng loạt: " + err);
+      }
+    }
+
+    function refreshAll() {
+      const icon = document.getElementById('refresh-icon');
+      icon.classList.add('fa-spin');
+      Promise.all([fetchStatus(), fetchShadows(), fetchMarketQuotes(), fetchTrades()]).finally(() => {
+        setTimeout(() => icon.classList.remove('fa-spin'), 400);
+      });
+    }
+
+    // Auto-refresh loop every 4 seconds
+    refreshAll();
+    setInterval(refreshAll, 4000);
+  </script>
+</body>
+</html>

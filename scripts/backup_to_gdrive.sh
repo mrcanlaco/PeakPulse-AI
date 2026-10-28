@@ -61,12 +61,17 @@ timestamp="$(date +'%Y%m%d_%H%M%S')"
 snapshot_dir="$BACKUP_DIR/snapshots/$timestamp"
 remote_snapshot="$REMOTE_ROOT/snapshots/$timestamp"
 services_stopped=0
+execution_was_running=0
+if compose --profile trading ps --services --status running | grep -qx execution; then
+    execution_was_running=1
+fi
 
 cleanup() {
     exit_code=$?
     if (( services_stopped == 1 )); then
         log "Backup interrupted; restarting web and scanner"
         compose up -d scanner web || true
+        if (( execution_was_running == 1 )); then compose --profile trading up -d execution || true; fi
     fi
     if (( exit_code != 0 )); then
         log "ERROR: backup failed with exit code $exit_code"
@@ -91,6 +96,7 @@ log "Starting consistent snapshot $timestamp"
 
 services_stopped=1
 compose stop --timeout 60 web scanner
+if (( execution_was_running == 1 )); then compose --profile trading stop --timeout 60 execution; fi
 
 if [[ -f "$DATA_DIR/live.duckdb" ]]; then
     compose run --rm --no-deps -T scanner python -c 'import duckdb; connection = duckdb.connect("/app/data_live/live.duckdb"); connection.execute("CHECKPOINT"); connection.close()'
@@ -106,6 +112,13 @@ cp "$COMPOSE_FILE" "$snapshot_dir/release/docker-compose.yml"
 cp "$PROJECT_DIR/uv.lock" "$snapshot_dir/release/uv.lock"
 git -C "$PROJECT_DIR" rev-parse HEAD > "$snapshot_dir/release/git-revision.txt"
 
+# Nested V3/notification/execution SQLite stores and every active artifact are
+# part of the same quiesced snapshot, not merely the root DuckDB file.
+compose run --rm --no-deps -T -v "$snapshot_dir:/snapshot" scanner \
+    python -m dao_vang.execution.archive capture \
+    --data /app/data_live --artifacts /app/artifacts --snapshot /snapshot/runtime
+
+if (( execution_was_running == 1 )); then compose --profile trading up -d execution; fi
 compose up -d --wait --wait-timeout 180 scanner web
 services_stopped=0
 

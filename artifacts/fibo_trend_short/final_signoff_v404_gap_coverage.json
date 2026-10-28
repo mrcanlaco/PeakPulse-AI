@@ -1,0 +1,40 @@
+{
+  "files": 340,
+  "symbols_with_missing_hour_intervals": 3,
+  "details": [
+    {
+      "symbol": "CVXUSDT",
+      "missing_hour_intervals": 1,
+      "max_gap_hours": 12.0,
+      "examples": [
+        {
+          "next_hour": "2025-07-23T11:00:00+00:00",
+          "delta_hours": 12.0
+        }
+      ]
+    },
+    {
+      "symbol": "LITUSDT",
+      "missing_hour_intervals": 1,
+      "max_gap_hours": 18.0,
+      "examples": [
+        {
+          "next_hour": "2025-12-23T17:00:00+00:00",
+          "delta_hours": 18.0
+        }
+      ]
+    },
+    {
+      "symbol": "PUMPUSDT",
+      "missing_hour_intervals": 1,
+      "max_gap_hours": 8.0,
+      "examples": [
+        {
+          "next_hour": "2025-07-10T07:00:00+00:00",
+          "delta_hours": 8.0
+        }
+      ]
+    }
+  ],
+  "elapsed_seconds": 3.88
+}

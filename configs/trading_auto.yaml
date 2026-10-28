@@ -1,0 +1,108 @@
+# PeakPulse AI - Cấu hình Vận Hành Tự Động Toàn Diện (Autonomous Trading Engine)
+# Dùng cho chế độ Paper Trading / Simulation (và chuyển sang Live khi đã sẵn sàng)
+
+paths:
+  data_dir: data_live
+  raw_dir: data_live/raw
+  normalized_dir: data_live/normalized
+
+scanner:
+  enabled: true
+  operating_mode: production_alerting
+  poll_interval_minutes: 5
+  max_coins: 150
+  min_volume_usd: 1000000
+  cooldown_minutes: 120
+  telegram_cooldown_minutes: 120
+  alert_levels: ["CAO"]
+  frozen_model_id: "frozen_20260906_105716_bc3c369b"
+  db_path: data_live/live.duckdb
+  artifact_dir: artifacts
+  watchlist_path: data_live/watchlist.json
+  kill_switch_path: data_live/scanner_kill_switch.json
+  rollback_state_path: data_live/scanner_rollback.json
+  health_report_path: data_live/scanner_health.json
+  threshold_policy_version: "frozen_threshold_v1"
+  max_heartbeat_age_minutes: 15
+  history_days: 30
+  shadow_telegram_enabled: true
+  telegram_min_probability: 0.20
+  telegram_min_volume_usd: 500000
+  telegram_tiers: ["HIGH_CONFIDENCE"]
+  telegram_digest_mode: true
+  global_daily_alert_limit: 18
+  coin_daily_alert_limit: 1
+  telegram_daily_target_min: 0
+  telegram_max_per_cycle: 3
+  max_feature_age_minutes: 25
+  min_data_quality_score: 0.8
+  scan_mode: gainers
+  min_price_change_pct: 10.0
+  include_btc: true
+  exclude_stablecoins: true
+  enable_meta_labeling: "disabled"
+  regime_gate_enabled: false
+
+scoring:
+  alert_score_threshold: 40.0
+
+threshold:
+  version: frozen_threshold_v1
+  high_confidence_min_prob: 0.41
+  watch_min_prob: 0.20
+  high_confidence_min_evidence_groups: 2
+
+# Khi chạy tự động mở lệnh (Execution Engine), account_monitor PHẢI tắt hoặc dùng chế độ execution
+account_monitor:
+  enabled: false
+
+execution:
+  # BẬT ENGINE THỰC THI TỰ ĐỘNG
+  enabled: true
+  
+  # Môi trường:
+  # - simulation: Paper trading giả lập nội bộ (khuyên dùng để kiểm thử)
+  # - demo: Binance Futures Testnet
+  # - live: Binance Futures thật (Yêu cầu bật live_activated: true)
+  environment: simulation
+  live_activated: false
+
+  # Manifest chiến lược đã được kiểm định và đóng băng bảo vệ chống can thiệp
+  manifest_path: artifacts/trading/cross_short_atr_v1.json
+
+  # Quản trị vốn bảo vệ tài khoản (Khớp 100% Policy Contract)
+  initial_equity: 500.0
+  margin_per_position: 5.0
+  leverage: 5
+  margin_type: CROSSED
+  max_position_usd: 25.0
+  max_open_positions: 1
+  entry_pause_drawdown: 0.20
+  tp_min_usdt: 0.5
+  tp_max_usdt: 5.0
+  atr_period: 14
+  atr_multiplier: 2.0
+  fee_rate: 0.0005
+  max_spread_bps: 20
+  max_slippage_bps: 20
+  signal_ttl_seconds: 300
+  poll_seconds: 10
+
+  # --- CƠ CHẾ NÂNG CAO TẠO LỢI NHUẬN & BẢO VỆ TỰ ĐỘNG ---
+  # 1. Cắt lỗ tự động (Stop Loss): Chặn rủi ro coin tăng phi mã
+  enable_stop_loss: true
+  sl_max_loss_usdt: 5.0         # Cắt lỗ cứng khi lỗ chạm 5 USDT (~1% NAV)
+  sl_atr_multiplier: 3.0        # Hoặc giá đi ngược 3.0 ATR
+  stop_loss_pct: 0.12           # Hoặc giá đi ngược 12%
+
+  # 2. Chốt lời linh hoạt theo đà giảm (Trailing Take-Profit)
+  enable_trailing_tp: true
+  trailing_trigger_atr: 1.5     # Kích hoạt khi giá đã giảm thuận lợi 1.5 ATR
+  trailing_callback_atr: 1.0    # Chốt lời ngay khi giá bật ngược lại 1.0 ATR từ đáy sâu nhất
+
+  # 3. Giới hạn thời gian giữ lệnh (Time-based Exit): Giải phóng vốn & tránh funding drag
+  max_hold_hours: 72            # Tối đa 72 giờ
+
+  # 4. Xác nhận giá trước khi vào lệnh (Price Confirmation Guard)
+  # Tránh bắt đỉnh hớ khi coin đang trong đà pump mạnh (MAE chống lại Short)
+  require_price_confirmation: true

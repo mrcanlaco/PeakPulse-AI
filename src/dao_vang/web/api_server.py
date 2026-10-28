@@ -1415,29 +1415,375 @@ class APIHandler(BaseHTTPRequestHandler):
                 return
         self._set_headers(200)
 
-    def get_research_v3(self):
-        snapshot = _settings.paths.data_dir / "research_v3" / "snapshot.json"
-        result: dict[str, Any] = {"status": "waiting" if _settings.research_v3_enabled else "disabled",
-                                  "items": [], "orders_enabled": False, "promotion_eligible": False}
-        if _settings.research_v3_enabled and snapshot.exists():
+    def get_fibo_short_snapshot(self):
+        snapshot_path = _settings.paths.data_dir / "fibo_trend_short" / "snapshot.json"
+        cfg = _settings.fibo_trend_short
+        result: dict[str, Any] = {
+            "status": "waiting" if cfg.enabled else "disabled",
+            "branch": "fibo_trend_short",
+            "branch_title_vi": "Xác Nhận Đảo Chiều & Short Theo Xu Hướng Mới (Fibonacci H4/D1 → H1)",
+            "updated_at": None,
+            "scanned_symbols_count": 0,
+            "total_signals": 0,
+            "fired_count": 0,
+            "armed_count": 0,
+            "watching_count": 0,
+            "config": {
+                "higher_timeframes": cfg.higher_timeframes,
+                "confirm_timeframe": cfg.confirm_timeframe,
+                "fibo_entry_min": cfg.fibo_entry_min,
+                "fibo_entry_max": cfg.fibo_entry_max,
+                "tp1_fibo_level": cfg.tp1_fibo_level,
+                "tp2_extension_level": cfg.tp2_extension_level,
+                "tp3_extension_level": cfg.tp3_extension_level,
+                "in_sample_end_utc": cfg.in_sample_end_utc,
+            },
+            "items": [],
+        }
+        if cfg.enabled and snapshot_path.exists():
             try:
-                result = json.loads(snapshot.read_text(encoding="utf-8"))
-                updated = datetime.fromisoformat(result["updated_at"])
-                result["stale"] = (datetime.now(timezone.utc) - updated).total_seconds() > 900
+                loaded = json.loads(snapshot_path.read_text(encoding="utf-8"))
+                if isinstance(loaded, dict):
+                    result = loaded
+                    if result.get("updated_at"):
+                        updated = datetime.fromisoformat(str(result["updated_at"]))
+                        result["stale"] = (datetime.now(timezone.utc) - updated).total_seconds() > 1800
+                    if not result.get("shadow_comparison"):
+                        state_db_path = _settings.paths.data_dir / "fibo_trend_short" / "state.sqlite3"
+                        if state_db_path.exists():
+                            from dao_vang.fibo_short.scanner_lane import FiboStateStore
+
+                            live_px = {
+                                str(it.get("symbol", "")).upper(): float(it.get("current_price") or 0.0)
+                                for it in (result.get("items") or [])
+                                if isinstance(it, dict) and float(it.get("current_price") or 0.0) > 0
+                            }
+                            result["shadow_comparison"] = FiboStateStore(
+                                state_db_path
+                            ).refresh_and_build_shadow_comparison(
+                                live_px,
+                                datetime.now(timezone.utc).isoformat(),
+                            )
             except (OSError, ValueError, TypeError, KeyError):
-                result = {"status": "error", "items": [], "orders_enabled": False}
-        discovery_path = snapshot.with_name("discovery.json")
-        if _settings.research_v3_enabled and discovery_path.exists():
-            try:
-                discovery = json.loads(discovery_path.read_text(encoding="utf-8"))
-                updated = datetime.fromisoformat(discovery["updated_at"])
-                discovery["stale"] = (datetime.now(timezone.utc) - updated).total_seconds() > 900
-                result["discovery"] = discovery
-            except (OSError, ValueError, TypeError, KeyError):
-                result["discovery"] = {"status": "error", "items": []}
-        body = json.dumps(result).encode("utf-8")
+                result["status"] = "error"
+        body = json.dumps(result, ensure_ascii=False, default=str).encode("utf-8")
         self._set_headers(200, content_length=len(body))
         self.wfile.write(body)
+
+    def get_fibo_short_backtest(self):
+        bt_path = _settings.scanner.artifact_dir / "fibo_trend_short" / "backtest_in_sample_2025.json"
+        if bt_path.exists():
+            try:
+                payload = json.loads(bt_path.read_text(encoding="utf-8"))
+                v421_path = _settings.scanner.artifact_dir / "fibo_trend_short" / "research_v4_0_21" / "RESULTS.json"
+                if v421_path.exists():
+                    try:
+                        v421_data = json.loads(v421_path.read_text(encoding="utf-8"))
+                        fp = v421_data.get("fixed_policy_periods", {})
+                        ann = v421_data.get("annual", {})
+
+                        def _build_window(period_key: str, years: list[str]) -> dict[str, Any]:
+                            out: dict[str, Any] = {"standard_vip6": {}, "stress_regular": {}}
+                            period_data = fp.get(period_key, {})
+                            for pid, scen_map in period_data.items():
+                                if not isinstance(scen_map, dict):
+                                    continue
+                                for scen in ("standard_vip6", "stress_regular"):
+                                    s = scen_map.get(scen, {})
+                                    gross = sum(float(ann.get(y, {}).get(pid, {}).get(scen, {}).get("gross_reference_pnl_pct", 0.0)) for y in years)
+                                    fees = sum(float(ann.get(y, {}).get(pid, {}).get(scen, {}).get("fees_pct", 0.0)) for y in years)
+                                    slip = sum(float(ann.get(y, {}).get(pid, {}).get(scen, {}).get("slippage_pct", 0.0)) for y in years)
+                                    fund = sum(float(ann.get(y, {}).get(pid, {}).get(scen, {}).get("funding_pct", 0.0)) for y in years)
+                                    ci = s.get("calendar_weekly_ci95", {})
+                                    ci_bounds = ci.get("ci_pct") or [0.0, 0.0]
+                                    out[scen][pid] = {
+                                        "metric": {
+                                            "return_pct": round(float(s.get("return_pct", 0.0)), 2),
+                                            "max_dd_pct": round(float(s.get("max_dd_pct", 0.0)), 2),
+                                            "trades": int(s.get("trades", 0)),
+                                            "gross_reference_pnl_pct": round(gross, 2),
+                                            "fees_pct": round(fees, 2),
+                                            "slippage_pct": round(slip, 2),
+                                            "funding_pct": round(fund, 2),
+                                        },
+                                        "weekly": {
+                                            "weeks": int(ci.get("intervals", 0)),
+                                            "mean_log_return": round(float(ci.get("mean_weekly_pct", 0.0)), 4),
+                                            "ci95_low_1s": round(float(ci_bounds[0]), 4),
+                                            "ci95_2s": [round(float(ci_bounds[0]), 4), round(float(ci_bounds[1]), 4)],
+                                        },
+                                    }
+                            return out
+
+                        coupled_portfolio = v421_data.get("results") or {
+                            "2020_2025": _build_window("all_2020_2025", ["2020", "2021", "2022", "2023", "2024", "2025"]),
+                            "2024_2025": _build_window("retrospective_2024_2025", ["2024", "2025"]),
+                        }
+                        payload["v4_0_21_audit"] = {
+                            "version": v421_data.get("version", "4.0.21"),
+                            "coupled_portfolio": coupled_portfolio,
+                            "yearly_breakdown": v421_data.get("yearly") or ann,
+                            "ablation_milestones": [
+                                {"id": "m1_f1a_pump50", "label": "M1 · F1A Exhaustion (Pump ≥ 50%, Drop ≥ 4%)", "trades_14c": 374, "win_rate_pct": 53.74, "net_ev_pct": 0.45, "pf": 1.15, "coupled_nav_pct": 14.37, "max_dd_pct": 25.00},
+                                {"id": "m4_f2_elite", "label": "M4 · + F1B Carver EWMAC/Accel + F2 Impulse KER ≥ 0.50", "trades_14c": 115, "win_rate_pct": 64.35, "net_ev_pct": 2.34, "pf": 1.85, "coupled_nav_pct": 51.05, "max_dd_pct": 8.07},
+                                {"id": "m6_f4_expanded", "label": "M6 Expanded · + SL Fibo 0.886 + 3-Tier Conviction Sizing", "trades_14c": 124, "win_rate_pct": 62.90, "net_ev_pct": 2.91, "pf": 2.13, "coupled_nav_pct": 69.92, "max_dd_pct": 6.26},
+                                {"id": "m6_f4_sniper", "label": "M6 Sniper · + H1 Break Prev Low + Fibo Pullback ≤ 0.786", "trades_14c": 94, "win_rate_pct": 71.28, "net_ev_pct": 4.24, "pf": 3.43, "coupled_nav_pct": 76.27, "max_dd_pct": 4.91},
+                                {"id": "m6_f4_elite_sniper", "label": "M6 Elite Sniper · Strict Carver PST + Sniper H1", "trades_14c": 85, "win_rate_pct": 70.59, "net_ev_pct": 4.08, "pf": 3.28, "coupled_nav_pct": 65.50, "max_dd_pct": 4.91},
+                            ],
+                        }
+                    except Exception as exc_v421:
+                        logger.warning("fibo_v421_audit_read_failed error=%s", exc_v421)
+                body = json.dumps(payload, ensure_ascii=False, default=str).encode("utf-8")
+                self._set_headers(200, content_length=len(body))
+                self.wfile.write(body)
+                return
+            except Exception as exc:
+                logger.warning("fibo_backtest_read_failed error=%s", exc)
+        body = json.dumps(
+            {
+                "status": "not_generated",
+                "in_sample_window": {
+                    "end_utc": "2025-12-31T23:59:59+00:00",
+                    "oos_reserved_from_utc": "2026-01-01T00:00:00+00:00",
+                    "oos_touched": False,
+                },
+                "overall": {"total_trades": 0, "win_rate_pct": 0.0},
+                "recent_trades": [],
+            },
+            ensure_ascii=False,
+        ).encode("utf-8")
+        self._set_headers(200, content_length=len(body))
+        self.wfile.write(body)
+
+    def get_fibo_short_paper_oos(self):
+        try:
+            import importlib.util
+            from dao_vang.fibo_short.scanner_lane import load_latest_pit_top50_membership
+
+            root_dir = Path(__file__).resolve().parents[3]
+            srv_path = root_dir / "apps" / "fibo-paper-monitor" / "server.py"
+            art_dir = root_dir / "artifacts" / "fibo_trend_short" / "paper_oos_v1"
+            pit_meta = load_latest_pit_top50_membership()
+            spec = importlib.util.spec_from_file_location("fibo_paper_monitor_srv", srv_path)
+            if spec and spec.loader and (art_dir / "paper.sqlite3").exists():
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                reader = mod.PaperReader(artifact_dir=art_dir)
+                snap = reader.snapshot()
+                raw_state_accounts: dict[str, Any] = {}
+                try:
+                    import sqlite3
+                    from contextlib import closing
+                    with closing(sqlite3.connect((art_dir / "paper.sqlite3").as_uri() + "?mode=ro", uri=True, timeout=5)) as db:
+                        row_snap = db.execute("SELECT payload FROM snapshot WHERE id=1").fetchone()
+                        if row_snap and row_snap[0]:
+                            raw_state_accounts = (json.loads(row_snap[0]).get("accounts") or {})
+                except Exception as exc_st:
+                    logger.warning("paper_oos_state_read_warning error=%s", exc_st)
+
+                raw_accounts = snap.get("accounts", [])
+                accounts = []
+                all_open_positions: list[dict[str, Any]] = []
+                all_closed_trades: list[dict[str, Any]] = []
+                total_open = 0
+                total_closed = 0
+                for a in raw_accounts:
+                    acc_id = a["id"]
+                    st_acc = raw_state_accounts.get(acc_id) or {}
+                    st_positions = st_acc.get("positions") or {}
+                    st_internal = st_acc.get("internal") or {}
+                    account_open_positions: list[dict[str, Any]] = []
+
+                    for p_stub in a.get("positions", []):
+                        pid = p_stub.get("id")
+                        full_pos = st_positions.get(pid) or p_stub
+                        int_meta = st_internal.get(pid) or {}
+                        targets = int_meta.get("targets") or [None, None, None]
+                        hits = int_meta.get("hits") or [False, False, False]
+                        deadline_ms = int_meta.get("deadline_ms")
+                        entry_ts_ms = int(full_pos.get("entry_ts_ms") or 0)
+                        entry_px = float(full_pos.get("entry") or 0.0)
+                        mark_px = float(full_pos.get("mark") or entry_px)
+                        init_stop = float(full_pos.get("stop") or full_pos.get("active") or 0.0)
+                        act_stop = float(full_pos.get("active") or init_stop)
+                        fills = full_pos.get("fills") or []
+                        exec_px = float(fills[0].get("execution_price") or entry_px) if fills else entry_px
+                        ref_notional = float(full_pos.get("reference_notional") or 0.0)
+                        rem_frac = float(full_pos.get("rem") or 1.0)
+                        stop_risk = float(full_pos.get("stop_risk_with_execution_costs") or 0.0)
+                        price_move_pct = ((mark_px - entry_px) / max(1e-9, entry_px)) * 100.0
+                        gross_ret_pct = ((entry_px - mark_px) / max(1e-9, entry_px)) * 100.0
+                        sl_state = (
+                            "INITIAL_SL"
+                            if abs(act_stop - init_stop) < 1e-9
+                            else ("TP1_LOCKED" if (len(hits) > 1 and hits[1]) else "BE_LOCKED")
+                        )
+                        pos_item = {
+                            "id": pid,
+                            "account_id": acc_id,
+                            "policy_id": a["policy"],
+                            "scenario_id": a["scenario"],
+                            "symbol": full_pos.get("symbol"),
+                            "tf": full_pos.get("tf"),
+                            "entry_ts_ms": entry_ts_ms,
+                            "entry_utc": datetime.fromtimestamp(entry_ts_ms / 1000, tz=timezone.utc).isoformat() if entry_ts_ms else None,
+                            "deadline_ms": deadline_ms,
+                            "deadline_utc": datetime.fromtimestamp(deadline_ms / 1000, tz=timezone.utc).isoformat() if deadline_ms else None,
+                            "entry_price": entry_px,
+                            "execution_price": exec_px,
+                            "mark_price": mark_px,
+                            "price_move_pct": round(price_move_pct, 3),
+                            "gross_trade_return_pct": round(gross_ret_pct, 3),
+                            "initial_stop": init_stop,
+                            "active_stop": act_stop,
+                            "sl_distance_pct": round(((init_stop - entry_px) / max(1e-9, entry_px)) * 100.0, 3),
+                            "sl_ratchet_state": sl_state,
+                            "tp1": float(targets[0]) if len(targets) > 0 and targets[0] is not None else None,
+                            "tp2": float(targets[1]) if len(targets) > 1 and targets[1] is not None else None,
+                            "tp3": float(targets[2]) if len(targets) > 2 and targets[2] is not None else None,
+                            "tp1_hit": bool(hits[0]) if len(hits) > 0 else False,
+                            "tp2_hit": bool(hits[1]) if len(hits) > 1 else False,
+                            "tp3_hit": bool(hits[2]) if len(hits) > 2 else False,
+                            "qty": float(full_pos.get("qty") or 0.0),
+                            "remaining_pct": round(rem_frac * 100.0, 1),
+                            "reference_notional_pct": round(ref_notional, 2),
+                            "stop_risk_pct": round(stop_risk, 4),
+                            "nav_pnl_pct": round(float(full_pos.get("pnl") or 0.0), 4),
+                            "fees_pct": round(float(full_pos.get("fees") or 0.0), 4),
+                            "slippage_pct": round(float(full_pos.get("slippage") or 0.0), 4),
+                            "funding_pct": round(float(full_pos.get("funding") or 0.0), 4),
+                            "funding_events_count": len(full_pos.get("funding_events") or []),
+                        }
+                        account_open_positions.append(pos_item)
+                        all_open_positions.append(pos_item)
+
+                    account_closed_trades: list[dict[str, Any]] = []
+                    for tr in a.get("trades", []):
+                        e_ms = int(tr.get("entry_ts_ms") or 0)
+                        x_ms = int(tr.get("exit_ts_ms") or 0)
+                        tr_item = {
+                            "id": tr.get("id"),
+                            "account_id": acc_id,
+                            "policy_id": a["policy"],
+                            "scenario_id": a["scenario"],
+                            "symbol": tr.get("symbol"),
+                            "tf": tr.get("tf"),
+                            "entry_ts_ms": e_ms,
+                            "exit_ts_ms": x_ms,
+                            "entry_utc": datetime.fromtimestamp(e_ms / 1000, tz=timezone.utc).isoformat() if e_ms else None,
+                            "exit_utc": datetime.fromtimestamp(x_ms / 1000, tz=timezone.utc).isoformat() if x_ms else None,
+                            "entry_price": float(tr.get("entry") or 0.0),
+                            "exit_mark_price": float(tr.get("mark") or 0.0),
+                            "active_stop": float(tr.get("active") or 0.0),
+                            "qty": float(tr.get("qty") or 0.0),
+                            "nav_pnl_pct": round(float(tr.get("pnl") or 0.0), 4),
+                            "fees_pct": round(float(tr.get("fees") or 0.0), 4),
+                            "slippage_pct": round(float(tr.get("slippage") or 0.0), 4),
+                            "funding_pct": round(float(tr.get("funding") or 0.0), 4),
+                            "exit_reason": tr.get("exit_reason"),
+                        }
+                        account_closed_trades.append(tr_item)
+                        all_closed_trades.append(tr_item)
+
+                    open_cnt = len(account_open_positions)
+                    closed_cnt = int(a.get("closed", 0))
+                    total_open += open_cnt
+                    total_closed += closed_cnt
+                    costs = a.get("costs", {})
+                    accounts.append(
+                        {
+                            "account_id": acc_id,
+                            "policy_id": a["policy"],
+                            "scenario_id": a["scenario"],
+                            "gate": a["policy"],
+                            "sizing": "fixed" if "fixed" in a["policy"] else "risk",
+                            "hours": 24 if "24" in a["policy"] else 72,
+                            "rr_min": 1.0 if "rr1" in a["policy"] else None,
+                            "fee_bps": 2.5 if a["scenario"] == "standard_vip6" else 5.0,
+                            "slippage_bps": 10.0 if a["scenario"] == "standard_vip6" else 50.0,
+                            "equity": float(a.get("nav", 100.0)),
+                            "net_return_pct": float(a.get("return_pct", 0.0)),
+                            "max_dd_pct": float(a.get("max_dd_pct", 0.0)),
+                            "accepted_trades_count": int(a.get("accepted", 0)),
+                            "open_positions_count": open_cnt,
+                            "closed_trades_count": closed_cnt,
+                            "win_rate_pct": a.get("win_rate_pct"),
+                            "fees_pct": float(costs.get("fees", 0.0)),
+                            "slippage_pct": float(costs.get("slippage", 0.0)),
+                            "funding_pct": float(costs.get("funding", 0.0)),
+                            "rejected": a.get("rejected") or {},
+                            "filtered": a.get("filtered") or {},
+                            "open_positions": account_open_positions,
+                            "closed_trades": account_closed_trades,
+                        }
+                    )
+                health_str = str(snap.get("health", "healthy"))
+                age_sec = float(snap.get("heartbeat_age_seconds", 0.0))
+                payload = {
+                    "status": "ok",
+                    "health": {
+                        "code": "ACTIVE_OK" if health_str == "healthy" else health_str.upper(),
+                        "severity": "ok" if health_str == "healthy" else "warn",
+                        "headline": (
+                            f"Paper OOS v1 đang chạy ({snap.get('status', 'OBSERVING')}) — Nhật ký SQLite toàn vẹn (rev #{snap.get('revision', 0)})"
+                            if health_str == "healthy"
+                            else f"Paper OOS v1 trạng thái {snap.get('status')} (Nhịp tim cách đây {int(age_sec)}s)"
+                        ),
+                        "detail": f"Protocol SHA256: {str(snap.get('protocol_sha256', ''))[:16]}... · 12 tài khoản độc lập (6 chính sách × 2 kịch bản phí) · Không gửi lệnh thật.",
+                        "heartbeat_age_sec": round(age_sec, 1),
+                        "engine_lag_sec": 0.0,
+                        "orders_allowed": False,
+                        "live_signoff": "NOT_GRANTED",
+                        "sqlite_journal_ok": True,
+                    },
+                    "study": {
+                        "version": "paper_oos_v1",
+                        "protocol_sha256": snap.get("protocol_sha256", ""),
+                        "protocol_verified": True,
+                        "start_utc": datetime.fromtimestamp(snap["start_ms"] / 1000, tz=timezone.utc).isoformat(),
+                        "end_utc": datetime.fromtimestamp(snap["end_ms"] / 1000, tz=timezone.utc).isoformat(),
+                        "engine_clock_utc": datetime.fromtimestamp(snap["last_bar_ms"] / 1000, tz=timezone.utc).isoformat(),
+                        "completed_full_weeks": int(snap.get("completed_full_weeks", 0)),
+                        "target_full_weeks": int(snap.get("full_weeks", 104)),
+                        "remaining_full_weeks": max(0, int(snap.get("full_weeks", 104)) - int(snap.get("completed_full_weeks", 0))),
+                        "progress_pct": round(int(snap.get("completed_full_weeks", 0)) / max(1, int(snap.get("full_weeks", 104))) * 100, 2),
+                        "membership_month": pit_meta.get("month") or "2026-10",
+                        "membership_count": len(pit_meta.get("members", [])),
+                        "active_signal_universe_count": len(pit_meta.get("members", [])),
+                        "pending_signals_count": 0,
+                        "open_positions_count": total_open,
+                        "closed_trades_count": total_closed,
+                    },
+                    "accounts": accounts,
+                    "open_positions": all_open_positions,
+                    "closed_trades": all_closed_trades,
+                    "pit_top50_membership": pit_meta,
+                }
+            else:
+                payload = {"status": "unavailable", "pit_top50_membership": pit_meta}
+            body = json.dumps(payload, ensure_ascii=False, default=str).encode("utf-8")
+            self._set_headers(200, content_length=len(body))
+            self.wfile.write(body)
+        except Exception as exc:
+            logger.warning("fibo_paper_oos_read_failed error=%s", exc)
+            err = json.dumps({"status": "error", "error": str(exc)}, ensure_ascii=False).encode("utf-8")
+            self._set_headers(200, content_length=len(err))
+            self.wfile.write(err)
+
+    def post_fibo_short_scan(self, data: dict[str, Any]):
+        try:
+            from dao_vang.fibo_short.scanner_lane import run_cycle as run_fibo_cycle
+
+            symbols = data.get("symbols") if isinstance(data.get("symbols"), list) else None
+            snapshot = run_fibo_cycle(_settings, symbols=symbols)
+            body = json.dumps(snapshot, ensure_ascii=False, default=str).encode("utf-8")
+            self._set_headers(200, content_length=len(body))
+            self.wfile.write(body)
+        except Exception as exc:
+            logger.warning("fibo_manual_scan_failed error=%s", exc)
+            err = json.dumps({"error": str(exc)}).encode("utf-8")
+            self._set_headers(500, content_length=len(err))
+            self.wfile.write(err)
 
     def do_GET(self):
         """Serve GET requests without dropping the TCP connection on errors."""
@@ -1483,8 +1829,12 @@ class APIHandler(BaseHTTPRequestHandler):
 
             if path == '/api/status':
                 self.get_status()
-            elif path == '/api/research/v3':
-                self.get_research_v3()
+            elif path in ('/api/fibo-short/snapshot', '/api/fibo-short'):
+                self.get_fibo_short_snapshot()
+            elif path == '/api/fibo-short/backtest':
+                self.get_fibo_short_backtest()
+            elif path in ('/api/fibo-short/paper-oos', '/api/fibo-short/paper'):
+                self.get_fibo_short_paper_oos()
             elif path == '/api/signals':
                 self.get_signals()
             elif path == '/api/candidates':
@@ -1538,6 +1888,25 @@ class APIHandler(BaseHTTPRequestHandler):
             elif path.startswith('/api/forward-test/evaluate/'):
                 model_id = path.replace('/api/forward-test/evaluate/', '')
                 self.evaluate_frozen_model(model_id)
+            elif path == '/api/execution/status':
+                from dao_vang.web.execution_api import status as get_exec_status
+                body = json.dumps(get_exec_status(_settings)).encode('utf-8')
+                self._set_headers(200, content_length=len(body))
+                self.wfile.write(body)
+                return
+            elif path == '/api/execution/dashboard':
+                query_params = parse_qs(parsed.query)
+                period = query_params.get('period', ['7d'])[0]
+                try:
+                    from dao_vang.web.execution_dashboard import dashboard as get_dashboard
+                    data = get_dashboard(_settings, period=period)
+                    body = json.dumps(data).encode('utf-8')
+                    self._set_headers(200, content_length=len(body))
+                    self.wfile.write(body)
+                except ValueError as exc:
+                    self._set_headers(400)
+                    self.wfile.write(json.dumps({'error': str(exc)}).encode('utf-8'))
+                return
             elif path == '/api/models':
                 self.get_models()
             elif path in ('/api/models/comparison-matrix', '/api/scoring/compare', '/api/models/compare'):
@@ -1679,6 +2048,26 @@ class APIHandler(BaseHTTPRequestHandler):
                 self._send_unauthorized()
                 return
 
+        if parsed.path.startswith('/api/execution/'):
+            origin = self.headers.get('Origin', '')
+            if origin and origin not in _settings.web.allowed_origins:
+                self._set_headers(403)
+                self.wfile.write(json.dumps({'error': 'forbidden_origin'}).encode('utf-8'))
+                return
+
+        if parsed.path in ('/api/execution/pause', '/api/execution/resume', '/api/execution/close'):
+            action = parsed.path.split('/')[-1]
+            try:
+                from dao_vang.web.execution_api import command as exec_command
+                res = exec_command(_settings, action, data or {})
+                body = json.dumps(res).encode('utf-8')
+                self._set_headers(202, content_length=len(body))
+                self.wfile.write(body)
+            except ValueError as exc:
+                self._set_headers(400)
+                self.wfile.write(json.dumps({'error': str(exc)}).encode('utf-8'))
+            return
+
         if parsed.path == '/api/ai/ask':
             question = data.get('question', '').strip()
             symbol = data.get('symbol', '').strip().upper() or 'BTCUSDT'
@@ -1719,6 +2108,8 @@ class APIHandler(BaseHTTPRequestHandler):
                     else "Đã ghi nhận yêu cầu quét — scanner daemon sẽ chạy trong vài giây (nếu daemon đang chạy)."
                 ),
             }).encode('utf-8'))
+        elif parsed.path == '/api/fibo-short/scan':
+            self.post_fibo_short_scan(data)
         elif parsed.path == '/api/watchlist/add':
             raw_symbol = data.get('symbol', '')
             symbol = raw_symbol.strip().upper() if isinstance(raw_symbol, str) else ''

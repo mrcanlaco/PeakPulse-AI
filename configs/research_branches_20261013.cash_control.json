@@ -1,0 +1,8 @@
+{
+  "version": "fixed_cash_control_v1",
+  "timing_disclosure": "Added after the preliminary 50/50 trend-flow diagnostic mix was inspected. This is an exposure diagnostic, not a predeclared primary test or independent alpha confirmation.",
+  "rationale": "Separate adding a signal from merely reducing deployed capital.",
+  "weights": {"flow": 0.5, "cash": 0.5},
+  "cash_assumption": "Constant nominal cash, zero interest, no fees, no trading, no transfer between sleeves.",
+  "no_optimization": true
+}

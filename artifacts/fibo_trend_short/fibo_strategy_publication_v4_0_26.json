@@ -1,0 +1,151 @@
+{
+  "publication_version": "v4.0.26_paper_oos_v1_publication",
+  "published_at_utc": "2026-10-20T15:55:29Z",
+  "published_at_local": "2026-10-20T22:55:29+07:00",
+  "historical_backtest_ceiling_exclusive_utc": "2026-01-01T00:00:00Z",
+  "live_signoff": "NOT_GRANTED",
+  "orders_allowed": false,
+  "historical_walk_forward_allocation_2022_2025": "CASH",
+  "cost_scenarios": {
+    "standard_vip6": {
+      "taker_fee_bps_per_fill": 2.5,
+      "adverse_slippage_bps_per_fill": 10.0,
+      "total_bps_per_fill": 12.5,
+      "bnb_discount": false
+    },
+    "stress_regular": {
+      "taker_fee_bps_per_fill": 5.0,
+      "adverse_slippage_bps_per_fill": 50.0,
+      "total_bps_per_fill": 55.0,
+      "bnb_discount": false
+    }
+  },
+  "candidates_reverified_v4_0_21": [
+    {
+      "id": "elite_sniper_risk",
+      "label": "Elite + Sniper (0.5% NAV Stop Risk)",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": 26.19,
+        "standard_continuous_nav_return_pct": 26.05,
+        "standard_max_dd_pct": 15.33,
+        "standard_trades": 790,
+        "stress_nav_return_pct": -14.48,
+        "stress_max_dd_pct": 26.16,
+        "stress_trades": 813
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 15.32,
+        "standard_weekly_ci95_pct": [-0.0017, 0.2788],
+        "stress_nav_return_pct": 3.91,
+        "stress_weekly_ci95_pct": [-0.1094, 0.1791]
+      }
+    },
+    {
+      "id": "sniper_risk",
+      "label": "Sniper (0.5% NAV Stop Risk)",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": 14.54,
+        "standard_max_dd_pct": 18.05,
+        "standard_trades": 940,
+        "stress_nav_return_pct": -23.05,
+        "stress_max_dd_pct": 31.54,
+        "stress_trades": 969
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 18.80,
+        "standard_weekly_ci95_pct": [0.0032, 0.3335],
+        "stress_nav_return_pct": 4.76,
+        "stress_weekly_ci95_pct": [-0.1200, 0.2075]
+      }
+    },
+    {
+      "id": "sniper_rr1_horizon24",
+      "label": "Sniper RR >= 1, Max Hold 24h",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": 7.91,
+        "standard_max_dd_pct": 17.34,
+        "standard_trades": 1025,
+        "stress_nav_return_pct": -30.13,
+        "stress_max_dd_pct": 34.68,
+        "stress_trades": 1043
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 21.46,
+        "standard_weekly_ci95_pct": [0.0727, 0.2992],
+        "stress_nav_return_pct": 1.70,
+        "stress_weekly_ci95_pct": [-0.0908, 0.1205]
+      }
+    },
+    {
+      "id": "sniper_horizon24",
+      "label": "Sniper, Max Hold 24h",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": 7.14,
+        "standard_max_dd_pct": 18.45,
+        "standard_trades": 1263,
+        "stress_nav_return_pct": -35.57,
+        "stress_max_dd_pct": 37.92,
+        "stress_trades": 1277
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 13.89,
+        "standard_weekly_ci95_pct": [0.0048, 0.2416],
+        "stress_nav_return_pct": -4.81,
+        "stress_weekly_ci95_pct": [-0.1712, 0.0688]
+      }
+    },
+    {
+      "id": "m6_risk",
+      "label": "M6 Expanded (0.5% NAV Stop Risk)",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": -1.61,
+        "standard_max_dd_pct": 28.72,
+        "standard_trades": 1124,
+        "stress_nav_return_pct": -40.22,
+        "stress_max_dd_pct": 48.28,
+        "stress_trades": 1149
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 19.73,
+        "standard_weekly_ci95_pct": [-0.0383, 0.3863],
+        "stress_nav_return_pct": -3.04,
+        "stress_weekly_ci95_pct": [-0.2411, 0.1742]
+      }
+    },
+    {
+      "id": "reference_m6_fixed",
+      "label": "M6 Reference (Fixed Sizing)",
+      "full_period_2020_2025": {
+        "standard_nav_return_pct": -16.89,
+        "standard_max_dd_pct": 66.84,
+        "standard_trades": 1255,
+        "stress_nav_return_pct": -91.35,
+        "stress_max_dd_pct": 94.42,
+        "stress_trades": 1225
+      },
+      "retrospective_2024_2025": {
+        "standard_nav_return_pct": 66.06,
+        "standard_weekly_ci95_pct": [-0.1989, 1.3555],
+        "stress_nav_return_pct": -24.93,
+        "stress_weekly_ci95_pct": [-1.0191, 0.6569]
+      }
+    }
+  ],
+  "paper_oos_v1_snapshot": {
+    "status": "OBSERVING",
+    "pid": 28988,
+    "heartbeat_utc": "2026-10-20T15:55:29.214000+00:00",
+    "revision": 781,
+    "start_utc": "2026-10-18T04:00:00+00:00",
+    "end_utc": "2028-10-16T00:00:00+00:00",
+    "last_bar_ms": 1792511700000,
+    "last_signal_ms": 1792508400000,
+    "open_positions": 0,
+    "accepted_trades_total": 0,
+    "closed_trades_total": 0,
+    "all_12_accounts_nav": 100.0,
+    "opportunity_incidents": 176,
+    "critical_incidents": 0,
+    "protocol_sha256": "3b394d2dc14e001a9c8794ce989014639ef7425ce87b512fa2f9499d543c28f8"
+  }
+}

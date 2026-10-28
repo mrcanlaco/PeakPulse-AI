@@ -1,0 +1,3471 @@
+{
+  "scope": "Independent source/artifact checks, targeted counterexamples; no full14/338 historical rerun",
+  "pytest": {
+    "passed": 23,
+    "seconds": 5.35
+  },
+  "manifest": [
+    {
+      "path": "src/dao_vang/config/settings.py",
+      "match": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/detector.py",
+      "match": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/backtest.py",
+      "match": true
+    },
+    {
+      "path": "tests/unit/fibo_short/test_fibo_short.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_audit_2026.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v402.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v403.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v404.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/universe_reaudit_v402_worker.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor2_3_4_complete_2025.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_independent_audit_metrics.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_insample_2020_2025_by_year.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_oos_2026_all_7_milestones.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_coin_universe_selection_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/settings.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/detector.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/backtest.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/test_fibo_short.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_audit_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v402.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v403.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/verify_red_team_reaudit_v404.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/universe_reaudit_v402_worker.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_factor1_multi_repo_benchmark_2025.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_factor2_3_4_complete_2025.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_independent_audit_metrics.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_insample_2020_2025_by_year.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_oos_2026_all_7_milestones.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_4/study_coin_universe_selection_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_4.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_4_2026-10-17.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_4_summary.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_4.json",
+      "match": true
+    }
+  ],
+  "history": [
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/VERSION_MANIFEST.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_2.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_2_EVIDENCE.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_3.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_3_EVIDENCE.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/backtest.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/detector.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/settings.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/test_fibo_short.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/universe_reaudit_v402_worker.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_audit_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_2/verify_red_team_reaudit_v402.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/backtest.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/detector.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/settings.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/test_fibo_short.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/universe_reaudit_v402_worker.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_audit_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v402.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/snapshots/v4_0_3/verify_red_team_reaudit_v403.py",
+      "match": true
+    }
+  ],
+  "markdown_exact": true,
+  "consistency": {
+    "total_checks": 1574,
+    "tables_verified": 8,
+    "coupled_nav_nodes_checked": 320,
+    "accepted_vs_executed_mismatches": 0,
+    "all_passed": true
+  },
+  "mutation_tests": {
+    "total_mutations_tested": 12,
+    "all_mutations_caught": true,
+    "mutations": [
+      {
+        "mutation_id": "mutation_01_trade_count_N",
+        "target": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2020-2025 Full IS | `350` |",
+        "corrupted_with": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2020-2025 Full IS | `9999` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Số lệnh']: Cell mismatch at Table 5 Row 33 Col 'Số lệnh': actual='`9999`' vs expected='`350`'"
+      },
+      {
+        "mutation_id": "mutation_02_profit_factor_PF",
+        "target": "**`+464.38%`** / `1.38` |",
+        "corrupted_with": "**`+464.38%`** / `9.99` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Sized Avg (`[95% CI]`) / Total / PF']: Cell mismatch at Table 5 Row 33 Col 'Sized Avg (`[95% CI]`) / Total / PF': actual='**`+1.327%`** (`[+0.13%, +2.60%]`) / **`+464.38%`** / `9.99`' vs expected='**`+1.327%`** (`[+0.13%, +2.60%]`) / **`+464.38%`** / `1.38`'"
+      },
+      {
+        "mutation_id": "mutation_03_rolling_pit_compounded_nav",
+        "target": "**`+28.70%`** (DD `10.72%`)",
+        "corrupted_with": "**`+999.99%`** (DD `99.99%`)",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 6 Row 5 Col 'Mốc 6B Post-Cap NAV (`Cap=5`): Exec / Add. / Comp. NAV (MaxDD)']: Cell mismatch at Table 6 Row 5 Col 'Mốc 6B Post-Cap NAV (`Cap=5`): Exec / Add. / Comp. NAV (MaxDD)': actual='`67` lệnh / `+27.54%` / **`+999.99%`** (DD `99.99%`)' vs expected='`67` lệnh / `+27.54%` / **`+28.70%`** (DD `10.72%`)'"
+      },
+      {
+        "mutation_id": "mutation_04_trailing_p_holm_bh_fdr_column",
+        "target": "| `0.0155` / `0.1595` / `0.0852` |",
+        "corrupted_with": "| `0.0001` / `0.0002` / `0.0003` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Raw `p` / Holm `p` / BH-FDR `q`']: Cell mismatch at Table 5 Row 33 Col 'Raw `p` / Holm `p` / BH-FDR `q`': actual='`0.0001` / `0.0002` / `0.0003`' vs expected='`0.0155` / `0.1595` / `0.0852`'"
+      },
+      {
+        "mutation_id": "mutation_05_trailing_break_even_fee_column",
+        "target": "| `114.9` / `143.1 bps` |",
+        "corrupted_with": "| `999.9` / `888.8 bps` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'BE Fee (1x / Sized)']: Cell mismatch at Table 5 Row 33 Col 'BE Fee (1x / Sized)': actual='`999.9` / `888.8 bps`' vs expected='`114.9` / `143.1 bps`'"
+      },
+      {
+        "mutation_id": "mutation_06_trailing_rgd_terminal_counts_column",
+        "target": "| `36` / `51` |",
+        "corrupted_with": "| `999` / `888` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'RGD SL@BE / SL@TP1']: Cell mismatch at Table 5 Row 33 Col 'RGD SL@BE / SL@TP1': actual='`999` / `888`' vs expected='`36` / `51`'"
+      },
+      {
+        "mutation_id": "mutation_07_trailing_historical_funding_column",
+        "target": "`+19.13%` / **`+20.65%`** (DD `5.72%`) [`263 (176+87)/0`]",
+        "corrupted_with": "`+888.88%` / **`+888.88%`** (DD `88.88%`) [`0 (0+0)/999`]",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 4 Row 11 Col 'Historical Funding Add. / Comp. NAV (MaxDD) [Matched (8h+Off8h)/Missing]']: Cell mismatch at Table 4 Row 11 Col 'Historical Funding Add. / Comp. NAV (MaxDD) [Matched (8h+Off8h)/Missing]': actual='`+888.88%` / **`+888.88%`** (DD `88.88%`) [`0 (0+0)/999`]' vs expected='`+19.13%` / **`+20.65%`** (DD `5.72%`) [`263 (176+87)/0`]'"
+      },
+      {
+        "mutation_id": "mutation_08_trailing_stress_funding_column",
+        "target": "`+20.25%` / `+21.97%` (DD `5.49%`)",
+        "corrupted_with": "`+777.77%` / `+777.77%` (DD `77.77%`)",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 4 Row 11 Col 'Stress (+1bp/8h) Add. / Comp. NAV (MaxDD)']: Cell mismatch at Table 4 Row 11 Col 'Stress (+1bp/8h) Add. / Comp. NAV (MaxDD)': actual='`+777.77%` / `+777.77%` (DD `77.77%`)' vs expected='`+20.25%` / `+21.97%` (DD `5.49%`)'"
+      },
+      {
+        "mutation_id": "mutation_09_delete_markdown_table_row",
+        "target": "| **`BTCUSDT`** |",
+        "corrupted_with": "",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 1 row count]: Row count mismatch in Table 1: 13 vs 14"
+      },
+      {
+        "mutation_id": "mutation_10_prose_funding_records_split",
+        "target": "**`80969`** bản ghi tại mốc chuẩn `00:00, 08:00, 16:00 UTC` và **`8356`** bản ghi",
+        "corrupted_with": "**`89325`** bản ghi tại mốc chuẩn `00:00, 08:00, 16:00 UTC` và **`0`** bản ghi",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Funding records split prose (total, 8h, off-8h)]: Funding prose split mismatch"
+      },
+      {
+        "mutation_id": "mutation_11_standalone_vs_embedded_universe_json_divergence",
+        "target": "universe_summary['total_symbols_evaluated'] = 338",
+        "corrupted_with": "universe_summary['total_symbols_evaluated'] = 999",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Standalone universe_338_reaudit_v4_0_4_summary.json equals embedded re_audit_3_universe_338_and_rolling_pit]: Standalone universe summary diverges from embedded payload"
+      },
+      {
+        "mutation_id": "mutation_12_json_accepted_vs_executed_ledger_mismatch",
+        "target": "execution_coupled_portfolio.nav_ex_funding.executed_trades == accepted_trades",
+        "corrupted_with": "executed_trades = 9999",
+        "caught_by_verifier": true,
+        "error_raised": "Found 1 accepted_trades vs executed_trades mismatches: [{'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/nav_ex_funding', 'accepted': 333, 'executed': 9999, 'skipped_total_cap': 0}]"
+      }
+    ]
+  },
+  "supplied_counterexamples": {
+    "rt2_c1_six_same_timestamp_cap5": {
+      "submitted_candidates": 6,
+      "max_concurrent_cap": 5,
+      "executed_trades": 5,
+      "skipped_concurrency_cap": 1,
+      "uncapped_max_concurrency": 6,
+      "accepted_max_concurrency": 5,
+      "assertion_passed": true
+    },
+    "rt2_c1_five_15x_notional_cap100pct": {
+      "submitted_candidates": 5,
+      "pos_mult_each": 1.5,
+      "notional_frac_each": 0.3,
+      "max_total_notional_frac": 1.0,
+      "executed_trades": 3,
+      "skipped_notional_cap": 2,
+      "accepted_max_notional_frac": 0.9,
+      "assertion_passed": true
+    },
+    "rt2_c1_missing_bar_gap_slot_retention": {
+      "trade1_bars_count": 2,
+      "trade1_entry_utc": "2025-05-01T00:00:00+00:00",
+      "trade1_real_exit_close_utc": "2025-05-01T04:00:00+00:00",
+      "trade2_arrival_utc": "2025-05-01T02:00:00+00:00",
+      "max_concurrent_cap": 1,
+      "executed_trades": 1,
+      "skipped_concurrency_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c1_notional_cap_current_equity_mtm": {
+      "initial_positions": 4,
+      "equity_at_0100_utc": 84.0,
+      "mtm_open_notional_at_0100_utc": 96.0,
+      "mtm_notional_over_equity_ratio": 1.1429,
+      "executed_trades": 4,
+      "skipped_notional_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c2_round_trip_100_50_100_fixed_quantity": {
+      "initial_nav": 100.0,
+      "notional_opened": 20.0,
+      "price_path": [
+        100.0,
+        50.0,
+        100.0
+      ],
+      "round_trip_fee_bps": 20.0,
+      "final_gross_pct": 0.0,
+      "expected_final_nav": 99.96,
+      "expected_return_pct": -0.04,
+      "legacy_buggy_compounded_return_pct": -1.04,
+      "patched_additive_final_nav": 99.96,
+      "patched_additive_return_pct": -0.04,
+      "patched_compounded_final_nav": 99.96,
+      "patched_compounded_return_pct": -0.04,
+      "assertion_passed": true
+    },
+    "f19b_funding_no_settlement_0100_to_0300_utc": {
+      "entry_utc": "2025-05-01T01:00:00+00:00",
+      "exit_utc": "2025-05-01T03:00:00+00:00",
+      "funding_bps_per_8h": 1.0,
+      "settlements_charged": 0,
+      "funding_net_pct_of_nav": 0.0,
+      "final_nav": 100.0,
+      "legacy_v402_hourly_prorated_nav": 99.9995,
+      "assertion_passed": true
+    },
+    "rt2_m3_unified_conviction_score_counterexample": {
+      "score": 79.0,
+      "tier": "A",
+      "pos_mult": 1.15,
+      "breakdown": {
+        "L1_pump_exhaustion_pts": 19.0,
+        "L2_wave_impulse_physics_pts": 21.0,
+        "L3_pst_momentum_collapse_pts": 21.0,
+        "L4_fibo_h1_trigger_pts": 18.0,
+        "wave_ker": 0.5,
+        "impulse_ker": 0.6,
+        "peak_ewmac_16_64": -1.0,
+        "cur_accel_4_16": -1.2,
+        "pullback_vol_ratio": 1.0
+      },
+      "legacy_research_divergent_score": 85.0,
+      "legacy_research_divergent_mult": 1.5,
+      "assertion_passed": true
+    },
+    "fs403_01_02_coupled_idempotent_same_hour_and_ledger_equality": {
+      "equity_at_0100_utc_single_pass": 95.98,
+      "legacy_v403_double_subtracted_equity_at_0100_utc": 91.96,
+      "benchmark_coupled_accepted_trades": 3,
+      "benchmark_coupled_executed_trades": 3,
+      "benchmark_coupled_final_compounded_nav": 95.8832,
+      "universe_coupled_accepted_trades": 3,
+      "universe_coupled_executed_trades": 3,
+      "universe_coupled_final_compounded_nav": 95.8832,
+      "expected_final_compounded_nav_with_new_trade_fees": 95.8832,
+      "assertion_passed": true
+    },
+    "fs403_04_funding_numeric_unit_and_off8h_settlement": {
+      "ms_1746057600000_status": "OK",
+      "ms_1746057600000_unit": "ms",
+      "ms_1746057600000_min_utc": "2025-05-01T00:00:00+00:00",
+      "ambiguous_99999999999_status": "SCHEMA_ERROR",
+      "off8h_0400_utc_matched_total": 1,
+      "off8h_0400_utc_matched_8h": 0,
+      "off8h_0400_utc_matched_off_8h": 1,
+      "off8h_0400_utc_final_nav": 99.98,
+      "assertion_passed": true
+    },
+    "fs403_06_content_sha256_fingerprint_mutation": {
+      "byte_length": 32,
+      "preserved_mtime": 1750000000.0,
+      "actual_size_after": 32,
+      "actual_mtime_after": 1750000000.0,
+      "fingerprint_before": "27a27c60249e28f101bccd8844cf7c42a62ab0136421e5a74ba16e96c614bdf3",
+      "fingerprint_after": "78b836ef6b742b89bd8d0f4a8307645fdf47096c368f9d15918998de8bcd823f",
+      "fingerprint_changed": true,
+      "assertion_passed": true
+    },
+    "fs403_07_dataclass_replace_terminal_outcome_sync": {
+      "old_outcome": "STOP_LOSS",
+      "old_terminal_outcome": "INITIAL_STOP_LOSS",
+      "replaced_outcome": "TP3_HIT",
+      "replaced_terminal_outcome": "TP3_FULL",
+      "expected_terminal_outcome": "TP3_FULL",
+      "assertion_passed": true
+    }
+  },
+  "universe_embedded_equal": true,
+  "id_checks": [
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio",
+      "accepted_count": 242,
+      "executed_count": 242,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 242,
+      "executed_count": 242,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 242,
+      "executed_count": 242,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 242,
+      "executed_count": 242,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio",
+      "accepted_count": 333,
+      "executed_count": 333,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 333,
+      "executed_count": 333,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 333,
+      "executed_count": 333,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 333,
+      "executed_count": 333,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio",
+      "accepted_count": 273,
+      "executed_count": 273,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 273,
+      "executed_count": 273,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 273,
+      "executed_count": 273,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 273,
+      "executed_count": 273,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio",
+      "accepted_count": 211,
+      "executed_count": 211,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 211,
+      "executed_count": 211,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 211,
+      "executed_count": 211,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 211,
+      "executed_count": 211,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m4_f2_elite/execution_coupled_portfolio",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_expanded/execution_coupled_portfolio",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_sniper/execution_coupled_portfolio",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 11,
+      "executed_count": 11,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_elite_sniper/execution_coupled_portfolio",
+      "accepted_count": 8,
+      "executed_count": 8,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 8,
+      "executed_count": 8,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 8,
+      "executed_count": 8,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_strict_hard_cutoff_0831/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 8,
+      "executed_count": 8,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m4_f2_elite/execution_coupled_portfolio",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_expanded/execution_coupled_portfolio",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_sniper/execution_coupled_portfolio",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_elite_sniper/execution_coupled_portfolio",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026_full_0929/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m4_f2_elite/execution_coupled_portfolio",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m4_f2_elite/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 12,
+      "executed_count": 12,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_expanded/execution_coupled_portfolio",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_expanded/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 17,
+      "executed_count": 17,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_sniper/execution_coupled_portfolio",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 14,
+      "executed_count": 14,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_elite_sniper/execution_coupled_portfolio",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/ex_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/historical_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/oos_2026/m6_f4_elite_sniper/execution_coupled_portfolio/scenario_specific_coupled_ledgers/stress_1bp_8h_funding",
+      "accepted_count": 9,
+      "executed_count": 9,
+      "multisets_equal": true,
+      "unique": true
+    }
+  ],
+  "funding_reloaded": {
+    "symbols_requested": 14,
+    "symbols_with_funding_files": 14,
+    "total_files_found": 20,
+    "total_files_loaded_ok": 20,
+    "read_errors_count": 0,
+    "schema_errors_count": 0,
+    "empty_files_count": 0,
+    "total_settlement_records_loaded": 89325,
+    "total_standard_8h_records_loaded": 80969,
+    "total_off_8h_records_loaded": 8356,
+    "symbols_with_off_8h_cadence": [
+      "SOLUSDT",
+      "1000BONKUSDT",
+      "ACEUSDT",
+      "AKTUSDT"
+    ],
+    "total_missing_8h_slots_across_symbols": 0,
+    "total_inferred_cadence_missing_slots_across_symbols": 3,
+    "cadence_methodology_note": "Historical funding files contain both standard 8h settlements (00:00, 08:00, 16:00 UTC) and exchange-enacted 4h/2h/1h settlements (e.g., 1000BONKUSDT, ACEUSDT, AKTUSDT, SOLUSDT). All loaded settlement timestamps (both 8h and off-8h) are settled by the NAV engine whenever a position is open at that bar close hour. Because no external exchange schedule-change registry is bundled locally, missing-slot checks report both standard 8h grid slots and local-cadence inferred slots from adjacent settlement intervals.",
+    "by_symbol_source": {
+      "BTCUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 6359,
+        "negative_rates": 1036,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7395,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2465,
+          "08": 2465,
+          "16": 2465
+        },
+        "step_hours_counts": {
+          "8": 7394
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7395,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BTCUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6359,
+            "negative_rates": 1036,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7395,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2465,
+              "08": 2465,
+              "16": 2465
+            },
+            "step_hours_counts": {
+              "8": 7394
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7395,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BTCUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6297,
+            "negative_rates": 1032,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7329,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2443,
+              "08": 2443,
+              "16": 2443
+            },
+            "step_hours_counts": {
+              "8": 7328
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7329,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ETHUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 6376,
+        "negative_rates": 1019,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7395,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2465,
+          "08": 2465,
+          "16": 2465
+        },
+        "step_hours_counts": {
+          "8": 7394
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7395,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ETHUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6376,
+            "negative_rates": 1019,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7395,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2465,
+              "08": 2465,
+              "16": 2465
+            },
+            "step_hours_counts": {
+              "8": 7394
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7395,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ETHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6318,
+            "negative_rates": 1011,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7329,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2443,
+              "08": 2443,
+              "16": 2443
+            },
+            "step_hours_counts": {
+              "8": 7328
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7329,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "SOLUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 6697,
+        "positive_rates": 4776,
+        "negative_rates": 1920,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 6634,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 6622,
+        "off_8h_records": 75,
+        "hour_of_day_utc_counts": {
+          "00": 2207,
+          "02": 8,
+          "04": 9,
+          "06": 9,
+          "08": 2207,
+          "10": 8,
+          "12": 8,
+          "14": 8,
+          "16": 2208,
+          "18": 8,
+          "20": 9,
+          "22": 8
+        },
+        "step_hours_counts": {
+          "2": 98,
+          "4": 3,
+          "8": 6595
+        },
+        "observed_cadences_hours": [
+          2,
+          4,
+          8
+        ],
+        "expected_8h_slots_in_span": 6622,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 6697,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-09-13T16:00:00+00:00",
+        "max_utc": "2026-09-29T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\SOLUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6697,
+            "valid_unique_hours": 6697,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4776,
+            "negative_rates": 1920,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 6622,
+            "off_8h_records": 75,
+            "hour_of_day_utc_counts": {
+              "00": 2207,
+              "02": 8,
+              "04": 9,
+              "06": 9,
+              "08": 2207,
+              "10": 8,
+              "12": 8,
+              "14": 8,
+              "16": 2208,
+              "18": 8,
+              "20": 9,
+              "22": 8
+            },
+            "step_hours_counts": {
+              "2": 98,
+              "4": 3,
+              "8": 6595
+            },
+            "observed_cadences_hours": [
+              2,
+              4,
+              8
+            ],
+            "expected_8h_slots_in_span": 6622,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6697,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-09-13T16:00:00+00:00",
+            "max_utc": "2026-09-29T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\SOLUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6634,
+            "valid_unique_hours": 6634,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4731,
+            "negative_rates": 1902,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 6559,
+            "off_8h_records": 75,
+            "hour_of_day_utc_counts": {
+              "00": 2186,
+              "02": 8,
+              "04": 9,
+              "06": 9,
+              "08": 2186,
+              "10": 8,
+              "12": 8,
+              "14": 8,
+              "16": 2187,
+              "18": 8,
+              "20": 9,
+              "22": 8
+            },
+            "step_hours_counts": {
+              "2": 98,
+              "4": 3,
+              "8": 6532
+            },
+            "observed_cadences_hours": [
+              2,
+              4,
+              8
+            ],
+            "expected_8h_slots_in_span": 6559,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6634,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-09-13T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "BNBUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7274,
+        "positive_rates": 1925,
+        "negative_rates": 1738,
+        "zero_rates": 3611,
+        "overlapping_timestamps_between_sources": 7208,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7274,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2424,
+          "08": 2425,
+          "16": 2425
+        },
+        "step_hours_counts": {
+          "8": 7273
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7274,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7274,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-02-10T08:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BNBUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7274,
+            "valid_unique_hours": 7274,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 1925,
+            "negative_rates": 1738,
+            "zero_rates": 3611,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7274,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2424,
+              "08": 2425,
+              "16": 2425
+            },
+            "step_hours_counts": {
+              "8": 7273
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7274,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7274,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-02-10T08:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BNBUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7208,
+            "valid_unique_hours": 7208,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 1888,
+            "negative_rates": 1738,
+            "zero_rates": 3582,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7208,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2402,
+              "08": 2403,
+              "16": 2403
+            },
+            "step_hours_counts": {
+              "8": 7207
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7208,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7208,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-02-10T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "LTCUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7367,
+        "positive_rates": 6049,
+        "negative_rates": 1006,
+        "zero_rates": 312,
+        "overlapping_timestamps_between_sources": 7304,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7367,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2455,
+          "08": 2456,
+          "16": 2456
+        },
+        "step_hours_counts": {
+          "8": 7366
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7367,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7367,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-01-09T08:00:00+00:00",
+        "max_utc": "2026-09-29T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\LTCUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7367,
+            "valid_unique_hours": 7367,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6049,
+            "negative_rates": 1006,
+            "zero_rates": 312,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7367,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2455,
+              "08": 2456,
+              "16": 2456
+            },
+            "step_hours_counts": {
+              "8": 7366
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7367,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7367,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-09T08:00:00+00:00",
+            "max_utc": "2026-09-29T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\LTCUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7304,
+            "valid_unique_hours": 7304,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5989,
+            "negative_rates": 1003,
+            "zero_rates": 312,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7304,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2434,
+              "08": 2435,
+              "16": 2435
+            },
+            "step_hours_counts": {
+              "8": 7303
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7304,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7304,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-09T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "BCHUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 4712,
+        "negative_rates": 2682,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7395,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2465,
+          "08": 2465,
+          "16": 2465
+        },
+        "step_hours_counts": {
+          "8": 7394
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7395,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BCHUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4712,
+            "negative_rates": 2682,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7395,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2465,
+              "08": 2465,
+              "16": 2465
+            },
+            "step_hours_counts": {
+              "8": 7394
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7395,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BCHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4667,
+            "negative_rates": 2661,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7329,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2443,
+              "08": 2443,
+              "16": 2443
+            },
+            "step_hours_counts": {
+              "8": 7328
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7329,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000PEPEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 3667,
+        "positive_rates": 2813,
+        "negative_rates": 854,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 3667,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 1222,
+          "08": 1222,
+          "16": 1223
+        },
+        "step_hours_counts": {
+          "8": 3666
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 3667,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 3667,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2023-05-05T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000PEPEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000PEPEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 3667,
+            "valid_unique_hours": 3667,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 2813,
+            "negative_rates": 854,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.029,
+            "standard_8h_records": 3667,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 1222,
+              "08": 1222,
+              "16": 1223
+            },
+            "step_hours_counts": {
+              "8": 3666
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 3667,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 3667,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2023-05-05T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000BONKUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6126,
+        "positive_rates": 4589,
+        "negative_rates": 1536,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 3064,
+        "off_8h_records": 3062,
+        "hour_of_day_utc_counts": {
+          "00": 1021,
+          "04": 1020,
+          "08": 1021,
+          "12": 1021,
+          "16": 1022,
+          "20": 1021
+        },
+        "step_hours_counts": {
+          "4": 6124,
+          "8": 1
+        },
+        "observed_cadences_hours": [
+          4,
+          8
+        ],
+        "expected_8h_slots_in_span": 3064,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 6127,
+        "inferred_local_cadence_missing_slots": 1,
+        "min_utc": "2023-11-22T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000BONKUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000BONKUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6126,
+            "valid_unique_hours": 6126,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4589,
+            "negative_rates": 1536,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.026,
+            "standard_8h_records": 3064,
+            "off_8h_records": 3062,
+            "hour_of_day_utc_counts": {
+              "00": 1021,
+              "04": 1020,
+              "08": 1021,
+              "12": 1021,
+              "16": 1022,
+              "20": 1021
+            },
+            "step_hours_counts": {
+              "4": 6124,
+              "8": 1
+            },
+            "observed_cadences_hours": [
+              4,
+              8
+            ],
+            "expected_8h_slots_in_span": 3064,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6127,
+            "inferred_local_cadence_missing_slots": 1,
+            "min_utc": "2023-11-22T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000SHIBUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 5842,
+        "positive_rates": 4208,
+        "negative_rates": 1633,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 5842,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 1947,
+          "08": 1947,
+          "16": 1948
+        },
+        "step_hours_counts": {
+          "8": 5841
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 5842,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 5842,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2021-05-10T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000SHIBUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000SHIBUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 5842,
+            "valid_unique_hours": 5842,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4208,
+            "negative_rates": 1633,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 5842,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 1947,
+              "08": 1947,
+              "16": 1948
+            },
+            "step_hours_counts": {
+              "8": 5841
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 5842,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 5842,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2021-05-10T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "AAVEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6461,
+        "positive_rates": 5486,
+        "negative_rates": 974,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 6461,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2153,
+          "08": 2154,
+          "16": 2154
+        },
+        "step_hours_counts": {
+          "8": 6460
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 6461,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 6461,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-10-16T08:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\AAVEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\AAVEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6461,
+            "valid_unique_hours": 6461,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5486,
+            "negative_rates": 974,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 6461,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2153,
+              "08": 2154,
+              "16": 2154
+            },
+            "step_hours_counts": {
+              "8": 6460
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 6461,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6461,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-10-16T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ADAUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 7273,
+        "positive_rates": 5832,
+        "negative_rates": 1441,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 7273,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2424,
+          "08": 2424,
+          "16": 2425
+        },
+        "step_hours_counts": {
+          "8": 7272
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 7273,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 7273,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-01-19T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ADAUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ADAUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 7273,
+            "valid_unique_hours": 7273,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5832,
+            "negative_rates": 1441,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 7273,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2424,
+              "08": 2424,
+              "16": 2425
+            },
+            "step_hours_counts": {
+              "8": 7272
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 7273,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 7273,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-01-19T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1INCHUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6250,
+        "positive_rates": 4691,
+        "negative_rates": 1559,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 6250,
+        "off_8h_records": 0,
+        "hour_of_day_utc_counts": {
+          "00": 2083,
+          "08": 2083,
+          "16": 2084
+        },
+        "step_hours_counts": {
+          "8": 6249
+        },
+        "observed_cadences_hours": [
+          8
+        ],
+        "expected_8h_slots_in_span": 6250,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 6250,
+        "inferred_local_cadence_missing_slots": 0,
+        "min_utc": "2020-12-25T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1INCHUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1INCHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6250,
+            "valid_unique_hours": 6250,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4691,
+            "negative_rates": 1559,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "standard_8h_records": 6250,
+            "off_8h_records": 0,
+            "hour_of_day_utc_counts": {
+              "00": 2083,
+              "08": 2083,
+              "16": 2084
+            },
+            "step_hours_counts": {
+              "8": 6249
+            },
+            "observed_cadences_hours": [
+              8
+            ],
+            "expected_8h_slots_in_span": 6250,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6250,
+            "inferred_local_cadence_missing_slots": 0,
+            "min_utc": "2020-12-25T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ACEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6228,
+        "positive_rates": 4892,
+        "negative_rates": 1336,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 2986,
+        "off_8h_records": 3242,
+        "hour_of_day_utc_counts": {
+          "00": 995,
+          "01": 15,
+          "02": 15,
+          "03": 14,
+          "04": 994,
+          "05": 14,
+          "06": 14,
+          "07": 14,
+          "08": 995,
+          "09": 15,
+          "10": 15,
+          "11": 15,
+          "12": 996,
+          "13": 14,
+          "14": 14,
+          "15": 14,
+          "16": 996,
+          "17": 14,
+          "18": 14,
+          "19": 14,
+          "20": 995,
+          "21": 14,
+          "22": 14,
+          "23": 14
+        },
+        "step_hours_counts": {
+          "1": 342,
+          "2": 1,
+          "4": 5883,
+          "8": 1
+        },
+        "observed_cadences_hours": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "expected_8h_slots_in_span": 2986,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 6229,
+        "inferred_local_cadence_missing_slots": 1,
+        "min_utc": "2023-12-18T12:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ACEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ACEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 6228,
+            "valid_unique_hours": 6228,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4892,
+            "negative_rates": 1336,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.026,
+            "standard_8h_records": 2986,
+            "off_8h_records": 3242,
+            "hour_of_day_utc_counts": {
+              "00": 995,
+              "01": 15,
+              "02": 15,
+              "03": 14,
+              "04": 994,
+              "05": 14,
+              "06": 14,
+              "07": 14,
+              "08": 995,
+              "09": 15,
+              "10": 15,
+              "11": 15,
+              "12": 996,
+              "13": 14,
+              "14": 14,
+              "15": 14,
+              "16": 996,
+              "17": 14,
+              "18": 14,
+              "19": 14,
+              "20": 995,
+              "21": 14,
+              "22": 14,
+              "23": 14
+            },
+            "step_hours_counts": {
+              "1": 342,
+              "2": 1,
+              "4": 5883,
+              "8": 1
+            },
+            "observed_cadences_hours": [
+              1,
+              2,
+              4,
+              8
+            ],
+            "expected_8h_slots_in_span": 2986,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 6229,
+            "inferred_local_cadence_missing_slots": 1,
+            "min_utc": "2023-12-18T12:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "AKTUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 3955,
+        "positive_rates": 3305,
+        "negative_rates": 650,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "standard_8h_records": 1978,
+        "off_8h_records": 1977,
+        "hour_of_day_utc_counts": {
+          "00": 659,
+          "04": 658,
+          "08": 659,
+          "12": 660,
+          "16": 660,
+          "20": 659
+        },
+        "step_hours_counts": {
+          "4": 3953,
+          "8": 1
+        },
+        "observed_cadences_hours": [
+          4,
+          8
+        ],
+        "expected_8h_slots_in_span": 1978,
+        "missing_8h_slots_in_span": 0,
+        "inferred_local_cadence_expected_slots": 3956,
+        "inferred_local_cadence_missing_slots": 1,
+        "min_utc": "2024-11-18T12:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\AKTUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\AKTUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "detected_timestamp_unit": "datetime64",
+            "raw_rows": 3955,
+            "valid_unique_hours": 3955,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 3305,
+            "negative_rates": 650,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.026,
+            "standard_8h_records": 1978,
+            "off_8h_records": 1977,
+            "hour_of_day_utc_counts": {
+              "00": 659,
+              "04": 658,
+              "08": 659,
+              "12": 660,
+              "16": 660,
+              "20": 659
+            },
+            "step_hours_counts": {
+              "4": 3953,
+              "8": 1
+            },
+            "observed_cadences_hours": [
+              4,
+              8
+            ],
+            "expected_8h_slots_in_span": 1978,
+            "missing_8h_slots_in_span": 0,
+            "inferred_local_cadence_expected_slots": 3956,
+            "inferred_local_cadence_missing_slots": 1,
+            "min_utc": "2024-11-18T12:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      }
+    }
+  },
+  "funding_count_independent": {
+    "total": 89325,
+    "off8h": 8356
+  },
+  "gap_cooldown_real_exit": {
+    "first_entry": "2025-01-01T00:00:00+00:00",
+    "first_exit": "2025-01-01T10:00:00+00:00",
+    "first_hold_hours": 2,
+    "second_entry": "2025-01-01T05:00:00+00:00",
+    "same_symbol_tf": true,
+    "expected_accepted_if_cooldown_until_exit": 1,
+    "benchmark_independent_accepted": 2,
+    "universe_independent_accepted": 2,
+    "benchmark_coupled_accepted": 2,
+    "universe_coupled_accepted": 2
+  },
+  "terminal_time_exit_near_stop": {
+    "bars": [
+      {
+        "open_time_str": "2025-01-01T00:00:00Z",
+        "open": 99.0,
+        "high": 99.5,
+        "low": 89.0,
+        "close": 95.0
+      },
+      {
+        "open_time_str": "2025-01-01T01:00:00Z",
+        "open": 95.0,
+        "high": 99.9998,
+        "low": 94.0,
+        "close": 99.9995
+      }
+    ],
+    "sim_terminal": "TP1_THEN_TIME_EXIT",
+    "sim_time_exit_used": true,
+    "sim_ratcheted_sl_hit": false,
+    "trade_terminal": "TP1_THEN_SL_AT_BE",
+    "trade_time_exit_used": false,
+    "trade_ratcheted_sl_hit": true,
+    "exit_price": 99.9995
+  },
+  "trade_id_mutation_not_detected": {
+    "original_id": "fibo_d456a74cd48e_438679",
+    "replacement": "CORRUPTED_TRADE_ID",
+    "caught": false,
+    "result": {
+      "total_checks": 1574,
+      "tables_verified": 8,
+      "coupled_nav_nodes_checked": 320,
+      "accepted_vs_executed_mismatches": 0,
+      "all_passed": true
+    }
+  },
+  "universe_exported_id_coverage": {
+    "nodes": 112,
+    "with_both_id_lists": 0,
+    "details": [
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_CORE/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_is_2024_2025/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_entry_cutoff_0831_runout/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      },
+      {
+        "path": "BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper",
+        "has_accepted_trade_ids": false,
+        "has_executed_trade_ids": false,
+        "declares_exact_match": true
+      }
+    ]
+  },
+  "funding_fingerprint_directory_mismatch": {
+    "loader_shared_dir": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h",
+    "loader_dir_exists": true,
+    "fingerprint_shared_dir": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_rate",
+    "fingerprint_dir_exists": false,
+    "loaded_shared_files_excluded_from_fingerprint": 6,
+    "excluded_paths": [
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BTCUSDT_funding.parquet",
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ETHUSDT_funding.parquet",
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\SOLUSDT_funding.parquet",
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BNBUSDT_funding.parquet",
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\LTCUSDT_funding.parquet",
+      "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BCHUSDT_funding.parquet"
+    ],
+    "fingerprint_silently_skips_nonexistent_directory": true
+  },
+  "full_input_fingerprint_recalculated": {
+    "actual": "17920826092c17a7e520ad9ff620ed946100363d03ca28766c0605549006c3a4",
+    "expected": "17920826092c17a7e520ad9ff620ed946100363d03ca28766c0605549006c3a4",
+    "match": true,
+    "elapsed_seconds": 6.96
+  },
+  "ACE_actual_independent_replay": {
+    "raw_is": 616,
+    "raw_oos": 86,
+    "counts": {
+      "oos_only": 8,
+      "combined_reset": 8,
+      "combined_continuous": 7,
+      "prefix_outside_cooldown": 8,
+      "index_shift_50000": 8
+    },
+    "trades": {
+      "oos_only": [
+        {
+          "tf": "4h",
+          "entry": "2026-08-22T13:00:00+00:00",
+          "exit": "2026-08-25T13:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-01T02:00:00+00:00",
+          "exit": "2026-01-03T16:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-04T01:00:00+00:00",
+          "exit": "2026-01-09T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-12T02:00:00+00:00",
+          "exit": "2026-01-15T04:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-17T12:00:00+00:00",
+          "exit": "2026-01-19T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-05-09T10:00:00+00:00",
+          "exit": "2026-05-14T10:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-07T01:00:00+00:00",
+          "exit": "2026-08-08T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-20T20:00:00+00:00",
+          "exit": "2026-08-25T20:00:00+00:00"
+        }
+      ],
+      "combined_reset": [
+        {
+          "tf": "4h",
+          "entry": "2026-08-22T13:00:00+00:00",
+          "exit": "2026-08-25T13:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-01T02:00:00+00:00",
+          "exit": "2026-01-03T16:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-04T01:00:00+00:00",
+          "exit": "2026-01-09T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-12T02:00:00+00:00",
+          "exit": "2026-01-15T04:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-17T12:00:00+00:00",
+          "exit": "2026-01-19T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-05-09T10:00:00+00:00",
+          "exit": "2026-05-14T10:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-07T01:00:00+00:00",
+          "exit": "2026-08-08T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-20T20:00:00+00:00",
+          "exit": "2026-08-25T20:00:00+00:00"
+        }
+      ],
+      "combined_continuous": [
+        {
+          "tf": "4h",
+          "entry": "2026-08-22T13:00:00+00:00",
+          "exit": "2026-08-25T13:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-07T14:00:00+00:00",
+          "exit": "2026-01-10T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-12T02:00:00+00:00",
+          "exit": "2026-01-15T04:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-17T12:00:00+00:00",
+          "exit": "2026-01-19T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-05-09T10:00:00+00:00",
+          "exit": "2026-05-14T10:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-07T01:00:00+00:00",
+          "exit": "2026-08-08T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-20T20:00:00+00:00",
+          "exit": "2026-08-25T20:00:00+00:00"
+        }
+      ],
+      "prefix_outside_cooldown": [
+        {
+          "tf": "4h",
+          "entry": "2026-08-22T13:00:00+00:00",
+          "exit": "2026-08-25T13:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-01T02:00:00+00:00",
+          "exit": "2026-01-03T16:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-04T01:00:00+00:00",
+          "exit": "2026-01-09T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-12T02:00:00+00:00",
+          "exit": "2026-01-15T04:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-17T12:00:00+00:00",
+          "exit": "2026-01-19T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-05-09T10:00:00+00:00",
+          "exit": "2026-05-14T10:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-07T01:00:00+00:00",
+          "exit": "2026-08-08T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-20T20:00:00+00:00",
+          "exit": "2026-08-25T20:00:00+00:00"
+        }
+      ],
+      "index_shift_50000": [
+        {
+          "tf": "4h",
+          "entry": "2026-08-22T13:00:00+00:00",
+          "exit": "2026-08-25T13:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-01T02:00:00+00:00",
+          "exit": "2026-01-03T16:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-04T01:00:00+00:00",
+          "exit": "2026-01-09T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-12T02:00:00+00:00",
+          "exit": "2026-01-15T04:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-01-17T12:00:00+00:00",
+          "exit": "2026-01-19T01:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-05-09T10:00:00+00:00",
+          "exit": "2026-05-14T10:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-07T01:00:00+00:00",
+          "exit": "2026-08-08T17:00:00+00:00"
+        },
+        {
+          "tf": "1d",
+          "entry": "2026-08-20T20:00:00+00:00",
+          "exit": "2026-08-25T20:00:00+00:00"
+        }
+      ]
+    },
+    "data_gap_checks": {
+      "is/ACEUSDT": {
+        "gap_count_gt_1h": 0,
+        "largest_gap_hours": 1.0
+      },
+      "is/BTCUSDT": {
+        "gap_count_gt_1h": 0,
+        "largest_gap_hours": 1.0
+      },
+      "oos/ACEUSDT": {
+        "gap_count_gt_1h": 0,
+        "largest_gap_hours": 1.0
+      },
+      "oos/BTCUSDT": {
+        "gap_count_gt_1h": 0,
+        "largest_gap_hours": 1.0
+      }
+    },
+    "elapsed_seconds": 2.5
+  },
+  "five_minute_lake_gap_scan": {
+    "files": 340,
+    "symbols_with_missing_hour_intervals": 3,
+    "details": [
+      {
+        "symbol": "CVXUSDT",
+        "missing_hour_intervals": 1,
+        "max_gap_hours": 12.0,
+        "examples": [
+          {
+            "next_hour": "2025-07-23T11:00:00+00:00",
+            "delta_hours": 12.0
+          }
+        ]
+      },
+      {
+        "symbol": "LITUSDT",
+        "missing_hour_intervals": 1,
+        "max_gap_hours": 18.0,
+        "examples": [
+          {
+            "next_hour": "2025-12-23T17:00:00+00:00",
+            "delta_hours": 18.0
+          }
+        ]
+      },
+      {
+        "symbol": "PUMPUSDT",
+        "missing_hour_intervals": 1,
+        "max_gap_hours": 8.0,
+        "examples": [
+          {
+            "next_hour": "2025-07-10T07:00:00+00:00",
+            "delta_hours": 8.0
+          }
+        ]
+      }
+    ],
+    "elapsed_seconds": 3.88
+  },
+  "independent_status_matrix": [
+    {
+      "id": "RT2-C1",
+      "status": "Partially Closed",
+      "reason": "Repeated-hour bug fixed and cap tests pass. Cooldown still uses number of observed bars rather than real exit time: two same-symbol/timeframe trades overlap across missing data in all four execution paths."
+    },
+    {
+      "id": "RT2-C2",
+      "status": "Closed",
+      "reason": "Original repeated-hour and fixed-quantity NAV counterexamples pass in both coupled paths (95.8832 and99.96). Closure concerns accounting defects tested, not general performance certification."
+    },
+    {
+      "id": "RT2-H1",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Retain prior narrow closure of legacy M6 exit price/time/hold metadata, PST and fee contracts; separate remaining terminal label defect is F-04a."
+    },
+    {
+      "id": "RT2-H2",
+      "status": "Partially Closed",
+      "reason": "Count mismatches resolved, but112 universe coupled nodes omit accepted/executed ID arrays; independent ledger verification is impossible from delivered universe JSON. Missing-bar cooldown defect remains."
+    },
+    {
+      "id": "RT2-H3",
+      "status": "Partially Closed",
+      "reason": "Pre-cooldown PIT selection fix retained and data scope disclosed in JSON; coupled execution still needs missing-bar cooldown fix and auditable exported ledgers."
+    },
+    {
+      "id": "RT2-H4",
+      "status": "Partially Closed",
+      "reason": "1574 checks/12 supplied mutations pass and all current Markdown cells match. Replacing an executed ID by a fake ID still returns all_passed. Report falsely claims removal of second cap pass; both coupled functions still call capped NAV replay."
+    },
+    {
+      "id": "RT2-M1",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Retain canonical PST and isolated bfill method closure; historical trade counts require rerun after IS/OOS index fix."
+    },
+    {
+      "id": "RT2-M2",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Pivot configuration behavior regression passes; historical counts require rerun after IS/OOS index fix."
+    },
+    {
+      "id": "RT2-M3",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Canonical conviction score shared by detector/research/worker; provided vector passes and 86 ACE OOS candidate scores match detector."
+    },
+    {
+      "id": "RT2-M4",
+      "status": "Closed",
+      "reason": "Prior IS/OOS local-index collision fixed and independently verified on actual ACE8/8 reset modes plus index+50000; continuous mode7 with recent IS vs8 with distant IS is separately disclosed. Retain hard-cutoff/CI adjustment method scope; no blanket certification of downstream numerical performance."
+    },
+    {
+      "id": "RT2-L1",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Independent metadata check confirms340 raw5m files all end2026-08-31 23:55UTC; exclusion accounting and survivorship-conditioned scope disclosed. Does not certify complete historical exchange listing universe."
+    },
+    {
+      "id": "RT2-L2",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Fee unit contract regression passes."
+    },
+    {
+      "id": "F-01",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Same-bar ratcheted-stop regression passes under declared pessimistic OHLC convention."
+    },
+    {
+      "id": "F-04a",
+      "status": "Partially Closed",
+      "reason": "Old STOP_LOSS->TP3 replacement passes. New __post_init__ overrides correct simulator event flags using price proximity: valid TP1 time exit99.9995 below stop100 is mislabeled SL_AT_BE."
+    },
+    {
+      "id": "F-06",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Prior-low ordering and wave KER regression passes."
+    },
+    {
+      "id": "F-14",
+      "status": "Closed",
+      "reason": "Prior closure retained; relevant current23-test suite passes. Retain prior closure of stress/calibration separation and break-even formula; numerical outputs still need full recomputation after engine corrections."
+    },
+    {
+      "id": "F-19a",
+      "status": "Partially Closed",
+      "reason": "34 manifest hashes/15 snapshot files match; full content fingerprint recomputes and mutation test passes. Default fingerprint hashes nonexistent funding_rate directory, omitting six actual loaded funding_8h files."
+    },
+    {
+      "id": "F-19b",
+      "status": "Closed",
+      "reason": "Reload confirms89325events=80969standard+8356off8h, numeric parsing and actual-time funding tests pass; inferred cadence limits explicitly disclosed."
+    },
+    {
+      "id": "F-19c",
+      "status": "Closed",
+      "reason": "31 historical artifact/snapshot hashes match supplied baseline; no originals modified by independent audit."
+    }
+  ],
+  "independent_status_counts": {
+    "Partially Closed": 6,
+    "Closed": 13,
+    "Open": 0
+  },
+  "blocking_findings": [
+    {
+      "id": "FS404-01",
+      "severity": "High",
+      "title": "Cooldown expires before real exit across missing bars",
+      "evidence_keys": [
+        "gap_cooldown_real_exit",
+        "five_minute_lake_gap_scan"
+      ],
+      "affected_items": [
+        "RT2-C1",
+        "RT2-H2",
+        "RT2-H3"
+      ]
+    },
+    {
+      "id": "FS404-02",
+      "severity": "High",
+      "title": "Exported trade identity evidence incomplete and checker trusts self-reported flags",
+      "evidence_keys": [
+        "trade_id_mutation_not_detected",
+        "universe_exported_id_coverage"
+      ],
+      "affected_items": [
+        "RT2-H2",
+        "RT2-H4"
+      ]
+    },
+    {
+      "id": "FS404-03",
+      "severity": "High",
+      "title": "Content fingerprint skips six funding inputs because directory constant differs from loader",
+      "evidence_keys": [
+        "funding_fingerprint_directory_mismatch",
+        "full_input_fingerprint_recalculated"
+      ],
+      "affected_items": [
+        "F-19a"
+      ]
+    },
+    {
+      "id": "FS404-04",
+      "severity": "Medium",
+      "title": "Trade post-init replaces real time-exit event with stop event based on approximate price equality",
+      "evidence_keys": [
+        "terminal_time_exit_near_stop"
+      ],
+      "affected_items": [
+        "F-04a"
+      ]
+    }
+  ],
+  "fs403_followup": {
+    "FS403-01": "Closed: supplied and independent repeated-hour cases pass",
+    "FS403-02": "Partially Closed: counts align; identity export/checking incomplete and capped replay still present",
+    "FS403-03": "Closed: real ACE and index-offset invariance verified",
+    "FS403-04": "Closed within disclosed local schedule verification limits",
+    "FS403-05": "Closed for original trailing-column mutation; broader identity invariant remains FS404-02/RT2-H4",
+    "FS403-06": "Partially Closed: content hashes work, six input files omitted",
+    "FS403-07": "Partially Closed: stale TP3 fixed but event flags overwritten incorrectly near stop"
+  },
+  "source_locations": {
+    "gap_duration": "scripts/fibo_research/verify_red_team_audit_2026.py:176,823; scripts/fibo_research/universe_reaudit_v402_worker.py:288; scripts/fibo_research/verify_red_team_reaudit_v402.py:759",
+    "identity_checker": "scripts/fibo_research/verify_red_team_reaudit_v404.py:165",
+    "universe_export": "scripts/fibo_research/universe_reaudit_v402_worker.py:1541",
+    "funding_directory": "scripts/fibo_research/universe_reaudit_v402_worker.py:69 vs verify_red_team_reaudit_v402.py:70",
+    "terminal_inference": "src/dao_vang/fibo_short/backtest.py:124",
+    "second_cap_pass": "scripts/fibo_research/verify_red_team_reaudit_v402.py:818; scripts/fibo_research/universe_reaudit_v402_worker.py:951"
+  },
+  "final_signoff": "NOT_GRANTED",
+  "verified_at_utc": "2026-10-17T11:06:09.768437+00:00",
+  "limitations": [
+    "No full14-symbol or338-symbol strategy replay was executed by independent verifier in this round. Actual ACE replay, all340raw5m timestamp gap scans, source checks, synthetic regressions and artifact/hash checks were performed.",
+    "Missing-bar counterexample proves behavior defect; actual signal/PnL impact for CVXUSDT,LITUSDT,PUMPUSDT is not quantified here.",
+    "Near-stop terminal defect demonstrated on valid synthetic OHLC; prevalence in historical trades not measured.",
+    "Closed items are bounded method-fix judgments; overall report is not signed off."
+  ],
+  "final_original_manifest_all_match": true
+}

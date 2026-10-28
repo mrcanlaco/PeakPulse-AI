@@ -59,6 +59,23 @@ test-results/
 /data/
 data_live/
 artifacts/*
+!artifacts/fibo_trend_short/
+/artifacts/fibo_trend_short/coupled_trade_ledgers_*.json
+/artifacts/fibo_trend_short/universe_coupled_ledgers_*.json
+/artifacts/fibo_trend_short/*_LEDGERS_*.json
+/artifacts/fibo_trend_short/snapshots/
+/artifacts/fibo_trend_short/development_runs/
+/artifacts/fibo_trend_short/research_v4_0_*/
+!/artifacts/fibo_trend_short/research_v4_0_21/
+/artifacts/fibo_trend_short/research_v4_0_21/*
+!/artifacts/fibo_trend_short/research_v4_0_21/RESULTS.json
+!/artifacts/fibo_trend_short/research_v4_0_21/REPORT.md
+!/artifacts/fibo_trend_short/research_v4_0_26/
+/artifacts/fibo_trend_short/research_v4_0_26/*
+!/artifacts/fibo_trend_short/research_v4_0_26/RESULTS.json
+!/artifacts/fibo_trend_short/research_v4_0_26/REPORT.md
+/artifacts/fibo_trend_short/paper_oos_v1/*
+!/artifacts/fibo_trend_short/paper_oos_v1/membership/
 !artifacts/frozen_models/
 # New models are runtime outputs; tracked release bundles remain tracked.
 /artifacts/frozen_models/frozen_*/
@@ -78,6 +95,9 @@ _commit_msg.txt
 *.tmp
 *.bak
 
+/tmp/
+/Ngoai_le/
+/apps/fibo-alpha-short/
 # Root scratch scripts
 /update_*.py
 /format.py
@@ -95,6 +115,7 @@ dao_vang_docs*
 .devin/
 .tools/
 
+.omp/
 # OS generated files
 .DS_Store
 Thumbs.db

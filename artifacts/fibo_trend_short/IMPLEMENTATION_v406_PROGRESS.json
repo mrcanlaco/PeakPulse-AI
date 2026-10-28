@@ -1,0 +1,107 @@
+{
+  "objective": "Directly fix and complete PeakPulse AI Fibo Trend Short trading methodology",
+  "version": "4.0.6",
+  "baseline": "4.0.5",
+  "stage": "completed_local_methodology_and_verification",
+  "requirements": [
+    {
+      "id": "R1",
+      "status": "completed",
+      "scope": "Preservation and v405 baseline verification",
+      "evidence": "IMPLEMENTATION_v406_BASELINE_CHECKS.json; historical hash verification"
+    },
+    {
+      "id": "R2",
+      "status": "completed",
+      "scope": "Implementation fixes within declared simulation assumptions",
+      "evidence": "METHOD_TEST_RESULTS_v4_0_6.xml; ledger_checks; negative_control_rejections"
+    },
+    {
+      "id": "R3",
+      "status": "completed",
+      "scope": "Frozen protocol and explicit reused validation label",
+      "evidence": "METHOD_v406_EXPERIMENT_PROTOCOL.json; METHOD_INPUT_MANIFEST_v4_0_6.json"
+    },
+    {
+      "id": "R4",
+      "status": "completed",
+      "scope": "14-symbol and338-symbol reruns with PIT sizing/cost/funding comparisons",
+      "evidence": "METHOD_BENCHMARK_v4_0_6.json; universe_338_reaudit_v4_0_6_summary.json; METHOD_PIT_FUNDING_v4_0_6.json"
+    },
+    {
+      "id": "R5",
+      "status": "completed",
+      "scope": "Executable paper proposal rules and an evidence-based readiness decision",
+      "evidence": "paper_rules_v406.py; METHOD_POLICY_v4_0_6.json; PHUONG_PHAP_FIBO_SHORT_v4_0_6.md; live NOT_GRANTED"
+    },
+    {
+      "id": "R6",
+      "status": "completed",
+      "scope": "Final checks, report reconciliation and source snapshots",
+      "evidence": "FINAL_METHOD_VERIFICATION_v4_0_6.json; METHOD_REPORT_CONSISTENCY_v4_0_6.json; VERSION_MANIFEST_v4_0_6.json"
+    }
+  ],
+  "deployment": "No live order activation requested; implementation and research validation in local workspace",
+  "completed_changes": [
+    {
+      "id": "IMP406-01",
+      "change": "Fixed standalone sizing_mode ignored; fixed1x now actual1x and invalid policies rejected",
+      "verification": "3 score-tier regression cases plus invalid-policy case;33 total tests passed"
+    },
+    {
+      "id": "IMP406-02",
+      "change": "Universe IS NAV includes final candle close at2026-01-01T00:00Z; original29 monetary discrepancies identified",
+      "verification": "Last-candle settlement regression and independent ledger reconciliation added; full338 rerun in progress"
+    },
+    {
+      "id": "IMP406-03",
+      "change": "Actual simulation costs used in summary; tested0/20/40/60bps"
+    },
+    {
+      "id": "IMP406-04",
+      "change": "Pivotleft2 unified;186 real candidate comparisons and137 future perturbation prefix candidates passed"
+    },
+    {
+      "id": "IMP406-05",
+      "change": "Gap through existing short stop fills at adverse open in3simulators"
+    },
+    {
+      "id": "IMP406-06",
+      "change": "Added pure paper-order planner, CLI, rejection tests and synthetic example"
+    },
+    {
+      "id": "IMP406-07",
+      "change": "Corrected M6 low-score multiplier from universe0.50 to declared0.80; benchmark metadata made consistent; cross-engine mismatch originally detected by funded vs unfunded execution parity"
+    }
+  ],
+  "active_process": {
+    "status": "completed"
+  },
+  "last_observation_utc": "2026-10-17T18:42:01.212832+00:00",
+  "tests": {
+    "passed": 55,
+    "seconds": 3.26,
+    "evidence": "METHOD_TEST_RESULTS_v4_0_6.xml"
+  },
+  "pending_findings": [],
+  "next_actions": [],
+  "active_processes": [],
+  "final_evidence": {
+    "tests_passed": 55,
+    "ledger_nodes": 268,
+    "records_including_scenario_duplicates": 46030,
+    "pit_membership_records": 15405,
+    "historical_files_unchanged": 75,
+    "input_files_verified": 838,
+    "manifest_files_verified": 81,
+    "pit_ex_funding_parity": "12/12exactIDs_and_NAVwithin_rounding",
+    "report_mutations_rejected": 6
+  },
+  "live_readiness": "NOT_GRANTED:12/12PIT ex-funding confidence intervals crosszero; material drawdown/cost sensitivity; forward execution and data-completeness evidence still required",
+  "delivery_files": [
+    "PHUONG_PHAP_FIBO_SHORT_v4_0_6.md",
+    "PROMPT_TIEP_THEO_v4_0_6.md",
+    "FINAL_METHOD_VERIFICATION_v4_0_6.json",
+    "VERSION_MANIFEST_v4_0_6.json"
+  ]
+}

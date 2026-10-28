@@ -246,6 +246,7 @@ export const SystemSettingsTab: React.FC<SystemSettingsTabProps> = ({
 
   return (
     <div className="flex-1 overflow-y-auto space-y-4 pr-1">
+      <a href="#account" className="block rounded-xl border border-sky-700/40 bg-sky-950/20 p-4 text-sm text-sky-200 hover:bg-sky-900/20">Mở trang Tài khoản & giao dịch →</a>
       {/* Header Banner */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-4 bg-slate-950/80 border border-slate-800 rounded-xl shadow-lg">
         <div className="flex items-center gap-3">

@@ -1,0 +1,92 @@
+{
+  "manifest_version": "4.0.3",
+  "generated_at_utc": "2026-10-17T06:26:04.880994+00:00",
+  "git_commit_sha": "52d43e10ed970423d5c6a778f3c038d5122193ea",
+  "pytest_verification": "18 passed in 1.88s",
+  "universe_input_fingerprint_sha256": "e32e07b0196749d15b5582d630f56b8b31990a74885cb04ce301f8e8fc434d37",
+  "markdown_json_consistency_verified": true,
+  "consistency_checks_count": 131,
+  "negative_mutation_tests_passed": true,
+  "negative_mutations_tested_count": 6,
+  "historical_preservation_verification": {
+    "baseline_file": "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json",
+    "total_historical_artifacts_checked": 10,
+    "all_unchanged_100pct": true,
+    "artifacts": {
+      "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json": {
+        "baseline_sha256": "833e31762a9dcf080d3b2a56022222b09d34c27dafba3a80c3d31e0dae35bf48",
+        "current_sha256": "833e31762a9dcf080d3b2a56022222b09d34c27dafba3a80c3d31e0dae35bf48",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json": {
+        "baseline_sha256": "2ee8990bf54eefbed53cc05a054b13a92958567f243d7854aba53870dc4c61bb",
+        "current_sha256": "2ee8990bf54eefbed53cc05a054b13a92958567f243d7854aba53870dc4c61bb",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md": {
+        "baseline_sha256": "93d467239aa4615413379d2af2e8f243f10f35dd66a222e097d518d22cfd92e3",
+        "current_sha256": "93d467239aa4615413379d2af2e8f243f10f35dd66a222e097d518d22cfd92e3",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json": {
+        "baseline_sha256": "00cce5da4556f265cc63ca10e1552419eedcd2ae537aec160946c27a9d2f2a3d",
+        "current_sha256": "00cce5da4556f265cc63ca10e1552419eedcd2ae537aec160946c27a9d2f2a3d",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST.json": {
+        "baseline_sha256": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924",
+        "current_sha256": "176598a691d8148c98ae20831f66a86760e57adf0398d4a086c1b060dd4a3924",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json": {
+        "baseline_sha256": "70e7c96065b295ab11e60e9d89d7441aa4b39c90f36131dd0b0307c638386e63",
+        "current_sha256": "70e7c96065b295ab11e60e9d89d7441aa4b39c90f36131dd0b0307c638386e63",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json": {
+        "baseline_sha256": "1f2ad011d264fb13ad6aac562ec153178b975861cc06e9de90e614eda0df9468",
+        "current_sha256": "1f2ad011d264fb13ad6aac562ec153178b975861cc06e9de90e614eda0df9468",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md": {
+        "baseline_sha256": "e5a1522425074faff8c7c9f83236c30b969133b89b717b9610edf292d3413454",
+        "current_sha256": "e5a1522425074faff8c7c9f83236c30b969133b89b717b9610edf292d3413454",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_2.json": {
+        "baseline_sha256": "b91a34273b9889b00640d59596ae8765da38e8f8ba4e87341c70dbbbb8982eb6",
+        "current_sha256": "b91a34273b9889b00640d59596ae8765da38e8f8ba4e87341c70dbbbb8982eb6",
+        "unchanged": true
+      },
+      "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_2_EVIDENCE.json": {
+        "baseline_sha256": "84b675b9be719f327e741841c1493145f087bbeeb3470980902c4df2b6d500cb",
+        "current_sha256": "84b675b9be719f327e741841c1493145f087bbeeb3470980902c4df2b6d500cb",
+        "unchanged": true
+      }
+    }
+  },
+  "code_snapshots": {
+    "v4_0_2": "artifacts/fibo_trend_short/snapshots/v4_0_2",
+    "v4_0_3": "artifacts/fibo_trend_short/snapshots/v4_0_3"
+  },
+  "sha256_checksums": {
+    "src/dao_vang/config/settings.py": "8e00e22a3ee1883038756b96dc4ddef0fd6d3eb8246d1bac6c8bd1f3a7fe92e4",
+    "src/dao_vang/fibo_short/detector.py": "8cdb2e9e043cc8f39153e2a5c60d18da970a0b5162b08cb668d49bf7bb9a1ec2",
+    "src/dao_vang/fibo_short/backtest.py": "ca29dde5380faf66677c4d06833f7e1823ead78b2c2e2944d37c45ee59e324a3",
+    "tests/unit/fibo_short/test_fibo_short.py": "a0c6d91ae3b16ed1d3702a47af0affdc785113d8c39f5380ef480f97a96bf137",
+    "scripts/fibo_research/verify_red_team_audit_2026.py": "22db93a173b6a9477bcf7fb8928859b66b5f08f163c3a0651b30ae8f231de624",
+    "scripts/fibo_research/verify_red_team_reaudit_v402.py": "9602ccd987c9fe17c7e7d96fd357ef278b9e8826434e10f1fe6ce5564a2505c0",
+    "scripts/fibo_research/verify_red_team_reaudit_v403.py": "3e8bb387060941570081065ec0a988f86fa8ca856f6fcbabd261ba4c9092a6d0",
+    "scripts/fibo_research/universe_reaudit_v402_worker.py": "c7419b69f85d4557f1b5567f095c6203df44699548814b67be7915e03c4b4d2e",
+    "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py": "f168c58a2a218ee3da068c8ba0b1799b59ee9fde3b7ab5b3e26be6536151fc94",
+    "scripts/fibo_research/study_factor2_3_4_complete_2025.py": "229a29196d2a4a1efa68033dd51ea5269e3bf6268746e2ee7748e8212cbc69aa",
+    "scripts/fibo_research/study_independent_audit_metrics.py": "26552ebe3e495df3b3a5611e100dbd35b4c95bffd9d97c3d5c0fdce60929d73a",
+    "scripts/fibo_research/study_insample_2020_2025_by_year.py": "9a165d90458d3170fe25b4abb43c3ea2e05be007c1b9cb87c3b1ee22c95f0544",
+    "scripts/fibo_research/study_oos_2026_all_7_milestones.py": "f05e8ffb762f0c7152853935dbc2a9ce2d6b532d7e89b458408fdd13ca63f342",
+    "scripts/fibo_research/study_coin_universe_selection_2026.py": "6f16c8f2d9586a142b8f017f48f06a282f170624aa68083ba0f7d93ed1119387",
+    "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json": "06b0b6428927a74796dc60804589fa13a8b4f1612e04ecd9e604f9d1b0aa230d",
+    "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md": "690bc04597ed7cf7f238f3476811e939008487c70e3f00fae369369c7396568a",
+    "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json": "c69cb5afd6d88313d3ce0b4b7b66ea1da550205d1b781eeb944f28425db6ed37",
+    "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json": "0c6dca3bf0948c417b89c75e834851adface479e1543a6e60712a95509a4a3da"
+  }
+}

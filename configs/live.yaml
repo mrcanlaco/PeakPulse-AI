@@ -1,10 +1,6 @@
 # Single source of truth for the live scanner service.
 # Telegram credentials remain in .env and are loaded by AppSettings.
 
-# Experimental GCP lane: independent observations.
-research_v3_enabled: true
-research_v3_telegram_enabled: true
-research_v3_model_path: artifacts/forward48_timing_20260913/forward48_timing_research_model.joblib
 paths:
   data_dir: data_live
   raw_dir: data_live/raw
@@ -108,14 +104,14 @@ self_learning:
 # Single candidate-filter policy: keep the validated V1 production lane.
 # V2 did not pass the promotion gate and is no longer run in shadow.
 candidate_comparison:
-  enabled: false
+  enabled: true
   champion_version: pump_filter_v1
   challenger_version: candidate_filter_v2
   universe_size: 150
   max_candidates: 30
   max_workers: 4
-  decision_interval_minutes: 60
-  outcome_check_interval_cycles: 12
+  decision_interval_minutes: 15
+  outcome_check_interval_cycles: 3
   horizon_hours: 24
   # New v2 truth contract: a 20% drawdown within 24h. The active frozen v1
   # bundle remains historical evidence and must be retrained before promotion.
@@ -190,6 +186,56 @@ execution_policy:
       horizon_hours: 24
       risk_multiplier: 0.50
 
+account_monitor:
+  enabled: true
+  credentials_file: .env.binance-readonly
+  poll_seconds: 15
+
+execution:
+  enabled: false
+  live_activated: false
+  environment: simulation
+  manifest_path: artifacts/trading/cross_short_atr_v1.json
+  enable_stop_loss: true
+  sl_max_loss_usdt: 5.0
+  sl_atr_multiplier: 3.0
+  stop_loss_pct: 0.12
+  enable_trailing_tp: true
+  trailing_trigger_atr: 1.5
+  trailing_callback_atr: 1.0
+  max_hold_hours: 72
+  require_price_confirmation: true
+
 updater:
   # Production releases are applied only by the exact-SHA CI/CD workflow.
   enabled: false
+
+fibo_trend_short:
+  enabled: true
+  higher_timeframes: ["4h", "1d"]
+  confirm_timeframe: "1h"
+  swing_lookback_bars: 30
+  min_prior_pump_pct: 0.05
+  min_impulse_drop_pct: 0.04
+  fibo_entry_min: 0.500
+  fibo_entry_max: 0.618
+  fibo_watch_min: 0.382
+  fibo_watch_max: 0.786
+  fibo_invalidation_level: 1.000
+  sl_mode: above_swing_high
+  sl_atr_buffer: 0.20
+  tp1_fibo_level: 0.000
+  tp2_extension_level: 1.272
+  tp3_extension_level: 1.618
+  require_both_h1_conditions: false
+  max_candidates: 60
+  horizon_hours: 72
+  telegram_enabled: true
+  telegram_cooldown_minutes: 180
+  telegram_require_qualified_short: true
+  telegram_allowed_policies:
+    - sniper_risk
+    - sniper_horizon24
+    - sniper_rr1_horizon24
+    - elite_sniper_risk
+  in_sample_end_utc: "2025-12-31T23:59:59+00:00"

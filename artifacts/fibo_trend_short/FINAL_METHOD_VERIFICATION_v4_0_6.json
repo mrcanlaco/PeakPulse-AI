@@ -1,0 +1,4882 @@
+{
+  "version": "4.0.6",
+  "generated_at_utc": "2026-10-17T18:41:35.071225+00:00",
+  "all_technical_checks_passed": true,
+  "historical_files_unchanged": 75,
+  "input_integrity": {
+    "all_unchanged": true,
+    "files_checked": 838,
+    "manifest_sha256": "1fa6870dfdd555cd3a25ea6ebef10502c00b587036de66c07d1a52b345b3e2ce"
+  },
+  "tests": {
+    "tests": 55,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "ledger_nodes_checked": 268,
+  "ledger_records_checked_with_scenario_duplicates": 46030,
+  "ledger_checks": {
+    "benchmark_method/is_2020_2025/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 141.1129,
+          "reported_nav": 141.1128,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 138.4345,
+          "reported_nav": 138.436,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 141.1129,
+          "reported_nav": 141.1128,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 138.4345,
+          "reported_nav": 138.436,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 150.5971,
+          "reported_nav": 150.598,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 152.22129999999999,
+          "reported_nav": 152.2209,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 136.4563,
+          "reported_nav": 136.4552,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 132.1457,
+          "reported_nav": 132.1456,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.9529,
+          "reported_nav": 126.9528,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 120.1873,
+          "reported_nav": 120.1873,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.9529,
+          "reported_nav": 126.9528,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 120.1873,
+          "reported_nav": 120.1873,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 136.4371,
+          "reported_nav": 136.438,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 132.1676,
+          "reported_nav": 132.1681,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.2963,
+          "reported_nav": 122.2952,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 114.7219,
+          "reported_nav": 114.7218,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 112.7929,
+          "reported_nav": 112.7928,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 104.3338,
+          "reported_nav": 104.3335,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 112.7929,
+          "reported_nav": 112.7928,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 104.3338,
+          "reported_nav": 104.3335,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.2771,
+          "reported_nav": 122.278,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 114.74430000000001,
+          "reported_nav": 114.7453,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 354,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 108.1363,
+          "reported_nav": 108.1352,
+          "tolerance": 0.01785
+        },
+        "comp": {
+          "sum_ledger_nav": 99.5853,
+          "reported_nav": 99.5852,
+          "tolerance": 0.01785
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 157.2976,
+          "reported_nav": 157.2976,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 160.9074,
+          "reported_nav": 160.9069,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 157.2976,
+          "reported_nav": 157.2976,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 160.9074,
+          "reported_nav": 160.9069,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 167.7083,
+          "reported_nav": 167.7077,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 178.60809999999998,
+          "reported_nav": 178.6076,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 152.1758,
+          "reported_nav": 152.1744,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 152.9,
+          "reported_nav": 152.8993,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 142.2156,
+          "reported_nav": 142.2156,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 138.4423,
+          "reported_nav": 138.4417,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 142.2156,
+          "reported_nav": 142.2156,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 138.4423,
+          "reported_nav": 138.4417,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 152.62630000000001,
+          "reported_nav": 152.6257,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 153.6893,
+          "reported_nav": 153.6891,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 137.0938,
+          "reported_nav": 137.0924,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 131.5465,
+          "reported_nav": 131.5463,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.1336,
+          "reported_nav": 127.1336,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 119.0993,
+          "reported_nav": 119.099,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.1336,
+          "reported_nav": 127.1336,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 119.0993,
+          "reported_nav": 119.099,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 137.5443,
+          "reported_nav": 137.5437,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 132.2319,
+          "reported_nav": 132.2317,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/is_2020_2025/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 351,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.0118,
+          "reported_nav": 122.0104,
+          "tolerance": 0.0177
+        },
+        "comp": {
+          "sum_ledger_nav": 113.1623,
+          "reported_nav": 113.1621,
+          "tolerance": 0.0177
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.89959999999999,
+          "reported_nav": 127.8997,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 129.2279,
+          "reported_nav": 129.2278,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.89959999999999,
+          "reported_nav": 127.8997,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 129.2279,
+          "reported_nav": 129.2278,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 129.1176,
+          "reported_nav": 129.1182,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 130.8274,
+          "reported_nav": 130.8277,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.23570000000001,
+          "reported_nav": 126.2356,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 127.10810000000001,
+          "reported_nav": 127.108,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.4196,
+          "reported_nav": 123.4197,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 123.5848,
+          "reported_nav": 123.5852,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.4196,
+          "reported_nav": 123.4197,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 123.5848,
+          "reported_nav": 123.5852,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.6376,
+          "reported_nav": 124.6382,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 125.1169,
+          "reported_nav": 125.1167,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.7557,
+          "reported_nav": 121.7556,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.5564,
+          "reported_nav": 121.5564,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.9396,
+          "reported_nav": 118.9397,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.1853,
+          "reported_nav": 118.1856,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.9396,
+          "reported_nav": 118.9397,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.1853,
+          "reported_nav": 118.1856,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.1576,
+          "reported_nav": 120.1582,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.6516,
+          "reported_nav": 119.6515,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 112,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.2757,
+          "reported_nav": 117.2756,
+          "tolerance": 0.005750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 116.2441,
+          "reported_nav": 116.2439,
+          "tolerance": 0.005750000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 132.115,
+          "reported_nav": 132.1153,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 134.0927,
+          "reported_nav": 134.0929,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 132.115,
+          "reported_nav": 132.1153,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 134.0927,
+          "reported_nav": 134.0929,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 133.3501,
+          "reported_nav": 133.3496,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 135.7952,
+          "reported_nav": 135.7952,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 130.2985,
+          "reported_nav": 130.2983,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 131.6998,
+          "reported_nav": 131.7001,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.31700000000001,
+          "reported_nav": 127.3173,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 127.8402,
+          "reported_nav": 127.84,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.31700000000001,
+          "reported_nav": 127.3173,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 127.8402,
+          "reported_nav": 127.84,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 128.5521,
+          "reported_nav": 128.5516,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 129.4643,
+          "reported_nav": 129.4642,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 125.5005,
+          "reported_nav": 125.5003,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 125.55709999999999,
+          "reported_nav": 125.557,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.519,
+          "reported_nav": 122.5193,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 121.8747,
+          "reported_nav": 121.8746,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.519,
+          "reported_nav": 122.5193,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 121.8747,
+          "reported_nav": 121.8746,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.7541,
+          "reported_nav": 123.7536,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 123.4237,
+          "reported_nav": 123.4241,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/calibration_2024_2025/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 111,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.7025,
+          "reported_nav": 120.7023,
+          "tolerance": 0.0057
+        },
+        "comp": {
+          "sum_ledger_nav": 119.69579999999999,
+          "reported_nav": 119.6964,
+          "tolerance": 0.0057
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.6807,
+          "reported_nav": 120.6808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 122.5125,
+          "reported_nav": 122.5127,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.6807,
+          "reported_nav": 120.6808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 122.5125,
+          "reported_nav": 122.5127,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.3596,
+          "reported_nav": 119.3597,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.9513,
+          "reported_nav": 120.9513,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.4431,
+          "reported_nav": 120.4431,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 122.2272,
+          "reported_nav": 122.2274,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.08070000000001,
+          "reported_nav": 120.0808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.7918,
+          "reported_nav": 121.7917,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.08070000000001,
+          "reported_nav": 120.0808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.7918,
+          "reported_nav": 121.7917,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.7596,
+          "reported_nav": 118.7597,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.2385,
+          "reported_nav": 120.2386,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.84309999999999,
+          "reported_nav": 119.8431,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.508,
+          "reported_nav": 121.508,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.4807,
+          "reported_nav": 119.4808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.0748,
+          "reported_nav": 121.0747,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.4807,
+          "reported_nav": 119.4808,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.0748,
+          "reported_nav": 121.0747,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.1596,
+          "reported_nav": 118.1597,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.5298,
+          "reported_nav": 119.5298,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 15,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.2431,
+          "reported_nav": 119.2431,
+          "tolerance": 0.0009000000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.7924,
+          "reported_nav": 120.7924,
+          "tolerance": 0.0009000000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.9725,
+          "reported_nav": 118.9725,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.4257,
+          "reported_nav": 120.4257,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.9725,
+          "reported_nav": 118.9725,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.4257,
+          "reported_nav": 120.4257,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.5294,
+          "reported_nav": 117.5293,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.7487,
+          "reported_nav": 118.7488,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.7322,
+          "reported_nav": 118.732,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.14150000000001,
+          "reported_nav": 120.1414,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.37049999999999,
+          "reported_nav": 118.3705,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.714,
+          "reported_nav": 119.714,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.37049999999999,
+          "reported_nav": 118.3705,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.714,
+          "reported_nav": 119.714,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 116.9274,
+          "reported_nav": 116.9273,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.0463,
+          "reported_nav": 118.0461,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.1302,
+          "reported_nav": 118.13,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.4313,
+          "reported_nav": 119.4312,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7685,
+          "reported_nav": 117.7685,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.0061,
+          "reported_nav": 119.0061,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7685,
+          "reported_nav": 117.7685,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.0061,
+          "reported_nav": 119.0061,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 116.3254,
+          "reported_nav": 116.3253,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 117.3473,
+          "reported_nav": 117.3472,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_hard_0831/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 14,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.5282,
+          "reported_nav": 117.528,
+          "tolerance": 0.0008500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.725,
+          "reported_nav": 118.7249,
+          "tolerance": 0.0008500000000000001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6446,
+          "reported_nav": 122.6447,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 124.9226,
+          "reported_nav": 124.9229,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6446,
+          "reported_nav": 122.6447,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 124.9226,
+          "reported_nav": 124.9229,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.3586,
+          "reported_nav": 121.3588,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 123.3737,
+          "reported_nav": 123.3738,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.3441,
+          "reported_nav": 122.3442,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 124.5539,
+          "reported_nav": 124.5541,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.9246,
+          "reported_nav": 121.9247,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0404,
+          "reported_nav": 124.0403,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.9246,
+          "reported_nav": 121.9247,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0404,
+          "reported_nav": 124.0403,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.6386,
+          "reported_nav": 120.6388,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 122.5012,
+          "reported_nav": 122.5012,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.6241,
+          "reported_nav": 121.6242,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 123.674,
+          "reported_nav": 123.6739,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.2046,
+          "reported_nav": 121.2047,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 123.1635,
+          "reported_nav": 123.1634,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.2046,
+          "reported_nav": 121.2047,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 123.1635,
+          "reported_nav": 123.1634,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.9186,
+          "reported_nav": 119.9188,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 121.6343,
+          "reported_nav": 121.6344,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 18,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.9041,
+          "reported_nav": 120.9042,
+          "tolerance": 0.00105
+        },
+        "comp": {
+          "sum_ledger_nav": 122.79939999999999,
+          "reported_nav": 122.7994,
+          "tolerance": 0.00105
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.5437,
+          "reported_nav": 120.5437,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 122.3201,
+          "reported_nav": 122.3201,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.5437,
+          "reported_nav": 120.5437,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 122.3201,
+          "reported_nav": 122.3201,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.12870000000001,
+          "reported_nav": 119.1285,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.6506,
+          "reported_nav": 120.6506,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.253,
+          "reported_nav": 120.2528,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.9704,
+          "reported_nav": 121.9703,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.8457,
+          "reported_nav": 119.8457,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.48140000000001,
+          "reported_nav": 121.4815,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.8457,
+          "reported_nav": 119.8457,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.48140000000001,
+          "reported_nav": 121.4815,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.4307,
+          "reported_nav": 118.4305,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 119.8227,
+          "reported_nav": 119.8225,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.555,
+          "reported_nav": 119.5548,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 121.1339,
+          "reported_nav": 121.1339,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.1477,
+          "reported_nav": 119.1477,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.6482,
+          "reported_nav": 120.6482,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.1477,
+          "reported_nav": 119.1477,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.6482,
+          "reported_nav": 120.6482,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7327,
+          "reported_nav": 117.7325,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 118.9996,
+          "reported_nav": 118.9996,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "benchmark_method/reused_validation_available_0929/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 17,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.857,
+          "reported_nav": 118.8568,
+          "tolerance": 0.001
+        },
+        "comp": {
+          "sum_ledger_nav": 120.3027,
+          "reported_nav": 120.3028,
+          "tolerance": 0.001
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.4284,
+          "reported_nav": 131.4287,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 121.027,
+          "reported_nav": 121.0265,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.49170000000001,
+          "reported_nav": 117.4919,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 105.2833,
+          "reported_nav": 105.283,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 101.7295,
+          "reported_nav": 101.73,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 90.1669,
+          "reported_nav": 90.168,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.2888,
+          "reported_nav": 138.2893,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 128.3461,
+          "reported_nav": 128.3461,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6908,
+          "reported_nav": 122.6913,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 109.8557,
+          "reported_nav": 109.8545,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_method/calibration_2024_2025/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 374,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.7371,
+          "reported_nav": 110.7376,
+          "tolerance": 0.01885
+        },
+        "comp": {
+          "sum_ledger_nav": 97.8025,
+          "reported_nav": 97.8023,
+          "tolerance": 0.01885
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.5903,
+          "reported_nav": 120.5906,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 120.2148,
+          "reported_nav": 120.2145,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7103,
+          "reported_nav": 117.7106,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 116.8275,
+          "reported_nav": 116.8276,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 114.8303,
+          "reported_nav": 114.8306,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 113.5335,
+          "reported_nav": 113.5334,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.34870000000001,
+          "reported_nav": 121.3488,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 120.795,
+          "reported_nav": 120.7951,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_method/reused_validation_hard_0831/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.4747,
+          "reported_nav": 118.4748,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 117.4002,
+          "reported_nav": 117.4001,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.4284,
+          "reported_nav": 131.4287,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 121.027,
+          "reported_nav": 121.0265,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.4284,
+          "reported_nav": 131.4287,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 121.027,
+          "reported_nav": 121.0265,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 134.4118,
+          "reported_nav": 134.411,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 124.7031,
+          "reported_nav": 124.7038,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.1722,
+          "reported_nav": 127.1721,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 115.992,
+          "reported_nav": 115.9923,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.49170000000001,
+          "reported_nav": 117.4919,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 105.2833,
+          "reported_nav": 105.283,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.49170000000001,
+          "reported_nav": 117.4919,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 105.2833,
+          "reported_nav": 105.283,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 383,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.2342,
+          "reported_nav": 120.2335,
+          "tolerance": 0.0193
+        },
+        "comp": {
+          "sum_ledger_nav": 108.21209999999999,
+          "reported_nav": 108.2112,
+          "tolerance": 0.0193
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 111.6305,
+          "reported_nav": 111.6306,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 99.3372,
+          "reported_nav": 99.3375,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 101.7295,
+          "reported_nav": 101.73,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 90.1669,
+          "reported_nav": 90.168,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 101.7295,
+          "reported_nav": 101.73,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 90.1669,
+          "reported_nav": 90.168,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 104.7019,
+          "reported_nav": 104.7012,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 92.9033,
+          "reported_nav": 92.9031,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 382,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 96.3592,
+          "reported_nav": 96.3592,
+          "tolerance": 0.01925
+        },
+        "comp": {
+          "sum_ledger_nav": 85.46809999999999,
+          "reported_nav": 85.4679,
+          "tolerance": 0.01925
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.2888,
+          "reported_nav": 138.2893,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 128.3461,
+          "reported_nav": 128.3461,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.2888,
+          "reported_nav": 138.2893,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 128.3461,
+          "reported_nav": 128.3461,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 140.999,
+          "reported_nav": 140.9991,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 131.8416,
+          "reported_nav": 131.8412,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 132.8437,
+          "reported_nav": 132.843,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 121.5951,
+          "reported_nav": 121.5945,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6908,
+          "reported_nav": 122.6913,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 109.8557,
+          "reported_nav": 109.8545,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6908,
+          "reported_nav": 122.6913,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 109.8557,
+          "reported_nav": 109.8545,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 125.401,
+          "reported_nav": 125.4011,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 112.8518,
+          "reported_nav": 112.8512,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.2457,
+          "reported_nav": 117.245,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 104.0687,
+          "reported_nav": 104.0678,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 374,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.7371,
+          "reported_nav": 110.7376,
+          "tolerance": 0.01885
+        },
+        "comp": {
+          "sum_ledger_nav": 97.8025,
+          "reported_nav": 97.8023,
+          "tolerance": 0.01885
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 374,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.7371,
+          "reported_nav": 110.7376,
+          "tolerance": 0.01885
+        },
+        "comp": {
+          "sum_ledger_nav": 97.8025,
+          "reported_nav": 97.8023,
+          "tolerance": 0.01885
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 374,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 113.4226,
+          "reported_nav": 113.4227,
+          "tolerance": 0.01885
+        },
+        "comp": {
+          "sum_ledger_nav": 100.4503,
+          "reported_nav": 100.4507,
+          "tolerance": 0.01885
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 374,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 105.2906,
+          "reported_nav": 105.2899,
+          "tolerance": 0.01885
+        },
+        "comp": {
+          "sum_ledger_nav": 92.6421,
+          "reported_nav": 92.642,
+          "tolerance": 0.01885
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/20bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.5903,
+          "reported_nav": 120.5906,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 120.2148,
+          "reported_nav": 120.2145,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.5903,
+          "reported_nav": 120.5906,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 120.2148,
+          "reported_nav": 120.2145,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.8274,
+          "reported_nav": 120.8274,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 120.4919,
+          "reported_nav": 120.4923,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 119.4845,
+          "reported_nav": 119.4848,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 118.9118,
+          "reported_nav": 118.9117,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/40bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7103,
+          "reported_nav": 117.7106,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 116.8275,
+          "reported_nav": 116.8276,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.7103,
+          "reported_nav": 117.7106,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 116.8275,
+          "reported_nav": 116.8276,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.9474,
+          "reported_nav": 117.9474,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 117.0978,
+          "reported_nav": 117.0978,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 116.6045,
+          "reported_nav": 116.6048,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 115.5603,
+          "reported_nav": 115.5604,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/60bps": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 114.8303,
+          "reported_nav": 114.8306,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 113.5335,
+          "reported_nav": 113.5334,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 114.8303,
+          "reported_nav": 114.8306,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 113.5335,
+          "reported_nav": 113.5334,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.06739999999999,
+          "reported_nav": 115.0674,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 113.7963,
+          "reported_nav": 113.7962,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 72,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 113.7245,
+          "reported_nav": 113.7248,
+          "tolerance": 0.00375
+        },
+        "comp": {
+          "sum_ledger_nav": 112.301,
+          "reported_nav": 112.3008,
+          "tolerance": 0.00375
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/20bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/20bps/ex_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/20bps/historical_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.0644,
+          "reported_nav": 124.0641,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.3102,
+          "reported_nav": 124.31,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/20bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 122.6558,
+          "reported_nav": 122.6561,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 122.604,
+          "reported_nav": 122.6038,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/40bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.34870000000001,
+          "reported_nav": 121.3488,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 120.795,
+          "reported_nav": 120.7951,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/40bps/ex_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.34870000000001,
+          "reported_nav": 121.3488,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 120.795,
+          "reported_nav": 120.7951,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/40bps/historical_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 121.1764,
+          "reported_nav": 121.1761,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 120.7984,
+          "reported_nav": 120.7983,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/40bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.1931,
+          "reported_nav": 120.1934,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 119.4271,
+          "reported_nav": 119.4273,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/60bps": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.4747,
+          "reported_nav": 118.4748,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 117.4002,
+          "reported_nav": 117.4001,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/60bps/ex_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.4747,
+          "reported_nav": 118.4748,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 117.4002,
+          "reported_nav": 117.4001,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/60bps/historical_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 118.7318,
+          "reported_nav": 118.7315,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 117.69239999999999,
+          "reported_nav": 117.6925,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/60bps/stress_1bp_8h_funding": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 117.31909999999999,
+          "reported_nav": 117.3194,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 116.0697,
+          "reported_nav": 116.0695,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 605,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 67.25319999999999,
+          "reported_nav": 67.2525,
+          "tolerance": 0.0304
+        },
+        "comp": {
+          "sum_ledger_nav": 53.5487,
+          "reported_nav": 53.5485,
+          "tolerance": 0.0304
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 833,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 92.4847,
+          "reported_nav": 92.4848,
+          "tolerance": 0.041800000000000004
+        },
+        "comp": {
+          "sum_ledger_nav": 64.33699999999999,
+          "reported_nav": 64.3378,
+          "tolerance": 0.041800000000000004
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 655,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 108.215,
+          "reported_nav": 108.2151,
+          "tolerance": 0.032900000000000006
+        },
+        "comp": {
+          "sum_ledger_nav": 75.88560000000001,
+          "reported_nav": 75.887,
+          "tolerance": 0.032900000000000006
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 530,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 71.586,
+          "reported_nav": 71.5852,
+          "tolerance": 0.02665
+        },
+        "comp": {
+          "sum_ledger_nav": 55.493199999999995,
+          "reported_nav": 55.4938,
+          "tolerance": 0.02665
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 260,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -1.1140999999999934,
+          "reported_nav": -1.1146,
+          "tolerance": 0.01315
+        },
+        "comp": {
+          "sum_ledger_nav": 33.233599999999996,
+          "reported_nav": 33.2326,
+          "tolerance": 0.01315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 402,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 42.787400000000005,
+          "reported_nav": 42.7874,
+          "tolerance": 0.02025
+        },
+        "comp": {
+          "sum_ledger_nav": 49.6492,
+          "reported_nav": 49.6492,
+          "tolerance": 0.02025
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 268,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 52.362700000000004,
+          "reported_nav": 52.3623,
+          "tolerance": 0.01355
+        },
+        "comp": {
+          "sum_ledger_nav": 55.791,
+          "reported_nav": 55.7905,
+          "tolerance": 0.01355
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 228,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 24.1777,
+          "reported_nav": 24.1775,
+          "tolerance": 0.01155
+        },
+        "comp": {
+          "sum_ledger_nav": 42.745,
+          "reported_nav": 42.7451,
+          "tolerance": 0.01155
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 260,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -1.1140999999999934,
+          "reported_nav": -1.1146,
+          "tolerance": 0.01315
+        },
+        "comp": {
+          "sum_ledger_nav": 33.233599999999996,
+          "reported_nav": 33.2326,
+          "tolerance": 0.01315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 402,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 42.787400000000005,
+          "reported_nav": 42.7874,
+          "tolerance": 0.02025
+        },
+        "comp": {
+          "sum_ledger_nav": 49.6492,
+          "reported_nav": 49.6492,
+          "tolerance": 0.02025
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 268,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 52.362700000000004,
+          "reported_nav": 52.3623,
+          "tolerance": 0.01355
+        },
+        "comp": {
+          "sum_ledger_nav": 55.791,
+          "reported_nav": 55.7905,
+          "tolerance": 0.01355
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 228,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 24.1777,
+          "reported_nav": 24.1775,
+          "tolerance": 0.01155
+        },
+        "comp": {
+          "sum_ledger_nav": 42.745,
+          "reported_nav": 42.7451,
+          "tolerance": 0.01155
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 260,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -1.1140999999999934,
+          "reported_nav": -1.1146,
+          "tolerance": 0.01315
+        },
+        "comp": {
+          "sum_ledger_nav": 33.233599999999996,
+          "reported_nav": 33.2326,
+          "tolerance": 0.01315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 402,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 42.787400000000005,
+          "reported_nav": 42.7874,
+          "tolerance": 0.02025
+        },
+        "comp": {
+          "sum_ledger_nav": 49.6492,
+          "reported_nav": 49.6492,
+          "tolerance": 0.02025
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 268,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 52.362700000000004,
+          "reported_nav": 52.3623,
+          "tolerance": 0.01355
+        },
+        "comp": {
+          "sum_ledger_nav": 55.791,
+          "reported_nav": 55.7905,
+          "tolerance": 0.01355
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ALL_338_UNFILTERED__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 228,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 24.1777,
+          "reported_nav": 24.1775,
+          "tolerance": 0.01155
+        },
+        "comp": {
+          "sum_ledger_nav": 42.745,
+          "reported_nav": 42.7451,
+          "tolerance": 0.01155
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 280,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 109.8021,
+          "reported_nav": 109.8023,
+          "tolerance": 0.01415
+        },
+        "comp": {
+          "sum_ledger_nav": 99.5996,
+          "reported_nav": 99.5997,
+          "tolerance": 0.01415
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 375,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.2888,
+          "reported_nav": 138.2893,
+          "tolerance": 0.0189
+        },
+        "comp": {
+          "sum_ledger_nav": 128.3461,
+          "reported_nav": 128.3461,
+          "tolerance": 0.0189
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 300,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 161.6979,
+          "reported_nav": 161.698,
+          "tolerance": 0.01515
+        },
+        "comp": {
+          "sum_ledger_nav": 163.7422,
+          "reported_nav": 163.7416,
+          "tolerance": 0.01515
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 250,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 136.82420000000002,
+          "reported_nav": 136.8247,
+          "tolerance": 0.01265
+        },
+        "comp": {
+          "sum_ledger_nav": 130.1812,
+          "reported_nav": 130.1813,
+          "tolerance": 0.01265
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 56,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.8529,
+          "reported_nav": 115.8528,
+          "tolerance": 0.00295
+        },
+        "comp": {
+          "sum_ledger_nav": 115.0925,
+          "reported_nav": 115.0929,
+          "tolerance": 0.00295
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 60,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.7616,
+          "reported_nav": 120.7615,
+          "tolerance": 0.00315
+        },
+        "comp": {
+          "sum_ledger_nav": 120.8878,
+          "reported_nav": 120.8878,
+          "tolerance": 0.00315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 45,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.7719,
+          "reported_nav": 115.7718,
+          "tolerance": 0.0024
+        },
+        "comp": {
+          "sum_ledger_nav": 114.9635,
+          "reported_nav": 114.9637,
+          "tolerance": 0.0024
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 56,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.8529,
+          "reported_nav": 115.8528,
+          "tolerance": 0.00295
+        },
+        "comp": {
+          "sum_ledger_nav": 115.0925,
+          "reported_nav": 115.0929,
+          "tolerance": 0.00295
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 60,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.7616,
+          "reported_nav": 120.7615,
+          "tolerance": 0.00315
+        },
+        "comp": {
+          "sum_ledger_nav": 120.8878,
+          "reported_nav": 120.8878,
+          "tolerance": 0.00315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 45,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.7719,
+          "reported_nav": 115.7718,
+          "tolerance": 0.0024
+        },
+        "comp": {
+          "sum_ledger_nav": 114.9635,
+          "reported_nav": 114.9637,
+          "tolerance": 0.0024
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 56,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.8529,
+          "reported_nav": 115.8528,
+          "tolerance": 0.00295
+        },
+        "comp": {
+          "sum_ledger_nav": 115.0925,
+          "reported_nav": 115.0929,
+          "tolerance": 0.00295
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 71,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.8189,
+          "reported_nav": 123.8191,
+          "tolerance": 0.0037
+        },
+        "comp": {
+          "sum_ledger_nav": 124.0175,
+          "reported_nav": 124.0172,
+          "tolerance": 0.0037
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 60,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 120.7616,
+          "reported_nav": 120.7615,
+          "tolerance": 0.00315
+        },
+        "comp": {
+          "sum_ledger_nav": 120.8878,
+          "reported_nav": 120.8878,
+          "tolerance": 0.00315
+        }
+      },
+      "errors": []
+    },
+    "universe_338__ROLLING_PIT_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 45,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.7719,
+          "reported_nav": 115.7718,
+          "tolerance": 0.0024
+        },
+        "comp": {
+          "sum_ledger_nav": 114.9635,
+          "reported_nav": 114.9637,
+          "tolerance": 0.0024
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 292,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.3617,
+          "reported_nav": 124.3621,
+          "tolerance": 0.014750000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 114.2169,
+          "reported_nav": 114.2161,
+          "tolerance": 0.014750000000000001
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 384,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.7251,
+          "reported_nav": 123.7251,
+          "tolerance": 0.01935
+        },
+        "comp": {
+          "sum_ledger_nav": 109.2526,
+          "reported_nav": 109.2537,
+          "tolerance": 0.01935
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 309,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 148.8928,
+          "reported_nav": 148.8928,
+          "tolerance": 0.0156
+        },
+        "comp": {
+          "sum_ledger_nav": 140.3902,
+          "reported_nav": 140.3906,
+          "tolerance": 0.0156
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 242,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 155.2921,
+          "reported_nav": 155.2928,
+          "tolerance": 0.01225
+        },
+        "comp": {
+          "sum_ledger_nav": 154.2833,
+          "reported_nav": 154.2828,
+          "tolerance": 0.01225
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 49,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 98.8567,
+          "reported_nav": 98.8565,
+          "tolerance": 0.0026
+        },
+        "comp": {
+          "sum_ledger_nav": 97.2207,
+          "reported_nav": 97.2206,
+          "tolerance": 0.0026
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 65,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 107.1235,
+          "reported_nav": 107.1236,
+          "tolerance": 0.0034
+        },
+        "comp": {
+          "sum_ledger_nav": 105.1383,
+          "reported_nav": 105.1383,
+          "tolerance": 0.0034
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.1405,
+          "reported_nav": 110.1406,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 108.3274,
+          "reported_nav": 108.3278,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 40,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 103.8719,
+          "reported_nav": 103.8719,
+          "tolerance": 0.00215
+        },
+        "comp": {
+          "sum_ledger_nav": 102.389,
+          "reported_nav": 102.3892,
+          "tolerance": 0.00215
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 49,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 98.8567,
+          "reported_nav": 98.8565,
+          "tolerance": 0.0026
+        },
+        "comp": {
+          "sum_ledger_nav": 97.2207,
+          "reported_nav": 97.2206,
+          "tolerance": 0.0026
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 65,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 107.1235,
+          "reported_nav": 107.1236,
+          "tolerance": 0.0034
+        },
+        "comp": {
+          "sum_ledger_nav": 105.1383,
+          "reported_nav": 105.1383,
+          "tolerance": 0.0034
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.1405,
+          "reported_nav": 110.1406,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 108.3274,
+          "reported_nav": 108.3278,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 40,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 103.8719,
+          "reported_nav": 103.8719,
+          "tolerance": 0.00215
+        },
+        "comp": {
+          "sum_ledger_nav": 102.389,
+          "reported_nav": 102.3892,
+          "tolerance": 0.00215
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 49,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 98.8567,
+          "reported_nav": 98.8565,
+          "tolerance": 0.0026
+        },
+        "comp": {
+          "sum_ledger_nav": 97.2207,
+          "reported_nav": 97.2206,
+          "tolerance": 0.0026
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 65,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 107.1235,
+          "reported_nav": 107.1236,
+          "tolerance": 0.0034
+        },
+        "comp": {
+          "sum_ledger_nav": 105.1383,
+          "reported_nav": 105.1383,
+          "tolerance": 0.0034
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 110.1405,
+          "reported_nav": 110.1406,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 108.3274,
+          "reported_nav": 108.3278,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__EX_ANTE_2026_TOP50_VOL__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 40,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 103.8719,
+          "reported_nav": 103.8719,
+          "tolerance": 0.00215
+        },
+        "comp": {
+          "sum_ledger_nav": 102.389,
+          "reported_nav": 102.3892,
+          "tolerance": 0.00215
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 183,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 203.852,
+          "reported_nav": 203.8518,
+          "tolerance": 0.0093
+        },
+        "comp": {
+          "sum_ledger_nav": 264.76980000000003,
+          "reported_nav": 264.7699,
+          "tolerance": 0.0093
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 242,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 219.4244,
+          "reported_nav": 219.4235,
+          "tolerance": 0.01225
+        },
+        "comp": {
+          "sum_ledger_nav": 302.4931,
+          "reported_nav": 302.4929,
+          "tolerance": 0.01225
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 200,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 221.5199,
+          "reported_nav": 221.5196,
+          "tolerance": 0.01015
+        },
+        "comp": {
+          "sum_ledger_nav": 308.6328,
+          "reported_nav": 308.6329,
+          "tolerance": 0.01015
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 163,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 214.10590000000002,
+          "reported_nav": 214.1057,
+          "tolerance": 0.0083
+        },
+        "comp": {
+          "sum_ledger_nav": 290.1284,
+          "reported_nav": 290.1285,
+          "tolerance": 0.0083
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 29,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.5293,
+          "reported_nav": 126.5292,
+          "tolerance": 0.0016
+        },
+        "comp": {
+          "sum_ledger_nav": 129.2172,
+          "reported_nav": 129.2174,
+          "tolerance": 0.0016
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 37,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 140.986,
+          "reported_nav": 140.9857,
+          "tolerance": 0.002
+        },
+        "comp": {
+          "sum_ledger_nav": 148.6344,
+          "reported_nav": 148.6346,
+          "tolerance": 0.002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 33,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.5452,
+          "reported_nav": 138.545,
+          "tolerance": 0.0018000000000000002
+        },
+        "comp": {
+          "sum_ledger_nav": 145.3324,
+          "reported_nav": 145.3326,
+          "tolerance": 0.0018000000000000002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 26,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.7225,
+          "reported_nav": 131.7223,
+          "tolerance": 0.0014500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 135.92770000000002,
+          "reported_nav": 135.9276,
+          "tolerance": 0.0014500000000000001
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 29,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.5293,
+          "reported_nav": 126.5292,
+          "tolerance": 0.0016
+        },
+        "comp": {
+          "sum_ledger_nav": 129.2172,
+          "reported_nav": 129.2174,
+          "tolerance": 0.0016
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 37,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 140.986,
+          "reported_nav": 140.9857,
+          "tolerance": 0.002
+        },
+        "comp": {
+          "sum_ledger_nav": 148.6344,
+          "reported_nav": 148.6346,
+          "tolerance": 0.002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 33,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.5452,
+          "reported_nav": 138.545,
+          "tolerance": 0.0018000000000000002
+        },
+        "comp": {
+          "sum_ledger_nav": 145.3324,
+          "reported_nav": 145.3326,
+          "tolerance": 0.0018000000000000002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 26,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.7225,
+          "reported_nav": 131.7223,
+          "tolerance": 0.0014500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 135.92770000000002,
+          "reported_nav": 135.9276,
+          "tolerance": 0.0014500000000000001
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 29,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 126.5293,
+          "reported_nav": 126.5292,
+          "tolerance": 0.0016
+        },
+        "comp": {
+          "sum_ledger_nav": 129.2172,
+          "reported_nav": 129.2174,
+          "tolerance": 0.0016
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 37,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 140.986,
+          "reported_nav": 140.9857,
+          "tolerance": 0.002
+        },
+        "comp": {
+          "sum_ledger_nav": 148.6344,
+          "reported_nav": 148.6346,
+          "tolerance": 0.002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 33,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 138.5452,
+          "reported_nav": 138.545,
+          "tolerance": 0.0018000000000000002
+        },
+        "comp": {
+          "sum_ledger_nav": 145.3324,
+          "reported_nav": 145.3326,
+          "tolerance": 0.0018000000000000002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_CORE__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 26,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 131.7225,
+          "reported_nav": 131.7223,
+          "tolerance": 0.0014500000000000001
+        },
+        "comp": {
+          "sum_ledger_nav": 135.92770000000002,
+          "reported_nav": 135.9276,
+          "tolerance": 0.0014500000000000001
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 291,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 187.7043,
+          "reported_nav": 187.704,
+          "tolerance": 0.0147
+        },
+        "comp": {
+          "sum_ledger_nav": 216.1852,
+          "reported_nav": 216.1845,
+          "tolerance": 0.0147
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 409,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 180.2259,
+          "reported_nav": 180.2244,
+          "tolerance": 0.0206
+        },
+        "comp": {
+          "sum_ledger_nav": 192.02960000000002,
+          "reported_nav": 192.0294,
+          "tolerance": 0.0206
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 324,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 211.0863,
+          "reported_nav": 211.0858,
+          "tolerance": 0.01635
+        },
+        "comp": {
+          "sum_ledger_nav": 260.8432,
+          "reported_nav": 260.8426,
+          "tolerance": 0.01635
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 255,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 201.10219999999998,
+          "reported_nav": 201.1018,
+          "tolerance": 0.0129
+        },
+        "comp": {
+          "sum_ledger_nav": 242.006,
+          "reported_nav": 242.0061,
+          "tolerance": 0.0129
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 52,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.7303,
+          "reported_nav": 127.7301,
+          "tolerance": 0.00275
+        },
+        "comp": {
+          "sum_ledger_nav": 130.0868,
+          "reported_nav": 130.0869,
+          "tolerance": 0.00275
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 75,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 145.5229,
+          "reported_nav": 145.5228,
+          "tolerance": 0.0039
+        },
+        "comp": {
+          "sum_ledger_nav": 155.1078,
+          "reported_nav": 155.1081,
+          "tolerance": 0.0039
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 63,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 147.3207,
+          "reported_nav": 147.3206,
+          "tolerance": 0.0033
+        },
+        "comp": {
+          "sum_ledger_nav": 158.0188,
+          "reported_nav": 158.0186,
+          "tolerance": 0.0033
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 46,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 133.8052,
+          "reported_nav": 133.805,
+          "tolerance": 0.00245
+        },
+        "comp": {
+          "sum_ledger_nav": 138.48160000000001,
+          "reported_nav": 138.4818,
+          "tolerance": 0.00245
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 52,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.7303,
+          "reported_nav": 127.7301,
+          "tolerance": 0.00275
+        },
+        "comp": {
+          "sum_ledger_nav": 130.0868,
+          "reported_nav": 130.0869,
+          "tolerance": 0.00275
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 75,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 145.5229,
+          "reported_nav": 145.5228,
+          "tolerance": 0.0039
+        },
+        "comp": {
+          "sum_ledger_nav": 155.1078,
+          "reported_nav": 155.1081,
+          "tolerance": 0.0039
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 63,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 147.3207,
+          "reported_nav": 147.3206,
+          "tolerance": 0.0033
+        },
+        "comp": {
+          "sum_ledger_nav": 158.0188,
+          "reported_nav": 158.0186,
+          "tolerance": 0.0033
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 46,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 133.8052,
+          "reported_nav": 133.805,
+          "tolerance": 0.00245
+        },
+        "comp": {
+          "sum_ledger_nav": 138.48160000000001,
+          "reported_nav": 138.4818,
+          "tolerance": 0.00245
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 52,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 127.7303,
+          "reported_nav": 127.7301,
+          "tolerance": 0.00275
+        },
+        "comp": {
+          "sum_ledger_nav": 130.0868,
+          "reported_nav": 130.0869,
+          "tolerance": 0.00275
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 75,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 145.5229,
+          "reported_nav": 145.5228,
+          "tolerance": 0.0039
+        },
+        "comp": {
+          "sum_ledger_nav": 155.1078,
+          "reported_nav": 155.1081,
+          "tolerance": 0.0039
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 63,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 147.3207,
+          "reported_nav": 147.3206,
+          "tolerance": 0.0033
+        },
+        "comp": {
+          "sum_ledger_nav": 158.0188,
+          "reported_nav": 158.0186,
+          "tolerance": 0.0033
+        }
+      },
+      "errors": []
+    },
+    "universe_338__TIER_S_PLUS_A_WHITELIST__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 46,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 133.8052,
+          "reported_nav": 133.805,
+          "tolerance": 0.00245
+        },
+        "comp": {
+          "sum_ledger_nav": 138.48160000000001,
+          "reported_nav": 138.4818,
+          "tolerance": 0.00245
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 307,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 103.9026,
+          "reported_nav": 103.9027,
+          "tolerance": 0.0155
+        },
+        "comp": {
+          "sum_ledger_nav": 91.9117,
+          "reported_nav": 91.9123,
+          "tolerance": 0.0155
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 427,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 104.0369,
+          "reported_nav": 104.0375,
+          "tolerance": 0.021500000000000002
+        },
+        "comp": {
+          "sum_ledger_nav": 89.9107,
+          "reported_nav": 89.9092,
+          "tolerance": 0.021500000000000002
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 331,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 130.841,
+          "reported_nav": 130.8408,
+          "tolerance": 0.0167
+        },
+        "comp": {
+          "sum_ledger_nav": 118.0848,
+          "reported_nav": 118.0846,
+          "tolerance": 0.0167
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 257,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 99.666,
+          "reported_nav": 99.6655,
+          "tolerance": 0.013
+        },
+        "comp": {
+          "sum_ledger_nav": 88.3523,
+          "reported_nav": 88.3526,
+          "tolerance": 0.013
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 111.2302,
+          "reported_nav": 111.23,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 110.53020000000001,
+          "reported_nav": 110.5302,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 73,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.7955,
+          "reported_nav": 123.7954,
+          "tolerance": 0.0038
+        },
+        "comp": {
+          "sum_ledger_nav": 125.2595,
+          "reported_nav": 125.2591,
+          "tolerance": 0.0038
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 59,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.264,
+          "reported_nav": 124.2638,
+          "tolerance": 0.0031
+        },
+        "comp": {
+          "sum_ledger_nav": 126.0159,
+          "reported_nav": 126.0156,
+          "tolerance": 0.0031
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 44,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.2515,
+          "reported_nav": 115.2513,
+          "tolerance": 0.00235
+        },
+        "comp": {
+          "sum_ledger_nav": 115.3364,
+          "reported_nav": 115.3365,
+          "tolerance": 0.00235
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 111.2302,
+          "reported_nav": 111.23,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 110.53020000000001,
+          "reported_nav": 110.5302,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 73,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.7955,
+          "reported_nav": 123.7954,
+          "tolerance": 0.0038
+        },
+        "comp": {
+          "sum_ledger_nav": 125.2595,
+          "reported_nav": 125.2591,
+          "tolerance": 0.0038
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 59,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.264,
+          "reported_nav": 124.2638,
+          "tolerance": 0.0031
+        },
+        "comp": {
+          "sum_ledger_nav": 126.0159,
+          "reported_nav": 126.0156,
+          "tolerance": 0.0031
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 44,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.2515,
+          "reported_nav": 115.2513,
+          "tolerance": 0.00235
+        },
+        "comp": {
+          "sum_ledger_nav": 115.3364,
+          "reported_nav": 115.3365,
+          "tolerance": 0.00235
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 55,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 111.2302,
+          "reported_nav": 111.23,
+          "tolerance": 0.0029
+        },
+        "comp": {
+          "sum_ledger_nav": 110.53020000000001,
+          "reported_nav": 110.5302,
+          "tolerance": 0.0029
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 73,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 123.7955,
+          "reported_nav": 123.7954,
+          "tolerance": 0.0038
+        },
+        "comp": {
+          "sum_ledger_nav": 125.2595,
+          "reported_nav": 125.2591,
+          "tolerance": 0.0038
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 59,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 124.264,
+          "reported_nav": 124.2638,
+          "tolerance": 0.0031
+        },
+        "comp": {
+          "sum_ledger_nav": 126.0159,
+          "reported_nav": 126.0156,
+          "tolerance": 0.0031
+        }
+      },
+      "errors": []
+    },
+    "universe_338__PIT_ZERO_BIAS_MCAP_FLOAT__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 44,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 115.2515,
+          "reported_nav": 115.2513,
+          "tolerance": 0.00235
+        },
+        "comp": {
+          "sum_ledger_nav": 115.3364,
+          "reported_nav": 115.3365,
+          "tolerance": 0.00235
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__is_2024_2025__m4_f2_elite": {
+      "all_passed": true,
+      "records": 509,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -7.164900000000003,
+          "reported_nav": -7.166,
+          "tolerance": 0.0256
+        },
+        "comp": {
+          "sum_ledger_nav": 27.265,
+          "reported_nav": 27.2649,
+          "tolerance": 0.0256
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__is_2024_2025__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 715,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -9.028400000000005,
+          "reported_nav": -9.0275,
+          "tolerance": 0.0359
+        },
+        "comp": {
+          "sum_ledger_nav": 24.103399999999993,
+          "reported_nav": 24.1026,
+          "tolerance": 0.0359
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 556,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": 39.482,
+          "reported_nav": 39.4818,
+          "tolerance": 0.02795
+        },
+        "comp": {
+          "sum_ledger_nav": 40.6149,
+          "reported_nav": 40.6156,
+          "tolerance": 0.02795
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 447,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -13.870500000000007,
+          "reported_nav": -13.8709,
+          "tolerance": 0.0225
+        },
+        "comp": {
+          "sum_ledger_nav": 24.417500000000004,
+          "reported_nav": 24.418,
+          "tolerance": 0.0225
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026__m4_f2_elite": {
+      "all_passed": true,
+      "records": 255,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -44.50030000000001,
+          "reported_nav": -44.5003,
+          "tolerance": 0.0129
+        },
+        "comp": {
+          "sum_ledger_nav": 21.415599999999998,
+          "reported_nav": 21.4157,
+          "tolerance": 0.0129
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 395,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -39.384600000000006,
+          "reported_nav": -39.3844,
+          "tolerance": 0.0199
+        },
+        "comp": {
+          "sum_ledger_nav": 21.6593,
+          "reported_nav": 21.6593,
+          "tolerance": 0.0199
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 257,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -9.310400000000001,
+          "reported_nav": -9.311,
+          "tolerance": 0.013
+        },
+        "comp": {
+          "sum_ledger_nav": 30.017399999999995,
+          "reported_nav": 30.0175,
+          "tolerance": 0.013
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 219,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -13.244600000000005,
+          "reported_nav": -13.2449,
+          "tolerance": 0.0111
+        },
+        "comp": {
+          "sum_ledger_nav": 29.191599999999994,
+          "reported_nav": 29.1918,
+          "tolerance": 0.0111
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m4_f2_elite": {
+      "all_passed": true,
+      "records": 255,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -44.50030000000001,
+          "reported_nav": -44.5003,
+          "tolerance": 0.0129
+        },
+        "comp": {
+          "sum_ledger_nav": 21.415599999999998,
+          "reported_nav": 21.4157,
+          "tolerance": 0.0129
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 395,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -39.384600000000006,
+          "reported_nav": -39.3844,
+          "tolerance": 0.0199
+        },
+        "comp": {
+          "sum_ledger_nav": 21.6593,
+          "reported_nav": 21.6593,
+          "tolerance": 0.0199
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 257,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -9.310400000000001,
+          "reported_nav": -9.311,
+          "tolerance": 0.013
+        },
+        "comp": {
+          "sum_ledger_nav": 30.017399999999995,
+          "reported_nav": 30.0175,
+          "tolerance": 0.013
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_entry_cutoff_0831_runout__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 219,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -13.244600000000005,
+          "reported_nav": -13.2449,
+          "tolerance": 0.0111
+        },
+        "comp": {
+          "sum_ledger_nav": 29.191599999999994,
+          "reported_nav": 29.1918,
+          "tolerance": 0.0111
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m4_f2_elite": {
+      "all_passed": true,
+      "records": 255,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -44.50030000000001,
+          "reported_nav": -44.5003,
+          "tolerance": 0.0129
+        },
+        "comp": {
+          "sum_ledger_nav": 21.415599999999998,
+          "reported_nav": 21.4157,
+          "tolerance": 0.0129
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_expanded": {
+      "all_passed": true,
+      "records": 395,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -39.384600000000006,
+          "reported_nav": -39.3844,
+          "tolerance": 0.0199
+        },
+        "comp": {
+          "sum_ledger_nav": 21.6593,
+          "reported_nav": 21.6593,
+          "tolerance": 0.0199
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_sniper": {
+      "all_passed": true,
+      "records": 257,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -9.310400000000001,
+          "reported_nav": -9.311,
+          "tolerance": 0.013
+        },
+        "comp": {
+          "sum_ledger_nav": 30.017399999999995,
+          "reported_nav": 30.0175,
+          "tolerance": 0.013
+        }
+      },
+      "errors": []
+    },
+    "universe_338__BLACKLIST__oos_2026_hard_cutoff_0831__m6_f4_elite_sniper": {
+      "all_passed": true,
+      "records": 219,
+      "totals": {
+        "add": {
+          "sum_ledger_nav": -13.244600000000005,
+          "reported_nav": -13.2449,
+          "tolerance": 0.0111
+        },
+        "comp": {
+          "sum_ledger_nav": 29.191599999999994,
+          "reported_nav": 29.1918,
+          "tolerance": 0.0111
+        }
+      },
+      "errors": []
+    }
+  },
+  "negative_control_rejections": {
+    "fee_dollar_comp": true,
+    "realized_pnl_dollar_comp": true,
+    "aggregate_nav": true,
+    "executed_ids": true
+  },
+  "pit_membership_records_checked": 15405,
+  "pit_membership_errors": [],
+  "old_year_end_discrepancies": [
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m4_f2_elite",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m4_f2_elite",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m4_f2_elite",
+      "id": "MONUSDT_1d_490872",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded",
+      "id": "SYRUPUSDT_1d_490779",
+      "present": false,
+      "settlement_passed": null
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded",
+      "id": "MONUSDT_1d_490828",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_expanded",
+      "id": "STABLEUSDT_1d_490849",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper",
+      "id": "SYRUPUSDT_1d_490779",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_sniper",
+      "id": "MONUSDT_1d_490892",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper",
+      "id": "SYRUPUSDT_1d_490779",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__ALL_338_UNFILTERED__is_2024_2025__m6_f4_elite_sniper",
+      "id": "MONUSDT_1d_490892",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m4_f2_elite",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m4_f2_elite",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m4_f2_elite",
+      "id": "MONUSDT_1d_490872",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_expanded",
+      "id": "SYRUPUSDT_1d_490796",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_expanded",
+      "id": "MONUSDT_1d_490828",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_expanded",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper",
+      "id": "SYRUPUSDT_1d_490779",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_sniper",
+      "id": "MONUSDT_1d_490892",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper",
+      "id": "SYRUPUSDT_1d_490779",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper",
+      "id": "STABLEUSDT_4h_490845",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper",
+      "id": "STABLEUSDT_1d_490848",
+      "present": true,
+      "settlement_passed": true
+    },
+    {
+      "key": "universe_338__BLACKLIST__is_2024_2025__m6_f4_elite_sniper",
+      "id": "MONUSDT_1d_490892",
+      "present": true,
+      "settlement_passed": true
+    }
+  ],
+  "cross_engine_and_causality": {
+    "ACEUSDT": {
+      "benchmark_candidates": 103,
+      "universe_candidates": 103,
+      "same_candidate_keys_and_features": true,
+      "future_perturbation_prefix_unchanged": true,
+      "prefix_candidates_checked": 91,
+      "benchmark_only": [],
+      "universe_only": []
+    },
+    "AAVEUSDT": {
+      "benchmark_candidates": 83,
+      "universe_candidates": 83,
+      "same_candidate_keys_and_features": true,
+      "future_perturbation_prefix_unchanged": true,
+      "prefix_candidates_checked": 46,
+      "benchmark_only": [],
+      "universe_only": []
+    }
+  },
+  "pit_funding_engine_ex_funding_parity": {
+    "pit_funded/calibration_2024_2025/fixed_1x/20bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/40bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/calibration_2024_2025/fixed_1x/60bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/20bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/40bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/calibration_2024_2025/conviction_150_115_080/60bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/20bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/40bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/fixed_1x/60bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/20bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/40bps": {
+      "ids_match": true,
+      "nav_match": true
+    },
+    "pit_funded/reused_validation_hard_0831/conviction_150_115_080/60bps": {
+      "ids_match": true,
+      "nav_match": true
+    }
+  },
+  "funding_output_semantics": {
+    "nav_ex_funding": "Actual ex-funding coupled execution",
+    "root_nav_with_historical_funding_and_nav_stress_1bp_8h_funding": "Counterfactual replay holding ex-funding accepted IDs fixed when funding changes admission",
+    "actual_funding_coupled_results": "scenario_specific_coupled_ledgers.<scenario>.nav_20pct_per_1x",
+    "report_source": "Scenario-specific execution; root aliases used only when identical"
+  },
+  "funding_schema_checks_passed": true,
+  "pit_inferred_funding_schedule_gaps_requiring_external_confirmation": 198,
+  "economic_evidence": {
+    "pit_intervals_crossing_zero": 12,
+    "pit_intervals_total": 12,
+    "live_signoff": "NOT_GRANTED"
+  },
+  "requirement_audit": [
+    {
+      "id": "R1",
+      "status": "completed",
+      "scope": "Preservation and v405 baseline verification",
+      "evidence": "IMPLEMENTATION_v406_BASELINE_CHECKS.json; historical hash verification"
+    },
+    {
+      "id": "R2",
+      "status": "completed",
+      "scope": "Implementation fixes within declared simulation assumptions",
+      "evidence": "METHOD_TEST_RESULTS_v4_0_6.xml; ledger_checks; negative_control_rejections"
+    },
+    {
+      "id": "R3",
+      "status": "completed",
+      "scope": "Frozen protocol and explicit reused validation label",
+      "evidence": "METHOD_v406_EXPERIMENT_PROTOCOL.json; METHOD_INPUT_MANIFEST_v4_0_6.json"
+    },
+    {
+      "id": "R4",
+      "status": "completed",
+      "scope": "14-symbol and338-symbol reruns with PIT sizing/cost/funding comparisons",
+      "evidence": "METHOD_BENCHMARK_v4_0_6.json; universe_338_reaudit_v4_0_6_summary.json; METHOD_PIT_FUNDING_v4_0_6.json"
+    },
+    {
+      "id": "R5",
+      "status": "completed",
+      "scope": "Executable paper proposal rules and an evidence-based readiness decision",
+      "evidence": "paper_rules_v406.py; METHOD_POLICY_v4_0_6.json; PHUONG_PHAP_FIBO_SHORT_v4_0_6.md; live NOT_GRANTED"
+    },
+    {
+      "id": "R6",
+      "status": "completed",
+      "scope": "Final checks, report reconciliation and source snapshots",
+      "evidence": "FINAL_METHOD_VERIFICATION_v4_0_6.json; METHOD_REPORT_CONSISTENCY_v4_0_6.json; VERSION_MANIFEST_v4_0_6.json"
+    }
+  ]
+}

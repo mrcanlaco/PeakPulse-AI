@@ -19,6 +19,7 @@ from dao_vang.data.collectors.binance_client import BinanceClient
 from dao_vang.data.collectors.klines import KlinesCollector
 from dao_vang.data.daily_collection import collect_derivatives
 from dao_vang.data.storage.duckdb import DuckDBQueryLayer
+from dao_vang.execution.cli import app as execution_tools_app
 from dao_vang.experiments.artifacts import ArtifactRegistry
 from dao_vang.experiments.forward_test import (
     freeze_model,
@@ -60,184 +61,8 @@ app.add_typer(scanner_app, name="scanner")
 app.add_typer(alpha_lab_app, name="alpha-lab")
 app.add_typer(system_app, name="system")
 app.add_typer(execution_app, name="execution")
+execution_app.add_typer(execution_tools_app, name="tools")
 
-
-@experiment_app.command("replay-v3")
-def experiment_replay_v3(
-    input_path: Path = typer.Argument(..., exists=True, dir_okay=False),
-    ledger_path: Path = typer.Option(Path("data/research/distribution_v3.sqlite")),
-) -> None:
-    """Replay the frozen v3 research contract; no live configuration changes."""
-    from dao_vang.experiments.distribution_v3 import (
-        EvidenceLedger,
-        canonical,
-        replay,
-    )
-
-    try:
-        result = replay(json.loads(input_path.read_text(encoding="utf-8")))
-        inserted = EvidenceLedger(ledger_path).save(result)
-    except (ValueError, KeyError, TypeError) as exc:
-        raise typer.BadParameter(str(exc)) from exc
-    typer.echo(canonical({
-        "run_id": result["run_id"], "inserted": inserted,
-        "live_eligible": False, "promotion_eligible": False,
-        "evidence_kind": result["provenance"]["evidence_kind"],
-        "summary": result["summary"],
-    }))
-
-
-@experiment_app.command("audit-v3-market")
-def experiment_audit_v3_market(
-    live_db: Path = typer.Option(Path("data_live/live.duckdb"), exists=True),
-    lock_dir: Path = typer.Option(Path("artifacts/forward48_timing_20260913"), exists=True),
-    old_events: Path = typer.Option(Path("artifacts/forward48_scalein_timing_compatibility_events_20260913.csv"), exists=True),
-    output_dir: Path = typer.Option(Path("artifacts/distribution_v3_market_audit")),
-) -> None:
-    """Audit v3 on identical locked market entries; does not certify funding/PIT."""
-    from dao_vang.experiments.distribution_v3 import canonical
-    from dao_vang.experiments.distribution_v3_market import audit_locked_market
-
-    result = audit_locked_market(live_db=live_db, lock_dir=lock_dir,
-                                 old_events=old_events, output_dir=output_dir)
-    typer.echo(canonical({"run_id": result["run_id"], "summary": result["summary"],
-                         "coverage": result["coverage"], "promotion_eligible": False}))
-
-
-@experiment_app.command("train-v3")
-def experiment_train_v3(
-    dataset_db: Path = typer.Option(Path("artifacts/distribution_v3_training.duckdb")),
-    rebuild_dataset: bool = typer.Option(False, "--rebuild-dataset", help="Rebuild materialized 48h candidates"),
-    n_folds: int = typer.Option(4, "--n-folds", help="Number of OOS folds"),
-    pump_threshold: float = typer.Option(0.15, "--pump-threshold", help="Pre-pump threshold (e.g. 0.15, 0.25)"),
-    calibration_method: str = typer.Option("isotonic", "--calibration", help="Calibration method: isotonic | sigmoid"),
-) -> None:
-    """Train and evaluate the distribution_short_v3_policy_48h model."""
-    from dao_vang.experiments.distribution_v3 import canonical
-    from dao_vang.experiments.train_distribution_v3 import (
-        V3TrainingConfig,
-        evaluate_oos,
-        load_v3_dataset,
-        materialize_v3_dataset,
-        promotion_gate,
-    )
-
-    config = V3TrainingConfig(
-        dataset_db=dataset_db,
-        rebuild_dataset=rebuild_dataset,
-        n_folds=n_folds,
-        pump_threshold_24h=pump_threshold,
-        calibration_method=calibration_method,
-    )
-    materialized = materialize_v3_dataset(config)
-    frame = load_v3_dataset(config)
-    evaluation = evaluate_oos(config, frame)
-    gate = promotion_gate(evaluation)
-    typer.echo(canonical({
-        "contract": config.label_version,
-        "materialized": materialized,
-        "summary": evaluation["summary"],
-        "promotion_gate": gate,
-        "promotion_eligible": False,
-    }))
-
-
-@experiment_app.command("research-v3-patterns")
-def experiment_research_v3_patterns(
-    dataset_db: Path = typer.Option(
-        Path("artifacts/distribution_v3_training.duckdb"),
-        help="Read-only DuckDB/SQLite-compatible historical feature dataset",
-    ),
-    table: str = typer.Option(
-        "distribution_v3_hourly_candidates",
-        help="Dataset table",
-    ),
-    label_column: str | None = typer.Option(
-        None,
-        "--label-column",
-        help="Explicit outcome column; compact labels still require contract provenance",
-    ),
-    output: Path = typer.Option(
-        Path("artifacts/v3_pattern_research_report.json"),
-        "--output",
-        help="Research report JSON",
-    ),
-    artifact: Path = typer.Option(
-        Path("artifacts/v3_pattern_model.json"),
-        "--artifact",
-        help="Pattern template artifact for research scanner enrichment",
-    ),
-    patterns: int = typer.Option(5, "--patterns", min=1, max=20),
-) -> None:
-    """Fit V3 market templates and run independent heldout ablations.
-
-    The command is offline and research-only.  It never changes champion
-    configuration, sends Telegram messages, or certifies legacy Entry-1
-    labels as compact weighted-average outcomes.
-    """
-    from dao_vang.experiments.pattern_research_v3 import (
-        canonical,
-        run_pattern_research_from_db,
-    )
-
-    try:
-        report = run_pattern_research_from_db(
-            dataset_db,
-            table=table,
-            label_column=label_column,
-            output_path=output,
-            artifact_path=artifact,
-            n_patterns=patterns,
-        )
-    except (ValueError, KeyError, TypeError, OSError) as exc:
-        raise typer.BadParameter(str(exc)) from exc
-    typer.echo(
-        canonical(
-            {
-                "report": str(output),
-                "pattern_artifact": str(artifact),
-                "evidence_kind": report.get("evidence_kind"),
-                "evidence_status": report.get("evidence_status"),
-                "promotion_eligible": False,
-                "champion_baseline": report.get("champion_baseline"),
-                "heldout": report.get("heldout"),
-                "condition_ablation": report.get("condition_ablation"),
-            }
-        )
-    )
-
-@experiment_app.command("alert-v3")
-def experiment_alert_v3(
-    symbol: str = typer.Option("BEATUSDT", "--symbol", help="Coin symbol"),
-    price: float = typer.Option(4.42, "--price", help="Entry price"),
-    probability: float = typer.Option(0.522, "--probability", help="Model probability"),
-    pump_pct: float = typer.Option(0.725, "--pump-pct", help="24h pump percentage"),
-    distance_from_high: float = typer.Option(-0.03, "--distance-from-high", help="Reversal from peak"),
-    funding_percentile: float = typer.Option(0.95, "--funding-percentile", help="30d funding percentile"),
-    is_champion: bool = typer.Option(True, "--champion/--no-champion", help="Is champion setup"),
-    shadow_chat_id: str | None = typer.Option(None, "--shadow-chat-id", help="Shadow chat ID override"),
-) -> None:
-    """Send a preview V3 research alert to a shadow channel."""
-    from dao_vang.alerts.telegram import TelegramNotifier
-    from dao_vang.config.settings import AppSettings
-
-    settings = AppSettings()
-    notifier = TelegramNotifier(settings.telegram, web_base_url=settings.web.public_url)
-    chat = shadow_chat_id or getattr(settings.telegram, "shadow_chat_id", None) or settings.telegram.chat_id
-    ok = notifier.send_v3_alert(
-        symbol=symbol,
-        entry_price=price,
-        probability=probability,
-        pump_pct=pump_pct,
-        distance_from_high=distance_from_high,
-        funding_percentile=funding_percentile,
-        feature_time=datetime.now(timezone.utc).isoformat(),
-        is_champion=is_champion,
-        web_url=settings.web.public_url,
-        operating_mode="research",
-        shadow_chat_id=chat,
-    )
-    typer.echo(f"Sent V3 alert to {chat}: {ok}")
 
 @data_app.command("collect")
 def data_collect(
@@ -1784,13 +1609,13 @@ def execution_start(
         help="Path to YAML config file (default: configs/dev.yaml or env vars)",
     ),
 ) -> None:
-    """Start the isolated ExecutionEngine daemon for Testnet paper-trading."""
+    """Start the qualified-signal execution service in its configured environment."""
     from dao_vang.execution.engine import ExecutionEngine
 
     settings = AppSettings.from_yaml(Path(config)) if config else AppSettings()
     db_path = Path(settings.scanner.db_path)
     engine = ExecutionEngine(settings, db_path)
-    typer.echo(f"Starting ExecutionEngine (db: {db_path}, paper_trading={engine.settings.paper_trading})...")
+    typer.echo(f"Starting ExecutionEngine (db: {db_path}, environment={engine.settings.environment})...")
     engine.run_loop()
 
 
@@ -1803,7 +1628,7 @@ def execution_poll(
         help="Path to YAML config file (default: configs/dev.yaml or env vars)",
     ),
 ) -> None:
-    """Perform a one-shot poll of actionable signals and execute bracket orders."""
+    """Reconcile account and process qualified signals once."""
     from dao_vang.execution.engine import ExecutionEngine
 
     settings = AppSettings.from_yaml(Path(config)) if config else AppSettings()
@@ -1818,6 +1643,103 @@ def execution_poll(
             engine._db_conn.close()
         if getattr(engine, "_exec_conn", None):
             engine._exec_conn.close()
+
+
+@app.command("fibo-scan")
+def fibo_scan_command(
+    watch: bool = typer.Option(
+        False,
+        "--watch",
+        "-w",
+        help="Run continuously in a loop to scan and dispatch qualified Short signals to Telegram",
+    ),
+    interval_seconds: int = typer.Option(
+        300,
+        "--interval-seconds",
+        help="Scan interval in seconds when --watch is enabled (default: 300s)",
+    ),
+    config: str = typer.Option(
+        "",
+        "--config",
+        "-c",
+        help="Path to YAML config file (optional)",
+    ),
+    symbols: str = typer.Option(
+        "",
+        "--symbols",
+        "-s",
+        help="Comma-separated list of symbols (optional)",
+    ),
+) -> None:
+    """Chạy 1 chu kỳ quét nhánh Xác Nhận Đảo Chiều & Fibonacci Short (H4/D1 -> H1)."""
+    from dao_vang.fibo_short.scanner_lane import run_cycle as run_fibo_cycle
+
+    settings = AppSettings.from_yaml(Path(config)) if config else AppSettings()
+    sym_list = [s.strip().upper() for s in symbols.split(",") if s.strip()] if symbols else None
+    import time as _time
+    while True:
+        result = run_fibo_cycle(settings, symbols=sym_list)
+        typer.echo(
+            f"Fibo Short Scan hoàn tất: {result.get('total_signals', 0)} tín hiệu "
+            f"(FIRED={result.get('fired_count', 0)}, ĐẠT_CHUẨN_SHORT={result.get('qualified_fired_count', 0)}, "
+            f"TELEGRAM_SENT={result.get('telegram_sent_this_cycle', 0)}, "
+            f"ARMED={result.get('armed_count', 0)}, WATCHING={result.get('watching_count', 0)})"
+        )
+        if not watch:
+            break
+        _time.sleep(max(30, int(interval_seconds)))
+    return
+    if False:
+        result = run_fibo_cycle(settings, symbols=sym_list)
+    typer.echo(
+        f"Fibo Short Scan hoàn tất: {result.get('total_signals', 0)} tín hiệu "
+        f"(FIRED={result.get('fired_count', 0)}, ARMED={result.get('armed_count', 0)}, "
+        f"WATCHING={result.get('watching_count', 0)})"
+    )
+
+
+@app.command("fibo-backtest")
+def fibo_backtest_command(
+    config: str = typer.Option(
+        "",
+        "--config",
+        "-c",
+        help="Path to YAML config file (optional)",
+    ),
+    start_utc: str = typer.Option(
+        "2024-01-01T00:00:00+00:00",
+        "--start",
+        help="In-sample start timestamp (UTC)",
+    ),
+    end_utc: str = typer.Option(
+        "2025-12-31T23:59:59+00:00",
+        "--end",
+        help="In-sample end timestamp (UTC, must be <= 2025-12-31T23:59:59+00:00 to preserve 2026+ OOS)",
+    ),
+) -> None:
+    """Chạy Backtest In-Sample (tới hết 2025, giữ nguyên 2026 làm OOS) cho nhánh Fibo Trend Short."""
+    from dao_vang.fibo_short.backtest import run_in_sample_backtest_2025
+
+    settings = AppSettings.from_yaml(Path(config)) if config else AppSettings()
+    out_path = settings.scanner.artifact_dir / "fibo_trend_short" / "backtest_in_sample_2025.json"
+    report = run_in_sample_backtest_2025(
+        start_utc=start_utc,
+        end_utc=end_utc,
+        config=settings.fibo_trend_short,
+        output_path=out_path,
+    )
+    overall = report["overall"]
+    typer.echo(
+        f"Fibo In-Sample Backtest (<= 2025-12-31) hoàn tất trên {report['symbols_count']} coin:\n"
+        f"  • Tổng số lệnh:     {overall['total_trades']}\n"
+        f"  • Win Rate:         {overall['win_rate_pct']}%\n"
+        f"  • Tỷ lệ chạm TP1:   {overall['tp1_hit_rate_pct']}%\n"
+        f"  • Tỷ lệ chạm TP2:   {overall['tp2_hit_rate_pct']}%\n"
+        f"  • Profit Factor:    {overall['profit_factor']}\n"
+        f"  • Tổng Net Return:  {overall['total_net_return_pct']}%\n"
+        f"  • Max Drawdown:     {overall['max_drawdown_pct']}%\n"
+        f"  • Đã lưu báo cáo:   {out_path}"
+    )
 
 
 if __name__ == "__main__":

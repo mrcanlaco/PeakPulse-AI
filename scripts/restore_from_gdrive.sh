@@ -81,16 +81,29 @@ rollback_dir="$ROLLBACK_ROOT/$(date +'%Y%m%d_%H%M%S')"
 restore_started=0
 restore_succeeded=0
 old_db_moved=0
+runtime_restore=0
+execution_was_running=0
 
 compose() {
     DAO_VANG_RUNTIME_UID="$RUNTIME_UID" DAO_VANG_RUNTIME_GID="$RUNTIME_GID" docker compose --project-directory "$PROJECT_DIR" -f "$COMPOSE_FILE" "$@"
 }
+
+if compose --profile trading ps --services --status running | grep -qx execution; then
+    execution_was_running=1
+fi
 
 cleanup() {
     exit_code=$?
     if (( restore_started == 1 && restore_succeeded == 0 )); then
         echo "Restore failed; rolling back the previous database" >&2
         compose stop --timeout 60 web scanner || true
+        if (( execution_was_running == 1 )); then compose --profile trading stop --timeout 60 execution || true; fi
+        if (( runtime_restore == 1 )); then
+            compose run --rm --no-deps -T -v "$stage_dir:/snapshot:ro" -v "$rollback_dir:/rollback" scanner \
+                python -m dao_vang.execution.archive rollback --data /app/data_live \
+                --artifacts /app/artifacts --snapshot /snapshot/runtime --rollback /rollback/runtime || true
+        fi
+        if (( runtime_restore == 0 )); then
         if [[ -f "$DATA_DIR/live.duckdb" ]]; then
             mv "$DATA_DIR/live.duckdb" "$rollback_dir/failed-restored.duckdb" || true
         fi
@@ -100,7 +113,9 @@ cleanup() {
         if [[ -f "$rollback_dir/live.duckdb.wal" ]]; then
             mv "$rollback_dir/live.duckdb.wal" "$DATA_DIR/live.duckdb.wal" || true
         fi
+        fi
         compose up -d scanner web || true
+        if (( execution_was_running == 1 )); then compose --profile trading up -d execution || true; fi
     fi
     case "$stage_dir" in
         "$STAGING_ROOT"/*) rm -rf -- "$stage_dir" ;;
@@ -139,6 +154,14 @@ fi
 mkdir -p "$rollback_dir"
 restore_started=1
 compose stop --timeout 60 web scanner
+if (( execution_was_running == 1 )); then compose --profile trading stop --timeout 60 execution; fi
+
+if [[ -f "$stage_dir/runtime/manifest.json" ]]; then
+    runtime_restore=1
+    compose run --rm --no-deps -T -v "$stage_dir:/snapshot:ro" -v "$rollback_dir:/rollback" scanner \
+        python -m dao_vang.execution.archive install --data /app/data_live \
+        --artifacts /app/artifacts --snapshot /snapshot/runtime --rollback /rollback/runtime
+else
 
 if [[ -f "$DATA_DIR/live.duckdb" ]]; then
     mv "$DATA_DIR/live.duckdb" "$rollback_dir/live.duckdb"
@@ -153,7 +176,9 @@ if [[ -d "$stage_dir/frozen_models" ]]; then
     mkdir -p "$PROJECT_DIR/artifacts/frozen_models"
     cp -an "$stage_dir/frozen_models/." "$PROJECT_DIR/artifacts/frozen_models/"
 fi
+fi
 
+if (( execution_was_running == 1 )); then compose --profile trading up -d execution; fi
 compose up -d --wait --wait-timeout 180 scanner web
 curl --fail --silent --show-error http://localhost:8000/api/health >/dev/null
 curl --fail --silent --show-error http://localhost:8000/api/ready >/dev/null

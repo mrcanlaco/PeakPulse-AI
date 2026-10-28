@@ -1,0 +1,2967 @@
+{
+  "in_sample_window": {
+    "start_utc": "2020-01-01T00:00:00+00:00",
+    "end_utc": "2025-12-31T23:59:59+00:00",
+    "years": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "milestones": {
+    "m0_baseline_pump5": {
+      "overall_2020_2025": {
+        "total_trades": 12339,
+        "win_rate_pct": 47.44,
+        "tp1_hit_rate_pct": 38.2,
+        "tp2_hit_rate_pct": 24.27,
+        "tp3_hit_rate_pct": 10.78,
+        "avg_net_return_pct": -0.273,
+        "total_net_return_pct": -3366.59,
+        "avg_r_multiple": -0.056,
+        "profit_factor": 0.89,
+        "max_drawdown_pct": 4141.12,
+        "outcomes": {
+          "STOP_LOSS": 5566,
+          "TIME_EXIT": 2060,
+          "TP1_HIT": 1718,
+          "TP2_HIT": 1665,
+          "TP3_HIT": 1330
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 7264,
+        "win_rate_pct": 46.61,
+        "tp1_hit_rate_pct": 37.54,
+        "tp2_hit_rate_pct": 24.2,
+        "tp3_hit_rate_pct": 10.94,
+        "avg_net_return_pct": -0.387,
+        "total_net_return_pct": -2814.76,
+        "avg_r_multiple": -0.077,
+        "profit_factor": 0.85,
+        "max_drawdown_pct": 3043.74,
+        "outcomes": {
+          "STOP_LOSS": 3376,
+          "TIME_EXIT": 1161,
+          "TP1_HIT": 969,
+          "TP2_HIT": 963,
+          "TP3_HIT": 795
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 5075,
+        "win_rate_pct": 48.63,
+        "tp1_hit_rate_pct": 39.13,
+        "tp2_hit_rate_pct": 24.37,
+        "tp3_hit_rate_pct": 10.54,
+        "avg_net_return_pct": -0.109,
+        "total_net_return_pct": -551.82,
+        "avg_r_multiple": -0.024,
+        "profit_factor": 0.96,
+        "max_drawdown_pct": 1360.08,
+        "outcomes": {
+          "TIME_EXIT": 899,
+          "STOP_LOSS": 2190,
+          "TP1_HIT": 749,
+          "TP2_HIT": 702,
+          "TP3_HIT": 535
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 1241,
+          "win_rate_pct": 43.35,
+          "tp1_hit_rate_pct": 36.42,
+          "tp2_hit_rate_pct": 22.4,
+          "tp3_hit_rate_pct": 10.8,
+          "avg_net_return_pct": -0.625,
+          "total_net_return_pct": -775.23,
+          "avg_r_multiple": -0.132,
+          "profit_factor": 0.75,
+          "max_drawdown_pct": 926.3,
+          "outcomes": {
+            "STOP_LOSS": 593,
+            "TIME_EXIT": 196,
+            "TP1_HIT": 174,
+            "TP2_HIT": 144,
+            "TP3_HIT": 134
+          }
+        },
+        "2021": {
+          "total_trades": 2317,
+          "win_rate_pct": 44.37,
+          "tp1_hit_rate_pct": 35.69,
+          "tp2_hit_rate_pct": 24.34,
+          "tp3_hit_rate_pct": 10.79,
+          "avg_net_return_pct": -0.661,
+          "total_net_return_pct": -1531.34,
+          "avg_r_multiple": -0.117,
+          "profit_factor": 0.81,
+          "max_drawdown_pct": 1874.13,
+          "outcomes": {
+            "STOP_LOSS": 1158,
+            "TP2_HIT": 314,
+            "TIME_EXIT": 332,
+            "TP1_HIT": 263,
+            "TP3_HIT": 250
+          }
+        },
+        "2022": {
+          "total_trades": 1904,
+          "win_rate_pct": 51.05,
+          "tp1_hit_rate_pct": 39.86,
+          "tp2_hit_rate_pct": 26.16,
+          "tp3_hit_rate_pct": 12.18,
+          "avg_net_return_pct": 0.103,
+          "total_net_return_pct": 197.01,
+          "avg_r_multiple": -0.001,
+          "profit_factor": 1.05,
+          "max_drawdown_pct": 668.34,
+          "outcomes": {
+            "TIME_EXIT": 324,
+            "TP1_HIT": 261,
+            "TP3_HIT": 232,
+            "TP2_HIT": 266,
+            "STOP_LOSS": 821
+          }
+        },
+        "2023": {
+          "total_trades": 1802,
+          "win_rate_pct": 47.06,
+          "tp1_hit_rate_pct": 38.24,
+          "tp2_hit_rate_pct": 23.2,
+          "tp3_hit_rate_pct": 9.93,
+          "avg_net_return_pct": -0.391,
+          "total_net_return_pct": -705.2,
+          "avg_r_multiple": -0.069,
+          "profit_factor": 0.82,
+          "max_drawdown_pct": 801.94,
+          "outcomes": {
+            "STOP_LOSS": 804,
+            "TP3_HIT": 179,
+            "TIME_EXIT": 309,
+            "TP2_HIT": 239,
+            "TP1_HIT": 271
+          }
+        },
+        "2024": {
+          "total_trades": 2573,
+          "win_rate_pct": 46.91,
+          "tp1_hit_rate_pct": 37.93,
+          "tp2_hit_rate_pct": 24.21,
+          "tp3_hit_rate_pct": 10.49,
+          "avg_net_return_pct": -0.381,
+          "total_net_return_pct": -980.64,
+          "avg_r_multiple": -0.064,
+          "profit_factor": 0.85,
+          "max_drawdown_pct": 1348.54,
+          "outcomes": {
+            "TIME_EXIT": 438,
+            "STOP_LOSS": 1159,
+            "TP1_HIT": 353,
+            "TP2_HIT": 353,
+            "TP3_HIT": 270
+          }
+        },
+        "2025": {
+          "total_trades": 2502,
+          "win_rate_pct": 50.4,
+          "tp1_hit_rate_pct": 40.37,
+          "tp2_hit_rate_pct": 24.54,
+          "tp3_hit_rate_pct": 10.59,
+          "avg_net_return_pct": 0.171,
+          "total_net_return_pct": 428.82,
+          "avg_r_multiple": 0.017,
+          "profit_factor": 1.08,
+          "max_drawdown_pct": 921.64,
+          "outcomes": {
+            "STOP_LOSS": 1031,
+            "TIME_EXIT": 461,
+            "TP2_HIT": 349,
+            "TP1_HIT": 396,
+            "TP3_HIT": 265
+          }
+        }
+      }
+    },
+    "m1_f1a_pump50": {
+      "overall_2020_2025": {
+        "total_trades": 1467,
+        "win_rate_pct": 51.53,
+        "tp1_hit_rate_pct": 37.9,
+        "tp2_hit_rate_pct": 24.4,
+        "tp3_hit_rate_pct": 9.75,
+        "avg_net_return_pct": 0.114,
+        "total_net_return_pct": 166.54,
+        "avg_r_multiple": -0.009,
+        "profit_factor": 1.03,
+        "max_drawdown_pct": 815.79,
+        "outcomes": {
+          "TP1_HIT": 198,
+          "STOP_LOSS": 578,
+          "TIME_EXIT": 333,
+          "TP3_HIT": 143,
+          "TP2_HIT": 215
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 971,
+        "win_rate_pct": 49.33,
+        "tp1_hit_rate_pct": 37.59,
+        "tp2_hit_rate_pct": 24.0,
+        "tp3_hit_rate_pct": 9.68,
+        "avg_net_return_pct": -0.107,
+        "total_net_return_pct": -103.77,
+        "avg_r_multiple": -0.035,
+        "profit_factor": 0.98,
+        "max_drawdown_pct": 815.79,
+        "outcomes": {
+          "TP1_HIT": 132,
+          "STOP_LOSS": 396,
+          "TIME_EXIT": 210,
+          "TP3_HIT": 94,
+          "TP2_HIT": 139
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 496,
+        "win_rate_pct": 55.85,
+        "tp1_hit_rate_pct": 38.51,
+        "tp2_hit_rate_pct": 25.2,
+        "tp3_hit_rate_pct": 9.88,
+        "avg_net_return_pct": 0.545,
+        "total_net_return_pct": 270.31,
+        "avg_r_multiple": 0.044,
+        "profit_factor": 1.15,
+        "max_drawdown_pct": 251.64,
+        "outcomes": {
+          "STOP_LOSS": 182,
+          "TP2_HIT": 76,
+          "TIME_EXIT": 123,
+          "TP1_HIT": 66,
+          "TP3_HIT": 49
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 175,
+          "win_rate_pct": 46.29,
+          "tp1_hit_rate_pct": 37.71,
+          "tp2_hit_rate_pct": 20.0,
+          "tp3_hit_rate_pct": 10.29,
+          "avg_net_return_pct": -0.843,
+          "total_net_return_pct": -147.47,
+          "avg_r_multiple": -0.039,
+          "profit_factor": 0.78,
+          "max_drawdown_pct": 241.34,
+          "outcomes": {
+            "TP1_HIT": 31,
+            "STOP_LOSS": 69,
+            "TIME_EXIT": 40,
+            "TP3_HIT": 18,
+            "TP2_HIT": 17
+          }
+        },
+        "2021": {
+          "total_trades": 561,
+          "win_rate_pct": 47.42,
+          "tp1_hit_rate_pct": 35.29,
+          "tp2_hit_rate_pct": 25.13,
+          "tp3_hit_rate_pct": 10.16,
+          "avg_net_return_pct": -0.216,
+          "total_net_return_pct": -121.04,
+          "avg_r_multiple": -0.063,
+          "profit_factor": 0.96,
+          "max_drawdown_pct": 574.45,
+          "outcomes": {
+            "STOP_LOSS": 240,
+            "TP2_HIT": 84,
+            "TIME_EXIT": 123,
+            "TP3_HIT": 57,
+            "TP1_HIT": 57
+          }
+        },
+        "2022": {
+          "total_trades": 106,
+          "win_rate_pct": 60.38,
+          "tp1_hit_rate_pct": 45.28,
+          "tp2_hit_rate_pct": 31.13,
+          "tp3_hit_rate_pct": 13.21,
+          "avg_net_return_pct": 1.722,
+          "total_net_return_pct": 182.53,
+          "avg_r_multiple": 0.148,
+          "profit_factor": 1.58,
+          "max_drawdown_pct": 116.15,
+          "outcomes": {
+            "TP2_HIT": 19,
+            "TIME_EXIT": 24,
+            "STOP_LOSS": 34,
+            "TP1_HIT": 15,
+            "TP3_HIT": 14
+          }
+        },
+        "2023": {
+          "total_trades": 129,
+          "win_rate_pct": 52.71,
+          "tp1_hit_rate_pct": 41.09,
+          "tp2_hit_rate_pct": 18.6,
+          "tp3_hit_rate_pct": 3.88,
+          "avg_net_return_pct": -0.138,
+          "total_net_return_pct": -17.8,
+          "avg_r_multiple": -0.06,
+          "profit_factor": 0.96,
+          "max_drawdown_pct": 103.5,
+          "outcomes": {
+            "STOP_LOSS": 53,
+            "TP2_HIT": 19,
+            "TP1_HIT": 29,
+            "TIME_EXIT": 23,
+            "TP3_HIT": 5
+          }
+        },
+        "2024": {
+          "total_trades": 300,
+          "win_rate_pct": 53.67,
+          "tp1_hit_rate_pct": 34.67,
+          "tp2_hit_rate_pct": 21.33,
+          "tp3_hit_rate_pct": 6.67,
+          "avg_net_return_pct": -0.117,
+          "total_net_return_pct": -35.03,
+          "avg_r_multiple": -0.034,
+          "profit_factor": 0.97,
+          "max_drawdown_pct": 251.64,
+          "outcomes": {
+            "STOP_LOSS": 115,
+            "TP2_HIT": 44,
+            "TIME_EXIT": 81,
+            "TP1_HIT": 40,
+            "TP3_HIT": 20
+          }
+        },
+        "2025": {
+          "total_trades": 196,
+          "win_rate_pct": 59.18,
+          "tp1_hit_rate_pct": 44.39,
+          "tp2_hit_rate_pct": 31.12,
+          "tp3_hit_rate_pct": 14.8,
+          "avg_net_return_pct": 1.558,
+          "total_net_return_pct": 305.34,
+          "avg_r_multiple": 0.164,
+          "profit_factor": 1.54,
+          "max_drawdown_pct": 92.99,
+          "outcomes": {
+            "TP2_HIT": 32,
+            "STOP_LOSS": 67,
+            "TIME_EXIT": 42,
+            "TP1_HIT": 26,
+            "TP3_HIT": 29
+          }
+        }
+      }
+    },
+    "m2_f1b_pst": {
+      "overall_2020_2025": {
+        "total_trades": 642,
+        "win_rate_pct": 55.92,
+        "tp1_hit_rate_pct": 38.94,
+        "tp2_hit_rate_pct": 26.32,
+        "tp3_hit_rate_pct": 12.46,
+        "avg_net_return_pct": 0.631,
+        "total_net_return_pct": 404.89,
+        "avg_r_multiple": 0.069,
+        "profit_factor": 1.16,
+        "max_drawdown_pct": 339.86,
+        "outcomes": {
+          "TP1_HIT": 81,
+          "STOP_LOSS": 214,
+          "TIME_EXIT": 178,
+          "TP3_HIT": 80,
+          "TP2_HIT": 89
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 438,
+        "win_rate_pct": 52.97,
+        "tp1_hit_rate_pct": 36.76,
+        "tp2_hit_rate_pct": 24.2,
+        "tp3_hit_rate_pct": 12.1,
+        "avg_net_return_pct": 0.157,
+        "total_net_return_pct": 68.65,
+        "avg_r_multiple": 0.013,
+        "profit_factor": 1.04,
+        "max_drawdown_pct": 339.86,
+        "outcomes": {
+          "TP1_HIT": 55,
+          "STOP_LOSS": 156,
+          "TIME_EXIT": 121,
+          "TP3_HIT": 53,
+          "TP2_HIT": 53
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 204,
+        "win_rate_pct": 62.25,
+        "tp1_hit_rate_pct": 43.63,
+        "tp2_hit_rate_pct": 30.88,
+        "tp3_hit_rate_pct": 13.24,
+        "avg_net_return_pct": 1.648,
+        "total_net_return_pct": 336.24,
+        "avg_r_multiple": 0.19,
+        "profit_factor": 1.56,
+        "max_drawdown_pct": 103.51,
+        "outcomes": {
+          "TP2_HIT": 36,
+          "TIME_EXIT": 57,
+          "STOP_LOSS": 58,
+          "TP1_HIT": 26,
+          "TP3_HIT": 27
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 96,
+          "win_rate_pct": 47.92,
+          "tp1_hit_rate_pct": 35.42,
+          "tp2_hit_rate_pct": 16.67,
+          "tp3_hit_rate_pct": 11.46,
+          "avg_net_return_pct": -1.433,
+          "total_net_return_pct": -137.59,
+          "avg_r_multiple": -0.079,
+          "profit_factor": 0.65,
+          "max_drawdown_pct": 188.37,
+          "outcomes": {
+            "TP1_HIT": 18,
+            "STOP_LOSS": 37,
+            "TIME_EXIT": 25,
+            "TP3_HIT": 11,
+            "TP2_HIT": 5
+          }
+        },
+        "2021": {
+          "total_trades": 226,
+          "win_rate_pct": 52.65,
+          "tp1_hit_rate_pct": 34.51,
+          "tp2_hit_rate_pct": 26.99,
+          "tp3_hit_rate_pct": 13.72,
+          "avg_net_return_pct": 0.277,
+          "total_net_return_pct": 62.61,
+          "avg_r_multiple": 0.019,
+          "profit_factor": 1.05,
+          "max_drawdown_pct": 339.86,
+          "outcomes": {
+            "TIME_EXIT": 68,
+            "TP1_HIT": 17,
+            "STOP_LOSS": 80,
+            "TP3_HIT": 31,
+            "TP2_HIT": 30
+          }
+        },
+        "2022": {
+          "total_trades": 83,
+          "win_rate_pct": 60.24,
+          "tp1_hit_rate_pct": 43.37,
+          "tp2_hit_rate_pct": 28.92,
+          "tp3_hit_rate_pct": 12.05,
+          "avg_net_return_pct": 1.923,
+          "total_net_return_pct": 159.61,
+          "avg_r_multiple": 0.147,
+          "profit_factor": 1.64,
+          "max_drawdown_pct": 97.87,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "TIME_EXIT": 20,
+            "STOP_LOSS": 27,
+            "TP1_HIT": 12,
+            "TP3_HIT": 10
+          }
+        },
+        "2023": {
+          "total_trades": 33,
+          "win_rate_pct": 51.52,
+          "tp1_hit_rate_pct": 39.39,
+          "tp2_hit_rate_pct": 15.15,
+          "tp3_hit_rate_pct": 3.03,
+          "avg_net_return_pct": -0.484,
+          "total_net_return_pct": -15.98,
+          "avg_r_multiple": -0.094,
+          "profit_factor": 0.85,
+          "max_drawdown_pct": 48.68,
+          "outcomes": {
+            "STOP_LOSS": 12,
+            "TP2_HIT": 4,
+            "TIME_EXIT": 8,
+            "TP1_HIT": 8,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 82,
+          "win_rate_pct": 64.63,
+          "tp1_hit_rate_pct": 39.02,
+          "tp2_hit_rate_pct": 23.17,
+          "tp3_hit_rate_pct": 6.1,
+          "avg_net_return_pct": 1.721,
+          "total_net_return_pct": 141.09,
+          "avg_r_multiple": 0.203,
+          "profit_factor": 1.53,
+          "max_drawdown_pct": 65.8,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "TIME_EXIT": 33,
+            "STOP_LOSS": 17,
+            "TP1_HIT": 13,
+            "TP3_HIT": 5
+          }
+        },
+        "2025": {
+          "total_trades": 122,
+          "win_rate_pct": 60.66,
+          "tp1_hit_rate_pct": 46.72,
+          "tp2_hit_rate_pct": 36.07,
+          "tp3_hit_rate_pct": 18.03,
+          "avg_net_return_pct": 1.6,
+          "total_net_return_pct": 195.15,
+          "avg_r_multiple": 0.18,
+          "profit_factor": 1.58,
+          "max_drawdown_pct": 103.51,
+          "outcomes": {
+            "STOP_LOSS": 41,
+            "TIME_EXIT": 24,
+            "TP2_HIT": 22,
+            "TP3_HIT": 22,
+            "TP1_HIT": 13
+          }
+        }
+      }
+    },
+    "m3_f1c_expanded": {
+      "overall_2020_2025": {
+        "total_trades": 567,
+        "win_rate_pct": 56.08,
+        "tp1_hit_rate_pct": 40.92,
+        "tp2_hit_rate_pct": 26.28,
+        "tp3_hit_rate_pct": 10.05,
+        "avg_net_return_pct": 0.575,
+        "total_net_return_pct": 326.05,
+        "avg_r_multiple": 0.051,
+        "profit_factor": 1.16,
+        "max_drawdown_pct": 273.12,
+        "outcomes": {
+          "TIME_EXIT": 135,
+          "STOP_LOSS": 200,
+          "TP1_HIT": 83,
+          "TP3_HIT": 57,
+          "TP2_HIT": 92
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 369,
+        "win_rate_pct": 51.49,
+        "tp1_hit_rate_pct": 37.94,
+        "tp2_hit_rate_pct": 24.39,
+        "tp3_hit_rate_pct": 8.94,
+        "avg_net_return_pct": -0.151,
+        "total_net_return_pct": -55.68,
+        "avg_r_multiple": -0.024,
+        "profit_factor": 0.96,
+        "max_drawdown_pct": 273.12,
+        "outcomes": {
+          "TIME_EXIT": 84,
+          "STOP_LOSS": 145,
+          "TP1_HIT": 50,
+          "TP3_HIT": 33,
+          "TP2_HIT": 57
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 198,
+        "win_rate_pct": 64.65,
+        "tp1_hit_rate_pct": 46.46,
+        "tp2_hit_rate_pct": 29.8,
+        "tp3_hit_rate_pct": 12.12,
+        "avg_net_return_pct": 1.928,
+        "total_net_return_pct": 381.73,
+        "avg_r_multiple": 0.189,
+        "profit_factor": 1.74,
+        "max_drawdown_pct": 86.87,
+        "outcomes": {
+          "STOP_LOSS": 55,
+          "TP2_HIT": 35,
+          "TIME_EXIT": 51,
+          "TP1_HIT": 33,
+          "TP3_HIT": 24
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 73,
+          "win_rate_pct": 52.05,
+          "tp1_hit_rate_pct": 43.84,
+          "tp2_hit_rate_pct": 20.55,
+          "tp3_hit_rate_pct": 15.07,
+          "avg_net_return_pct": -0.377,
+          "total_net_return_pct": -27.49,
+          "avg_r_multiple": 0.059,
+          "profit_factor": 0.89,
+          "max_drawdown_pct": 65.47,
+          "outcomes": {
+            "TIME_EXIT": 18,
+            "STOP_LOSS": 23,
+            "TP1_HIT": 17,
+            "TP3_HIT": 11,
+            "TP2_HIT": 4
+          }
+        },
+        "2021": {
+          "total_trades": 187,
+          "win_rate_pct": 49.2,
+          "tp1_hit_rate_pct": 32.62,
+          "tp2_hit_rate_pct": 21.93,
+          "tp3_hit_rate_pct": 6.95,
+          "avg_net_return_pct": -0.439,
+          "total_net_return_pct": -82.13,
+          "avg_r_multiple": -0.093,
+          "profit_factor": 0.91,
+          "max_drawdown_pct": 225.39,
+          "outcomes": {
+            "STOP_LOSS": 81,
+            "TP2_HIT": 28,
+            "TIME_EXIT": 45,
+            "TP1_HIT": 20,
+            "TP3_HIT": 13
+          }
+        },
+        "2022": {
+          "total_trades": 61,
+          "win_rate_pct": 60.66,
+          "tp1_hit_rate_pct": 47.54,
+          "tp2_hit_rate_pct": 39.34,
+          "tp3_hit_rate_pct": 11.48,
+          "avg_net_return_pct": 2.096,
+          "total_net_return_pct": 127.88,
+          "avg_r_multiple": 0.206,
+          "profit_factor": 1.66,
+          "max_drawdown_pct": 79.33,
+          "outcomes": {
+            "TP2_HIT": 17,
+            "TIME_EXIT": 13,
+            "STOP_LOSS": 19,
+            "TP3_HIT": 7,
+            "TP1_HIT": 5
+          }
+        },
+        "2023": {
+          "total_trades": 48,
+          "win_rate_pct": 47.92,
+          "tp1_hit_rate_pct": 37.5,
+          "tp2_hit_rate_pct": 20.83,
+          "tp3_hit_rate_pct": 4.17,
+          "avg_net_return_pct": -1.54,
+          "total_net_return_pct": -73.94,
+          "avg_r_multiple": -0.172,
+          "profit_factor": 0.62,
+          "max_drawdown_pct": 93.81,
+          "outcomes": {
+            "STOP_LOSS": 22,
+            "TP2_HIT": 8,
+            "TP1_HIT": 8,
+            "TIME_EXIT": 8,
+            "TP3_HIT": 2
+          }
+        },
+        "2024": {
+          "total_trades": 112,
+          "win_rate_pct": 66.07,
+          "tp1_hit_rate_pct": 44.64,
+          "tp2_hit_rate_pct": 27.68,
+          "tp3_hit_rate_pct": 8.04,
+          "avg_net_return_pct": 2.09,
+          "total_net_return_pct": 234.09,
+          "avg_r_multiple": 0.177,
+          "profit_factor": 1.78,
+          "max_drawdown_pct": 86.87,
+          "outcomes": {
+            "STOP_LOSS": 30,
+            "TP2_HIT": 22,
+            "TIME_EXIT": 32,
+            "TP3_HIT": 9,
+            "TP1_HIT": 19
+          }
+        },
+        "2025": {
+          "total_trades": 86,
+          "win_rate_pct": 62.79,
+          "tp1_hit_rate_pct": 48.84,
+          "tp2_hit_rate_pct": 32.56,
+          "tp3_hit_rate_pct": 17.44,
+          "avg_net_return_pct": 1.717,
+          "total_net_return_pct": 147.64,
+          "avg_r_multiple": 0.206,
+          "profit_factor": 1.67,
+          "max_drawdown_pct": 77.51,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "STOP_LOSS": 25,
+            "TIME_EXIT": 19,
+            "TP1_HIT": 14,
+            "TP3_HIT": 15
+          }
+        }
+      }
+    },
+    "m3_f1c_elite": {
+      "overall_2020_2025": {
+        "total_trades": 390,
+        "win_rate_pct": 58.97,
+        "tp1_hit_rate_pct": 40.51,
+        "tp2_hit_rate_pct": 25.13,
+        "tp3_hit_rate_pct": 10.51,
+        "avg_net_return_pct": 1.148,
+        "total_net_return_pct": 447.86,
+        "avg_r_multiple": 0.106,
+        "profit_factor": 1.34,
+        "max_drawdown_pct": 152.94,
+        "outcomes": {
+          "TIME_EXIT": 112,
+          "STOP_LOSS": 120,
+          "TP1_HIT": 60,
+          "TP3_HIT": 41,
+          "TP2_HIT": 57
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 258,
+        "win_rate_pct": 54.65,
+        "tp1_hit_rate_pct": 37.98,
+        "tp2_hit_rate_pct": 23.26,
+        "tp3_hit_rate_pct": 10.08,
+        "avg_net_return_pct": 0.454,
+        "total_net_return_pct": 117.16,
+        "avg_r_multiple": 0.041,
+        "profit_factor": 1.11,
+        "max_drawdown_pct": 152.94,
+        "outcomes": {
+          "TIME_EXIT": 71,
+          "STOP_LOSS": 89,
+          "TP1_HIT": 38,
+          "TP3_HIT": 26,
+          "TP2_HIT": 34
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 132,
+        "win_rate_pct": 67.42,
+        "tp1_hit_rate_pct": 45.45,
+        "tp2_hit_rate_pct": 28.79,
+        "tp3_hit_rate_pct": 11.36,
+        "avg_net_return_pct": 2.505,
+        "total_net_return_pct": 330.69,
+        "avg_r_multiple": 0.234,
+        "profit_factor": 2.1,
+        "max_drawdown_pct": 75.68,
+        "outcomes": {
+          "TP2_HIT": 23,
+          "TIME_EXIT": 41,
+          "STOP_LOSS": 31,
+          "TP1_HIT": 22,
+          "TP3_HIT": 15
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 63,
+          "win_rate_pct": 57.14,
+          "tp1_hit_rate_pct": 47.62,
+          "tp2_hit_rate_pct": 23.81,
+          "tp3_hit_rate_pct": 17.46,
+          "avg_net_return_pct": 0.436,
+          "total_net_return_pct": 27.44,
+          "avg_r_multiple": 0.169,
+          "profit_factor": 1.15,
+          "max_drawdown_pct": 58.08,
+          "outcomes": {
+            "TIME_EXIT": 17,
+            "STOP_LOSS": 16,
+            "TP1_HIT": 15,
+            "TP3_HIT": 11,
+            "TP2_HIT": 4
+          }
+        },
+        "2021": {
+          "total_trades": 116,
+          "win_rate_pct": 51.72,
+          "tp1_hit_rate_pct": 30.17,
+          "tp2_hit_rate_pct": 19.83,
+          "tp3_hit_rate_pct": 7.76,
+          "avg_net_return_pct": -0.027,
+          "total_net_return_pct": -3.09,
+          "avg_r_multiple": -0.058,
+          "profit_factor": 0.99,
+          "max_drawdown_pct": 140.96,
+          "outcomes": {
+            "TIME_EXIT": 34,
+            "STOP_LOSS": 47,
+            "TP1_HIT": 12,
+            "TP2_HIT": 14,
+            "TP3_HIT": 9
+          }
+        },
+        "2022": {
+          "total_trades": 54,
+          "win_rate_pct": 59.26,
+          "tp1_hit_rate_pct": 44.44,
+          "tp2_hit_rate_pct": 35.19,
+          "tp3_hit_rate_pct": 11.11,
+          "avg_net_return_pct": 1.973,
+          "total_net_return_pct": 106.53,
+          "avg_r_multiple": 0.175,
+          "profit_factor": 1.61,
+          "max_drawdown_pct": 67.59,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "TIME_EXIT": 13,
+            "STOP_LOSS": 17,
+            "TP3_HIT": 6,
+            "TP1_HIT": 5
+          }
+        },
+        "2023": {
+          "total_trades": 25,
+          "win_rate_pct": 52.0,
+          "tp1_hit_rate_pct": 36.0,
+          "tp2_hit_rate_pct": 12.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": -0.549,
+          "total_net_return_pct": -13.72,
+          "avg_r_multiple": -0.115,
+          "profit_factor": 0.82,
+          "max_drawdown_pct": 39.53,
+          "outcomes": {
+            "STOP_LOSS": 9,
+            "TP2_HIT": 3,
+            "TIME_EXIT": 7,
+            "TP1_HIT": 6
+          }
+        },
+        "2024": {
+          "total_trades": 65,
+          "win_rate_pct": 72.31,
+          "tp1_hit_rate_pct": 44.62,
+          "tp2_hit_rate_pct": 26.15,
+          "tp3_hit_rate_pct": 6.15,
+          "avg_net_return_pct": 3.423,
+          "total_net_return_pct": 222.53,
+          "avg_r_multiple": 0.306,
+          "profit_factor": 2.69,
+          "max_drawdown_pct": 58.76,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "TIME_EXIT": 25,
+            "STOP_LOSS": 11,
+            "TP1_HIT": 12,
+            "TP3_HIT": 4
+          }
+        },
+        "2025": {
+          "total_trades": 67,
+          "win_rate_pct": 62.69,
+          "tp1_hit_rate_pct": 46.27,
+          "tp2_hit_rate_pct": 31.34,
+          "tp3_hit_rate_pct": 16.42,
+          "avg_net_return_pct": 1.614,
+          "total_net_return_pct": 108.17,
+          "avg_r_multiple": 0.164,
+          "profit_factor": 1.64,
+          "max_drawdown_pct": 75.68,
+          "outcomes": {
+            "STOP_LOSS": 20,
+            "TIME_EXIT": 16,
+            "TP2_HIT": 10,
+            "TP3_HIT": 11,
+            "TP1_HIT": 10
+          }
+        }
+      }
+    },
+    "m4_f2_expanded": {
+      "overall_2020_2025": {
+        "total_trades": 443,
+        "win_rate_pct": 56.88,
+        "tp1_hit_rate_pct": 41.99,
+        "tp2_hit_rate_pct": 27.09,
+        "tp3_hit_rate_pct": 8.8,
+        "avg_net_return_pct": 0.731,
+        "total_net_return_pct": 323.88,
+        "avg_r_multiple": 0.06,
+        "profit_factor": 1.2,
+        "max_drawdown_pct": 241.67,
+        "outcomes": {
+          "TIME_EXIT": 101,
+          "STOP_LOSS": 156,
+          "TP2_HIT": 81,
+          "TP1_HIT": 66,
+          "TP3_HIT": 39
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 295,
+        "win_rate_pct": 51.53,
+        "tp1_hit_rate_pct": 38.64,
+        "tp2_hit_rate_pct": 24.41,
+        "tp3_hit_rate_pct": 7.8,
+        "avg_net_return_pct": -0.096,
+        "total_net_return_pct": -28.41,
+        "avg_r_multiple": -0.027,
+        "profit_factor": 0.98,
+        "max_drawdown_pct": 241.67,
+        "outcomes": {
+          "TIME_EXIT": 64,
+          "STOP_LOSS": 117,
+          "TP2_HIT": 49,
+          "TP1_HIT": 42,
+          "TP3_HIT": 23
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 148,
+        "win_rate_pct": 67.57,
+        "tp1_hit_rate_pct": 48.65,
+        "tp2_hit_rate_pct": 32.43,
+        "tp3_hit_rate_pct": 10.81,
+        "avg_net_return_pct": 2.38,
+        "total_net_return_pct": 352.29,
+        "avg_r_multiple": 0.234,
+        "profit_factor": 1.97,
+        "max_drawdown_pct": 70.25,
+        "outcomes": {
+          "TP2_HIT": 32,
+          "TIME_EXIT": 37,
+          "STOP_LOSS": 39,
+          "TP3_HIT": 16,
+          "TP1_HIT": 24
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 54,
+          "win_rate_pct": 53.7,
+          "tp1_hit_rate_pct": 46.3,
+          "tp2_hit_rate_pct": 24.07,
+          "tp3_hit_rate_pct": 16.67,
+          "avg_net_return_pct": 0.017,
+          "total_net_return_pct": 0.92,
+          "avg_r_multiple": 0.081,
+          "profit_factor": 1.0,
+          "max_drawdown_pct": 58.08,
+          "outcomes": {
+            "TIME_EXIT": 12,
+            "STOP_LOSS": 17,
+            "TP2_HIT": 4,
+            "TP3_HIT": 9,
+            "TP1_HIT": 12
+          }
+        },
+        "2021": {
+          "total_trades": 158,
+          "win_rate_pct": 48.1,
+          "tp1_hit_rate_pct": 32.28,
+          "tp2_hit_rate_pct": 20.89,
+          "tp3_hit_rate_pct": 5.06,
+          "avg_net_return_pct": -0.444,
+          "total_net_return_pct": -70.09,
+          "avg_r_multiple": -0.11,
+          "profit_factor": 0.91,
+          "max_drawdown_pct": 225.09,
+          "outcomes": {
+            "STOP_LOSS": 69,
+            "TP2_HIT": 25,
+            "TIME_EXIT": 38,
+            "TP1_HIT": 18,
+            "TP3_HIT": 8
+          }
+        },
+        "2022": {
+          "total_trades": 44,
+          "win_rate_pct": 61.36,
+          "tp1_hit_rate_pct": 52.27,
+          "tp2_hit_rate_pct": 43.18,
+          "tp3_hit_rate_pct": 11.36,
+          "avg_net_return_pct": 2.089,
+          "total_net_return_pct": 91.93,
+          "avg_r_multiple": 0.247,
+          "profit_factor": 1.78,
+          "max_drawdown_pct": 57.75,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "STOP_LOSS": 14,
+            "TIME_EXIT": 7,
+            "TP3_HIT": 5,
+            "TP1_HIT": 4
+          }
+        },
+        "2023": {
+          "total_trades": 39,
+          "win_rate_pct": 51.28,
+          "tp1_hit_rate_pct": 38.46,
+          "tp2_hit_rate_pct": 17.95,
+          "tp3_hit_rate_pct": 2.56,
+          "avg_net_return_pct": -1.312,
+          "total_net_return_pct": -51.17,
+          "avg_r_multiple": -0.151,
+          "profit_factor": 0.67,
+          "max_drawdown_pct": 78.82,
+          "outcomes": {
+            "STOP_LOSS": 17,
+            "TP2_HIT": 6,
+            "TP1_HIT": 8,
+            "TIME_EXIT": 7,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 87,
+          "win_rate_pct": 66.67,
+          "tp1_hit_rate_pct": 45.98,
+          "tp2_hit_rate_pct": 29.89,
+          "tp3_hit_rate_pct": 8.05,
+          "avg_net_return_pct": 2.388,
+          "total_net_return_pct": 207.78,
+          "avg_r_multiple": 0.19,
+          "profit_factor": 1.9,
+          "max_drawdown_pct": 70.25,
+          "outcomes": {
+            "TP2_HIT": 19,
+            "STOP_LOSS": 23,
+            "TIME_EXIT": 24,
+            "TP3_HIT": 7,
+            "TP1_HIT": 14
+          }
+        },
+        "2025": {
+          "total_trades": 61,
+          "win_rate_pct": 68.85,
+          "tp1_hit_rate_pct": 52.46,
+          "tp2_hit_rate_pct": 36.07,
+          "tp3_hit_rate_pct": 14.75,
+          "avg_net_return_pct": 2.369,
+          "total_net_return_pct": 144.52,
+          "avg_r_multiple": 0.297,
+          "profit_factor": 2.11,
+          "max_drawdown_pct": 65.95,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "TIME_EXIT": 13,
+            "STOP_LOSS": 16,
+            "TP3_HIT": 9,
+            "TP1_HIT": 10
+          }
+        }
+      }
+    },
+    "m4_f2_elite": {
+      "overall_2020_2025": {
+        "total_trades": 299,
+        "win_rate_pct": 61.54,
+        "tp1_hit_rate_pct": 42.81,
+        "tp2_hit_rate_pct": 26.42,
+        "tp3_hit_rate_pct": 9.7,
+        "avg_net_return_pct": 1.528,
+        "total_net_return_pct": 456.78,
+        "avg_r_multiple": 0.146,
+        "profit_factor": 1.46,
+        "max_drawdown_pct": 147.61,
+        "outcomes": {
+          "TIME_EXIT": 84,
+          "STOP_LOSS": 87,
+          "TP2_HIT": 50,
+          "TP1_HIT": 49,
+          "TP3_HIT": 29
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 198,
+        "win_rate_pct": 56.06,
+        "tp1_hit_rate_pct": 39.9,
+        "tp2_hit_rate_pct": 24.24,
+        "tp3_hit_rate_pct": 9.6,
+        "avg_net_return_pct": 0.727,
+        "total_net_return_pct": 143.94,
+        "avg_r_multiple": 0.067,
+        "profit_factor": 1.18,
+        "max_drawdown_pct": 147.61,
+        "outcomes": {
+          "TIME_EXIT": 52,
+          "STOP_LOSS": 67,
+          "TP2_HIT": 29,
+          "TP1_HIT": 31,
+          "TP3_HIT": 19
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 101,
+        "win_rate_pct": 72.28,
+        "tp1_hit_rate_pct": 48.51,
+        "tp2_hit_rate_pct": 30.69,
+        "tp3_hit_rate_pct": 9.9,
+        "avg_net_return_pct": 3.097,
+        "total_net_return_pct": 312.84,
+        "avg_r_multiple": 0.303,
+        "profit_factor": 2.59,
+        "max_drawdown_pct": 60.48,
+        "outcomes": {
+          "TP2_HIT": 21,
+          "TIME_EXIT": 32,
+          "STOP_LOSS": 20,
+          "TP1_HIT": 18,
+          "TP3_HIT": 10
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 45,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 51.11,
+          "tp2_hit_rate_pct": 28.89,
+          "tp3_hit_rate_pct": 20.0,
+          "avg_net_return_pct": 0.986,
+          "total_net_return_pct": 44.37,
+          "avg_r_multiple": 0.215,
+          "profit_factor": 1.33,
+          "max_drawdown_pct": 58.08,
+          "outcomes": {
+            "TIME_EXIT": 11,
+            "STOP_LOSS": 11,
+            "TP2_HIT": 4,
+            "TP3_HIT": 9,
+            "TP1_HIT": 10
+          }
+        },
+        "2021": {
+          "total_trades": 95,
+          "win_rate_pct": 52.63,
+          "tp1_hit_rate_pct": 31.58,
+          "tp2_hit_rate_pct": 20.0,
+          "tp3_hit_rate_pct": 6.32,
+          "avg_net_return_pct": 0.373,
+          "total_net_return_pct": 35.39,
+          "avg_r_multiple": -0.03,
+          "profit_factor": 1.07,
+          "max_drawdown_pct": 147.61,
+          "outcomes": {
+            "TIME_EXIT": 28,
+            "STOP_LOSS": 37,
+            "TP1_HIT": 11,
+            "TP2_HIT": 13,
+            "TP3_HIT": 6
+          }
+        },
+        "2022": {
+          "total_trades": 38,
+          "win_rate_pct": 57.89,
+          "tp1_hit_rate_pct": 47.37,
+          "tp2_hit_rate_pct": 36.84,
+          "tp3_hit_rate_pct": 10.53,
+          "avg_net_return_pct": 1.549,
+          "total_net_return_pct": 58.85,
+          "avg_r_multiple": 0.177,
+          "profit_factor": 1.54,
+          "max_drawdown_pct": 57.75,
+          "outcomes": {
+            "TP2_HIT": 10,
+            "STOP_LOSS": 13,
+            "TIME_EXIT": 7,
+            "TP3_HIT": 4,
+            "TP1_HIT": 4
+          }
+        },
+        "2023": {
+          "total_trades": 20,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 40.0,
+          "tp2_hit_rate_pct": 10.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 0.267,
+          "total_net_return_pct": 5.33,
+          "avg_r_multiple": -0.017,
+          "profit_factor": 1.1,
+          "max_drawdown_pct": 26.19,
+          "outcomes": {
+            "STOP_LOSS": 6,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 6,
+            "TP2_HIT": 2
+          }
+        },
+        "2024": {
+          "total_trades": 54,
+          "win_rate_pct": 74.07,
+          "tp1_hit_rate_pct": 46.3,
+          "tp2_hit_rate_pct": 25.93,
+          "tp3_hit_rate_pct": 5.56,
+          "avg_net_return_pct": 3.696,
+          "total_net_return_pct": 199.61,
+          "avg_r_multiple": 0.312,
+          "profit_factor": 3.03,
+          "max_drawdown_pct": 48.69,
+          "outcomes": {
+            "TP2_HIT": 11,
+            "STOP_LOSS": 8,
+            "TIME_EXIT": 21,
+            "TP1_HIT": 11,
+            "TP3_HIT": 3
+          }
+        },
+        "2025": {
+          "total_trades": 47,
+          "win_rate_pct": 70.21,
+          "tp1_hit_rate_pct": 51.06,
+          "tp2_hit_rate_pct": 36.17,
+          "tp3_hit_rate_pct": 14.89,
+          "avg_net_return_pct": 2.409,
+          "total_net_return_pct": 113.23,
+          "avg_r_multiple": 0.293,
+          "profit_factor": 2.15,
+          "max_drawdown_pct": 60.48,
+          "outcomes": {
+            "TIME_EXIT": 11,
+            "TP2_HIT": 10,
+            "STOP_LOSS": 12,
+            "TP1_HIT": 7,
+            "TP3_HIT": 7
+          }
+        }
+      }
+    },
+    "m5_f3_expanded": {
+      "overall_2020_2025": {
+        "total_trades": 250,
+        "win_rate_pct": 61.6,
+        "tp1_hit_rate_pct": 45.2,
+        "tp2_hit_rate_pct": 28.4,
+        "tp3_hit_rate_pct": 8.4,
+        "avg_net_return_pct": 1.067,
+        "total_net_return_pct": 266.66,
+        "avg_r_multiple": 0.074,
+        "profit_factor": 1.29,
+        "max_drawdown_pct": 170.17,
+        "outcomes": {
+          "TIME_EXIT": 65,
+          "TP2_HIT": 50,
+          "TP1_HIT": 42,
+          "TP3_HIT": 21,
+          "STOP_LOSS": 72
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 160,
+        "win_rate_pct": 53.75,
+        "tp1_hit_rate_pct": 40.62,
+        "tp2_hit_rate_pct": 23.75,
+        "tp3_hit_rate_pct": 6.88,
+        "avg_net_return_pct": 0.062,
+        "total_net_return_pct": 10.0,
+        "avg_r_multiple": -0.033,
+        "profit_factor": 1.01,
+        "max_drawdown_pct": 170.17,
+        "outcomes": {
+          "TIME_EXIT": 41,
+          "TP2_HIT": 27,
+          "TP1_HIT": 27,
+          "TP3_HIT": 11,
+          "STOP_LOSS": 54
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 90,
+        "win_rate_pct": 75.56,
+        "tp1_hit_rate_pct": 53.33,
+        "tp2_hit_rate_pct": 36.67,
+        "tp3_hit_rate_pct": 11.11,
+        "avg_net_return_pct": 2.852,
+        "total_net_return_pct": 256.66,
+        "avg_r_multiple": 0.263,
+        "profit_factor": 2.38,
+        "max_drawdown_pct": 41.47,
+        "outcomes": {
+          "TP2_HIT": 23,
+          "STOP_LOSS": 18,
+          "TP1_HIT": 15,
+          "TIME_EXIT": 24,
+          "TP3_HIT": 10
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 28,
+          "win_rate_pct": 57.14,
+          "tp1_hit_rate_pct": 46.43,
+          "tp2_hit_rate_pct": 21.43,
+          "tp3_hit_rate_pct": 14.29,
+          "avg_net_return_pct": 0.671,
+          "total_net_return_pct": 18.78,
+          "avg_r_multiple": 0.122,
+          "profit_factor": 1.23,
+          "max_drawdown_pct": 31.69,
+          "outcomes": {
+            "TIME_EXIT": 10,
+            "TP2_HIT": 2,
+            "TP3_HIT": 4,
+            "STOP_LOSS": 5,
+            "TP1_HIT": 7
+          }
+        },
+        "2021": {
+          "total_trades": 93,
+          "win_rate_pct": 47.31,
+          "tp1_hit_rate_pct": 32.26,
+          "tp2_hit_rate_pct": 18.28,
+          "tp3_hit_rate_pct": 3.23,
+          "avg_net_return_pct": -0.892,
+          "total_net_return_pct": -82.99,
+          "avg_r_multiple": -0.173,
+          "profit_factor": 0.84,
+          "max_drawdown_pct": 170.17,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "TIME_EXIT": 25,
+            "TP1_HIT": 13,
+            "STOP_LOSS": 38,
+            "TP3_HIT": 3
+          }
+        },
+        "2022": {
+          "total_trades": 23,
+          "win_rate_pct": 65.22,
+          "tp1_hit_rate_pct": 56.52,
+          "tp2_hit_rate_pct": 39.13,
+          "tp3_hit_rate_pct": 13.04,
+          "avg_net_return_pct": 2.322,
+          "total_net_return_pct": 53.41,
+          "avg_r_multiple": 0.221,
+          "profit_factor": 1.89,
+          "max_drawdown_pct": 35.08,
+          "outcomes": {
+            "STOP_LOSS": 6,
+            "TP2_HIT": 6,
+            "TIME_EXIT": 4,
+            "TP1_HIT": 4,
+            "TP3_HIT": 3
+          }
+        },
+        "2023": {
+          "total_trades": 16,
+          "win_rate_pct": 68.75,
+          "tp1_hit_rate_pct": 56.25,
+          "tp2_hit_rate_pct": 37.5,
+          "tp3_hit_rate_pct": 6.25,
+          "avg_net_return_pct": 1.299,
+          "total_net_return_pct": 20.79,
+          "avg_r_multiple": 0.145,
+          "profit_factor": 1.49,
+          "max_drawdown_pct": 38.64,
+          "outcomes": {
+            "TP1_HIT": 3,
+            "STOP_LOSS": 5,
+            "TP2_HIT": 5,
+            "TIME_EXIT": 2,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 50,
+          "win_rate_pct": 74.0,
+          "tp1_hit_rate_pct": 46.0,
+          "tp2_hit_rate_pct": 32.0,
+          "tp3_hit_rate_pct": 8.0,
+          "avg_net_return_pct": 2.595,
+          "total_net_return_pct": 129.74,
+          "avg_r_multiple": 0.193,
+          "profit_factor": 2.11,
+          "max_drawdown_pct": 35.77,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "STOP_LOSS": 10,
+            "TP1_HIT": 7,
+            "TIME_EXIT": 17,
+            "TP3_HIT": 4
+          }
+        },
+        "2025": {
+          "total_trades": 40,
+          "win_rate_pct": 77.5,
+          "tp1_hit_rate_pct": 62.5,
+          "tp2_hit_rate_pct": 42.5,
+          "tp3_hit_rate_pct": 15.0,
+          "avg_net_return_pct": 3.173,
+          "total_net_return_pct": 126.92,
+          "avg_r_multiple": 0.351,
+          "profit_factor": 2.83,
+          "max_drawdown_pct": 41.47,
+          "outcomes": {
+            "TP2_HIT": 11,
+            "TP1_HIT": 8,
+            "STOP_LOSS": 8,
+            "TIME_EXIT": 7,
+            "TP3_HIT": 6
+          }
+        }
+      }
+    },
+    "m5_f3_elite": {
+      "overall_2020_2025": {
+        "total_trades": 169,
+        "win_rate_pct": 65.68,
+        "tp1_hit_rate_pct": 45.56,
+        "tp2_hit_rate_pct": 27.81,
+        "tp3_hit_rate_pct": 9.47,
+        "avg_net_return_pct": 1.856,
+        "total_net_return_pct": 313.62,
+        "avg_r_multiple": 0.138,
+        "profit_factor": 1.58,
+        "max_drawdown_pct": 113.86,
+        "outcomes": {
+          "TIME_EXIT": 52,
+          "TP2_HIT": 31,
+          "TP1_HIT": 30,
+          "TP3_HIT": 16,
+          "STOP_LOSS": 40
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 101,
+        "win_rate_pct": 58.42,
+        "tp1_hit_rate_pct": 40.59,
+        "tp2_hit_rate_pct": 21.78,
+        "tp3_hit_rate_pct": 7.92,
+        "avg_net_return_pct": 0.985,
+        "total_net_return_pct": 99.51,
+        "avg_r_multiple": 0.038,
+        "profit_factor": 1.23,
+        "max_drawdown_pct": 113.86,
+        "outcomes": {
+          "TIME_EXIT": 32,
+          "TP2_HIT": 14,
+          "TP1_HIT": 19,
+          "TP3_HIT": 8,
+          "STOP_LOSS": 28
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 68,
+        "win_rate_pct": 76.47,
+        "tp1_hit_rate_pct": 52.94,
+        "tp2_hit_rate_pct": 36.76,
+        "tp3_hit_rate_pct": 11.76,
+        "avg_net_return_pct": 3.149,
+        "total_net_return_pct": 214.12,
+        "avg_r_multiple": 0.288,
+        "profit_factor": 2.79,
+        "max_drawdown_pct": 47.1,
+        "outcomes": {
+          "TP2_HIT": 17,
+          "STOP_LOSS": 12,
+          "TP1_HIT": 11,
+          "TIME_EXIT": 20,
+          "TP3_HIT": 8
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 22,
+          "win_rate_pct": 63.64,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 27.27,
+          "tp3_hit_rate_pct": 18.18,
+          "avg_net_return_pct": 1.813,
+          "total_net_return_pct": 39.89,
+          "avg_r_multiple": 0.256,
+          "profit_factor": 1.73,
+          "max_drawdown_pct": 24.09,
+          "outcomes": {
+            "TIME_EXIT": 9,
+            "TP2_HIT": 2,
+            "TP3_HIT": 4,
+            "STOP_LOSS": 2,
+            "TP1_HIT": 5
+          }
+        },
+        "2021": {
+          "total_trades": 52,
+          "win_rate_pct": 53.85,
+          "tp1_hit_rate_pct": 32.69,
+          "tp2_hit_rate_pct": 15.38,
+          "tp3_hit_rate_pct": 3.85,
+          "avg_net_return_pct": 0.453,
+          "total_net_return_pct": 23.54,
+          "avg_r_multiple": -0.093,
+          "profit_factor": 1.08,
+          "max_drawdown_pct": 113.86,
+          "outcomes": {
+            "TIME_EXIT": 17,
+            "TP1_HIT": 9,
+            "STOP_LOSS": 18,
+            "TP2_HIT": 6,
+            "TP3_HIT": 2
+          }
+        },
+        "2022": {
+          "total_trades": 20,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 30.0,
+          "tp3_hit_rate_pct": 10.0,
+          "avg_net_return_pct": 1.586,
+          "total_net_return_pct": 31.71,
+          "avg_r_multiple": 0.122,
+          "profit_factor": 1.53,
+          "max_drawdown_pct": 35.08,
+          "outcomes": {
+            "STOP_LOSS": 6,
+            "TP2_HIT": 4,
+            "TIME_EXIT": 4,
+            "TP1_HIT": 4,
+            "TP3_HIT": 2
+          }
+        },
+        "2023": {
+          "total_trades": 7,
+          "win_rate_pct": 71.43,
+          "tp1_hit_rate_pct": 42.86,
+          "tp2_hit_rate_pct": 28.57,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 0.623,
+          "total_net_return_pct": 4.36,
+          "avg_r_multiple": 0.083,
+          "profit_factor": 1.24,
+          "max_drawdown_pct": 18.01,
+          "outcomes": {
+            "STOP_LOSS": 2,
+            "TP1_HIT": 1,
+            "TP2_HIT": 2,
+            "TIME_EXIT": 2
+          }
+        },
+        "2024": {
+          "total_trades": 36,
+          "win_rate_pct": 77.78,
+          "tp1_hit_rate_pct": 47.22,
+          "tp2_hit_rate_pct": 30.56,
+          "tp3_hit_rate_pct": 8.33,
+          "avg_net_return_pct": 3.514,
+          "total_net_return_pct": 126.51,
+          "avg_r_multiple": 0.261,
+          "profit_factor": 3.02,
+          "max_drawdown_pct": 30.53,
+          "outcomes": {
+            "TP2_HIT": 8,
+            "STOP_LOSS": 5,
+            "TP1_HIT": 6,
+            "TIME_EXIT": 14,
+            "TP3_HIT": 3
+          }
+        },
+        "2025": {
+          "total_trades": 32,
+          "win_rate_pct": 75.0,
+          "tp1_hit_rate_pct": 59.38,
+          "tp2_hit_rate_pct": 43.75,
+          "tp3_hit_rate_pct": 15.62,
+          "avg_net_return_pct": 2.738,
+          "total_net_return_pct": 87.6,
+          "avg_r_multiple": 0.318,
+          "profit_factor": 2.53,
+          "max_drawdown_pct": 47.1,
+          "outcomes": {
+            "TP2_HIT": 9,
+            "STOP_LOSS": 7,
+            "TP1_HIT": 5,
+            "TIME_EXIT": 6,
+            "TP3_HIT": 5
+          }
+        }
+      }
+    },
+    "m6_f4_expanded": {
+      "overall_2020_2025": {
+        "total_trades": 443,
+        "win_rate_pct": 54.18,
+        "tp1_hit_rate_pct": 40.63,
+        "tp2_hit_rate_pct": 26.19,
+        "tp3_hit_rate_pct": 8.13,
+        "avg_net_return_pct": 1.169,
+        "total_net_return_pct": 517.95,
+        "avg_r_multiple": 0.139,
+        "profit_factor": 1.32,
+        "max_drawdown_pct": 226.98,
+        "outcomes": {
+          "TIME_EXIT": 87,
+          "STOP_LOSS": 176,
+          "TP2_HIT": 80,
+          "TP1_HIT": 64,
+          "TP3_HIT": 36
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 295,
+        "win_rate_pct": 48.14,
+        "tp1_hit_rate_pct": 36.61,
+        "tp2_hit_rate_pct": 23.05,
+        "tp3_hit_rate_pct": 6.78,
+        "avg_net_return_pct": 0.142,
+        "total_net_return_pct": 42.0,
+        "avg_r_multiple": 0.005,
+        "profit_factor": 1.03,
+        "max_drawdown_pct": 226.98,
+        "outcomes": {
+          "TIME_EXIT": 54,
+          "STOP_LOSS": 133,
+          "TP2_HIT": 48,
+          "TP1_HIT": 40,
+          "TP3_HIT": 20
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 148,
+        "win_rate_pct": 66.22,
+        "tp1_hit_rate_pct": 48.65,
+        "tp2_hit_rate_pct": 32.43,
+        "tp3_hit_rate_pct": 10.81,
+        "avg_net_return_pct": 3.216,
+        "total_net_return_pct": 475.95,
+        "avg_r_multiple": 0.407,
+        "profit_factor": 2.44,
+        "max_drawdown_pct": 57.18,
+        "outcomes": {
+          "TP2_HIT": 32,
+          "STOP_LOSS": 43,
+          "TP3_HIT": 16,
+          "TIME_EXIT": 33,
+          "TP1_HIT": 24
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 54,
+          "win_rate_pct": 50.0,
+          "tp1_hit_rate_pct": 44.44,
+          "tp2_hit_rate_pct": 22.22,
+          "tp3_hit_rate_pct": 14.81,
+          "avg_net_return_pct": -0.539,
+          "total_net_return_pct": -29.09,
+          "avg_r_multiple": 0.04,
+          "profit_factor": 0.86,
+          "max_drawdown_pct": 63.18,
+          "outcomes": {
+            "TIME_EXIT": 10,
+            "STOP_LOSS": 20,
+            "TP2_HIT": 4,
+            "TP3_HIT": 8,
+            "TP1_HIT": 12
+          }
+        },
+        "2021": {
+          "total_trades": 158,
+          "win_rate_pct": 43.67,
+          "tp1_hit_rate_pct": 29.11,
+          "tp2_hit_rate_pct": 18.99,
+          "tp3_hit_rate_pct": 3.8,
+          "avg_net_return_pct": -0.135,
+          "total_net_return_pct": -21.39,
+          "avg_r_multiple": -0.082,
+          "profit_factor": 0.97,
+          "max_drawdown_pct": 205.86,
+          "outcomes": {
+            "STOP_LOSS": 78,
+            "TP2_HIT": 24,
+            "TIME_EXIT": 34,
+            "TP1_HIT": 16,
+            "TP3_HIT": 6
+          }
+        },
+        "2022": {
+          "total_trades": 44,
+          "win_rate_pct": 61.36,
+          "tp1_hit_rate_pct": 52.27,
+          "tp2_hit_rate_pct": 43.18,
+          "tp3_hit_rate_pct": 11.36,
+          "avg_net_return_pct": 2.341,
+          "total_net_return_pct": 103.0,
+          "avg_r_multiple": 0.352,
+          "profit_factor": 1.92,
+          "max_drawdown_pct": 58.79,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "STOP_LOSS": 16,
+            "TIME_EXIT": 5,
+            "TP3_HIT": 5,
+            "TP1_HIT": 4
+          }
+        },
+        "2023": {
+          "total_trades": 39,
+          "win_rate_pct": 48.72,
+          "tp1_hit_rate_pct": 38.46,
+          "tp2_hit_rate_pct": 17.95,
+          "tp3_hit_rate_pct": 2.56,
+          "avg_net_return_pct": -0.269,
+          "total_net_return_pct": -10.51,
+          "avg_r_multiple": -0.079,
+          "profit_factor": 0.91,
+          "max_drawdown_pct": 61.1,
+          "outcomes": {
+            "STOP_LOSS": 19,
+            "TP2_HIT": 6,
+            "TP1_HIT": 8,
+            "TIME_EXIT": 5,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 87,
+          "win_rate_pct": 65.52,
+          "tp1_hit_rate_pct": 45.98,
+          "tp2_hit_rate_pct": 29.89,
+          "tp3_hit_rate_pct": 8.05,
+          "avg_net_return_pct": 3.218,
+          "total_net_return_pct": 280.01,
+          "avg_r_multiple": 0.331,
+          "profit_factor": 2.31,
+          "max_drawdown_pct": 57.18,
+          "outcomes": {
+            "TP2_HIT": 19,
+            "STOP_LOSS": 25,
+            "TIME_EXIT": 22,
+            "TP3_HIT": 7,
+            "TP1_HIT": 14
+          }
+        },
+        "2025": {
+          "total_trades": 61,
+          "win_rate_pct": 67.21,
+          "tp1_hit_rate_pct": 52.46,
+          "tp2_hit_rate_pct": 36.07,
+          "tp3_hit_rate_pct": 14.75,
+          "avg_net_return_pct": 3.212,
+          "total_net_return_pct": 195.94,
+          "avg_r_multiple": 0.515,
+          "profit_factor": 2.7,
+          "max_drawdown_pct": 52.93,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "STOP_LOSS": 18,
+            "TP3_HIT": 9,
+            "TIME_EXIT": 11,
+            "TP1_HIT": 10
+          }
+        }
+      }
+    },
+    "m6_f4_sniper": {
+      "overall_2020_2025": {
+        "total_trades": 250,
+        "win_rate_pct": 60.4,
+        "tp1_hit_rate_pct": 44.4,
+        "tp2_hit_rate_pct": 27.6,
+        "tp3_hit_rate_pct": 7.6,
+        "avg_net_return_pct": 1.491,
+        "total_net_return_pct": 372.74,
+        "avg_r_multiple": 0.142,
+        "profit_factor": 1.39,
+        "max_drawdown_pct": 164.61,
+        "outcomes": {
+          "TIME_EXIT": 60,
+          "TP2_HIT": 50,
+          "TP1_HIT": 42,
+          "TP3_HIT": 19,
+          "STOP_LOSS": 79
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 160,
+        "win_rate_pct": 52.5,
+        "tp1_hit_rate_pct": 39.38,
+        "tp2_hit_rate_pct": 22.5,
+        "tp3_hit_rate_pct": 5.62,
+        "avg_net_return_pct": 0.305,
+        "total_net_return_pct": 48.8,
+        "avg_r_multiple": -0.012,
+        "profit_factor": 1.06,
+        "max_drawdown_pct": 164.61,
+        "outcomes": {
+          "TIME_EXIT": 38,
+          "TP2_HIT": 27,
+          "TP1_HIT": 27,
+          "TP3_HIT": 9,
+          "STOP_LOSS": 59
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 90,
+        "win_rate_pct": 74.44,
+        "tp1_hit_rate_pct": 53.33,
+        "tp2_hit_rate_pct": 36.67,
+        "tp3_hit_rate_pct": 11.11,
+        "avg_net_return_pct": 3.599,
+        "total_net_return_pct": 323.94,
+        "avg_r_multiple": 0.416,
+        "profit_factor": 2.63,
+        "max_drawdown_pct": 38.0,
+        "outcomes": {
+          "TP2_HIT": 23,
+          "STOP_LOSS": 20,
+          "TP1_HIT": 15,
+          "TIME_EXIT": 22,
+          "TP3_HIT": 10
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 28,
+          "win_rate_pct": 53.57,
+          "tp1_hit_rate_pct": 42.86,
+          "tp2_hit_rate_pct": 17.86,
+          "tp3_hit_rate_pct": 10.71,
+          "avg_net_return_pct": -0.591,
+          "total_net_return_pct": -16.54,
+          "avg_r_multiple": 0.05,
+          "profit_factor": 0.85,
+          "max_drawdown_pct": 36.65,
+          "outcomes": {
+            "TIME_EXIT": 9,
+            "TP2_HIT": 2,
+            "TP3_HIT": 3,
+            "STOP_LOSS": 7,
+            "TP1_HIT": 7
+          }
+        },
+        "2021": {
+          "total_trades": 93,
+          "win_rate_pct": 46.24,
+          "tp1_hit_rate_pct": 31.18,
+          "tp2_hit_rate_pct": 17.2,
+          "tp3_hit_rate_pct": 2.15,
+          "avg_net_return_pct": -0.268,
+          "total_net_return_pct": -24.9,
+          "avg_r_multiple": -0.158,
+          "profit_factor": 0.95,
+          "max_drawdown_pct": 164.61,
+          "outcomes": {
+            "TP2_HIT": 14,
+            "TIME_EXIT": 24,
+            "TP1_HIT": 13,
+            "STOP_LOSS": 40,
+            "TP3_HIT": 2
+          }
+        },
+        "2022": {
+          "total_trades": 23,
+          "win_rate_pct": 65.22,
+          "tp1_hit_rate_pct": 56.52,
+          "tp2_hit_rate_pct": 39.13,
+          "tp3_hit_rate_pct": 13.04,
+          "avg_net_return_pct": 2.623,
+          "total_net_return_pct": 60.33,
+          "avg_r_multiple": 0.336,
+          "profit_factor": 1.97,
+          "max_drawdown_pct": 35.64,
+          "outcomes": {
+            "STOP_LOSS": 7,
+            "TP2_HIT": 6,
+            "TIME_EXIT": 3,
+            "TP1_HIT": 4,
+            "TP3_HIT": 3
+          }
+        },
+        "2023": {
+          "total_trades": 16,
+          "win_rate_pct": 68.75,
+          "tp1_hit_rate_pct": 56.25,
+          "tp2_hit_rate_pct": 37.5,
+          "tp3_hit_rate_pct": 6.25,
+          "avg_net_return_pct": 1.87,
+          "total_net_return_pct": 29.92,
+          "avg_r_multiple": 0.232,
+          "profit_factor": 1.76,
+          "max_drawdown_pct": 34.64,
+          "outcomes": {
+            "TP1_HIT": 3,
+            "STOP_LOSS": 5,
+            "TP2_HIT": 5,
+            "TIME_EXIT": 2,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 50,
+          "win_rate_pct": 74.0,
+          "tp1_hit_rate_pct": 46.0,
+          "tp2_hit_rate_pct": 32.0,
+          "tp3_hit_rate_pct": 8.0,
+          "avg_net_return_pct": 3.188,
+          "total_net_return_pct": 159.42,
+          "avg_r_multiple": 0.298,
+          "profit_factor": 2.22,
+          "max_drawdown_pct": 35.34,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "STOP_LOSS": 11,
+            "TP1_HIT": 7,
+            "TIME_EXIT": 16,
+            "TP3_HIT": 4
+          }
+        },
+        "2025": {
+          "total_trades": 40,
+          "win_rate_pct": 75.0,
+          "tp1_hit_rate_pct": 62.5,
+          "tp2_hit_rate_pct": 42.5,
+          "tp3_hit_rate_pct": 15.0,
+          "avg_net_return_pct": 4.113,
+          "total_net_return_pct": 164.52,
+          "avg_r_multiple": 0.563,
+          "profit_factor": 3.42,
+          "max_drawdown_pct": 38.0,
+          "outcomes": {
+            "TP2_HIT": 11,
+            "TP1_HIT": 8,
+            "STOP_LOSS": 9,
+            "TIME_EXIT": 6,
+            "TP3_HIT": 6
+          }
+        }
+      }
+    },
+    "m6_f4_elite_sniper": {
+      "overall_2020_2025": {
+        "total_trades": 169,
+        "win_rate_pct": 63.91,
+        "tp1_hit_rate_pct": 44.38,
+        "tp2_hit_rate_pct": 26.63,
+        "tp3_hit_rate_pct": 8.28,
+        "avg_net_return_pct": 2.242,
+        "total_net_return_pct": 378.86,
+        "avg_r_multiple": 0.209,
+        "profit_factor": 1.59,
+        "max_drawdown_pct": 120.77,
+        "outcomes": {
+          "TIME_EXIT": 48,
+          "TP2_HIT": 31,
+          "TP1_HIT": 30,
+          "TP3_HIT": 14,
+          "STOP_LOSS": 46
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 101,
+        "win_rate_pct": 56.44,
+        "tp1_hit_rate_pct": 38.61,
+        "tp2_hit_rate_pct": 19.8,
+        "tp3_hit_rate_pct": 5.94,
+        "avg_net_return_pct": 1.065,
+        "total_net_return_pct": 107.53,
+        "avg_r_multiple": 0.038,
+        "profit_factor": 1.22,
+        "max_drawdown_pct": 120.77,
+        "outcomes": {
+          "TIME_EXIT": 30,
+          "TP2_HIT": 14,
+          "TP1_HIT": 19,
+          "TP3_HIT": 6,
+          "STOP_LOSS": 32
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 68,
+        "win_rate_pct": 75.0,
+        "tp1_hit_rate_pct": 52.94,
+        "tp2_hit_rate_pct": 36.76,
+        "tp3_hit_rate_pct": 11.76,
+        "avg_net_return_pct": 3.99,
+        "total_net_return_pct": 271.33,
+        "avg_r_multiple": 0.463,
+        "profit_factor": 2.83,
+        "max_drawdown_pct": 44.77,
+        "outcomes": {
+          "TP2_HIT": 17,
+          "STOP_LOSS": 14,
+          "TP1_HIT": 11,
+          "TIME_EXIT": 18,
+          "TP3_HIT": 8
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 22,
+          "win_rate_pct": 59.09,
+          "tp1_hit_rate_pct": 45.45,
+          "tp2_hit_rate_pct": 22.73,
+          "tp3_hit_rate_pct": 13.64,
+          "avg_net_return_pct": 0.107,
+          "total_net_return_pct": 2.35,
+          "avg_r_multiple": 0.168,
+          "profit_factor": 1.03,
+          "max_drawdown_pct": 32.66,
+          "outcomes": {
+            "TIME_EXIT": 8,
+            "TP2_HIT": 2,
+            "TP3_HIT": 3,
+            "STOP_LOSS": 4,
+            "TP1_HIT": 5
+          }
+        },
+        "2021": {
+          "total_trades": 52,
+          "win_rate_pct": 51.92,
+          "tp1_hit_rate_pct": 30.77,
+          "tp2_hit_rate_pct": 13.46,
+          "tp3_hit_rate_pct": 1.92,
+          "avg_net_return_pct": 1.143,
+          "total_net_return_pct": 59.45,
+          "avg_r_multiple": -0.103,
+          "profit_factor": 1.18,
+          "max_drawdown_pct": 120.77,
+          "outcomes": {
+            "TIME_EXIT": 17,
+            "TP1_HIT": 9,
+            "STOP_LOSS": 19,
+            "TP2_HIT": 6,
+            "TP3_HIT": 1
+          }
+        },
+        "2022": {
+          "total_trades": 20,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 30.0,
+          "tp3_hit_rate_pct": 10.0,
+          "avg_net_return_pct": 1.963,
+          "total_net_return_pct": 39.27,
+          "avg_r_multiple": 0.224,
+          "profit_factor": 1.63,
+          "max_drawdown_pct": 35.64,
+          "outcomes": {
+            "STOP_LOSS": 7,
+            "TP2_HIT": 4,
+            "TIME_EXIT": 3,
+            "TP1_HIT": 4,
+            "TP3_HIT": 2
+          }
+        },
+        "2023": {
+          "total_trades": 7,
+          "win_rate_pct": 71.43,
+          "tp1_hit_rate_pct": 42.86,
+          "tp2_hit_rate_pct": 28.57,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 0.923,
+          "total_net_return_pct": 6.46,
+          "avg_r_multiple": 0.143,
+          "profit_factor": 1.33,
+          "max_drawdown_pct": 19.44,
+          "outcomes": {
+            "STOP_LOSS": 2,
+            "TP1_HIT": 1,
+            "TP2_HIT": 2,
+            "TIME_EXIT": 2
+          }
+        },
+        "2024": {
+          "total_trades": 36,
+          "win_rate_pct": 77.78,
+          "tp1_hit_rate_pct": 47.22,
+          "tp2_hit_rate_pct": 30.56,
+          "tp3_hit_rate_pct": 8.33,
+          "avg_net_return_pct": 4.168,
+          "total_net_return_pct": 150.06,
+          "avg_r_multiple": 0.383,
+          "profit_factor": 2.73,
+          "max_drawdown_pct": 38.79,
+          "outcomes": {
+            "TP2_HIT": 8,
+            "STOP_LOSS": 6,
+            "TP1_HIT": 6,
+            "TIME_EXIT": 13,
+            "TP3_HIT": 3
+          }
+        },
+        "2025": {
+          "total_trades": 32,
+          "win_rate_pct": 71.88,
+          "tp1_hit_rate_pct": 59.38,
+          "tp2_hit_rate_pct": 43.75,
+          "tp3_hit_rate_pct": 15.62,
+          "avg_net_return_pct": 3.79,
+          "total_net_return_pct": 121.27,
+          "avg_r_multiple": 0.553,
+          "profit_factor": 2.99,
+          "max_drawdown_pct": 38.51,
+          "outcomes": {
+            "TP2_HIT": 9,
+            "STOP_LOSS": 8,
+            "TP1_HIT": 5,
+            "TIME_EXIT": 5,
+            "TP3_HIT": 5
+          }
+        }
+      }
+    },
+    "m6_f4_elite_swing_sniper": {
+      "overall_2020_2025": {
+        "total_trades": 169,
+        "win_rate_pct": 65.68,
+        "tp1_hit_rate_pct": 45.56,
+        "tp2_hit_rate_pct": 27.81,
+        "tp3_hit_rate_pct": 9.47,
+        "avg_net_return_pct": 2.318,
+        "total_net_return_pct": 391.76,
+        "avg_r_multiple": 0.172,
+        "profit_factor": 1.58,
+        "max_drawdown_pct": 142.13,
+        "outcomes": {
+          "TIME_EXIT": 52,
+          "TP2_HIT": 31,
+          "TP1_HIT": 30,
+          "TP3_HIT": 16,
+          "STOP_LOSS": 40
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 101,
+        "win_rate_pct": 58.42,
+        "tp1_hit_rate_pct": 40.59,
+        "tp2_hit_rate_pct": 21.78,
+        "tp3_hit_rate_pct": 7.92,
+        "avg_net_return_pct": 1.106,
+        "total_net_return_pct": 111.66,
+        "avg_r_multiple": 0.032,
+        "profit_factor": 1.21,
+        "max_drawdown_pct": 142.13,
+        "outcomes": {
+          "TIME_EXIT": 32,
+          "TP2_HIT": 14,
+          "TP1_HIT": 19,
+          "TP3_HIT": 8,
+          "STOP_LOSS": 28
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 68,
+        "win_rate_pct": 76.47,
+        "tp1_hit_rate_pct": 52.94,
+        "tp2_hit_rate_pct": 36.76,
+        "tp3_hit_rate_pct": 11.76,
+        "avg_net_return_pct": 4.119,
+        "total_net_return_pct": 280.1,
+        "avg_r_multiple": 0.38,
+        "profit_factor": 2.92,
+        "max_drawdown_pct": 48.57,
+        "outcomes": {
+          "TP2_HIT": 17,
+          "STOP_LOSS": 12,
+          "TP1_HIT": 11,
+          "TIME_EXIT": 20,
+          "TP3_HIT": 8
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 22,
+          "win_rate_pct": 63.64,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 27.27,
+          "tp3_hit_rate_pct": 18.18,
+          "avg_net_return_pct": 1.788,
+          "total_net_return_pct": 39.34,
+          "avg_r_multiple": 0.261,
+          "profit_factor": 1.59,
+          "max_drawdown_pct": 27.7,
+          "outcomes": {
+            "TIME_EXIT": 9,
+            "TP2_HIT": 2,
+            "TP3_HIT": 4,
+            "STOP_LOSS": 2,
+            "TP1_HIT": 5
+          }
+        },
+        "2021": {
+          "total_trades": 52,
+          "win_rate_pct": 53.85,
+          "tp1_hit_rate_pct": 32.69,
+          "tp2_hit_rate_pct": 15.38,
+          "tp3_hit_rate_pct": 3.85,
+          "avg_net_return_pct": 0.634,
+          "total_net_return_pct": 32.97,
+          "avg_r_multiple": -0.116,
+          "profit_factor": 1.09,
+          "max_drawdown_pct": 142.13,
+          "outcomes": {
+            "TIME_EXIT": 17,
+            "TP1_HIT": 9,
+            "STOP_LOSS": 18,
+            "TP2_HIT": 6,
+            "TP3_HIT": 2
+          }
+        },
+        "2022": {
+          "total_trades": 20,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 30.0,
+          "tp3_hit_rate_pct": 10.0,
+          "avg_net_return_pct": 1.801,
+          "total_net_return_pct": 36.01,
+          "avg_r_multiple": 0.157,
+          "profit_factor": 1.54,
+          "max_drawdown_pct": 38.29,
+          "outcomes": {
+            "STOP_LOSS": 6,
+            "TP2_HIT": 4,
+            "TIME_EXIT": 4,
+            "TP1_HIT": 4,
+            "TP3_HIT": 2
+          }
+        },
+        "2023": {
+          "total_trades": 7,
+          "win_rate_pct": 71.43,
+          "tp1_hit_rate_pct": 42.86,
+          "tp2_hit_rate_pct": 28.57,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 0.477,
+          "total_net_return_pct": 3.34,
+          "avg_r_multiple": 0.056,
+          "profit_factor": 1.14,
+          "max_drawdown_pct": 23.14,
+          "outcomes": {
+            "STOP_LOSS": 2,
+            "TP1_HIT": 1,
+            "TP2_HIT": 2,
+            "TIME_EXIT": 2
+          }
+        },
+        "2024": {
+          "total_trades": 36,
+          "win_rate_pct": 77.78,
+          "tp1_hit_rate_pct": 47.22,
+          "tp2_hit_rate_pct": 30.56,
+          "tp3_hit_rate_pct": 8.33,
+          "avg_net_return_pct": 4.319,
+          "total_net_return_pct": 155.47,
+          "avg_r_multiple": 0.308,
+          "profit_factor": 2.83,
+          "max_drawdown_pct": 47.01,
+          "outcomes": {
+            "TP2_HIT": 8,
+            "STOP_LOSS": 5,
+            "TP1_HIT": 6,
+            "TIME_EXIT": 14,
+            "TP3_HIT": 3
+          }
+        },
+        "2025": {
+          "total_trades": 32,
+          "win_rate_pct": 75.0,
+          "tp1_hit_rate_pct": 59.38,
+          "tp2_hit_rate_pct": 43.75,
+          "tp3_hit_rate_pct": 15.62,
+          "avg_net_return_pct": 3.895,
+          "total_net_return_pct": 124.63,
+          "avg_r_multiple": 0.46,
+          "profit_factor": 3.04,
+          "max_drawdown_pct": 48.57,
+          "outcomes": {
+            "TP2_HIT": 9,
+            "STOP_LOSS": 7,
+            "TP1_HIT": 5,
+            "TIME_EXIT": 6,
+            "TP3_HIT": 5
+          }
+        }
+      }
+    }
+  },
+  "conviction_tiers": {
+    "reject_lt_55": {
+      "overall_2020_2025": {
+        "total_trades": 617,
+        "win_rate_pct": 45.54,
+        "tp1_hit_rate_pct": 31.44,
+        "tp2_hit_rate_pct": 19.29,
+        "tp3_hit_rate_pct": 7.78,
+        "avg_net_return_pct": -0.218,
+        "total_net_return_pct": -134.31,
+        "avg_r_multiple": -0.091,
+        "profit_factor": 0.95,
+        "max_drawdown_pct": 353.79,
+        "outcomes": {
+          "TIME_EXIT": 147,
+          "TP1_HIT": 75,
+          "STOP_LOSS": 276,
+          "TP3_HIT": 48,
+          "TP2_HIT": 71
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 390,
+        "win_rate_pct": 43.59,
+        "tp1_hit_rate_pct": 30.77,
+        "tp2_hit_rate_pct": 18.97,
+        "tp3_hit_rate_pct": 7.95,
+        "avg_net_return_pct": -0.272,
+        "total_net_return_pct": -106.03,
+        "avg_r_multiple": -0.11,
+        "profit_factor": 0.93,
+        "max_drawdown_pct": 353.79,
+        "outcomes": {
+          "TIME_EXIT": 89,
+          "TP1_HIT": 46,
+          "STOP_LOSS": 181,
+          "TP3_HIT": 31,
+          "TP2_HIT": 43
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 227,
+        "win_rate_pct": 48.9,
+        "tp1_hit_rate_pct": 32.6,
+        "tp2_hit_rate_pct": 19.82,
+        "tp3_hit_rate_pct": 7.49,
+        "avg_net_return_pct": -0.125,
+        "total_net_return_pct": -28.27,
+        "avg_r_multiple": -0.06,
+        "profit_factor": 0.97,
+        "max_drawdown_pct": 230.98,
+        "outcomes": {
+          "STOP_LOSS": 95,
+          "TP2_HIT": 28,
+          "TP1_HIT": 29,
+          "TP3_HIT": 17,
+          "TIME_EXIT": 58
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 71,
+          "win_rate_pct": 47.89,
+          "tp1_hit_rate_pct": 36.62,
+          "tp2_hit_rate_pct": 22.54,
+          "tp3_hit_rate_pct": 5.63,
+          "avg_net_return_pct": 0.271,
+          "total_net_return_pct": 19.23,
+          "avg_r_multiple": 0.032,
+          "profit_factor": 1.09,
+          "max_drawdown_pct": 54.85,
+          "outcomes": {
+            "TIME_EXIT": 17,
+            "TP1_HIT": 10,
+            "STOP_LOSS": 28,
+            "TP2_HIT": 12,
+            "TP3_HIT": 4
+          }
+        },
+        "2021": {
+          "total_trades": 228,
+          "win_rate_pct": 42.11,
+          "tp1_hit_rate_pct": 30.26,
+          "tp2_hit_rate_pct": 21.05,
+          "tp3_hit_rate_pct": 10.09,
+          "avg_net_return_pct": -0.191,
+          "total_net_return_pct": -43.48,
+          "avg_r_multiple": -0.123,
+          "profit_factor": 0.96,
+          "max_drawdown_pct": 303.41,
+          "outcomes": {
+            "TP3_HIT": 23,
+            "TIME_EXIT": 49,
+            "STOP_LOSS": 110,
+            "TP2_HIT": 25,
+            "TP1_HIT": 21
+          }
+        },
+        "2022": {
+          "total_trades": 34,
+          "win_rate_pct": 44.12,
+          "tp1_hit_rate_pct": 23.53,
+          "tp2_hit_rate_pct": 8.82,
+          "tp3_hit_rate_pct": 8.82,
+          "avg_net_return_pct": -1.62,
+          "total_net_return_pct": -55.08,
+          "avg_r_multiple": -0.28,
+          "profit_factor": 0.64,
+          "max_drawdown_pct": 85.7,
+          "outcomes": {
+            "TP1_HIT": 5,
+            "TIME_EXIT": 9,
+            "STOP_LOSS": 17,
+            "TP3_HIT": 3
+          }
+        },
+        "2023": {
+          "total_trades": 57,
+          "win_rate_pct": 43.86,
+          "tp1_hit_rate_pct": 29.82,
+          "tp2_hit_rate_pct": 12.28,
+          "tp3_hit_rate_pct": 1.75,
+          "avg_net_return_pct": -0.469,
+          "total_net_return_pct": -26.71,
+          "avg_r_multiple": -0.133,
+          "profit_factor": 0.87,
+          "max_drawdown_pct": 68.4,
+          "outcomes": {
+            "STOP_LOSS": 26,
+            "TP2_HIT": 6,
+            "TIME_EXIT": 14,
+            "TP1_HIT": 10,
+            "TP3_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 153,
+          "win_rate_pct": 49.67,
+          "tp1_hit_rate_pct": 30.07,
+          "tp2_hit_rate_pct": 16.34,
+          "tp3_hit_rate_pct": 5.23,
+          "avg_net_return_pct": -0.483,
+          "total_net_return_pct": -73.89,
+          "avg_r_multiple": -0.107,
+          "profit_factor": 0.89,
+          "max_drawdown_pct": 230.98,
+          "outcomes": {
+            "STOP_LOSS": 64,
+            "TIME_EXIT": 43,
+            "TP2_HIT": 17,
+            "TP1_HIT": 21,
+            "TP3_HIT": 8
+          }
+        },
+        "2025": {
+          "total_trades": 74,
+          "win_rate_pct": 47.3,
+          "tp1_hit_rate_pct": 37.84,
+          "tp2_hit_rate_pct": 27.03,
+          "tp3_hit_rate_pct": 12.16,
+          "avg_net_return_pct": 0.616,
+          "total_net_return_pct": 45.62,
+          "avg_r_multiple": 0.037,
+          "profit_factor": 1.18,
+          "max_drawdown_pct": 38.91,
+          "outcomes": {
+            "STOP_LOSS": 31,
+            "TP2_HIT": 11,
+            "TP1_HIT": 8,
+            "TP3_HIT": 9,
+            "TIME_EXIT": 15
+          }
+        }
+      }
+    },
+    "tier_b_55_69": {
+      "overall_2020_2025": {
+        "total_trades": 532,
+        "win_rate_pct": 51.13,
+        "tp1_hit_rate_pct": 40.04,
+        "tp2_hit_rate_pct": 26.5,
+        "tp3_hit_rate_pct": 11.47,
+        "avg_net_return_pct": -0.446,
+        "total_net_return_pct": -237.51,
+        "avg_r_multiple": -0.022,
+        "profit_factor": 0.9,
+        "max_drawdown_pct": 458.69,
+        "outcomes": {
+          "TP1_HIT": 72,
+          "STOP_LOSS": 214,
+          "TP3_HIT": 61,
+          "TP2_HIT": 80,
+          "TIME_EXIT": 105
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 372,
+        "win_rate_pct": 49.19,
+        "tp1_hit_rate_pct": 40.59,
+        "tp2_hit_rate_pct": 26.34,
+        "tp3_hit_rate_pct": 11.56,
+        "avg_net_return_pct": -0.735,
+        "total_net_return_pct": -273.58,
+        "avg_r_multiple": -0.051,
+        "profit_factor": 0.84,
+        "max_drawdown_pct": 458.69,
+        "outcomes": {
+          "TP1_HIT": 53,
+          "STOP_LOSS": 152,
+          "TP3_HIT": 43,
+          "TP2_HIT": 55,
+          "TIME_EXIT": 69
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 160,
+        "win_rate_pct": 55.62,
+        "tp1_hit_rate_pct": 38.75,
+        "tp2_hit_rate_pct": 26.88,
+        "tp3_hit_rate_pct": 11.25,
+        "avg_net_return_pct": 0.225,
+        "total_net_return_pct": 36.08,
+        "avg_r_multiple": 0.043,
+        "profit_factor": 1.06,
+        "max_drawdown_pct": 155.39,
+        "outcomes": {
+          "TIME_EXIT": 36,
+          "TP2_HIT": 25,
+          "STOP_LOSS": 62,
+          "TP3_HIT": 18,
+          "TP1_HIT": 19
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 65,
+          "win_rate_pct": 43.08,
+          "tp1_hit_rate_pct": 38.46,
+          "tp2_hit_rate_pct": 15.38,
+          "tp3_hit_rate_pct": 12.31,
+          "avg_net_return_pct": -2.164,
+          "total_net_return_pct": -140.68,
+          "avg_r_multiple": -0.155,
+          "profit_factor": 0.53,
+          "max_drawdown_pct": 153.73,
+          "outcomes": {
+            "TP1_HIT": 15,
+            "STOP_LOSS": 29,
+            "TP3_HIT": 8,
+            "TP2_HIT": 2,
+            "TIME_EXIT": 11
+          }
+        },
+        "2021": {
+          "total_trades": 210,
+          "win_rate_pct": 45.24,
+          "tp1_hit_rate_pct": 36.67,
+          "tp2_hit_rate_pct": 26.67,
+          "tp3_hit_rate_pct": 10.48,
+          "avg_net_return_pct": -1.25,
+          "total_net_return_pct": -262.49,
+          "avg_r_multiple": -0.116,
+          "profit_factor": 0.77,
+          "max_drawdown_pct": 304.96,
+          "outcomes": {
+            "STOP_LOSS": 91,
+            "TP2_HIT": 34,
+            "TIME_EXIT": 42,
+            "TP1_HIT": 21,
+            "TP3_HIT": 22
+          }
+        },
+        "2022": {
+          "total_trades": 45,
+          "win_rate_pct": 68.89,
+          "tp1_hit_rate_pct": 55.56,
+          "tp2_hit_rate_pct": 42.22,
+          "tp3_hit_rate_pct": 20.0,
+          "avg_net_return_pct": 3.614,
+          "total_net_return_pct": 162.62,
+          "avg_r_multiple": 0.397,
+          "profit_factor": 2.85,
+          "max_drawdown_pct": 24.51,
+          "outcomes": {
+            "TP2_HIT": 10,
+            "TIME_EXIT": 10,
+            "STOP_LOSS": 10,
+            "TP3_HIT": 9,
+            "TP1_HIT": 6
+          }
+        },
+        "2023": {
+          "total_trades": 52,
+          "win_rate_pct": 55.77,
+          "tp1_hit_rate_pct": 46.15,
+          "tp2_hit_rate_pct": 25.0,
+          "tp3_hit_rate_pct": 7.69,
+          "avg_net_return_pct": -0.635,
+          "total_net_return_pct": -33.04,
+          "avg_r_multiple": -0.046,
+          "profit_factor": 0.83,
+          "max_drawdown_pct": 65.38,
+          "outcomes": {
+            "STOP_LOSS": 22,
+            "TP2_HIT": 9,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 11,
+            "TP3_HIT": 4
+          }
+        },
+        "2024": {
+          "total_trades": 91,
+          "win_rate_pct": 50.55,
+          "tp1_hit_rate_pct": 35.16,
+          "tp2_hit_rate_pct": 25.27,
+          "tp3_hit_rate_pct": 9.89,
+          "avg_net_return_pct": -1.038,
+          "total_net_return_pct": -94.49,
+          "avg_r_multiple": -0.073,
+          "profit_factor": 0.77,
+          "max_drawdown_pct": 120.89,
+          "outcomes": {
+            "TIME_EXIT": 20,
+            "TP2_HIT": 14,
+            "STOP_LOSS": 39,
+            "TP3_HIT": 9,
+            "TP1_HIT": 9
+          }
+        },
+        "2025": {
+          "total_trades": 69,
+          "win_rate_pct": 62.32,
+          "tp1_hit_rate_pct": 43.48,
+          "tp2_hit_rate_pct": 28.99,
+          "tp3_hit_rate_pct": 13.04,
+          "avg_net_return_pct": 1.892,
+          "total_net_return_pct": 130.57,
+          "avg_r_multiple": 0.196,
+          "profit_factor": 1.64,
+          "max_drawdown_pct": 95.49,
+          "outcomes": {
+            "TP2_HIT": 11,
+            "TIME_EXIT": 16,
+            "TP3_HIT": 9,
+            "STOP_LOSS": 23,
+            "TP1_HIT": 10
+          }
+        }
+      }
+    },
+    "tier_a_70_84": {
+      "overall_2020_2025": {
+        "total_trades": 284,
+        "win_rate_pct": 62.68,
+        "tp1_hit_rate_pct": 47.54,
+        "tp2_hit_rate_pct": 30.63,
+        "tp3_hit_rate_pct": 10.56,
+        "avg_net_return_pct": 1.522,
+        "total_net_return_pct": 432.15,
+        "avg_r_multiple": 0.163,
+        "profit_factor": 1.42,
+        "max_drawdown_pct": 182.08,
+        "outcomes": {
+          "TIME_EXIT": 67,
+          "STOP_LOSS": 82,
+          "TP3_HIT": 30,
+          "TP2_HIT": 57,
+          "TP1_HIT": 48
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 193,
+        "win_rate_pct": 59.07,
+        "tp1_hit_rate_pct": 45.6,
+        "tp2_hit_rate_pct": 30.05,
+        "tp3_hit_rate_pct": 10.36,
+        "avg_net_return_pct": 1.085,
+        "total_net_return_pct": 209.49,
+        "avg_r_multiple": 0.122,
+        "profit_factor": 1.26,
+        "max_drawdown_pct": 182.08,
+        "outcomes": {
+          "TIME_EXIT": 44,
+          "STOP_LOSS": 61,
+          "TP3_HIT": 20,
+          "TP2_HIT": 38,
+          "TP1_HIT": 30
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 91,
+        "win_rate_pct": 70.33,
+        "tp1_hit_rate_pct": 51.65,
+        "tp2_hit_rate_pct": 31.87,
+        "tp3_hit_rate_pct": 10.99,
+        "avg_net_return_pct": 2.447,
+        "total_net_return_pct": 222.66,
+        "avg_r_multiple": 0.25,
+        "profit_factor": 1.94,
+        "max_drawdown_pct": 35.78,
+        "outcomes": {
+          "TP2_HIT": 19,
+          "TIME_EXIT": 23,
+          "STOP_LOSS": 21,
+          "TP1_HIT": 18,
+          "TP3_HIT": 10
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 39,
+          "win_rate_pct": 48.72,
+          "tp1_hit_rate_pct": 38.46,
+          "tp2_hit_rate_pct": 23.08,
+          "tp3_hit_rate_pct": 15.38,
+          "avg_net_return_pct": -0.667,
+          "total_net_return_pct": -26.02,
+          "avg_r_multiple": 0.024,
+          "profit_factor": 0.83,
+          "max_drawdown_pct": 80.63,
+          "outcomes": {
+            "TIME_EXIT": 12,
+            "STOP_LOSS": 12,
+            "TP3_HIT": 6,
+            "TP1_HIT": 6,
+            "TP2_HIT": 3
+          }
+        },
+        "2021": {
+          "total_trades": 110,
+          "win_rate_pct": 60.0,
+          "tp1_hit_rate_pct": 44.55,
+          "tp2_hit_rate_pct": 31.82,
+          "tp3_hit_rate_pct": 10.91,
+          "avg_net_return_pct": 1.275,
+          "total_net_return_pct": 140.2,
+          "avg_r_multiple": 0.137,
+          "profit_factor": 1.27,
+          "max_drawdown_pct": 128.69,
+          "outcomes": {
+            "TIME_EXIT": 24,
+            "TP3_HIT": 12,
+            "TP2_HIT": 23,
+            "STOP_LOSS": 37,
+            "TP1_HIT": 14
+          }
+        },
+        "2022": {
+          "total_trades": 25,
+          "win_rate_pct": 64.0,
+          "tp1_hit_rate_pct": 52.0,
+          "tp2_hit_rate_pct": 40.0,
+          "tp3_hit_rate_pct": 8.0,
+          "avg_net_return_pct": 2.297,
+          "total_net_return_pct": 57.41,
+          "avg_r_multiple": 0.231,
+          "profit_factor": 1.81,
+          "max_drawdown_pct": 53.54,
+          "outcomes": {
+            "STOP_LOSS": 7,
+            "TP2_HIT": 8,
+            "TIME_EXIT": 5,
+            "TP1_HIT": 3,
+            "TP3_HIT": 2
+          }
+        },
+        "2023": {
+          "total_trades": 19,
+          "win_rate_pct": 68.42,
+          "tp1_hit_rate_pct": 57.89,
+          "tp2_hit_rate_pct": 21.05,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 1.995,
+          "total_net_return_pct": 37.9,
+          "avg_r_multiple": 0.094,
+          "profit_factor": 1.73,
+          "max_drawdown_pct": 27.09,
+          "outcomes": {
+            "TP1_HIT": 7,
+            "STOP_LOSS": 5,
+            "TP2_HIT": 4,
+            "TIME_EXIT": 3
+          }
+        },
+        "2024": {
+          "total_trades": 52,
+          "win_rate_pct": 71.15,
+          "tp1_hit_rate_pct": 48.08,
+          "tp2_hit_rate_pct": 28.85,
+          "tp3_hit_rate_pct": 5.77,
+          "avg_net_return_pct": 2.654,
+          "total_net_return_pct": 138.02,
+          "avg_r_multiple": 0.262,
+          "profit_factor": 1.93,
+          "max_drawdown_pct": 35.78,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "STOP_LOSS": 10,
+            "TIME_EXIT": 17,
+            "TP1_HIT": 10,
+            "TP3_HIT": 3
+          }
+        },
+        "2025": {
+          "total_trades": 39,
+          "win_rate_pct": 69.23,
+          "tp1_hit_rate_pct": 56.41,
+          "tp2_hit_rate_pct": 35.9,
+          "tp3_hit_rate_pct": 17.95,
+          "avg_net_return_pct": 2.17,
+          "total_net_return_pct": 84.64,
+          "avg_r_multiple": 0.234,
+          "profit_factor": 1.95,
+          "max_drawdown_pct": 24.22,
+          "outcomes": {
+            "TIME_EXIT": 6,
+            "TP1_HIT": 8,
+            "STOP_LOSS": 11,
+            "TP2_HIT": 7,
+            "TP3_HIT": 7
+          }
+        }
+      }
+    },
+    "tier_s_ge_85": {
+      "overall_2020_2025": {
+        "total_trades": 34,
+        "win_rate_pct": 73.53,
+        "tp1_hit_rate_pct": 41.18,
+        "tp2_hit_rate_pct": 32.35,
+        "tp3_hit_rate_pct": 11.76,
+        "avg_net_return_pct": 3.123,
+        "total_net_return_pct": 106.2,
+        "avg_r_multiple": 0.277,
+        "profit_factor": 2.25,
+        "max_drawdown_pct": 31.27,
+        "outcomes": {
+          "TIME_EXIT": 14,
+          "STOP_LOSS": 6,
+          "TP2_HIT": 7,
+          "TP1_HIT": 3,
+          "TP3_HIT": 4
+        }
+      },
+      "period_2020_2023": {
+        "total_trades": 16,
+        "win_rate_pct": 75.0,
+        "tp1_hit_rate_pct": 37.5,
+        "tp2_hit_rate_pct": 18.75,
+        "tp3_hit_rate_pct": 0.0,
+        "avg_net_return_pct": 4.147,
+        "total_net_return_pct": 66.35,
+        "avg_r_multiple": 0.227,
+        "profit_factor": 2.5,
+        "max_drawdown_pct": 31.27,
+        "outcomes": {
+          "TIME_EXIT": 8,
+          "STOP_LOSS": 2,
+          "TP2_HIT": 3,
+          "TP1_HIT": 3
+        }
+      },
+      "period_2024_2025": {
+        "total_trades": 18,
+        "win_rate_pct": 72.22,
+        "tp1_hit_rate_pct": 44.44,
+        "tp2_hit_rate_pct": 44.44,
+        "tp3_hit_rate_pct": 22.22,
+        "avg_net_return_pct": 2.214,
+        "total_net_return_pct": 39.85,
+        "avg_r_multiple": 0.321,
+        "profit_factor": 1.97,
+        "max_drawdown_pct": 28.14,
+        "outcomes": {
+          "STOP_LOSS": 4,
+          "TP2_HIT": 4,
+          "TIME_EXIT": 6,
+          "TP3_HIT": 4
+        }
+      },
+      "by_year": {
+        "2020": {
+          "total_trades": 0,
+          "win_rate_pct": 0.0,
+          "tp1_hit_rate_pct": 0.0,
+          "tp2_hit_rate_pct": 0.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 0.0,
+          "total_net_return_pct": 0.0,
+          "avg_r_multiple": 0.0,
+          "profit_factor": 0.0,
+          "max_drawdown_pct": 0.0,
+          "outcomes": {}
+        },
+        "2021": {
+          "total_trades": 13,
+          "win_rate_pct": 69.23,
+          "tp1_hit_rate_pct": 23.08,
+          "tp2_hit_rate_pct": 15.38,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 3.44,
+          "total_net_return_pct": 44.73,
+          "avg_r_multiple": 0.129,
+          "profit_factor": 2.01,
+          "max_drawdown_pct": 31.27,
+          "outcomes": {
+            "TIME_EXIT": 8,
+            "STOP_LOSS": 2,
+            "TP2_HIT": 2,
+            "TP1_HIT": 1
+          }
+        },
+        "2022": {
+          "total_trades": 2,
+          "win_rate_pct": 100.0,
+          "tp1_hit_rate_pct": 100.0,
+          "tp2_hit_rate_pct": 50.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 8.782,
+          "total_net_return_pct": 17.56,
+          "avg_r_multiple": 0.785,
+          "profit_factor": 99.0,
+          "max_drawdown_pct": 0.0,
+          "outcomes": {
+            "TP2_HIT": 1,
+            "TP1_HIT": 1
+          }
+        },
+        "2023": {
+          "total_trades": 1,
+          "win_rate_pct": 100.0,
+          "tp1_hit_rate_pct": 100.0,
+          "tp2_hit_rate_pct": 0.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 4.061,
+          "total_net_return_pct": 4.06,
+          "avg_r_multiple": 0.383,
+          "profit_factor": 99.0,
+          "max_drawdown_pct": 0.0,
+          "outcomes": {
+            "TP1_HIT": 1
+          }
+        },
+        "2024": {
+          "total_trades": 4,
+          "win_rate_pct": 50.0,
+          "tp1_hit_rate_pct": 25.0,
+          "tp2_hit_rate_pct": 25.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": -1.165,
+          "total_net_return_pct": -4.66,
+          "avg_r_multiple": -0.226,
+          "profit_factor": 0.83,
+          "max_drawdown_pct": 28.14,
+          "outcomes": {
+            "STOP_LOSS": 2,
+            "TIME_EXIT": 1,
+            "TP2_HIT": 1
+          }
+        },
+        "2025": {
+          "total_trades": 14,
+          "win_rate_pct": 78.57,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 50.0,
+          "tp3_hit_rate_pct": 28.57,
+          "avg_net_return_pct": 3.179,
+          "total_net_return_pct": 44.51,
+          "avg_r_multiple": 0.477,
+          "profit_factor": 4.46,
+          "max_drawdown_pct": 12.31,
+          "outcomes": {
+            "STOP_LOSS": 2,
+            "TP2_HIT": 3,
+            "TIME_EXIT": 5,
+            "TP3_HIT": 4
+          }
+        }
+      }
+    }
+  }
+}

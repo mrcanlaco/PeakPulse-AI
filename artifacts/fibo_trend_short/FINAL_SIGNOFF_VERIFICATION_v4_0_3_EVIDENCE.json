@@ -1,0 +1,1996 @@
+{
+  "scope": "Independent checks, counterexamples and targeted replay; not full14/338 rerun",
+  "pytest": {
+    "passed": 18,
+    "seconds": 2.28
+  },
+  "manifest": [
+    {
+      "path": "src/dao_vang/config/settings.py",
+      "match": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/detector.py",
+      "match": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/backtest.py",
+      "match": true
+    },
+    {
+      "path": "tests/unit/fibo_short/test_fibo_short.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_audit_2026.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v402.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v403.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/universe_reaudit_v402_worker.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor2_3_4_complete_2025.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_independent_audit_metrics.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_insample_2020_2025_by_year.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_oos_2026_all_7_milestones.py",
+      "match": true
+    },
+    {
+      "path": "scripts/fibo_research/study_coin_universe_selection_2026.py",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json",
+      "match": true
+    }
+  ],
+  "history": [
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/VERSION_MANIFEST.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/VERSION_MANIFEST_v4_0_2.json",
+      "match": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/FINAL_SIGNOFF_VERIFICATION_v4_0_2_EVIDENCE.json",
+      "match": true
+    }
+  ],
+  "snapshots": {
+    "v4_0_2": [
+      {
+        "file": "backtest.py",
+        "match": true
+      },
+      {
+        "file": "detector.py",
+        "match": true
+      },
+      {
+        "file": "settings.py",
+        "match": true
+      },
+      {
+        "file": "test_fibo_short.py",
+        "match": true
+      },
+      {
+        "file": "universe_reaudit_v402_worker.py",
+        "match": true
+      },
+      {
+        "file": "verify_red_team_audit_2026.py",
+        "match": true
+      },
+      {
+        "file": "verify_red_team_reaudit_v402.py",
+        "match": true
+      }
+    ],
+    "v4_0_3": [
+      {
+        "file": "backtest.py",
+        "match": true
+      },
+      {
+        "file": "detector.py",
+        "match": true
+      },
+      {
+        "file": "settings.py",
+        "match": true
+      },
+      {
+        "file": "test_fibo_short.py",
+        "match": true
+      },
+      {
+        "file": "universe_reaudit_v402_worker.py",
+        "match": true
+      },
+      {
+        "file": "verify_red_team_audit_2026.py",
+        "match": true
+      },
+      {
+        "file": "verify_red_team_reaudit_v402.py",
+        "match": true
+      },
+      {
+        "file": "verify_red_team_reaudit_v403.py",
+        "match": true
+      }
+    ]
+  },
+  "markdown_exact": true,
+  "consistency": {
+    "total_checks": 131,
+    "all_passed": true
+  },
+  "mutation_tests": {
+    "total_mutations_tested": 6,
+    "all_mutations_caught": true,
+    "mutations": [
+      {
+        "mutation_id": "mutation_1_rolling_pit_oos_nav_and_dd",
+        "target": "**`+28.70%`** (DD `10.72%`)",
+        "corrupted_with": "**`+999.99%`** (DD `99.99%`)",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Universe ROLLING_PIT_TOP50_VOL oos_2026_common_hard_cutoff_0831 full row]: expected '| **`ROLLING_PIT_TOP50_VOL`** | `STRICT_POINT_IN_TIME_MONTHLY_TRAILING_63D_PRE_COOLDOWN_ON_BOTH_2024_2025_AND_2026` | `50/tháng (145 mã)` | **2026 OOS (Hard <=08-31)** | `75` / `56.0%` / `+1.89%` / **`+2.18%`** (`[-0.35%, +4.87%]`) / **`+163.5%`** / `1.74` | `67` lệnh / `+27.54%` / **`+28.70%`** (DD `10.72%`) | `71` lệnh (`10/6/23`) / `+23.82%` / **`+24.02%`** (DD `11.69%`) |' not found in Markdown!"
+      },
+      {
+        "mutation_id": "mutation_2_14coin_historical_funding_nav",
+        "target": "**`+20.65%`** (DD `5.72%`) [`263/0`]",
+        "corrupted_with": "**`+888.88%`** (DD `88.88%`) [`0/999`]",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [14-coin Post-Cap full row oos_2026_full_0929 m6_f4_expanded]: expected '| **2026 OOS (Full <=09-29) — Mốc 6B (4-Factor Expanded, Sized)** | Post-Cap on Indep | `19 / 17` | `0 / 0 / 2` | `0.21 / 1.0 / 2` | `0.46x / 0.48x` | `+20.54%` / **`+22.32%`** (DD `5.45%`) | `+19.13%` / **`+20.65%`** (DD `5.72%`) [`263/0`] | `+20.25%` / `+21.97%` (DD `5.49%`) |' not found in Markdown!"
+      },
+      {
+        "mutation_id": "mutation_3_m6b_hard_cutoff_trade_count",
+        "target": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2026 OOS (Strict Hard <=08-31) | `16` |",
+        "corrupted_with": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2026 OOS (Strict Hard <=08-31) | `9999` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Milestone m6_f4_expanded oos_2026_strict_hard_cutoff_0831]: expected '| **M6_F124_EXP (Mốc 6B, Sized)** | 2026 OOS (Strict Hard <=08-31) | `16` | `75.00%` (`[45.4%, 94.7%]`) | `+7.096%` / `+113.53%` / `6.64` | **`+7.412%`** (`[+2.18%, +11.48%]`) / **`+118.59%`** / `6.32` |' not found in Markdown!"
+      },
+      {
+        "mutation_id": "mutation_4_rt2_c2_compounded_nav",
+        "target": "Compounded: **`99.96` (`-0.04%`)**",
+        "corrupted_with": "Compounded: **`98.96` (`-1.04%`)**",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [RT2-C2 row]: expected 'Additive: **`99.96` (`-0.04%`)**, Compounded: **`99.96` (`-0.04%`)**' not found in Markdown!"
+      },
+      {
+        "mutation_id": "mutation_5_coverage_338_to_18_claim",
+        "target": "**`338`** mã kết thúc đúng tại nến 1h mở `2026-08-31T23:00:00+00:00`",
+        "corrupted_with": "**`18`** mã kết thúc đúng tại nến 1h mở `2026-08-31T23:00:00+00:00`",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Coverage 332 ending 2026-08-31 23:00 UTC]: expected '**`338`** mã kết thúc đúng tại nến 1h mở `2026-08-31T23:00:00+00:00`' not found in Markdown!"
+      },
+      {
+        "mutation_id": "mutation_6_funding_14_of_14_to_0_of_14_prose",
+        "target": "**`14/14` mã** từ **`20/20` tệp parquet**",
+        "corrupted_with": "**`0/14` mã** từ **`0/20` tệp parquet**",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Funding symbols & files loaded prose]: expected '**`14/14` mã** từ **`20/20` tệp parquet** (`89325` bản ghi' not found in Markdown!"
+      }
+    ]
+  },
+  "counterexamples": {
+    "rt2_c1_six_same_timestamp_cap5": {
+      "submitted_candidates": 6,
+      "max_concurrent_cap": 5,
+      "executed_trades": 5,
+      "skipped_concurrency_cap": 1,
+      "uncapped_max_concurrency": 6,
+      "accepted_max_concurrency": 5,
+      "assertion_passed": true
+    },
+    "rt2_c1_five_15x_notional_cap100pct": {
+      "submitted_candidates": 5,
+      "pos_mult_each": 1.5,
+      "notional_frac_each": 0.3,
+      "max_total_notional_frac": 1.0,
+      "executed_trades": 3,
+      "skipped_notional_cap": 2,
+      "accepted_max_notional_frac": 0.9,
+      "assertion_passed": true
+    },
+    "rt2_c1_missing_bar_gap_slot_retention": {
+      "trade1_bars_count": 2,
+      "trade1_entry_utc": "2025-05-01T00:00:00+00:00",
+      "trade1_real_exit_close_utc": "2025-05-01T04:00:00+00:00",
+      "trade2_arrival_utc": "2025-05-01T02:00:00+00:00",
+      "max_concurrent_cap": 1,
+      "executed_trades": 1,
+      "skipped_concurrency_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c1_notional_cap_current_equity_mtm": {
+      "initial_positions": 4,
+      "equity_at_0100_utc": 84.0,
+      "mtm_open_notional_at_0100_utc": 96.0,
+      "mtm_notional_over_equity_ratio": 1.1429,
+      "executed_trades": 4,
+      "skipped_notional_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c2_round_trip_100_50_100_fixed_quantity": {
+      "initial_nav": 100.0,
+      "notional_opened": 20.0,
+      "price_path": [
+        100.0,
+        50.0,
+        100.0
+      ],
+      "round_trip_fee_bps": 20.0,
+      "final_gross_pct": 0.0,
+      "expected_final_nav": 99.96,
+      "expected_return_pct": -0.04,
+      "legacy_buggy_compounded_return_pct": -1.04,
+      "patched_additive_final_nav": 99.96,
+      "patched_additive_return_pct": -0.04,
+      "patched_compounded_final_nav": 99.96,
+      "patched_compounded_return_pct": -0.04,
+      "assertion_passed": true
+    },
+    "f19b_funding_no_settlement_0100_to_0300_utc": {
+      "entry_utc": "2025-05-01T01:00:00+00:00",
+      "exit_utc": "2025-05-01T03:00:00+00:00",
+      "funding_bps_per_8h": 1.0,
+      "settlements_charged": 0,
+      "funding_net_pct_of_nav": 0.0,
+      "final_nav": 100.0,
+      "legacy_v402_hourly_prorated_nav": 99.9995,
+      "assertion_passed": true
+    },
+    "rt2_m3_unified_conviction_score_counterexample": {
+      "score": 79.0,
+      "tier": "A",
+      "pos_mult": 1.15,
+      "breakdown": {
+        "L1_pump_exhaustion_pts": 19.0,
+        "L2_wave_impulse_physics_pts": 21.0,
+        "L3_pst_momentum_collapse_pts": 21.0,
+        "L4_fibo_h1_trigger_pts": 18.0,
+        "wave_ker": 0.5,
+        "impulse_ker": 0.6,
+        "peak_ewmac_16_64": -1.0,
+        "cur_accel_4_16": -1.2,
+        "pullback_vol_ratio": 1.0
+      },
+      "legacy_research_divergent_score": 85.0,
+      "legacy_research_divergent_mult": 1.5,
+      "assertion_passed": true
+    }
+  },
+  "fingerprint_matches": true,
+  "universe_embedded_matches": true,
+  "funding_coverage": {
+    "symbols_requested": 14,
+    "symbols_with_funding_files": 14,
+    "total_files_found": 20,
+    "total_files_loaded_ok": 20,
+    "read_errors_count": 0,
+    "schema_errors_count": 0,
+    "empty_files_count": 0,
+    "total_settlement_records_loaded": 89325,
+    "by_symbol_source": {
+      "BTCUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 6359,
+        "negative_rates": 1036,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BTCUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6359,
+            "negative_rates": 1036,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BTCUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6297,
+            "negative_rates": 1032,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ETHUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 6376,
+        "negative_rates": 1019,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ETHUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6376,
+            "negative_rates": 1019,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ETHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6318,
+            "negative_rates": 1011,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "SOLUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 6697,
+        "positive_rates": 4776,
+        "negative_rates": 1920,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 6634,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 6622,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-09-13T16:00:00+00:00",
+        "max_utc": "2026-09-29T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\SOLUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 6697,
+            "valid_unique_hours": 6697,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4776,
+            "negative_rates": 1920,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 6622,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-09-13T16:00:00+00:00",
+            "max_utc": "2026-09-29T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\SOLUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 6634,
+            "valid_unique_hours": 6634,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4731,
+            "negative_rates": 1902,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 6559,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-09-13T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "BNBUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7274,
+        "positive_rates": 1925,
+        "negative_rates": 1738,
+        "zero_rates": 3611,
+        "overlapping_timestamps_between_sources": 7208,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7274,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-02-10T08:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BNBUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 7274,
+            "valid_unique_hours": 7274,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 1925,
+            "negative_rates": 1738,
+            "zero_rates": 3611,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7274,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-02-10T08:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BNBUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7208,
+            "valid_unique_hours": 7208,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 1888,
+            "negative_rates": 1738,
+            "zero_rates": 3582,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7208,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-02-10T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "LTCUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7367,
+        "positive_rates": 6049,
+        "negative_rates": 1006,
+        "zero_rates": 312,
+        "overlapping_timestamps_between_sources": 7304,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7367,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-01-09T08:00:00+00:00",
+        "max_utc": "2026-09-29T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\LTCUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 7367,
+            "valid_unique_hours": 7367,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 6049,
+            "negative_rates": 1006,
+            "zero_rates": 312,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7367,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-09T08:00:00+00:00",
+            "max_utc": "2026-09-29T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\LTCUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7304,
+            "valid_unique_hours": 7304,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5989,
+            "negative_rates": 1003,
+            "zero_rates": 312,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7304,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-09T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "BCHUSDT": {
+        "status": "OK",
+        "sources": [
+          "SharedMarketData/funding_8h",
+          "data_lake/funding"
+        ],
+        "records": 7395,
+        "positive_rates": 4712,
+        "negative_rates": 2682,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 7329,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7395,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-01-01T00:00:00+00:00",
+        "max_utc": "2026-09-30T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BCHUSDT_funding.parquet",
+            "source": "SharedMarketData/funding_8h",
+            "status": "OK",
+            "raw_rows": 7395,
+            "valid_unique_hours": 7395,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4712,
+            "negative_rates": 2682,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7395,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-30T16:00:00+00:00"
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\BCHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7329,
+            "valid_unique_hours": 7329,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4667,
+            "negative_rates": 2661,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7329,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-01T00:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000PEPEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 3667,
+        "positive_rates": 2813,
+        "negative_rates": 854,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 3667,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2023-05-05T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000PEPEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000PEPEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 3667,
+            "valid_unique_hours": 3667,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 2813,
+            "negative_rates": 854,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.029,
+            "expected_8h_slots_in_span": 3667,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2023-05-05T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000BONKUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6126,
+        "positive_rates": 4589,
+        "negative_rates": 1536,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 3064,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2023-11-22T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000BONKUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000BONKUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 6126,
+            "valid_unique_hours": 6126,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4589,
+            "negative_rates": 1536,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.026,
+            "expected_8h_slots_in_span": 3064,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2023-11-22T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1000SHIBUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 5842,
+        "positive_rates": 4208,
+        "negative_rates": 1633,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 5842,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2021-05-10T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1000SHIBUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1000SHIBUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 5842,
+            "valid_unique_hours": 5842,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4208,
+            "negative_rates": 1633,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 5842,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2021-05-10T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "AAVEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6461,
+        "positive_rates": 5486,
+        "negative_rates": 974,
+        "zero_rates": 1,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 6461,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-10-16T08:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\AAVEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\AAVEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 6461,
+            "valid_unique_hours": 6461,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5486,
+            "negative_rates": 974,
+            "zero_rates": 1,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 6461,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-10-16T08:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ADAUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 7273,
+        "positive_rates": 5832,
+        "negative_rates": 1441,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 7273,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-01-19T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ADAUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ADAUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 7273,
+            "valid_unique_hours": 7273,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 5832,
+            "negative_rates": 1441,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 7273,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-01-19T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "1INCHUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6250,
+        "positive_rates": 4691,
+        "negative_rates": 1559,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 6250,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2020-12-25T16:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\1INCHUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\1INCHUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 6250,
+            "valid_unique_hours": 6250,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4691,
+            "negative_rates": 1559,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.047,
+            "expected_8h_slots_in_span": 6250,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2020-12-25T16:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "ACEUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 6228,
+        "positive_rates": 4892,
+        "negative_rates": 1336,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 2986,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2023-12-18T12:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ACEUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\ACEUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 6228,
+            "valid_unique_hours": 6228,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 4892,
+            "negative_rates": 1336,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.026,
+            "expected_8h_slots_in_span": 2986,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2023-12-18T12:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      },
+      "AKTUSDT": {
+        "status": "OK",
+        "sources": [
+          "data_lake/funding"
+        ],
+        "records": 3955,
+        "positive_rates": 3305,
+        "negative_rates": 650,
+        "zero_rates": 0,
+        "overlapping_timestamps_between_sources": 0,
+        "max_abs_rate_diff_on_overlap": 0.0,
+        "expected_8h_slots_in_span": 1978,
+        "missing_8h_slots_in_span": 0,
+        "min_utc": "2024-11-18T12:00:00+00:00",
+        "max_utc": "2026-09-08T16:00:00+00:00",
+        "files": {
+          "SharedMarketData/funding_8h": {
+            "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\AKTUSDT_funding.parquet",
+            "status": "MISSING_FILE",
+            "raw_rows": 0,
+            "valid_unique_hours": 0
+          },
+          "data_lake/funding": {
+            "path": "C:\\Quant-trading\\data_lake\\funding\\AKTUSDT_funding.parquet",
+            "source": "data_lake/funding",
+            "status": "OK",
+            "raw_rows": 3955,
+            "valid_unique_hours": 3955,
+            "duplicate_timestamps": 0,
+            "invalid_rate_rows": 0,
+            "positive_rates": 3305,
+            "negative_rates": 650,
+            "zero_rates": 0,
+            "max_jitter_seconds": 0.026,
+            "expected_8h_slots_in_span": 1978,
+            "missing_8h_slots_in_span": 0,
+            "min_utc": "2024-11-18T12:00:00+00:00",
+            "max_utc": "2026-09-08T16:00:00+00:00"
+          }
+        }
+      }
+    }
+  },
+  "funding_off_8h": {
+    "BTCUSDT": {
+      "total": 7395,
+      "off_8h": 0,
+      "hours_utc": {
+        "0": 2465,
+        "8": 2465,
+        "16": 2465
+      }
+    },
+    "ETHUSDT": {
+      "total": 7395,
+      "off_8h": 0,
+      "hours_utc": {
+        "0": 2465,
+        "8": 2465,
+        "16": 2465
+      }
+    },
+    "SOLUSDT": {
+      "total": 6697,
+      "off_8h": 75,
+      "hours_utc": {
+        "16": 2208,
+        "0": 2207,
+        "8": 2207,
+        "20": 9,
+        "4": 9,
+        "6": 9,
+        "10": 8,
+        "12": 8,
+        "14": 8,
+        "18": 8,
+        "22": 8,
+        "2": 8
+      }
+    },
+    "BNBUSDT": {
+      "total": 7274,
+      "off_8h": 0,
+      "hours_utc": {
+        "8": 2425,
+        "16": 2425,
+        "0": 2424
+      }
+    },
+    "LTCUSDT": {
+      "total": 7367,
+      "off_8h": 0,
+      "hours_utc": {
+        "8": 2456,
+        "16": 2456,
+        "0": 2455
+      }
+    },
+    "BCHUSDT": {
+      "total": 7395,
+      "off_8h": 0,
+      "hours_utc": {
+        "0": 2465,
+        "8": 2465,
+        "16": 2465
+      }
+    },
+    "1000PEPEUSDT": {
+      "total": 3667,
+      "off_8h": 0,
+      "hours_utc": {
+        "16": 1223,
+        "0": 1222,
+        "8": 1222
+      }
+    },
+    "1000BONKUSDT": {
+      "total": 6126,
+      "off_8h": 3062,
+      "hours_utc": {
+        "16": 1022,
+        "20": 1021,
+        "0": 1021,
+        "4": 1020,
+        "8": 1021,
+        "12": 1021
+      }
+    },
+    "1000SHIBUSDT": {
+      "total": 5842,
+      "off_8h": 0,
+      "hours_utc": {
+        "16": 1948,
+        "0": 1947,
+        "8": 1947
+      }
+    },
+    "AAVEUSDT": {
+      "total": 6461,
+      "off_8h": 0,
+      "hours_utc": {
+        "8": 2154,
+        "16": 2154,
+        "0": 2153
+      }
+    },
+    "ADAUSDT": {
+      "total": 7273,
+      "off_8h": 0,
+      "hours_utc": {
+        "16": 2425,
+        "0": 2424,
+        "8": 2424
+      }
+    },
+    "1INCHUSDT": {
+      "total": 6250,
+      "off_8h": 0,
+      "hours_utc": {
+        "16": 2084,
+        "0": 2083,
+        "8": 2083
+      }
+    },
+    "ACEUSDT": {
+      "total": 6228,
+      "off_8h": 3242,
+      "hours_utc": {
+        "12": 996,
+        "16": 996,
+        "20": 995,
+        "0": 995,
+        "4": 994,
+        "8": 995,
+        "1": 15,
+        "2": 15,
+        "3": 14,
+        "5": 14,
+        "6": 14,
+        "7": 14,
+        "9": 15,
+        "10": 15,
+        "11": 15,
+        "13": 14,
+        "14": 14,
+        "15": 14,
+        "17": 14,
+        "18": 14,
+        "19": 14,
+        "21": 14,
+        "22": 14,
+        "23": 14
+      }
+    },
+    "AKTUSDT": {
+      "total": 3955,
+      "off_8h": 1977,
+      "hours_utc": {
+        "12": 660,
+        "16": 660,
+        "20": 659,
+        "0": 659,
+        "4": 658,
+        "8": 659
+      }
+    }
+  },
+  "numeric_ms_funding_parse": {
+    "source": "numeric_ms_fixture",
+    "status": "OK",
+    "raw_rows": 2,
+    "valid_unique_hours": 1,
+    "duplicate_timestamps": 1,
+    "invalid_rate_rows": 0,
+    "positive_rates": 1,
+    "negative_rates": 0,
+    "zero_rates": 0,
+    "max_jitter_seconds": 1735.7184,
+    "expected_8h_slots_in_span": 1,
+    "missing_8h_slots_in_span": 0,
+    "min_utc": "1970-01-01T00:00:00+00:00",
+    "max_utc": "1970-01-01T00:00:00+00:00",
+    "records_map": {
+      "0": 0.0002
+    }
+  },
+  "coupled_double_processing_universe": {
+    "advance_traces": [
+      {
+        "function": "_advance_portfolio_to_hour",
+        "target_h": 0,
+        "cur_h": 0,
+        "equity": 100.0
+      },
+      {
+        "function": "_advance_portfolio_to_hour",
+        "target_h": 1,
+        "cur_h": 1,
+        "equity": 95.98
+      },
+      {
+        "function": "_advance_portfolio_to_hour",
+        "target_h": 1,
+        "cur_h": 1,
+        "equity": 91.96
+      }
+    ],
+    "coupled_accepted": 2,
+    "coupled_rejected_notional": 1,
+    "single_pass_accepted": 3,
+    "single_pass_nav": {
+      "max_concurrent_cap": 5,
+      "max_total_notional_frac": 0.66,
+      "max_total_sl_risk_frac": 1.0,
+      "executed_trades": 3,
+      "skipped_due_to_cap": 0,
+      "skipped_total_cap": 0,
+      "skipped_due_to_slot_cap": 0,
+      "skipped_concurrency_cap": 0,
+      "skipped_due_to_notional_cap": 0,
+      "skipped_notional_cap": 0,
+      "skipped_due_to_sl_risk_cap": 0,
+      "skipped_sl_risk_cap": 0,
+      "additive_nav_final": 95.88,
+      "additive_final_nav": 95.88,
+      "additive_nav_total_return_pct": -4.12,
+      "additive_total_return_pct": -4.12,
+      "additive_nav_max_dd_pct_pts": 4.12,
+      "additive_nav_max_dd_rel_pct": 4.12,
+      "additive_max_dd_pct": 4.12,
+      "compounded_nav_final": 95.8832,
+      "compounded_final_nav": 95.8832,
+      "compounded_nav_total_return_pct": -4.12,
+      "compounded_total_return_pct": -4.12,
+      "compounded_nav_max_dd_rel_pct": 4.12,
+      "compounded_max_dd_pct": 4.12,
+      "historical_funding_events_matched": 0,
+      "historical_funding_events_missing": 0,
+      "historical_funding_net_pct_of_initial_nav": 0.0,
+      "stress_funding_events_charged": 0,
+      "stress_funding_net_pct_of_initial_nav": 0.0
+    }
+  },
+  "coupled_double_processing_benchmark": {
+    "advance_traces": [
+      {
+        "function": "_advance_to_hour",
+        "target_h": 0,
+        "cur_h": 0,
+        "equity": 100.0
+      },
+      {
+        "function": "_advance_to_hour",
+        "target_h": 1,
+        "cur_h": 1,
+        "equity": 95.98
+      },
+      {
+        "function": "_advance_to_hour",
+        "target_h": 1,
+        "cur_h": 1,
+        "equity": 91.96
+      }
+    ],
+    "accepted": 2,
+    "rejected_notional": 1
+  },
+  "findings_source": {
+    "double_event_benchmark": "verify_red_team_reaudit_v402.py:_advance_to_hour",
+    "double_event_universe": "universe_reaudit_v402_worker.py:_advance_portfolio_to_hour",
+    "fingerprint": "hashes code subset and filename/size/int(mtime), not data contents; omitted funding and imported strategy/summary code"
+  },
+  "json_accepted_vs_executed_mismatches": [
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/nav_ex_funding",
+      "accepted": 243,
+      "executed": 242
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/nav_with_historical_funding",
+      "accepted": 243,
+      "executed": 242
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m4_f2_elite/execution_coupled_portfolio/nav_stress_1bp_8h_funding",
+      "accepted": 243,
+      "executed": 242
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/nav_ex_funding",
+      "accepted": 333,
+      "executed": 330
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/nav_with_historical_funding",
+      "accepted": 333,
+      "executed": 330
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/nav_stress_1bp_8h_funding",
+      "accepted": 333,
+      "executed": 330
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/nav_ex_funding",
+      "accepted": 270,
+      "executed": 266
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/nav_with_historical_funding",
+      "accepted": 270,
+      "executed": 266
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_sniper/execution_coupled_portfolio/nav_stress_1bp_8h_funding",
+      "accepted": 270,
+      "executed": 266
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/nav_ex_funding",
+      "accepted": 209,
+      "executed": 207
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/nav_with_historical_funding",
+      "accepted": 209,
+      "executed": 207
+    },
+    {
+      "path": "/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_elite_sniper/execution_coupled_portfolio/nav_stress_1bp_8h_funding",
+      "accepted": 209,
+      "executed": 207
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 646,
+      "executed": 568
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 869,
+      "executed": 773
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 689,
+      "executed": 623
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 549,
+      "executed": 503
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 274,
+      "executed": 241
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 408,
+      "executed": 363
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 286,
+      "executed": 258
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 230,
+      "executed": 212
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 274,
+      "executed": 241
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 408,
+      "executed": 363
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 286,
+      "executed": 258
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 230,
+      "executed": 212
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 290,
+      "executed": 265
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 377,
+      "executed": 358
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 304,
+      "executed": 288
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ROLLING_PIT_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 254,
+      "executed": 244
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 302,
+      "executed": 281
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 402,
+      "executed": 374
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 307,
+      "executed": 292
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 244,
+      "executed": 235
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 56,
+      "executed": 55
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 41,
+      "executed": 40
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 56,
+      "executed": 55
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/EX_ANTE_2026_TOP50_VOL/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 41,
+      "executed": 40
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 186,
+      "executed": 177
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 242,
+      "executed": 240
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 201,
+      "executed": 198
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 164,
+      "executed": 161
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_oos_2026/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 37,
+      "executed": 36
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_CORE/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 37,
+      "executed": 36
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 285,
+      "executed": 272
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 405,
+      "executed": 389
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 325,
+      "executed": 311
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 257,
+      "executed": 246
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 51,
+      "executed": 50
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 71,
+      "executed": 69
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 60,
+      "executed": 59
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 44,
+      "executed": 43
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 51,
+      "executed": 50
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 71,
+      "executed": 69
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 60,
+      "executed": 59
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/TIER_S_PLUS_A_WHITELIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 44,
+      "executed": 43
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 321,
+      "executed": 296
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 432,
+      "executed": 409
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 339,
+      "executed": 321
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 263,
+      "executed": 254
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 54,
+      "executed": 53
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 73,
+      "executed": 72
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 59,
+      "executed": 57
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 44,
+      "executed": 42
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 54,
+      "executed": 53
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 73,
+      "executed": 72
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 59,
+      "executed": 57
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/PIT_ZERO_BIAS_MCAP_FLOAT/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 44,
+      "executed": 42
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_is_2024_2025/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 550,
+      "executed": 485
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 736,
+      "executed": 663
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 573,
+      "executed": 525
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_is_2024_2025/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 458,
+      "executed": 426
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 272,
+      "executed": 245
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 399,
+      "executed": 364
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 276,
+      "executed": 254
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 223,
+      "executed": 208
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m4_f2_elite/nav_20pct_per_1x",
+      "accepted": 272,
+      "executed": 245
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_expanded/nav_20pct_per_1x",
+      "accepted": 399,
+      "executed": 364
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_sniper/nav_20pct_per_1x",
+      "accepted": 276,
+      "executed": 254
+    },
+    {
+      "path": "/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/BLACKLIST/portfolio_coupled_execution_oos_2026_hard_cutoff_0831/m6_f4_elite_sniper/nav_20pct_per_1x",
+      "accepted": 223,
+      "executed": 208
+    }
+  ],
+  "additional_report_mutation": {
+    "target": "M6B Full IS p/Holm/BH, break-even and terminal counts",
+    "old_cells": [
+      " `0.0155` / `0.1595` / `0.0852` ",
+      " `114.9` / `143.1 bps` ",
+      " `36` / `51` "
+    ],
+    "modified": true,
+    "accepted_by_checker": true
+  },
+  "cache_content_mutation": {
+    "equal_length_data_changed": true,
+    "mtime_preserved": true,
+    "fingerprint_unchanged": true
+  },
+  "ACE_OOS_independent_replay": {
+    "raw_candidates": 86,
+    "trades": [
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-08-22T13:00:00+00:00",
+        "decision": "2026-08-22T13:00:00+00:00",
+        "exit": "2026-08-25T13:00:00+00:00",
+        "sim_exit_close": "2026-08-25T13:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-01-01T02:00:00+00:00",
+        "decision": "2026-01-01T02:00:00+00:00",
+        "exit": "2026-01-03T16:00:00+00:00",
+        "sim_exit_close": "2026-01-03T16:00:00+00:00",
+        "terminal": "INITIAL_STOP_LOSS",
+        "sim_terminal": "INITIAL_STOP_LOSS"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-01-04T01:00:00+00:00",
+        "decision": "2026-01-04T01:00:00+00:00",
+        "exit": "2026-01-09T01:00:00+00:00",
+        "sim_exit_close": "2026-01-09T01:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-01-12T02:00:00+00:00",
+        "decision": "2026-01-12T02:00:00+00:00",
+        "exit": "2026-01-15T04:00:00+00:00",
+        "sim_exit_close": "2026-01-15T04:00:00+00:00",
+        "terminal": "TP2_THEN_SL_AT_TP1",
+        "sim_terminal": "TP2_THEN_SL_AT_TP1"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-01-17T12:00:00+00:00",
+        "decision": "2026-01-17T12:00:00+00:00",
+        "exit": "2026-01-19T01:00:00+00:00",
+        "sim_exit_close": "2026-01-19T01:00:00+00:00",
+        "terminal": "TP2_THEN_SL_AT_TP1",
+        "sim_terminal": "TP2_THEN_SL_AT_TP1"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-05-09T10:00:00+00:00",
+        "decision": "2026-05-09T10:00:00+00:00",
+        "exit": "2026-05-14T10:00:00+00:00",
+        "sim_exit_close": "2026-05-14T10:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-08-07T01:00:00+00:00",
+        "decision": "2026-08-07T01:00:00+00:00",
+        "exit": "2026-08-08T17:00:00+00:00",
+        "sim_exit_close": "2026-08-08T17:00:00+00:00",
+        "terminal": "INITIAL_STOP_LOSS",
+        "sim_terminal": "INITIAL_STOP_LOSS"
+      },
+      {
+        "m": "m1_f1a_pump50",
+        "entry": "2026-08-20T20:00:00+00:00",
+        "decision": "2026-08-20T20:00:00+00:00",
+        "exit": "2026-08-25T20:00:00+00:00",
+        "sim_exit_close": "2026-08-25T20:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m4_f2_elite",
+        "entry": "2026-05-09T10:00:00+00:00",
+        "decision": "2026-05-09T10:00:00+00:00",
+        "exit": "2026-05-14T10:00:00+00:00",
+        "sim_exit_close": "2026-05-14T10:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m6_f4_expanded",
+        "entry": "2026-05-09T10:00:00+00:00",
+        "decision": "2026-05-09T10:00:00+00:00",
+        "exit": "2026-05-14T10:00:00+00:00",
+        "sim_exit_close": "2026-05-14T10:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m6_f4_expanded",
+        "entry": "2026-08-20T20:00:00+00:00",
+        "decision": "2026-08-20T20:00:00+00:00",
+        "exit": "2026-08-25T20:00:00+00:00",
+        "sim_exit_close": "2026-08-25T20:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      },
+      {
+        "m": "m6_f4_sniper",
+        "entry": "2026-08-20T20:00:00+00:00",
+        "decision": "2026-08-20T20:00:00+00:00",
+        "exit": "2026-08-25T20:00:00+00:00",
+        "sim_exit_close": "2026-08-25T20:00:00+00:00",
+        "terminal": "NO_TP_TIME_EXIT",
+        "sim_terminal": "NO_TP_TIME_EXIT"
+      }
+    ],
+    "all_clock_terminal_match": true,
+    "score_differences": []
+  },
+  "ACE_IS_OOS_local_index_collision": {
+    "raw_is": 616,
+    "raw_oos": 86,
+    "oos_only_trades": 8,
+    "concatenated_is_oos_then_filter_oos": 7,
+    "lost": [
+      [
+        "1d",
+        "2026-05-09T10:00:00+00:00"
+      ]
+    ]
+  },
+  "coverage_metadata_verified": {
+    "files": 340,
+    "stable_or_index_excluded": [
+      "USDCUSDT"
+    ],
+    "files_not_ending_aug31_2355": []
+  },
+  "legacy_m6_replace_terminal_stale": {
+    "old_terminal": "INITIAL_STOP_LOSS",
+    "new_outcome": "TP3_HIT",
+    "new_terminal": "INITIAL_STOP_LOSS",
+    "expected_terminal": "TP3_FULL"
+  },
+  "independent_status_matrix": [
+    {
+      "id": "RT2-C1",
+      "status": "Partially Closed",
+      "reason": "Basic caps and timestamp slots pass; both coupled admission engines process a price/fee event more than once and re-cap accepted trades."
+    },
+    {
+      "id": "RT2-C2",
+      "status": "Partially Closed",
+      "reason": "Fixed-quantity round-trip NAV passes; coupled current-equity state double-counts an hour and diverges from final accounting."
+    },
+    {
+      "id": "RT2-H1",
+      "status": "Closed",
+      "reason": "Retain prior narrow closure of legacy M6 exit price/time/hold metadata, PST and fee contracts; separate remaining terminal label defect is F-04a."
+    },
+    {
+      "id": "RT2-H2",
+      "status": "Partially Closed",
+      "reason": "Universe coupled path implemented but affected by duplicate events and accepted/NAV population mismatch; no independent full338 replay."
+    },
+    {
+      "id": "RT2-H3",
+      "status": "Partially Closed",
+      "reason": "PIT membership now precedes wave/cooldown and survivorship scope is disclosed; coupled results remain affected by event/accounting defects."
+    },
+    {
+      "id": "RT2-H4",
+      "status": "Partially Closed",
+      "reason": "Exact Markdown regeneration and embedded universe equality pass; checker accepts corrupted p/Holm/BH, break-even and terminal columns and misses internal execution-count contradictions."
+    },
+    {
+      "id": "RT2-M1",
+      "status": "Closed",
+      "reason": "Retain canonical PST and isolated bfill method closure; historical trade counts require rerun after IS/OOS index fix."
+    },
+    {
+      "id": "RT2-M2",
+      "status": "Closed",
+      "reason": "Pivot configuration behavior regression passes; historical counts require rerun after IS/OOS index fix."
+    },
+    {
+      "id": "RT2-M3",
+      "status": "Closed",
+      "reason": "Canonical conviction score shared by detector/research/worker; provided vector passes and 86 ACE OOS candidate scores match detector."
+    },
+    {
+      "id": "RT2-M4",
+      "status": "Partially Closed",
+      "reason": "Hard data cutoff and adjustment columns exist; local-index collision changes benchmark trade selection and invalidates reliance on reported downstream statistics pending rerun."
+    },
+    {
+      "id": "RT2-L1",
+      "status": "Closed",
+      "reason": "Independent metadata check confirms340 raw5m files all end2026-08-31 23:55UTC; exclusion accounting and survivorship-conditioned scope disclosed. Does not certify complete historical exchange listing universe."
+    },
+    {
+      "id": "RT2-L2",
+      "status": "Closed",
+      "reason": "Fee unit contract regression passes."
+    },
+    {
+      "id": "F-01",
+      "status": "Closed",
+      "reason": "Same-bar ratcheted-stop regression passes under declared pessimistic OHLC convention."
+    },
+    {
+      "id": "F-04a",
+      "status": "Partially Closed",
+      "reason": "12 targeted ACE OOS trades match sim terminal; legacy dataclasses.replace retains INITIAL_STOP_LOSS after new TP3_HIT execution."
+    },
+    {
+      "id": "F-06",
+      "status": "Closed",
+      "reason": "Prior-low ordering and wave KER regression passes."
+    },
+    {
+      "id": "F-14",
+      "status": "Closed",
+      "reason": "Retain prior closure of stress/calibration separation and break-even formula; numerical outputs still need full recomputation after engine corrections."
+    },
+    {
+      "id": "F-19a",
+      "status": "Partially Closed",
+      "reason": "18 manifest hashes and selected snapshots match; input fingerprint uses data filename/size/int(mtime), omits content and dependencies; same-size same-mtime data mutation is undetected."
+    },
+    {
+      "id": "F-19b",
+      "status": "Partially Closed",
+      "reason": "14symbols/20files/89325records load; historical data contain variable settlement hours, universal8h narrative and missing-slot checks are incomplete; numeric millisecond timestamps parse as1970 with OK status."
+    },
+    {
+      "id": "F-19c",
+      "status": "Closed",
+      "reason": "10 historical artifact hashes match supplied baseline and selected v402/v403 snapshot files match version manifests."
+    }
+  ],
+  "independent_status_counts": {
+    "Partially Closed": 9,
+    "Closed": 10,
+    "Open": 0
+  },
+  "final_signoff": "NOT_GRANTED",
+  "verified_at_utc": "2026-10-17T08:31:13.344559+00:00",
+  "limitations": [
+    "Full14-symbol and338-symbol historical reruns were not performed in this verification. Decision is supported by code inspection, actual ACE replay, independent counterexamples and internal contradictions in delivered JSON.",
+    "Closed statuses for individual method fixes do not validate all historical performance values.",
+    "Historical preservation verifies agreement with supplied baseline, not an independently timestamped archive predating that baseline."
+  ],
+  "blocking_findings": [
+    {
+      "id": "FS403-01",
+      "severity": "Critical",
+      "title": "Repeated hour accounting in both coupled engines",
+      "evidence_keys": [
+        "coupled_double_processing_benchmark",
+        "coupled_double_processing_universe"
+      ]
+    },
+    {
+      "id": "FS403-02",
+      "severity": "High",
+      "title": "Accepted trade population differs from NAV executed population",
+      "evidence_keys": [
+        "json_accepted_vs_executed_mismatches"
+      ]
+    },
+    {
+      "id": "FS403-03",
+      "severity": "Critical",
+      "title": "IS/OOS local index collision removes real ACE OOS trade",
+      "evidence_keys": [
+        "ACE_IS_OOS_local_index_collision"
+      ]
+    },
+    {
+      "id": "FS403-04",
+      "severity": "High",
+      "title": "Funding schedule disclosure, gap detection and numeric timestamp parsing incomplete",
+      "evidence_keys": [
+        "funding_off_8h",
+        "numeric_ms_funding_parse"
+      ]
+    },
+    {
+      "id": "FS403-05",
+      "severity": "High",
+      "title": "Report checker ignores mutated trailing fields",
+      "evidence_keys": [
+        "additional_report_mutation"
+      ]
+    },
+    {
+      "id": "FS403-06",
+      "severity": "High",
+      "title": "Cache fingerprint does not bind input contents or full dependency set",
+      "evidence_keys": [
+        "cache_content_mutation"
+      ]
+    },
+    {
+      "id": "FS403-07",
+      "severity": "Medium",
+      "title": "Legacy trade replacement leaves stale terminal classification",
+      "evidence_keys": [
+        "legacy_m6_replace_terminal_stale"
+      ]
+    }
+  ],
+  "final_original_manifest_checks": {
+    "src/dao_vang/config/settings.py": true,
+    "src/dao_vang/fibo_short/detector.py": true,
+    "src/dao_vang/fibo_short/backtest.py": true,
+    "tests/unit/fibo_short/test_fibo_short.py": true,
+    "scripts/fibo_research/verify_red_team_audit_2026.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v402.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v403.py": true,
+    "scripts/fibo_research/universe_reaudit_v402_worker.py": true,
+    "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py": true,
+    "scripts/fibo_research/study_factor2_3_4_complete_2025.py": true,
+    "scripts/fibo_research/study_independent_audit_metrics.py": true,
+    "scripts/fibo_research/study_insample_2020_2025_by_year.py": true,
+    "scripts/fibo_research/study_oos_2026_all_7_milestones.py": true,
+    "scripts/fibo_research/study_coin_universe_selection_2026.py": true,
+    "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_3.json": true,
+    "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_3_2026-10-17.md": true,
+    "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_3_summary.json": true,
+    "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_3.json": true
+  },
+  "final_original_manifest_checks_all_match": true
+}

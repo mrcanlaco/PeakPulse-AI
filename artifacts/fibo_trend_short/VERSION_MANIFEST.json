@@ -1,0 +1,74 @@
+{
+  "app_name": "PeakPulse AI — Fibonacci Trend Short & Alpha Portal",
+  "module": "dao_vang.fibo_short",
+  "app_version": "1.0.0",
+  "wiki_schema_version": "4.0.0",
+  "released_at": "2026-10-16",
+  "release_history": [
+    {
+      "version": "0.1.0",
+      "date": "2026-10-15",
+      "milestone": "Baseline Engine (Mốc 0 & Mốc 1)",
+      "summary": "Point-in-time H4/D1 -> H1 Fibonacci pullback short detector, staged exit (40/30/30), and Prior Pump >= 50% filter."
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-10-15",
+      "milestone": "4-Factor Orthogonal Alpha Pyramid (Mốc 2 -> Mốc 6B)",
+      "summary": "Added Factor #1 (pysystemtrade EWMAC + 5-Repo KER/Freqtrade/Hummingbot/VectorBT), Factor #2 (Impulse Drop >= 6% & Impulse KER >= 0.50), Factor #3 (H1 Break Close < Low[-1] in shallow Fibo <= 0.786), and Factor #4 (SL 0.886 + 0.25 ATR & Conviction Score 0-100 dynamic sizing)."
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-10-16",
+      "milestone": "7-Year Multi-Cycle Validation (2020-2025 IS + 2026 True OOS) & Mốc 6S",
+      "summary": "Expanded backtest across 6 individual calendar years (2020-2025) plus 2026 OOS across all 8 milestones; discovered Mốc 4A and Mốc 6S (Elite Sniper) are undefeated 7/7 calendar years including the 2021 parabolic altcoin mania."
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-10-16",
+      "milestone": "6-Pillar MECE Interactive Alpha Wiki (v4.0.0) & Independent AI Audit Dossier",
+      "summary": "Reorganized Wiki into 6 non-overlapping MECE pillars, added 0..40 bps fee/slippage stress tests, chronological portfolio concurrency, 14-symbol & H4/D1 breakdown, and self-contained ChatGPT Red-Team Audit Dossier."
+    }
+  ],
+  "core_files": {
+    "engine": [
+      "src/dao_vang/fibo_short/__init__.py",
+      "src/dao_vang/fibo_short/models.py",
+      "src/dao_vang/fibo_short/detector.py",
+      "src/dao_vang/fibo_short/backtest.py",
+      "src/dao_vang/fibo_short/scanner_lane.py"
+    ],
+    "web_and_ui": [
+      "src/dao_vang/web/api_server.py",
+      "frontend/src/components/FiboShortWorkspace.tsx"
+    ],
+    "tests": [
+      "tests/unit/fibo_short/test_fibo_short.py"
+    ],
+    "scripts": [
+      "scripts/export_fibo_alpha_html.py",
+      "scripts/run_fibo_trend_short_backtest.py",
+      "scripts/fibo_research/study_pump_thresholds_2025.py",
+      "scripts/fibo_research/study_factor1_ma_deep_dive_2025.py",
+      "scripts/fibo_research/study_factor1_true_zone_vs_spike_2025.py",
+      "scripts/fibo_research/study_factor1_pysystemtrade_2025.py",
+      "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py",
+      "scripts/fibo_research/study_alpha_taxonomy_correlations_2025.py",
+      "scripts/fibo_research/study_factor1_5d_and_scoring_2025.py",
+      "scripts/fibo_research/study_factor2_impulse_drop_2025.py",
+      "scripts/fibo_research/study_factor2_3_4_complete_2025.py",
+      "scripts/fibo_research/study_insample_2020_2025_by_year.py",
+      "scripts/fibo_research/study_oos_2026_all_7_milestones.py",
+      "scripts/fibo_research/study_independent_audit_metrics.py"
+    ],
+    "artifacts": [
+      "artifacts/fibo_trend_short/fibo_alpha_research_2025.html",
+      "artifacts/fibo_trend_short/alpha_wiki_registry.json",
+      "artifacts/fibo_trend_short/CHATGPT_INDEPENDENT_AUDIT_DOSSIER.md",
+      "artifacts/fibo_trend_short/independent_audit_study.json",
+      "artifacts/fibo_trend_short/insample_2020_2025_by_year_study.json",
+      "artifacts/fibo_trend_short/oos_2026_7_milestones_study.json",
+      "artifacts/fibo_trend_short/factor2_3_4_complete_study_2025.json"
+    ]
+  }
+}

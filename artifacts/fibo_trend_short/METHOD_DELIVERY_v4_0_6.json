@@ -1,0 +1,593 @@
+{
+  "version": "4.0.6",
+  "research_signoff": "TECHNICAL_CHECKS_PASSED_WITH_DISCLOSED_MODEL_LIMITATIONS",
+  "live_signoff": "NOT_GRANTED",
+  "conclusion_vi": "Bản v4.0.6 đã sửa các lỗi triển khai được phát hiện và vượt qua kiểm chứng hạch toán, cấu hình và tính nhất quán trên bộ dữ liệu đã khóa. Chỉ tiếp tục đánh giá paper; chưa đủ bằng chứng để nghiệm thu giao dịch tiền thật. 12/12 khoảng tin cậy trung bình lệnh PIT trước funding đi qua 0. Chi phí cao có thể làm lợi nhuận IS âm, đồng thời drawdown lớn; không coi hoàn tất sửa mã là chứng minh chiến lược có lợi thế bền vững.",
+  "verification_summary_vi": "55 kiểm thử đạt; 268 nút sổ lệnh đã đối chiếu tiền, phí, mã lệnh và tổng NAV. 15405 bản ghi PIT khớp danh sách tháng tính lại độc lập. 75 tệp lịch sử giữ nguyên; 838 tệp đầu vào không đổi trong các lượt chạy cuối.",
+  "fixes": [
+    {
+      "title": "Nhóm điểm dưới 55",
+      "evidence": "Universe và benchmark cùng dùng 0,80x theo phương pháp ba mức; loại sai lệch 0,50x từng làm thay đổi danh sách lệnh IS. Có kiểm thử ngưỡng thấp và đối chiếu hai bộ thực thi."
+    },
+    {
+      "title": "Khối lượng cố định",
+      "evidence": "fixed_1x được truyền đến bộ thực thi; kiểm thử cả ba ngưỡng điểm và chính sách không hợp lệ."
+    },
+    {
+      "title": "Chốt sổ cuối năm",
+      "evidence": "NAV IS bao gồm giờ đóng nến 01/01/2026 00:00 UTC. Trong 29 bản ghi sai cũ, 28 còn được nhận và đã khớp; 1 không còn được nhận sau sửa quy tắc khối lượng. Có kiểm thử riêng nến cuối kỳ."
+    },
+    {
+      "title": "Chi phí",
+      "evidence": "Bảng 1x lấy net_pct thực tế từ mô phỏng; kiểm thử 0, 20, 40, 60 bps."
+    },
+    {
+      "title": "Đỉnh xác nhận",
+      "evidence": "Benchmark và universe đều dùng 2 nến trái, 2 nến phải; đối chiếu 186 ứng viên M6B trên ACE và AAVE."
+    },
+    {
+      "title": "Nhảy giá qua stop",
+      "evidence": "Ba bộ mô phỏng dùng giá mở cửa khi vượt qua stop đã tồn tại; ví dụ entry 100, stop 110, mở cửa 120 phải lỗ 20,2% gồm phí."
+    },
+    {
+      "title": "Lệnh paper",
+      "evidence": "Chặn dữ liệu thiếu, tín hiệu cũ, sai tháng, wave/cooldown, giới hạn danh mục và phần chốt lời quá nhỏ."
+    }
+  ],
+  "rulebook_vi": [
+    "Chọn coin đầu mỗi tháng theo cửa sổ 63 ngày trước đó: có ít nhất 50 ngày giao dịch, bách phân vị 90 của râu nến H4 không vượt 3,2%, xếp theo trung vị quote volume ngày và lấy tối đa 50 mã. Loại nhóm BTC, ETH, BNB, vàng và chỉ số đã định sẵn. Nếu không đủ điều kiện thì danh sách có thể dưới 50 mã.",
+    "Chỉ đọc nến đã đóng. Tìm cấu trúc H4 hoặc D1 với lookback 30 nến, đỉnh có 2 nến xác nhận mỗi phía, đáy trước đỉnh và mức tăng trước đó tối thiểu 50%. Bộ tìm cấu trúc nhận nhịp giảm từ 4%; cổng M6B cuối cùng yêu cầu giảm ít nhất 6% và hiệu suất nhịp giảm KER ≥ 0,50.",
+    "Cổng xu hướng M6B: [(EWMAC 16/64 tại đỉnh ≤ 0 hoặc Accel 4/16 hiện tại ≤ −1) và KER sóng tăng ≥ 0,35] hoặc KER sóng tăng ≥ 0,65. PST không dùng dữ liệu tương lai để điền phần thiếu. M6B không có cổng điểm 55/68/80; điểm dùng cho so sánh cách chia khối lượng.",
+    "Xác nhận H1 cần có nhịp hồi, chạm từ Fibo 0,5 trong ba nến cuối của nhịp hồi, chưa vượt đỉnh, nến đóng đỏ và không tăng so với nến trước; thêm mẫu nến giảm hoặc phá đáy trước/gãy Fibo 0,5. Giá đóng được phép trong Fibo 0,382–0,786. Vùng hiển thị 0,5–0,618 không phải giới hạn cứng của giá khớp trong bộ máy hiện tại.",
+    "Vào short theo giá đóng H1 sau xác nhận. Gọi L là đáy nhịp giảm, H là đỉnh và R = H − L: stop ban đầu = max(L + 0,886R, entry × 1,005) + 0,25 ATR H1; TP1 = L, TP2 = L − 0,272R, TP3 = L − 0,618R.",
+    "Chốt 50% khối lượng ban đầu tại TP1 rồi kéo stop phần còn lại về entry; chốt 30% tại TP2 rồi kéo stop về TP1; chốt 20% tại TP3. Nếu cùng nến chạm nhiều mức, mô phỏng ưu tiên stop và kiểm tra lại stop vừa kéo. Nếu mở cửa vượt stop đã tồn tại, dùng giá mở cửa bất lợi hơn. Tối đa 72 nến H1 quan sát cho H4 và 120 cho D1; thiếu nến có thể làm thời gian thực dài hơn nên paper từ chối dữ liệu thiếu.",
+    "Tham chiếu paper dùng fixed_1x: giá trị mỗi lệnh bằng 20% equity, tối đa 5 vị thế; tổng notional không quá 100% và rủi ro đến stop khi nhận lệnh không quá 12% equity. Đây là các tham số nghiên cứu, không phải mức rủi ro cá nhân được khuyến nghị. Khối lượng token cố định sau khi vào và chỉ giảm khi chốt; biến thể theo điểm dùng 1,50x từ 80, 1,15x từ 68, còn lại 0,80x.",
+    "Kiểm tra membership, cooldown/wave và giới hạn danh mục trước khi nhận. Chỉ tiêu thụ wave sau khi có fill paper xác nhận. Cooldown theo thời gian thoát thật và ít nhất 4 giờ từ lúc vào. Ứng viên trùng giờ ưu tiên điểm cao, rồi mã và khung thời gian. Các giới hạn là điều kiện nhận lệnh; giá biến động sau đó có thể làm tỷ lệ phơi nhiễm vượt ngưỡng."
+  ],
+  "benchmark_rows": [
+    [
+      "2020–2025",
+      "fixed_1x",
+      "20",
+      354,
+      38.44,
+      52.22,
+      32.15,
+      32.61
+    ],
+    [
+      "2020–2025",
+      "fixed_1x",
+      "40",
+      354,
+      20.19,
+      32.17,
+      14.72,
+      33.75
+    ],
+    [
+      "2020–2025",
+      "fixed_1x",
+      "60",
+      354,
+      4.33,
+      14.75,
+      -0.41,
+      34.86
+    ],
+    [
+      "2020–2025",
+      "conviction_150_115_080",
+      "20",
+      351,
+      60.91,
+      78.61,
+      52.9,
+      33.02
+    ],
+    [
+      "2020–2025",
+      "conviction_150_115_080",
+      "40",
+      351,
+      38.44,
+      53.69,
+      31.55,
+      34.61
+    ],
+    [
+      "2020–2025",
+      "conviction_150_115_080",
+      "60",
+      351,
+      19.1,
+      32.23,
+      13.16,
+      36.17
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "20",
+      112,
+      29.23,
+      30.83,
+      27.11,
+      9.91
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "40",
+      112,
+      23.59,
+      25.12,
+      21.56,
+      10.2
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "60",
+      112,
+      18.19,
+      19.65,
+      16.24,
+      10.57
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "20",
+      111,
+      34.09,
+      35.8,
+      31.7,
+      11.52
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "40",
+      111,
+      27.84,
+      29.46,
+      25.56,
+      11.83
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "60",
+      111,
+      21.87,
+      23.42,
+      19.7,
+      12.14
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "20",
+      15,
+      22.51,
+      20.95,
+      22.23,
+      4.99
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "40",
+      15,
+      21.79,
+      20.24,
+      21.51,
+      5.07
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "60",
+      15,
+      21.07,
+      19.53,
+      20.79,
+      5.14
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "20",
+      14,
+      20.43,
+      18.75,
+      20.14,
+      5.72
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "40",
+      14,
+      19.71,
+      18.05,
+      19.43,
+      5.8
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "60",
+      14,
+      19.01,
+      17.35,
+      18.72,
+      5.89
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "fixed_1x",
+      "20",
+      18,
+      24.92,
+      23.37,
+      24.55,
+      4.99
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "fixed_1x",
+      "40",
+      18,
+      24.04,
+      22.5,
+      23.67,
+      5.07
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "fixed_1x",
+      "60",
+      18,
+      23.16,
+      21.63,
+      22.8,
+      5.14
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "conviction_150_115_080",
+      "20",
+      17,
+      22.32,
+      20.65,
+      21.97,
+      5.72
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "conviction_150_115_080",
+      "40",
+      17,
+      21.48,
+      19.82,
+      21.13,
+      5.8
+    ],
+    [
+      "2026 dữ liệu đến 29/09",
+      "conviction_150_115_080",
+      "60",
+      17,
+      20.65,
+      19.0,
+      20.3,
+      5.89
+    ]
+  ],
+  "pit_rows": [
+    [
+      "2024–2025",
+      "fixed_1x",
+      "20",
+      383,
+      157.14,
+      21.03,
+      35.95,
+      [
+        -0.76,
+        1.592
+      ]
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "40",
+      383,
+      87.46,
+      5.28,
+      41.18,
+      [
+        -0.954,
+        1.404
+      ]
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "60",
+      382,
+      8.65,
+      -9.83,
+      46.82,
+      [
+        -1.136,
+        1.203
+      ]
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "20",
+      375,
+      191.45,
+      28.35,
+      33.41,
+      [
+        -0.673,
+        1.776
+      ]
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "40",
+      375,
+      113.46,
+      9.85,
+      38.62,
+      [
+        -0.878,
+        1.569
+      ]
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "60",
+      374,
+      53.69,
+      -2.2,
+      43.44,
+      [
+        -1.045,
+        1.422
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "20",
+      72,
+      102.95,
+      20.21,
+      10.25,
+      [
+        -0.718,
+        3.65
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "40",
+      72,
+      88.55,
+      16.83,
+      10.32,
+      [
+        -0.918,
+        3.45
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "60",
+      72,
+      74.15,
+      13.53,
+      10.44,
+      [
+        -1.118,
+        3.25
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "20",
+      71,
+      119.1,
+      24.02,
+      11.69,
+      [
+        -0.407,
+        3.941
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "40",
+      71,
+      106.74,
+      20.8,
+      11.81,
+      [
+        -0.704,
+        3.841
+      ]
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "60",
+      71,
+      92.37,
+      17.4,
+      11.93,
+      [
+        -0.906,
+        3.633
+      ]
+    ]
+  ],
+  "pit_funding_rows": [
+    [
+      "2024–2025",
+      "fixed_1x",
+      "20",
+      383,
+      24.7,
+      35.26,
+      383,
+      15.99
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "40",
+      383,
+      8.21,
+      40.41,
+      382,
+      -0.66
+    ],
+    [
+      "2024–2025",
+      "fixed_1x",
+      "60",
+      382,
+      -7.1,
+      46.12,
+      382,
+      -14.53
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "20",
+      375,
+      31.84,
+      32.98,
+      375,
+      21.59
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "40",
+      375,
+      12.85,
+      37.98,
+      375,
+      4.07
+    ],
+    [
+      "2024–2025",
+      "conviction_150_115_080",
+      "60",
+      374,
+      0.45,
+      42.84,
+      374,
+      -7.36
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "20",
+      72,
+      20.49,
+      10.26,
+      72,
+      18.91
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "40",
+      72,
+      17.1,
+      10.32,
+      72,
+      15.56
+    ],
+    [
+      "2026 đến 31/08",
+      "fixed_1x",
+      "60",
+      72,
+      13.8,
+      10.44,
+      72,
+      12.3
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "20",
+      71,
+      24.31,
+      11.72,
+      71,
+      22.6
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "40",
+      71,
+      20.8,
+      11.84,
+      71,
+      19.43
+    ],
+    [
+      "2026 đến 31/08",
+      "conviction_150_115_080",
+      "60",
+      71,
+      17.69,
+      11.96,
+      71,
+      16.07
+    ]
+  ],
+  "limitations_vi": [
+    "JSON giữ một số trường NAV funding ở cấp gốc để so sánh phản thực trên cùng danh sách lệnh ex-funding. Kết quả thực thi có funding nằm trong scenario_specific_coupled_ledgers; báo cáo dùng các sổ kịch bản này. Khi funding làm đổi việc nhận lệnh, không dùng các trường cấp gốc đó làm NAV thực thi.",
+    "Năm 2026 đã được dùng trong nhiều vòng kiểm định và lựa chọn trước đây. Các bảng 2026 là validation đã tái sử dụng, không phải holdout mới. Khoảng tin cậy bootstrap theo tuần chỉ mô tả mẫu đang xét, chưa điều chỉnh toàn bộ quá trình chọn chiến lược; các trường p_value cũ không được dùng để tuyên bố ý nghĩa thống kê.",
+    "338 mã phụ thuộc tập tệp hiện có, thiếu đầy đủ lịch sử các hợp đồng đã hủy niêm yết. PIT chỉ bảo đảm chọn tháng bằng dữ liệu quá khứ trong tập đó. Dữ liệu 338 mã kết thúc 31/08/2026; benchmark chỉ 6/14 mã có thêm dữ liệu đến 29/09. Không so trực tiếp tổng kết quả hai cửa sổ như hai giai đoạn có độ phủ đồng nhất.",
+    "Funding lịch sử có tệp cho 14/14 mã benchmark và 145/145 mã từng thuộc PIT. Có 198 vị trí nghi thiếu theo lịch cục bộ suy luận; thiếu registry lịch thay đổi chính thức để kết luận đó là kỳ thực sự thiếu. Giá dùng hạch toán funding là giá đóng nến đại diện; thời điểm thoát trong nến được quy về đóng nến. Đọc bảng PIT có funding riêng để đánh giá tác động.",
+    "Phí 20/40/60 bps là ngân sách tổng chi phí trên notional ban đầu, thu nửa ở lần đóng nến đầu và nửa ở khi thoát. Chưa mô phỏng từng khoản commission của mỗi partial fill, độ sâu sổ lệnh, độ trễ, thanh lý hay margin theo tài khoản. Stop theo OHLC và xử lý nhảy giá vẫn là mô hình, không bảo đảm mức fill thực tế.",
+    "Bộ lập lệnh paper là hàm tính toán thuần, không gửi lệnh sàn. Nó kiểm tra các bộ lọc khối lượng/tick/notional được cung cấp, chưa thay thế toàn bộ bộ lọc sàn hay đối soát tài khoản. Làm tròn và loại phần chốt lời quá nhỏ có thể thay đổi số lệnh; chưa gán kết quả backtest cho các lệnh đã làm tròn.",
+    "Giao diện/scanner mặc định của ứng dụng còn là cấu hình khác (pump 5%, pivot 1/1 và whitelist). Kết quả v4.0.6 áp dụng cho bộ nghiên cứu M6B và quy tắc paper này; không dùng nó để xác nhận scanner mặc định đã được triển khai đồng nhất."
+  ],
+  "forward_steps_vi": [
+    "Dùng hồ sơ này để review và chạy paper, giữ nguyên quy tắc trong METHOD_POLICY_v4_0_6.json. Trước một phiên paper thực tế, ghi SHA256 policy cùng thời gian bắt đầu; cập nhật dữ liệu đến hiện tại và tính lại danh sách đúng tháng, không kéo tiếp danh sách tháng 09 sang tháng 10.",
+    "Đưa ứng viên M6B từ nến đã đóng, trạng thái danh mục đã đối soát và bộ lọc hiện hành vào paper_plan_v406.py. Ví dụ PAPER_INPUT_EXAMPLE_v4_0_6.json chỉ là dữ liệu giả TESTUSDT để kiểm tra luồng tính toán; không phải khuyến nghị mua bán.",
+    "Ghi mọi ứng viên được nhận và từ chối, thời điểm/khối lượng/giá khớp từng phần, stop sửa đổi, commission, funding và NAV theo sự kiện. Tạm dừng nhận lệnh mới khi dữ liệu bị thiếu, mất đồng bộ vị thế hoặc đối soát NAV sai; giữ xử lý thoát các vị thế đang mở theo kế hoạch.",
+    "Thu thập một tập paper mới sau khi khóa policy, tối thiểu 90 ngày và 50 lệnh đã đóng để bắt đầu review vận hành; đây là ngưỡng review định trước, không phải bằng chứng đủ về lợi nhuận. Kiểm tra lại chi phí thực, rủi ro, khoảng tin cậy và độ ổn định theo tuần trước mọi đề xuất live. Nếu đổi tham số, tạo phiên bản và tập forward mới."
+  ],
+  "file_links": {
+    "JSON kiểm định": "artifacts/fibo_trend_short/FINAL_METHOD_VERIFICATION_v4_0_6.json",
+    "Benchmark": "artifacts/fibo_trend_short/METHOD_BENCHMARK_v4_0_6.json",
+    "So sánh PIT": "artifacts/fibo_trend_short/METHOD_PIT_COMPARISON_v4_0_6.json",
+    "Danh sách PIT từng tháng và kiểm tra nguồn": "artifacts/fibo_trend_short/METHOD_SOURCE_CHECKS_v4_0_6.json",
+    "Policy paper": "artifacts/fibo_trend_short/METHOD_POLICY_v4_0_6.json",
+    "Ví dụ đầu vào paper": "artifacts/fibo_trend_short/PAPER_INPUT_EXAMPLE_v4_0_6.json",
+    "Chương trình lập lệnh paper": "scripts/fibo_research/paper_plan_v406.py"
+  }
+}

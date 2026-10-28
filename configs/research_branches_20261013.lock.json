@@ -1,0 +1,6 @@
+{
+  "protocol_path": "configs/research_branches_20261013.json",
+  "sha256": "364f83837c1184e9a351d5f0aa25c6db06a710b7f77859795587bb8de3f30ea7",
+  "scope": "Branch names and fixed diagnostic mixing policy, frozen before receiving round2 outcomes.",
+  "not_proof_of": ["independent holdout", "causal correctness", "profitability"]
+}

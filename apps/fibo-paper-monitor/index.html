@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PeakPulse · Paper OOS</title><link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%234de2bd'/%3E%3Cpath d='M8 25l8-13 7 15 9-16' fill='none' stroke='%230b1921' stroke-width='4'/%3E%3C/svg%3E">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a href="/" class="brand" aria-label="PeakPulse trang chủ"><span class="brand-icon">∿</span><span>PeakPulse<span class="brand-small">RESEARCH OBSERVATORY</span></span></a>
+    <div class="top-right"><span class="readonly">Chỉ theo dõi</span><span class="live-badge" id="connection"><i></i>Đang kết nối</span></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><div class="eyebrow">NGHIÊN CỨU TIẾN CỨU <span> / </span> FIBO TREND SHORT</div><h1>Theo dõi paper OOS<span>.</span></h1><p class="subtitle">Dữ liệu mới. Mô hình đã khóa. Mỗi quyết định đều có nhật ký.</p></div>
+      <div class="study-label"><span class="tiny-label">GIAI ĐOẠN HIỆN TẠI</span><strong id="phase">Đang tải dữ liệu</strong><span id="lastUpdate">Chờ kết nối đến nghiên cứu</span></div>
+    </section>
+    <div id="alert" class="alert" hidden role="alert"></div>
+    <div class="disclosure"><span class="lock-icon">◇</span><span><strong>Kết quả tạm thời</strong> · Paper mô phỏng, chưa xác nhận alpha. Đánh giá cuối kỳ theo thiết kế đã khóa.</span><span class="tag">KHÔNG ĐẶT LỆNH THẬT</span></div>
+    <section class="toolbar" aria-label="Lựa chọn hiển thị">
+      <div class="selection"><label for="policy">Chính sách</label><select id="policy" aria-label="Chọn chính sách"></select></div>
+      <div class="toolbar-right"><span id="autoRefresh">Tiết kiệm · cập nhật mỗi 60 giây</span><button id="refresh" type="button">↻ <span>Làm mới</span></button></div>
+    </section>
+    <section class="metrics" aria-label="Số liệu chính">
+      <article class="metric"><div class="metric-label"><span class="dot standard"></span>NAV · Chuẩn VIP6</div><div class="metric-value" id="standardNav">—</div><div class="metric-detail"><span id="standardReturn">—</span><span>từ NAV 100</span></div><div class="metric-cost" id="standardCost">—</div></article>
+      <article class="metric"><div class="metric-label"><span class="dot stress"></span>NAV · Stress</div><div class="metric-value" id="stressNav">—</div><div class="metric-detail"><span id="stressReturn">—</span><span>từ NAV 100</span></div><div class="metric-cost" id="stressCost">—</div></article>
+      <article class="metric"><div class="metric-label">Vị thế đang mở</div><div class="metric-value" id="positionsCount">—</div><div class="metric-detail" id="positionBreakdown">Theo chính sách đang chọn</div><div class="metric-cost" id="closedCount">—</div></article>
+      <article class="metric"><div class="metric-label">Tuần quan sát đầy đủ</div><div class="metric-value" id="weeks">—</div><div class="progress-track"><div id="progressFill"></div></div><div class="metric-cost" id="endDate">—</div></article>
+    </section>
+    <section class="chart-grid">
+      <article class="panel chart-panel">
+        <div class="panel-heading"><div><h2>Diễn biến NAV</h2><p id="chartSubtitle">So sánh cùng chính sách, hai điều kiện chi phí</p></div><div class="range-group" aria-label="Khoảng thời gian biểu đồ"><button data-range="24" type="button">24 giờ</button><button data-range="168" type="button">7 ngày</button><button data-range="all" class="active" type="button">Toàn bộ</button></div></div>
+        <div class="chart-legends"><span><i class="line standard"></i>Chuẩn VIP6</span><span><i class="line stress"></i>Stress</span><span class="chart-axis-note">NAV chuẩn hóa · tính cả phí và funding</span></div>
+        <div class="chart-wrap" id="chartWrap"><svg id="chart" viewBox="0 0 900 270" role="img" aria-label="Biểu đồ NAV chuẩn và stress"></svg><div id="chartTooltip" hidden></div></div>
+        <div class="chart-bottom"><span id="chartNote">Đang đọc nhật ký…</span><span id="drawdown">MaxDD: —</span></div>
+      </article>
+      <aside class="panel health-panel">
+        <div class="panel-heading"><h2>Sức khỏe vận hành</h2><span class="health-dot" id="healthDot"></span></div>
+        <div class="health-status" id="healthText">Đang kết nối…</div>
+        <dl class="health-list"><div><dt>Heartbeat</dt><dd id="heartbeat">—</dd></div><div><dt>Nến 5 phút gần nhất</dt><dd id="lastBar">—</dd></div><div><dt>Quét tín hiệu H1</dt><dd id="lastSignal">—</dd></div><div><dt>Danh mục theo dõi</dt><dd id="universeCount">—</dd></div><div><dt>Sự cố trọng yếu</dt><dd id="criticalCount">—</dd></div><div><dt>Cơ hội bị bỏ lỡ</dt><dd id="missedCount">—</dd></div></dl>
+        <div class="verified"><span>✓</span><div>Nhật ký đã đối chiếu<small id="journalRevision">—</small></div></div>
+      </aside>
+    </section>
+    <section class="panel comparison-panel"><div class="panel-heading"><div><h2>Sáu chính sách cố định</h2><p>Mỗi ô chuẩn / stress thuộc một tài khoản riêng. Không cộng NAV giữa các tài khoản.</p></div><span class="tag subdued">12 DANH MỤC</span></div><div class="table-scroll"><table><thead><tr><th>Chính sách</th><th>Lợi nhuận chuẩn</th><th>Lợi nhuận stress</th><th>MaxDD chuẩn / stress</th><th>Lệnh đóng chuẩn / stress</th></tr></thead><tbody id="comparison"></tbody></table></div></section>
+    <section class="panel detail-panel"><div class="detail-heading"><div class="tabs" role="tablist" aria-label="Thông tin chi tiết"><button role="tab" aria-selected="true" data-tab="positions">Vị thế mở</button><button role="tab" aria-selected="false" data-tab="trades">Lệnh đã đóng</button><button role="tab" aria-selected="false" data-tab="activity">Hoạt động & sự cố</button><button role="tab" aria-selected="false" data-tab="universe">Danh mục coin</button></div><label class="scenario-filter">Kịch bản <select id="scenario"><option value="standard_vip6">Chuẩn VIP6</option><option value="stress_regular">Stress</option></select></label></div><div id="detailContent" role="tabpanel"></div></section>
+    <footer><div><strong>Quan sát có kỷ luật.</strong><span>Giờ Việt Nam (UTC+7) · NAV mô phỏng, không đại diện khả năng khớp lệnh thực tế.</span></div><details><summary>Thiết kế nghiên cứu</summary><p id="protocolSummary"></p><p>Backtest lịch sử dừng ở cuối 2025. Funding dùng rate có dấu và giá mark thanh toán thực tế. Trượt giá tính trên mỗi lần khớp, kể cả thoát từng phần. Thiếu dữ liệu cần thiết sẽ được ghi nhận để xử lý.</p><p>Đường NAV được rút gọn để hiển thị; MaxDD tính trên toàn bộ quan sát đã ghi nhận. PnL và chi phí tính theo đơn vị NAV khởi tạo 100, không phải USD. Giữ máy và mạng hoạt động để tiếp tục thu thập.</p><small id="protocolHash"></small></details></footer>
+  </main>
+</div>
+</body></html>

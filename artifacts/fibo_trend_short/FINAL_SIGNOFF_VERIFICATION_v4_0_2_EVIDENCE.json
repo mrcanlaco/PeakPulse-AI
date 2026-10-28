@@ -1,0 +1,3028 @@
+{
+  "scope": "Independent verification; original source/artifacts unchanged; no full 338-symbol rerun claimed.",
+  "manifest": [
+    {
+      "path": "src/dao_vang/config/settings.py",
+      "matches": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/detector.py",
+      "matches": true
+    },
+    {
+      "path": "src/dao_vang/fibo_short/backtest.py",
+      "matches": true
+    },
+    {
+      "path": "tests/unit/fibo_short/test_fibo_short.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_audit_2026.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/verify_red_team_reaudit_v402.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/universe_reaudit_v402_worker.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_factor2_3_4_complete_2025.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_independent_audit_metrics.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_insample_2020_2025_by_year.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_oos_2026_all_7_milestones.py",
+      "matches": true
+    },
+    {
+      "path": "scripts/fibo_research/study_coin_universe_selection_2026.py",
+      "matches": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_2.json",
+      "matches": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_2_2026-10-16.md",
+      "matches": true
+    },
+    {
+      "path": "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_2_summary.json",
+      "matches": true
+    }
+  ],
+  "markdown_regenerated_exact_match": true,
+  "universe_embedded_equals_separate": true,
+  "original_consistency_check": {
+    "total_checks": 20,
+    "all_passed": true,
+    "checks": [
+      {
+        "check": "RT2-C2 Compounded NAV 99.96",
+        "expected": "99.96",
+        "found": true
+      },
+      {
+        "check": "RT2-C2 Compounded Return -0.04%",
+        "expected": "-0.04%",
+        "found": true
+      },
+      {
+        "check": "m1_f1a_pump50 Full IS total_net",
+        "expected": "+4.76%",
+        "found": true
+      },
+      {
+        "check": "m1_f1a_pump50 2026 OOS total_net",
+        "expected": "+143.79%",
+        "found": true
+      },
+      {
+        "check": "m4_f2_elite Full IS total_net",
+        "expected": "+267.65%",
+        "found": true
+      },
+      {
+        "check": "m4_f2_elite 2026 OOS total_net",
+        "expected": "+66.34%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_expanded Full IS total_net",
+        "expected": "+507.14%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_expanded 2026 OOS total_net",
+        "expected": "+121.73%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_sniper Full IS total_net",
+        "expected": "+437.50%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_sniper 2026 OOS total_net",
+        "expected": "+117.62%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_elite_sniper Full IS total_net",
+        "expected": "+370.03%",
+        "found": true
+      },
+      {
+        "check": "m6_f4_elite_sniper 2026 OOS total_net",
+        "expected": "+61.06%",
+        "found": true
+      },
+      {
+        "check": "Universe ALL_338_UNFILTERED OOS M6B trades",
+        "expected": "`722`",
+        "found": true
+      },
+      {
+        "check": "Universe ALL_338_UNFILTERED OOS M6B total_net",
+        "expected": "-846.2%",
+        "found": true
+      },
+      {
+        "check": "Universe ROLLING_PIT_TOP50_VOL OOS M6B trades",
+        "expected": "`74`",
+        "found": true
+      },
+      {
+        "check": "Universe ROLLING_PIT_TOP50_VOL OOS M6B total_net",
+        "expected": "+173.3%",
+        "found": true
+      },
+      {
+        "check": "Universe EX_ANTE_2026_TOP50_VOL OOS M6B trades",
+        "expected": "`69`",
+        "found": true
+      },
+      {
+        "check": "Universe EX_ANTE_2026_TOP50_VOL OOS M6B total_net",
+        "expected": "+75.4%",
+        "found": true
+      },
+      {
+        "check": "Universe TIER_S_CORE OOS M6B trades",
+        "expected": "`47`",
+        "found": true
+      },
+      {
+        "check": "Universe TIER_S_CORE OOS M6B total_net",
+        "expected": "+241.7%",
+        "found": true
+      }
+    ]
+  },
+  "corrupted_rolling_nav_check": {
+    "modified": true,
+    "all_passed": true,
+    "mutation": "Rolling OOS NAV +37.08 -> +999.99; DD10.41 ->99.99"
+  },
+  "provided_counterexamples": {
+    "rt2_c1_six_same_timestamp_cap5": {
+      "submitted_candidates": 6,
+      "max_concurrent_cap": 5,
+      "executed_trades": 5,
+      "skipped_concurrency_cap": 1,
+      "uncapped_max_concurrency": 6,
+      "accepted_max_concurrency": 5,
+      "assertion_passed": true
+    },
+    "rt2_c1_five_15x_notional_cap100pct": {
+      "submitted_candidates": 5,
+      "pos_mult_each": 1.5,
+      "notional_frac_each": 0.3,
+      "max_total_notional_frac": 1.0,
+      "executed_trades": 3,
+      "skipped_notional_cap": 2,
+      "accepted_max_notional_frac": 0.9,
+      "assertion_passed": true
+    },
+    "rt2_c2_round_trip_100_50_100_fixed_quantity": {
+      "initial_nav": 100.0,
+      "notional_opened": 20.0,
+      "price_path": [
+        100.0,
+        50.0,
+        100.0
+      ],
+      "round_trip_fee_bps": 20.0,
+      "final_gross_pct": 0.0,
+      "expected_final_nav": 99.96,
+      "expected_return_pct": -0.04,
+      "legacy_buggy_compounded_return_pct": -1.04,
+      "patched_additive_final_nav": 99.96,
+      "patched_additive_return_pct": -0.04,
+      "patched_compounded_final_nav": 99.96,
+      "patched_compounded_return_pct": -0.04,
+      "assertion_passed": true
+    }
+  },
+  "funding_no_settlement": {
+    "entry_sampled_avg": 1.0,
+    "entry_sampled_p95": 1.0,
+    "max_concurrent": 1,
+    "time_weighted_avg_all_hours": 0.154,
+    "time_weighted_p95_all_hours": 1.0,
+    "time_weighted_avg_active_hours": 1.0,
+    "time_weighted_p95_active_hours": 1.0,
+    "active_hours_pct": 15.38,
+    "uncapped_concurrency": {
+      "max_concurrent": 1,
+      "time_weighted_avg": 0.154,
+      "p95_hourly": 1.0
+    },
+    "accepted_concurrency": {
+      "entry_sampled_avg": 1.0,
+      "entry_sampled_p95": 1.0,
+      "max_concurrent": 1,
+      "time_weighted_avg_all_hours": 0.154,
+      "time_weighted_avg": 0.154,
+      "p95_hourly": 1.0,
+      "time_weighted_avg_active_hours": 1.0,
+      "peak_open_notional_frac": 0.2,
+      "max_notional_frac": 0.2,
+      "peak_open_sl_risk_frac": 0.1,
+      "max_sl_risk_frac": 0.1
+    },
+    "nav_simulation_20pct_notional_per_1x": {
+      "max_concurrent_cap": 5,
+      "max_total_notional_frac": null,
+      "max_total_sl_risk_frac": null,
+      "executed_trades": 1,
+      "skipped_due_to_cap": 0,
+      "skipped_total_cap": 0,
+      "skipped_due_to_slot_cap": 0,
+      "skipped_concurrency_cap": 0,
+      "skipped_due_to_notional_cap": 0,
+      "skipped_notional_cap": 0,
+      "skipped_due_to_sl_risk_cap": 0,
+      "skipped_sl_risk_cap": 0,
+      "additive_nav_final": 99.9995,
+      "additive_final_nav": 99.9995,
+      "additive_nav_total_return_pct": -0.0,
+      "additive_total_return_pct": -0.0,
+      "additive_nav_max_dd_pct_pts": 0.0,
+      "additive_nav_max_dd_rel_pct": 0.0,
+      "additive_max_dd_pct": 0.0,
+      "compounded_nav_final": 99.9995,
+      "compounded_final_nav": 99.9995,
+      "compounded_nav_total_return_pct": -0.0,
+      "compounded_total_return_pct": -0.0,
+      "compounded_nav_max_dd_rel_pct": 0.0,
+      "compounded_max_dd_pct": 0.0,
+      "historical_funding_events_matched": 0,
+      "historical_funding_events_missing": 0,
+      "historical_funding_net_pct_of_initial_nav": 0.0
+    }
+  },
+  "gap_releases_slot_early": {
+    "entry_sampled_avg": 1.0,
+    "entry_sampled_p95": 1.0,
+    "max_concurrent": 1,
+    "time_weighted_avg_all_hours": 0.231,
+    "time_weighted_p95_all_hours": 1.0,
+    "time_weighted_avg_active_hours": 1.0,
+    "time_weighted_p95_active_hours": 1.0,
+    "active_hours_pct": 23.08,
+    "uncapped_concurrency": {
+      "max_concurrent": 1,
+      "time_weighted_avg": 0.231,
+      "p95_hourly": 1.0
+    },
+    "accepted_concurrency": {
+      "entry_sampled_avg": 1.0,
+      "entry_sampled_p95": 1.0,
+      "max_concurrent": 1,
+      "time_weighted_avg_all_hours": 0.231,
+      "time_weighted_avg": 0.231,
+      "p95_hourly": 1.0,
+      "time_weighted_avg_active_hours": 1.0,
+      "peak_open_notional_frac": 0.2,
+      "max_notional_frac": 0.2,
+      "peak_open_sl_risk_frac": 0.1,
+      "max_sl_risk_frac": 0.1
+    },
+    "nav_simulation_20pct_notional_per_1x": {
+      "max_concurrent_cap": 1,
+      "max_total_notional_frac": null,
+      "max_total_sl_risk_frac": null,
+      "executed_trades": 2,
+      "skipped_due_to_cap": 0,
+      "skipped_total_cap": 0,
+      "skipped_due_to_slot_cap": 0,
+      "skipped_concurrency_cap": 0,
+      "skipped_due_to_notional_cap": 0,
+      "skipped_notional_cap": 0,
+      "skipped_due_to_sl_risk_cap": 0,
+      "skipped_sl_risk_cap": 0,
+      "additive_nav_final": 100.0,
+      "additive_final_nav": 100.0,
+      "additive_nav_total_return_pct": 0.0,
+      "additive_total_return_pct": 0.0,
+      "additive_nav_max_dd_pct_pts": 0.0,
+      "additive_nav_max_dd_rel_pct": 0.0,
+      "additive_max_dd_pct": 0.0,
+      "compounded_nav_final": 100.0,
+      "compounded_final_nav": 100.0,
+      "compounded_nav_total_return_pct": 0.0,
+      "compounded_total_return_pct": 0.0,
+      "compounded_nav_max_dd_rel_pct": 0.0,
+      "compounded_max_dd_pct": 0.0,
+      "historical_funding_events_matched": 0,
+      "historical_funding_events_missing": 0,
+      "historical_funding_net_pct_of_initial_nav": 0.0
+    }
+  },
+  "notional_cap_current_equity": {
+    "result": {
+      "entry_sampled_avg": 3.0,
+      "entry_sampled_p95": 4.8,
+      "max_concurrent": 5,
+      "time_weighted_avg_all_hours": 0.692,
+      "time_weighted_p95_all_hours": 4.4,
+      "time_weighted_avg_active_hours": 4.5,
+      "time_weighted_p95_active_hours": 5.0,
+      "active_hours_pct": 15.38,
+      "uncapped_concurrency": {
+        "max_concurrent": 5,
+        "time_weighted_avg": 0.692,
+        "p95_hourly": 4.4
+      },
+      "accepted_concurrency": {
+        "entry_sampled_avg": 3.0,
+        "entry_sampled_p95": 4.8,
+        "max_concurrent": 5,
+        "time_weighted_avg_all_hours": 0.692,
+        "time_weighted_avg": 0.692,
+        "p95_hourly": 4.4,
+        "time_weighted_avg_active_hours": 4.5,
+        "peak_open_notional_frac": 1.0,
+        "max_notional_frac": 1.0,
+        "peak_open_sl_risk_frac": 0.5,
+        "max_sl_risk_frac": 0.5
+      },
+      "nav_simulation_20pct_notional_per_1x": {
+        "max_concurrent_cap": 5,
+        "max_total_notional_frac": 1.0,
+        "max_total_sl_risk_frac": null,
+        "executed_trades": 5,
+        "skipped_due_to_cap": 0,
+        "skipped_total_cap": 0,
+        "skipped_due_to_slot_cap": 0,
+        "skipped_concurrency_cap": 0,
+        "skipped_due_to_notional_cap": 0,
+        "skipped_notional_cap": 0,
+        "skipped_due_to_sl_risk_cap": 0,
+        "skipped_sl_risk_cap": 0,
+        "additive_nav_final": 84.0,
+        "additive_final_nav": 84.0,
+        "additive_nav_total_return_pct": -16.0,
+        "additive_total_return_pct": -16.0,
+        "additive_nav_max_dd_pct_pts": 16.0,
+        "additive_nav_max_dd_rel_pct": 16.0,
+        "additive_max_dd_pct": 16.0,
+        "compounded_nav_final": 84.0,
+        "compounded_final_nav": 84.0,
+        "compounded_nav_total_return_pct": -16.0,
+        "compounded_total_return_pct": -16.0,
+        "compounded_nav_max_dd_rel_pct": 16.0,
+        "compounded_max_dd_pct": 16.0,
+        "historical_funding_events_matched": 0,
+        "historical_funding_events_missing": 0,
+        "historical_funding_net_pct_of_initial_nav": 0.0
+      }
+    },
+    "equity_at_fifth_entry": 84.0,
+    "existing_entry_notional_plus_new_over_equity": 1.1523809523809523,
+    "current_mark_notional_plus_new_over_equity": 1.3428571428571427
+  },
+  "score_counterexample": {
+    "canonical": [
+      79.0,
+      "A",
+      1.15,
+      {
+        "L1_pump_exhaustion_pts": 19.0,
+        "L2_wave_impulse_physics_pts": 21.0,
+        "L3_pst_momentum_collapse_pts": 21.0,
+        "L4_fibo_h1_trigger_pts": 18.0,
+        "wave_ker": 0.5,
+        "impulse_ker": 0.6,
+        "peak_ewmac_16_64": -1.0,
+        "cur_accel_4_16": -1.2,
+        "pullback_vol_ratio": 1.0
+      }
+    ],
+    "research_score": 85,
+    "research_multiplier": 1.5,
+    "assumptions": "BTC ewmac<=.5; idiosyncratic spread>=60; pump80; waveKER.5; impulseKER.6/drop7; fibo.55; peakEWMAC-1; accel-1.2; combo; pullbackVolume1; body.5",
+    "executed_research_source_score": 85.0
+  },
+  "valid_funding_parquet_load": {
+    "rows_written": 1,
+    "lookup": {},
+    "coverage": {
+      "symbols_requested": 1,
+      "symbols_with_funding_files": 0,
+      "total_settlement_records_loaded": 0,
+      "by_symbol_source": {}
+    }
+  },
+  "actual_funding_files": {
+    "symbols_with_files": 14,
+    "files": [
+      {
+        "symbol": "BTCUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BTCUSDT_funding.parquet",
+        "rows": 7395,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-30 16:00:00.002000+00:00",
+        "columns": [
+          "calc_time",
+          "funding_interval_hours",
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "BTCUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\BTCUSDT_funding.parquet",
+        "rows": 7329,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "ETHUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\ETHUSDT_funding.parquet",
+        "rows": 7395,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-30 16:00:00.002000+00:00",
+        "columns": [
+          "calc_time",
+          "funding_interval_hours",
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "ETHUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\ETHUSDT_funding.parquet",
+        "rows": 7329,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "SOLUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\SOLUSDT_funding.parquet",
+        "rows": 6697,
+        "min_time": "2020-09-13 16:00:00.004000+00:00",
+        "max_time": "2026-09-29 16:00:00+00:00",
+        "columns": [
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "SOLUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\SOLUSDT_funding.parquet",
+        "rows": 6634,
+        "min_time": "2020-09-13 16:00:00.004000+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "BNBUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BNBUSDT_funding.parquet",
+        "rows": 7274,
+        "min_time": "2020-02-10 08:00:00+00:00",
+        "max_time": "2026-09-30 16:00:00.002000+00:00",
+        "columns": [
+          "calc_time",
+          "funding_interval_hours",
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "BNBUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\BNBUSDT_funding.parquet",
+        "rows": 7208,
+        "min_time": "2020-02-10 08:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "LTCUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\LTCUSDT_funding.parquet",
+        "rows": 7367,
+        "min_time": "2020-01-09 08:00:00+00:00",
+        "max_time": "2026-09-29 16:00:00+00:00",
+        "columns": [
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "LTCUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\LTCUSDT_funding.parquet",
+        "rows": 7304,
+        "min_time": "2020-01-09 08:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "BCHUSDT",
+        "path": "D:\\SharedMarketData\\multiyear_2020_2026\\funding_8h\\BCHUSDT_funding.parquet",
+        "rows": 7395,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-30 16:00:00.002000+00:00",
+        "columns": [
+          "calc_time",
+          "funding_interval_hours",
+          "last_funding_rate"
+        ]
+      },
+      {
+        "symbol": "BCHUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\BCHUSDT_funding.parquet",
+        "rows": 7329,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "1000PEPEUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\1000PEPEUSDT_funding.parquet",
+        "rows": 3667,
+        "min_time": "2023-05-05 16:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "1000BONKUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\1000BONKUSDT_funding.parquet",
+        "rows": 6126,
+        "min_time": "2023-11-22 16:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "1000SHIBUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\1000SHIBUSDT_funding.parquet",
+        "rows": 5842,
+        "min_time": "2021-05-10 16:00:00.013000+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "AAVEUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\AAVEUSDT_funding.parquet",
+        "rows": 6461,
+        "min_time": "2020-10-16 08:00:00.003000+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "ADAUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\ADAUSDT_funding.parquet",
+        "rows": 7273,
+        "min_time": "2020-01-19 16:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "1INCHUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\1INCHUSDT_funding.parquet",
+        "rows": 6250,
+        "min_time": "2020-12-25 16:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "ACEUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\ACEUSDT_funding.parquet",
+        "rows": 6228,
+        "min_time": "2023-12-18 12:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      },
+      {
+        "symbol": "AKTUSDT",
+        "path": "C:\\Quant-trading\\data_lake\\funding\\AKTUSDT_funding.parquet",
+        "rows": 3955,
+        "min_time": "2024-11-18 12:00:00+00:00",
+        "max_time": "2026-09-08 16:00:00.001000+00:00",
+        "columns": [
+          "symbol",
+          "funding_time",
+          "funding_rate",
+          "mark_price"
+        ]
+      }
+    ],
+    "loader_actual_output": {
+      "symbols_requested": 14,
+      "symbols_with_funding_files": 0,
+      "total_settlement_records_loaded": 0,
+      "by_symbol_source": {}
+    }
+  },
+  "raw_5m_coverage": {
+    "symbols": 339,
+    "last_open_2026_08_31_count": 339,
+    "max_time_distribution": {
+      "2026-08-31 23:55:00+00:00": 339
+    },
+    "details": [
+      {
+        "symbol": "1000BONKUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "1000PEPEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "1000SHIBUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "1INCHUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "2ZUSDT",
+        "rows": 96042,
+        "min_time": "2025-10-02 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "4USDT",
+        "rows": 94326,
+        "min_time": "2025-10-08 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AAOIUSDT",
+        "rows": 24367,
+        "min_time": "2026-06-08 09:25:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AAPLUSDT",
+        "rows": 42458,
+        "min_time": "2026-04-06 13:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AAVEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ACEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ACUUSDT",
+        "rows": 64071,
+        "min_time": "2026-01-21 12:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ADAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AEROUSDT",
+        "rows": 182997,
+        "min_time": "2024-12-04 14:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AKEUSDT",
+        "rows": 97770,
+        "min_time": "2025-09-26 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AKTUSDT",
+        "rows": 187638,
+        "min_time": "2024-11-18 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ALGOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ALLOUSDT",
+        "rows": 84504,
+        "min_time": "2025-11-11 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ALTUSDT",
+        "rows": 273432,
+        "min_time": "2024-01-25 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AMDUSDT",
+        "rows": 33822,
+        "min_time": "2026-05-06 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AMZNUSDT",
+        "rows": 58576,
+        "min_time": "2026-02-09 14:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ANTHROPICUSDT",
+        "rows": 26154,
+        "min_time": "2026-06-02 04:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "APEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "APRUSDT",
+        "rows": 90018,
+        "min_time": "2025-10-23 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "APTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ARBUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ARCUSDT",
+        "rows": 170340,
+        "min_time": "2025-01-17 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ARKMUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ARMUSDT",
+        "rows": 28060,
+        "min_time": "2026-05-26 13:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ARUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ASTERUSDT",
+        "rows": 99792,
+        "min_time": "2025-09-19 12:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ASTRUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ATHUSDT",
+        "rows": 148707,
+        "min_time": "2025-04-02 15:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ATOMUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AUSDT",
+        "rows": 132672,
+        "min_time": "2025-05-28 08:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AVAXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AVGOUSDT",
+        "rows": 38428,
+        "min_time": "2026-04-20 13:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AVNTUSDT",
+        "rows": 102636,
+        "min_time": "2025-09-09 15:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AWEUSDT",
+        "rows": 134688,
+        "min_time": "2025-05-21 08:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AXLUSDT",
+        "rows": 263046,
+        "min_time": "2024-03-01 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AXSUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "AXTIUSDT",
+        "rows": 24365,
+        "min_time": "2026-06-08 09:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BABAUSDT",
+        "rows": 38426,
+        "min_time": "2026-04-20 13:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BABYUSDT",
+        "rows": 147870,
+        "min_time": "2025-04-05 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BANANAS31USDT",
+        "rows": 151953,
+        "min_time": "2025-03-22 09:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BANUSDT",
+        "rows": 187638,
+        "min_time": "2024-11-18 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BARDUSDT",
+        "rows": 100092,
+        "min_time": "2025-09-18 11:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BASUSDT",
+        "rows": 106686,
+        "min_time": "2025-08-26 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BATUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BCHUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BEATUSDT",
+        "rows": 84237,
+        "min_time": "2025-11-12 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BERAUSDT",
+        "rows": 164556,
+        "min_time": "2025-02-06 15:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BEUSDT",
+        "rows": 28059,
+        "min_time": "2026-05-26 13:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BICOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BIOUSDT",
+        "rows": 174381,
+        "min_time": "2025-01-03 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BLUAIUSDT",
+        "rows": 90582,
+        "min_time": "2025-10-21 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BLURUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BMNRUSDT",
+        "rows": 23505,
+        "min_time": "2026-06-11 09:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BNBUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BNCUSDT",
+        "rows": 15379,
+        "min_time": "2026-07-09 14:25:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BOMEUSDT",
+        "rows": 258762,
+        "min_time": "2024-03-16 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BRETTUSDT",
+        "rows": 213569,
+        "min_time": "2024-08-20 10:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BRUSDT",
+        "rows": 152199,
+        "min_time": "2025-03-21 12:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BSVUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BTCUSDT",
+        "rows": 701280,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BTRUSDT",
+        "rows": 106434,
+        "min_time": "2025-08-27 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BTWUSDT",
+        "rows": 25461,
+        "min_time": "2026-06-04 14:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BULLAUSDT",
+        "rows": 122004,
+        "min_time": "2025-07-04 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BUSDT",
+        "rows": 134298,
+        "min_time": "2025-05-22 16:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "BZUSDT",
+        "rows": 43954,
+        "min_time": "2026-04-01 09:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CAKEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CAPUSDT",
+        "rows": 18867,
+        "min_time": "2026-06-27 11:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CATIUSDT",
+        "rows": 204630,
+        "min_time": "2024-09-20 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CBRSUSDT",
+        "rows": 30126,
+        "min_time": "2026-05-19 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CCUSDT",
+        "rows": 87696,
+        "min_time": "2025-10-31 12:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CELOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CFGUSDT",
+        "rows": 48516,
+        "min_time": "2026-03-16 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CFXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CHIPUSDT",
+        "rows": 39657,
+        "min_time": "2026-04-16 07:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CHZUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CKBUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CLUSDT",
+        "rows": 43956,
+        "min_time": "2026-04-01 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COAIUSDT",
+        "rows": 98118,
+        "min_time": "2025-09-25 07:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COHRUSDT",
+        "rows": 28058,
+        "min_time": "2026-05-26 13:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COINUSDT",
+        "rows": 58572,
+        "min_time": "2026-02-09 15:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COLLECTUSDT",
+        "rows": 70113,
+        "min_time": "2025-12-31 13:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COMPUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COPPERUSDT",
+        "rows": 51444,
+        "min_time": "2026-03-06 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COTIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "COWUSDT",
+        "rows": 191070,
+        "min_time": "2024-11-06 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CRCLUSDT",
+        "rows": 58574,
+        "min_time": "2026-02-09 14:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CRDOUSDT",
+        "rows": 24368,
+        "min_time": "2026-06-08 09:20:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CRVUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CRWVUSDT",
+        "rows": 30366,
+        "min_time": "2026-05-18 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CSOPSKHYNIX2LUSDT",
+        "rows": 6022,
+        "min_time": "2026-08-11 02:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CVXUSDT",
+        "rows": 280374,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CXMTUSDT",
+        "rows": 3972,
+        "min_time": "2026-08-18 05:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "CYSUSDT",
+        "rows": 75612,
+        "min_time": "2025-12-12 11:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DASHUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DELLUSDT",
+        "rows": 25812,
+        "min_time": "2026-06-03 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DEXEUSDT",
+        "rows": 177270,
+        "min_time": "2024-12-24 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DOGEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DOGSUSDT",
+        "rows": 211818,
+        "min_time": "2024-08-26 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DOODUSDT",
+        "rows": 138078,
+        "min_time": "2025-05-09 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DOTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DRAMUSDT",
+        "rows": 30360,
+        "min_time": "2026-05-18 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DUSKUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "DYDXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "EDGEUSDT",
+        "rows": 47640,
+        "min_time": "2026-03-19 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "EGLDUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "EIGENUSDT",
+        "rows": 201528,
+        "min_time": "2024-10-01 06:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ENAUSDT",
+        "rows": 253866,
+        "min_time": "2024-04-02 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ENJUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ENSUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ESPUSDT",
+        "rows": 58366,
+        "min_time": "2026-02-10 08:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ETCUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ETHFIUSDT",
+        "rows": 258150,
+        "min_time": "2024-03-18 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ETHUSDT",
+        "rows": 701280,
+        "min_time": "2020-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "EWYUSDT",
+        "rows": 48510,
+        "min_time": "2026-03-16 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FARTCOINUSDT",
+        "rows": 178335,
+        "min_time": "2024-12-20 18:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FETUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FFUSDT",
+        "rows": 96894,
+        "min_time": "2025-09-29 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FILUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FLOCKUSDT",
+        "rows": 102735,
+        "min_time": "2025-09-09 06:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FLOWUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FLUIDUSDT",
+        "rows": 98373,
+        "min_time": "2025-09-24 10:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FORMUSDT",
+        "rows": 152832,
+        "min_time": "2025-03-19 08:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "FRAXUSDT",
+        "rows": 65856,
+        "min_time": "2026-01-15 08:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GALAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GASUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GENIUSUSDT",
+        "rows": 39702,
+        "min_time": "2026-04-16 03:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GIGGLEUSDT",
+        "rows": 94059,
+        "min_time": "2025-10-09 09:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GLMUSDT",
+        "rows": 265416,
+        "min_time": "2024-02-22 10:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GLWUSDT",
+        "rows": 23502,
+        "min_time": "2026-06-11 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GMXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GOOGLUSDT",
+        "rows": 45614,
+        "min_time": "2026-03-26 14:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GPSUSDT",
+        "rows": 161364,
+        "min_time": "2025-02-17 17:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GRAMUSDT",
+        "rows": 17472,
+        "min_time": "2026-07-02 08:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GRASSUSDT",
+        "rows": 190470,
+        "min_time": "2024-11-08 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GRTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "GUSDT",
+        "rows": 214986,
+        "min_time": "2024-08-15 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HAEDALUSDT",
+        "rows": 140505,
+        "min_time": "2025-05-01 03:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HBARUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HEMIUSDT",
+        "rows": 105930,
+        "min_time": "2025-08-29 04:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HK1810USDT",
+        "rows": 11771,
+        "min_time": "2026-07-22 03:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HOLOUSDT",
+        "rows": 102096,
+        "min_time": "2025-09-11 12:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HOODUSDT",
+        "rows": 60591,
+        "min_time": "2026-02-02 14:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HOTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HUSDT",
+        "rows": 124590,
+        "min_time": "2025-06-25 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "HYPEUSDT",
+        "rows": 132066,
+        "min_time": "2025-05-30 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ICPUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IDUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IMXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "INJUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "INTCUSDT",
+        "rows": 60595,
+        "min_time": "2026-02-02 14:25:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "INTWUSDT",
+        "rows": 15382,
+        "min_time": "2026-07-09 14:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IOSTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IOTAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IOUSDT",
+        "rows": 233688,
+        "min_time": "2024-06-11 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "IRENUSDT",
+        "rows": 25808,
+        "min_time": "2026-06-03 09:20:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "JASMYUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "JELLYJELLYUSDT",
+        "rows": 150720,
+        "min_time": "2025-03-26 16:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "JSTUSDT",
+        "rows": 141294,
+        "min_time": "2025-04-28 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "JTOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "JUPUSDT",
+        "rows": 271650,
+        "min_time": "2024-01-31 18:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KAIAUSDT",
+        "rows": 183000,
+        "min_time": "2024-12-04 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KAITOUSDT",
+        "rows": 160548,
+        "min_time": "2025-02-20 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KASUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KAVAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KITEUSDT",
+        "rows": 88290,
+        "min_time": "2025-10-29 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KMNOUSDT",
+        "rows": 178332,
+        "min_time": "2024-12-20 19:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KORUUSDT",
+        "rows": 20281,
+        "min_time": "2026-06-22 13:55:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "KSMUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LABUSDT",
+        "rows": 91698,
+        "min_time": "2025-10-17 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LDOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LINEAUSDT",
+        "rows": 105018,
+        "min_time": "2025-09-01 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LINKUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LITEUSDT",
+        "rows": 31230,
+        "min_time": "2026-05-15 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LITUSDT",
+        "rows": 280302,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LPTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "LTCUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MANAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MASKUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MEGAUSDT",
+        "rows": 61485,
+        "min_time": "2026-01-30 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MELANIAUSDT",
+        "rows": 169518,
+        "min_time": "2025-01-20 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MEMEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "METAUSDT",
+        "rows": 45618,
+        "min_time": "2026-03-26 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "METUSDT",
+        "rows": 93450,
+        "min_time": "2025-10-11 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MINAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MINIMAXUSDT",
+        "rows": 13212,
+        "min_time": "2026-07-17 03:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MONUSDT",
+        "rows": 93801,
+        "min_time": "2025-10-10 07:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MORPHOUSDT",
+        "rows": 185010,
+        "min_time": "2024-11-27 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MRVLUSDT",
+        "rows": 31223,
+        "min_time": "2026-05-15 14:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MSFTUSDT",
+        "rows": 38430,
+        "min_time": "2026-04-20 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MSTRUSDT",
+        "rows": 58578,
+        "min_time": "2026-02-09 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MUSDT",
+        "rows": 121134,
+        "min_time": "2025-07-07 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MUUSDT",
+        "rows": 42175,
+        "min_time": "2026-04-07 13:25:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MUUUSDT",
+        "rows": 13428,
+        "min_time": "2026-07-16 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "MVLLUSDT",
+        "rows": 18269,
+        "min_time": "2026-06-29 13:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NATGASUSDT",
+        "rows": 43952,
+        "min_time": "2026-04-01 09:20:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NBISUSDT",
+        "rows": 28062,
+        "min_time": "2026-05-26 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NEARUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NEOUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NIGHTUSDT",
+        "rows": 76188,
+        "min_time": "2025-12-10 11:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NMRUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NOTUSDT",
+        "rows": 241176,
+        "min_time": "2024-05-16 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NVDAUSDT",
+        "rows": 45616,
+        "min_time": "2026-03-26 14:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "NXPCUSDT",
+        "rows": 136434,
+        "min_time": "2025-05-15 06:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ONDOUSDT",
+        "rows": 274884,
+        "min_time": "2024-01-20 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ONEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ONGUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ONTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ONUSDT",
+        "rows": 89754,
+        "min_time": "2025-10-24 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "OPENAIUSDT",
+        "rows": 28122,
+        "min_time": "2026-05-26 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "OPUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ORCAUSDT",
+        "rows": 182412,
+        "min_time": "2024-12-06 15:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ORCLUSDT",
+        "rows": 31229,
+        "min_time": "2026-05-15 13:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ORDIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "OUSDT",
+        "rows": 19731,
+        "min_time": "2026-06-24 11:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PAXGUSDT",
+        "rows": 150498,
+        "min_time": "2025-03-27 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PENDLEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PENGUUSDT",
+        "rows": 179229,
+        "min_time": "2024-12-17 16:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PIEVERSEUSDT",
+        "rows": 83670,
+        "min_time": "2025-11-14 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PLTRUSDT",
+        "rows": 58570,
+        "min_time": "2026-02-09 15:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PLUMEUSDT",
+        "rows": 152196,
+        "min_time": "2025-03-21 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PNUTUSDT",
+        "rows": 189642,
+        "min_time": "2024-11-11 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "POLUSDT",
+        "rows": 206637,
+        "min_time": "2024-09-13 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "POLYXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "POPCATUSDT",
+        "rows": 212964,
+        "min_time": "2024-08-22 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PRLUSDT",
+        "rows": 43938,
+        "min_time": "2026-04-01 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PROMUSDT",
+        "rows": 170922,
+        "min_time": "2025-01-15 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PUMPUSDT",
+        "rows": 145752,
+        "min_time": "2025-04-12 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "PYTHUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "QCOMUSDT",
+        "rows": 33821,
+        "min_time": "2026-05-06 13:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "QNTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "QQQUSDT",
+        "rows": 42462,
+        "min_time": "2026-04-06 13:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "QTUMUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "QUSDT",
+        "rows": 104742,
+        "min_time": "2025-09-02 07:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RAVEUSDT",
+        "rows": 74982,
+        "min_time": "2025-12-14 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RAYSOLUSDT",
+        "rows": 181296,
+        "min_time": "2024-12-10 12:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "REDUSDT",
+        "rows": 156480,
+        "min_time": "2025-03-06 16:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RENDERUSDT",
+        "rows": 220776,
+        "min_time": "2024-07-26 10:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "REUSDT",
+        "rows": 21432,
+        "min_time": "2026-06-18 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RIFUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RIVERUSDT",
+        "rows": 91695,
+        "min_time": "2025-10-17 14:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RKLBUSDT",
+        "rows": 30359,
+        "min_time": "2026-05-18 14:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ROBOUSDT",
+        "rows": 53463,
+        "min_time": "2026-02-27 08:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ROSEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RSRUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RUNEUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "RVNUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SAFEUSDT",
+        "rows": 194538,
+        "min_time": "2024-10-25 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SAMSUNGUSDT",
+        "rows": 26170,
+        "min_time": "2026-06-02 03:10:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SANDUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SCRUSDT",
+        "rows": 195432,
+        "min_time": "2024-10-22 10:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SEIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SENTUSDT",
+        "rows": 83655,
+        "min_time": "2025-11-14 12:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SFPUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SKHYNIXUSDT",
+        "rows": 26172,
+        "min_time": "2026-06-02 03:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SKHYUSDT",
+        "rows": 15074,
+        "min_time": "2026-07-10 15:50:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SKRUSDT",
+        "rows": 63807,
+        "min_time": "2026-01-22 10:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SKYAIUSDT",
+        "rows": 136971,
+        "min_time": "2025-05-13 09:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SKYUSDT",
+        "rows": 102732,
+        "min_time": "2025-09-09 07:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SNDKUSDT",
+        "rows": 42172,
+        "min_time": "2026-04-07 13:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SNXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SNXXUSDT",
+        "rows": 15381,
+        "min_time": "2026-07-09 14:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOLUSDT",
+        "rows": 627180,
+        "min_time": "2020-09-14 07:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOLVUSDT",
+        "rows": 170349,
+        "min_time": "2025-01-17 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOONUSDT",
+        "rows": 134106,
+        "min_time": "2025-05-23 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOPHUSDT",
+        "rows": 132612,
+        "min_time": "2025-05-28 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOXLUSDT",
+        "rows": 31224,
+        "min_time": "2026-05-15 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SOXSUSDT",
+        "rows": 13427,
+        "min_time": "2026-07-16 09:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SPCXUSDT",
+        "rows": 29607,
+        "min_time": "2026-05-21 04:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SPKUSDT",
+        "rows": 126900,
+        "min_time": "2025-06-17 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SPXUSDT",
+        "rows": 181287,
+        "min_time": "2024-12-10 12:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SPYUSDT",
+        "rows": 42460,
+        "min_time": "2026-04-06 13:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "STABLEUSDT",
+        "rows": 85968,
+        "min_time": "2025-11-06 12:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "STRKUSDT",
+        "rows": 265908,
+        "min_time": "2024-02-20 17:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "STXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SUIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SUNUSDT",
+        "rows": 212963,
+        "min_time": "2024-08-22 13:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SUPERUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SUSDT",
+        "rows": 170664,
+        "min_time": "2025-01-16 10:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SUSHIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "SYRUPUSDT",
+        "rows": 138714,
+        "min_time": "2025-05-07 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TAGUSDT",
+        "rows": 115929,
+        "min_time": "2025-07-25 11:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TAOUSDT",
+        "rows": 251250,
+        "min_time": "2024-04-11 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "THETAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TIAUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TOSHIUSDT",
+        "rows": 100446,
+        "min_time": "2025-09-17 05:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TQQQUSDT",
+        "rows": 18268,
+        "min_time": "2026-06-29 13:40:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TRBUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TRUMPUSDT",
+        "rows": 170052,
+        "min_time": "2025-01-18 13:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TRXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TSLAUSDT",
+        "rows": 62034,
+        "min_time": "2026-01-28 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TSMUSDT",
+        "rows": 42456,
+        "min_time": "2026-04-06 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TURBOUSDT",
+        "rows": 237126,
+        "min_time": "2024-05-30 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TUTUSDT",
+        "rows": 152532,
+        "min_time": "2025-03-20 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "TWTUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "UAIUSDT",
+        "rows": 85974,
+        "min_time": "2025-11-06 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "UBUSDT",
+        "rows": 101826,
+        "min_time": "2025-09-12 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "UNITREEUSDT",
+        "rows": 3711,
+        "min_time": "2026-08-19 02:45:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "UNIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "USELESSUSDT",
+        "rows": 109869,
+        "min_time": "2025-08-15 12:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "VETUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "VIRTUALUSDT",
+        "rows": 181290,
+        "min_time": "2024-12-10 12:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "VVVUSDT",
+        "rows": 166941,
+        "min_time": "2025-01-29 08:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WALUSDT",
+        "rows": 150438,
+        "min_time": "2025-03-27 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WDCUSDT",
+        "rows": 28061,
+        "min_time": "2026-05-26 13:35:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WIFUSDT",
+        "rows": 275445,
+        "min_time": "2024-01-18 14:15:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WLDUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WLFIUSDT",
+        "rows": 107610,
+        "min_time": "2025-08-23 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "WUSDT",
+        "rows": 253542,
+        "min_time": "2024-04-03 15:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XAGUSDT",
+        "rows": 68136,
+        "min_time": "2026-01-07 10:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XANUSDT",
+        "rows": 96930,
+        "min_time": "2025-09-29 10:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XAUTUSDT",
+        "rows": 45624,
+        "min_time": "2026-03-26 14:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XAUUSDT",
+        "rows": 75935,
+        "min_time": "2025-12-11 08:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XLMUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XMRUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XPLUSDT",
+        "rows": 107886,
+        "min_time": "2025-08-22 09:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XRPUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XTZUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XVGUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "XVSUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "YFIUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZAMAUSDT",
+        "rows": 67572,
+        "min_time": "2026-01-09 09:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZECUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZENUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZETAUSDT",
+        "rows": 271194,
+        "min_time": "2024-02-02 08:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZHIPUUSDT",
+        "rows": 13211,
+        "min_time": "2026-07-17 03:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZHONGJIUSDT",
+        "rows": 5160,
+        "min_time": "2026-08-14 02:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZILUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZKUSDT",
+        "rows": 231995,
+        "min_time": "2024-06-17 11:05:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZORAUSDT",
+        "rows": 115932,
+        "min_time": "2025-07-25 11:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZROUSDT",
+        "rows": 231090,
+        "min_time": "2024-06-20 14:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "ZRXUSDT",
+        "rows": 280512,
+        "min_time": "2024-01-01 00:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "币安人生USDT",
+        "rows": 90876,
+        "min_time": "2025-10-20 11:00:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "牛来USDT",
+        "rows": 438,
+        "min_time": "2026-08-30 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      },
+      {
+        "symbol": "龙虾USDT",
+        "rows": 49974,
+        "min_time": "2026-03-11 11:30:00+00:00",
+        "max_time": "2026-08-31 23:55:00+00:00"
+      }
+    ]
+  },
+  "actual_ACE_OOS_replay": [
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-08-22T12:00:00+00:00",
+      "decision": "2026-08-22T13:00:00+00:00",
+      "exit_raw": "2026-08-25T12:00:00+00:00",
+      "exit_close": "2026-08-25T13:00:00+00:00",
+      "hold": 72,
+      "slot_release": "2026-08-25 12:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-01-01T01:00:00+00:00",
+      "decision": "2026-01-01T02:00:00+00:00",
+      "exit_raw": "2026-01-03T15:00:00+00:00",
+      "exit_close": "2026-01-03T16:00:00+00:00",
+      "hold": 62,
+      "slot_release": "2026-01-03 15:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "INITIAL_STOP_LOSS"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-01-07T13:00:00+00:00",
+      "decision": "2026-01-07T14:00:00+00:00",
+      "exit_raw": "2026-01-10T16:00:00+00:00",
+      "exit_close": "2026-01-10T17:00:00+00:00",
+      "hold": 75,
+      "slot_release": "2026-01-10 16:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "TP1_THEN_SL_AT_BE"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-01-12T01:00:00+00:00",
+      "decision": "2026-01-12T02:00:00+00:00",
+      "exit_raw": "2026-01-15T03:00:00+00:00",
+      "exit_close": "2026-01-15T04:00:00+00:00",
+      "hold": 74,
+      "slot_release": "2026-01-15 03:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "TP2_THEN_SL_AT_TP1"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-01-17T11:00:00+00:00",
+      "decision": "2026-01-17T12:00:00+00:00",
+      "exit_raw": "2026-01-19T00:00:00+00:00",
+      "exit_close": "2026-01-19T01:00:00+00:00",
+      "hold": 37,
+      "slot_release": "2026-01-19 00:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "TP2_THEN_SL_AT_TP1"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-05-09T09:00:00+00:00",
+      "decision": "2026-05-09T10:00:00+00:00",
+      "exit_raw": "2026-05-14T09:00:00+00:00",
+      "exit_close": "2026-05-14T10:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-05-14 09:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-08-07T00:00:00+00:00",
+      "decision": "2026-08-07T01:00:00+00:00",
+      "exit_raw": "2026-08-08T16:00:00+00:00",
+      "exit_close": "2026-08-08T17:00:00+00:00",
+      "hold": 40,
+      "slot_release": "2026-08-08 16:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "INITIAL_STOP_LOSS"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-08-14T02:00:00+00:00",
+      "decision": "2026-08-14T03:00:00+00:00",
+      "exit_raw": "2026-08-14T09:00:00+00:00",
+      "exit_close": "2026-08-14T10:00:00+00:00",
+      "hold": 7,
+      "slot_release": "2026-08-14 09:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "INITIAL_STOP_LOSS"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-08-20T19:00:00+00:00",
+      "decision": "2026-08-20T20:00:00+00:00",
+      "exit_raw": "2026-08-25T19:00:00+00:00",
+      "exit_close": "2026-08-25T20:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-08-25 19:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m1_f1a_pump50",
+      "entry": "2026-08-25T19:00:00+00:00",
+      "decision": "2026-08-25T20:00:00+00:00",
+      "exit_raw": "2026-08-30T19:00:00+00:00",
+      "exit_close": "2026-08-30T20:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-08-30 19:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m4_f2_elite",
+      "entry": "2026-05-09T09:00:00+00:00",
+      "decision": "2026-05-09T10:00:00+00:00",
+      "exit_raw": "2026-05-14T09:00:00+00:00",
+      "exit_close": "2026-05-14T10:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-05-14 09:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m6_f4_expanded",
+      "entry": "2026-05-09T09:00:00+00:00",
+      "decision": "2026-05-09T10:00:00+00:00",
+      "exit_raw": "2026-05-14T09:00:00+00:00",
+      "exit_close": "2026-05-14T10:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-05-14 09:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m6_f4_expanded",
+      "entry": "2026-08-20T19:00:00+00:00",
+      "decision": "2026-08-20T20:00:00+00:00",
+      "exit_raw": "2026-08-25T19:00:00+00:00",
+      "exit_close": "2026-08-25T20:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-08-25 19:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    },
+    {
+      "m": "m6_f4_sniper",
+      "entry": "2026-08-20T19:00:00+00:00",
+      "decision": "2026-08-20T20:00:00+00:00",
+      "exit_raw": "2026-08-25T19:00:00+00:00",
+      "exit_close": "2026-08-25T20:00:00+00:00",
+      "hold": 120,
+      "slot_release": "2026-08-25 19:00:00+00:00",
+      "trade_terminal": "TIME_EXIT_NO_TP",
+      "sim_terminal": "NO_TP_TIME_EXIT"
+    }
+  ],
+  "coupled_rejected_candidate_does_not_consume_wave": {
+    "accepted": 2,
+    "rejected_slot_cap": 1,
+    "expected_accepted": 2,
+    "passed": true
+  },
+  "funding_loader_root_exceptions": {
+    "shared": "AttributeError(\"'numpy.ndarray' object has no attribute 'to_numpy'\")",
+    "lake": "AttributeError(\"'Series' object has no attribute 'asi8'\")"
+  },
+  "pytest": {
+    "passed": 13,
+    "failed": 0,
+    "seconds": 72.89
+  },
+  "independent_status_matrix": [
+    {
+      "id": "RT2-C1",
+      "status": "Partially Closed",
+      "reason": "Same-time 6->5 and 1.5x->3 pass; coupled rejected wave retry passes. Occupancy uses bar counts and early entry timestamps; notional/risk reservations are static fractions rather than exposure/current NAV."
+    },
+    {
+      "id": "RT2-C2",
+      "status": "Partially Closed",
+      "reason": "Fixed-quantity round trip99.96 passes. Event timestamps and funding/fee timing still preclude account NAV signoff."
+    },
+    {
+      "id": "RT2-H1",
+      "status": "Closed",
+      "reason": "All targeted M6 replacement callsites now update exit_price, exit_time and hold_hours using return_exit_meta=True."
+    },
+    {
+      "id": "RT2-H2",
+      "status": "Partially Closed",
+      "reason": "Independent/subset universe engine exists and ACE replay ran. Summary cache accepted by schema_version only; no raw-input hash binding, remaining engine inconsistencies; no full independent338 replay performed."
+    },
+    {
+      "id": "RT2-H3",
+      "status": "Partially Closed",
+      "reason": "Monthly liquidity features use trailing window. Rolling membership applied after per-symbol wave/cooldown execution, and basket caps are post-trade. Historical listing/delisting universe and frozen selection provenance not established."
+    },
+    {
+      "id": "RT2-H4",
+      "status": "Partially Closed",
+      "reason": "Current report exactly regenerates from JSON; separate universe equals embedded JSON. Checker only checks20 substrings and accepts altered rolling NAV/DD; generated prose contains false funding/clock/coverage claims."
+    },
+    {
+      "id": "RT2-M1",
+      "status": "Closed",
+      "reason": "Canonical volatility/EMA routine and isolated bfill unit test verified. Full historical1506/1506 counts not independently replayed; old496 attribution remains unsupported report prose."
+    },
+    {
+      "id": "RT2-M2",
+      "status": "Closed",
+      "reason": "Pivot fields persist and behavior test proves1 vs2. Declared config fields present."
+    },
+    {
+      "id": "RT2-M3",
+      "status": "Open",
+      "reason": "Research and worker still hand-code different score from detector canonical. Same inputs:85/1.50 versus79/1.15."
+    },
+    {
+      "id": "RT2-M4",
+      "status": "Partially Closed",
+      "reason": "Weekly cluster CIs and both entry cutoffs reported; common cutoff filters entry only, not complete valuation/exit window. Does not resolve selection/multiple testing."
+    },
+    {
+      "id": "RT2-L1",
+      "status": "Open",
+      "reason": "All339 eligible-name raw5m files end2026-08-31 23:55UTC, including the338 analyzed subset. String comparison of close-boundary2026-09-01T00 with bare date misses cutoff. First observed bar is not proof of listing date."
+    },
+    {
+      "id": "RT2-L2",
+      "status": "Closed",
+      "reason": "Both fee_bps=10 interfaces deduct0.10 percent in passing unit test; closure concerns fee unit contract."
+    },
+    {
+      "id": "F-01",
+      "status": "Closed",
+      "reason": "Same-bar ratcheted stop regression passes within pessimistic OHLC convention."
+    },
+    {
+      "id": "F-04a",
+      "status": "Partially Closed",
+      "reason": "JSON detailed sim outcomes work; research FiboBacktestTrade terminal_outcome defaults toTIME_EXIT_NO_TP. ACE real initial-stop and ratchet trades retain wrong terminal field."
+    },
+    {
+      "id": "F-06",
+      "status": "Closed",
+      "reason": "Prior low strictly before peak and degenerate wave KER detector test passes."
+    },
+    {
+      "id": "F-14",
+      "status": "Closed",
+      "reason": "Stress/calibration are separated; break-even cost uses mean gross and correctly weighted gross divided by sum of sizing multipliers."
+    },
+    {
+      "id": "F-19a",
+      "status": "Partially Closed",
+      "reason": "16/16 listed checksums match. Raw OHLCV/funding/input snapshots are not hashed; cache only uses schema_version."
+    },
+    {
+      "id": "F-19b",
+      "status": "Open",
+      "reason": "14/14 symbols have20 existing funding files. Loader returns0 due swallowed AttributeError. Stress is hourly prorated, contradicting settlement-time description."
+    },
+    {
+      "id": "F-19c",
+      "status": "Partially Closed",
+      "reason": "Separate versioned outputs and five listed historical artifacts exist. No prior artifact checksum baseline provided to independently establish unchanged100percent."
+    }
+  ],
+  "independent_status_counts": {
+    "Partially Closed": 9,
+    "Closed": 7,
+    "Open": 3
+  },
+  "final_signoff": "NOT_GRANTED",
+  "critical_required_changes": [
+    "Fix funding datetime parsing; raise/report errors; join historical settlement data and rerun.",
+    "Unify decision/entry/exit clocks and occupancy using real timestamps.",
+    "Enforce declared portfolio notional and SL-risk definitions against current account equity.",
+    "Use one canonical score function across detector and research.",
+    "Apply rolling universe membership before cooldown/wave and portfolio admission; rerun affected results.",
+    "Fix data coverage boundaries and report provenance/cache validation.",
+    "Strengthen report checks with field/row matching and mutation tests; remove unsupported19Closed assertion."
+  ],
+  "final_original_manifest_checks_all_match": true,
+  "historical_artifacts_present": {
+    "artifacts/fibo_trend_short/RED_TEAM_AUDIT_EVIDENCE_2026-10-16.json": true,
+    "artifacts/fibo_trend_short/red_team_audit_recalculation_2026.json": true,
+    "artifacts/fibo_trend_short/RED_TEAM_AUDIT_RESPONSE_AND_REAUDIT_PROMPT_2026-10-16.md": true,
+    "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_EVIDENCE_2026-10-16.json": true,
+    "artifacts/fibo_trend_short/VERSION_MANIFEST.json": true
+  }
+}

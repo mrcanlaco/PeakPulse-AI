@@ -183,3 +183,25 @@ def test_normalize_top_ratio() -> None:
     assert len(results) == 1
     norm = results[0]
     assert norm.population == "top_trader_accounts"
+
+
+def test_normalize_global_ratio_handles_infinity() -> None:
+    raw = [
+        {
+            "symbol": "BTCUSDT",
+            "longShortRatio": "Infinity",
+            "longAccount": "1.0",
+            "shortAccount": "0.0",
+            "timestamp": 1600000000000,
+        }
+    ]
+    envelope = get_base_envelope(
+        json.dumps(raw), "/futures/data/globalLongShortAccountRatio"
+    )
+    results = normalize_global_ratio(envelope)
+    assert len(results) == 1
+    norm = results[0]
+    assert norm.long_short_ratio.is_finite()
+    assert norm.long_short_ratio == Decimal("9999.0")
+    assert "infinite_long_short_ratio_clamped" in norm.quality_flags
+

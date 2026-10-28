@@ -1,0 +1,32 @@
+{
+  "version": "4.0.6",
+  "frozen_at_utc": "2026-10-17T18:09:55.710419+00:00",
+  "purpose": "Repair correctness and compare the existing fixed and conviction sizing policies without retuning on2026 results",
+  "rules": {
+    "signal": "Existing M6 F1/F2 expanded gates, canonical causal PST and confirmed right-bars=2 pivots",
+    "comparison": [
+      "fixed_1x",
+      "conviction_150_115_080"
+    ],
+    "position_base_notional_frac": 0.2,
+    "max_positions": 5,
+    "max_total_notional_frac": 1.0,
+    "max_total_sl_risk_frac": 0.12,
+    "round_trip_cost_bps_scenarios": [
+      20,
+      40,
+      60
+    ],
+    "historical_funding": "Actual event timestamps; disclose incomplete exchange schedule evidence",
+    "universe": "Monthly trailing63day point-in-time selection conditional on available historical files",
+    "data_gaps": "Real timestamps for holds and cooldown; disclose gaps and mark assumptions"
+  },
+  "evaluation": {
+    "development": "2020-2025, with2024-2025 calibration reported separately",
+    "reused_validation": "2026 data already inspected across previous audit rounds; not a fresh untouched holdout",
+    "future_validation": "Freeze final policy hash before collecting new forward paper observations; no claim of future validation completion",
+    "selection": "Do not change parameters to improve2026 outcomes",
+    "comparisons": "Same candidate data, valuation boundaries and cost assumptions; separately report strategy selection and sizing effects"
+  },
+  "readiness": "Research/paper evaluation only until monetary reconciliation, reproducibility and realistic execution checks pass"
+}

@@ -1,0 +1,2946 @@
+{
+  "version": "4.0.21",
+  "annual": {
+    "2020": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": -8.55132680151435,
+          "max_dd_pct": 27.08819118576571,
+          "trades": 116,
+          "rejected": {
+            "wave_or_cooldown": 1306,
+            "portfolio_cap": 243
+          },
+          "gross_reference_pnl_pct": -6.625449986682177,
+          "fees_pct": 1.2224352168682515,
+          "slippage_pct": 4.889734242022744,
+          "funding_pct": 4.186292644057314,
+          "funding_events": 870,
+          "proxy_mark_funding_events": 870,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -26.779573686423234,
+          "max_dd_pct": 34.08662803970126,
+          "trades": 115,
+          "rejected": {
+            "wave_or_cooldown": 1291,
+            "portfolio_cap": 259
+          },
+          "gross_reference_pnl_pct": -6.2956849173247456,
+          "fees_pct": 2.2067715799825893,
+          "slippage_pct": 22.067558407702748,
+          "funding_pct": 3.7904412185867282,
+          "funding_events": 858,
+          "proxy_mark_funding_events": 858,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": 3.5603811883258203,
+          "max_dd_pct": 7.872520556274143,
+          "trades": 111,
+          "rejected": {
+            "wave_or_cooldown": 1250,
+            "portfolio_cap": 304
+          },
+          "gross_reference_pnl_pct": 4.245784312024685,
+          "fees_pct": 0.3946188910749579,
+          "slippage_pct": 1.5784798100840591,
+          "funding_pct": 1.2876955774613876,
+          "funding_events": 875,
+          "proxy_mark_funding_events": 875,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -3.9001711707274183,
+          "max_dd_pct": 8.203262663369115,
+          "trades": 113,
+          "rejected": {
+            "wave_or_cooldown": 1294,
+            "portfolio_cap": 258
+          },
+          "gross_reference_pnl_pct": 2.422045244166826,
+          "fees_pct": 0.6748678033507975,
+          "slippage_pct": 6.748738584639022,
+          "funding_pct": 1.1013899730968486,
+          "funding_events": 886,
+          "proxy_mark_funding_events": 886,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 4.582356987580056,
+          "max_dd_pct": 5.601781974048425,
+          "trades": 87,
+          "rejected": {
+            "wave_or_cooldown": 550,
+            "portfolio_cap": 99
+          },
+          "gross_reference_pnl_pct": 5.185656447817194,
+          "fees_pct": 0.2697629987396599,
+          "slippage_pct": 1.0790571806150309,
+          "funding_pct": 0.7455207191182223,
+          "funding_events": 728,
+          "proxy_mark_funding_events": 728,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -0.6890930311838162,
+          "max_dd_pct": 5.884739926334093,
+          "trades": 87,
+          "rejected": {
+            "wave_or_cooldown": 551,
+            "portfolio_cap": 98
+          },
+          "gross_reference_pnl_pct": 3.7831516150261897,
+          "fees_pct": 0.4647200212440129,
+          "slippage_pct": 4.647294791230463,
+          "funding_pct": 0.6397701662640863,
+          "funding_events": 720,
+          "proxy_mark_funding_events": 720,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 3.5908353037881398,
+          "max_dd_pct": 5.079710050492558,
+          "trades": 96,
+          "rejected": {
+            "wave_or_cooldown": 650,
+            "portfolio_cap": 189
+          },
+          "gross_reference_pnl_pct": 3.995430242369511,
+          "fees_pct": 0.29093273744162107,
+          "slippage_pct": 1.1637349451966637,
+          "funding_pct": 1.0500727440554507,
+          "funding_events": 843,
+          "proxy_mark_funding_events": 843,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -1.379785025068017,
+          "max_dd_pct": 6.085393453409749,
+          "trades": 97,
+          "rejected": {
+            "wave_or_cooldown": 673,
+            "portfolio_cap": 165
+          },
+          "gross_reference_pnl_pct": 3.312282662526392,
+          "fees_pct": 0.5131920075951409,
+          "slippage_pct": 5.132002883017924,
+          "funding_pct": 0.9531272030178,
+          "funding_events": 849,
+          "proxy_mark_funding_events": 849,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": 0.770637635765965,
+          "max_dd_pct": 5.3475238518814745,
+          "trades": 112,
+          "rejected": {
+            "wave_or_cooldown": 739,
+            "portfolio_cap": 84
+          },
+          "gross_reference_pnl_pct": 2.1258262933692778,
+          "fees_pct": 0.3276152699246447,
+          "slippage_pct": 1.310463205524796,
+          "funding_pct": 0.28288981784560846,
+          "funding_events": 300,
+          "proxy_mark_funding_events": 300,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -4.1921845467932,
+          "max_dd_pct": 6.383561000457938,
+          "trades": 114,
+          "rejected": {
+            "wave_or_cooldown": 750,
+            "portfolio_cap": 71
+          },
+          "gross_reference_pnl_pct": 1.8572047275596693,
+          "fees_pct": 0.5719475132930631,
+          "slippage_pct": 5.719521563048769,
+          "funding_pct": 0.24207980198862541,
+          "funding_events": 306,
+          "proxy_mark_funding_events": 306,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": -1.792207209575011,
+          "max_dd_pct": 5.181749921388812,
+          "trades": 88,
+          "rejected": {
+            "wave_or_cooldown": 578,
+            "portfolio_cap": 63
+          },
+          "gross_reference_pnl_pct": -0.6932141942636991,
+          "fees_pct": 0.27391677673343306,
+          "slippage_pct": 1.0956664137194727,
+          "funding_pct": 0.2705901751411599,
+          "funding_events": 234,
+          "proxy_mark_funding_events": 234,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -5.5130763669021405,
+          "max_dd_pct": 7.55885055055463,
+          "trades": 90,
+          "rejected": {
+            "wave_or_cooldown": 581,
+            "portfolio_cap": 58
+          },
+          "gross_reference_pnl_pct": -0.49311309970923917,
+          "fees_pct": 0.47755674012939064,
+          "slippage_pct": 4.7755550734663705,
+          "funding_pct": 0.2331485464023252,
+          "funding_events": 240,
+          "proxy_mark_funding_events": 240,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    },
+    "2021": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": -39.78906059465296,
+          "max_dd_pct": 59.53815012182084,
+          "trades": 368,
+          "rejected": {
+            "wave_or_cooldown": 2890,
+            "portfolio_cap": 2705
+          },
+          "gross_reference_pnl_pct": -38.847136270601176,
+          "fees_pct": 2.489669616518535,
+          "slippage_pct": 9.958639618937307,
+          "funding_pct": 11.506384911405261,
+          "funding_events": 2450,
+          "proxy_mark_funding_events": 2450,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -67.29630257370951,
+          "max_dd_pct": 75.3764957689366,
+          "trades": 352,
+          "rejected": {
+            "wave_or_cooldown": 2802,
+            "portfolio_cap": 2809
+          },
+          "gross_reference_pnl_pct": -33.995218343359376,
+          "fees_pct": 3.9556343411949446,
+          "slippage_pct": 39.555493531490455,
+          "funding_pct": 10.210043642335396,
+          "funding_events": 2353,
+          "proxy_mark_funding_events": 2353,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": -8.89894390311089,
+          "max_dd_pct": 18.27302641924603,
+          "trades": 318,
+          "rejected": {
+            "wave_or_cooldown": 2725,
+            "portfolio_cap": 2920
+          },
+          "gross_reference_pnl_pct": -7.7045405302204495,
+          "fees_pct": 0.877619855668647,
+          "slippage_pct": 3.5104717181338705,
+          "funding_pct": 3.193688200911399,
+          "funding_events": 2228,
+          "proxy_mark_funding_events": 2228,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -17.54232170273906,
+          "max_dd_pct": 20.98754992854581,
+          "trades": 323,
+          "rejected": {
+            "wave_or_cooldown": 2820,
+            "portfolio_cap": 2820
+          },
+          "gross_reference_pnl_pct": -4.225239990873488,
+          "fees_pct": 1.4764246619306534,
+          "slippage_pct": 14.764140988306602,
+          "funding_pct": 2.9234839383714566,
+          "funding_events": 2336,
+          "proxy_mark_funding_events": 2336,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 4.591363253627378,
+          "max_dd_pct": 15.33308478564146,
+          "trades": 217,
+          "rejected": {
+            "wave_or_cooldown": 937,
+            "portfolio_cap": 1278
+          },
+          "gross_reference_pnl_pct": 4.701052225768064,
+          "fees_pct": 0.5231095919204818,
+          "slippage_pct": 2.0924430687340236,
+          "funding_pct": 2.5058636885128744,
+          "funding_events": 1853,
+          "proxy_mark_funding_events": 1853,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -7.877958479823789,
+          "max_dd_pct": 18.394403744787667,
+          "trades": 227,
+          "rejected": {
+            "wave_or_cooldown": 976,
+            "portfolio_cap": 1229
+          },
+          "gross_reference_pnl_pct": 0.1892531126851623,
+          "fees_pct": 0.9422428781958931,
+          "slippage_pct": 9.422433513286654,
+          "funding_pct": 2.297464798974498,
+          "funding_events": 1913,
+          "proxy_mark_funding_events": 1913,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": -2.700019462447827,
+          "max_dd_pct": 17.41183704385454,
+          "trades": 269,
+          "rejected": {
+            "wave_or_cooldown": 1404,
+            "portfolio_cap": 1675
+          },
+          "gross_reference_pnl_pct": -2.5106241115836077,
+          "fees_pct": 0.641804933492216,
+          "slippage_pct": 2.5672172233446022,
+          "funding_pct": 3.0196268059725884,
+          "funding_events": 2170,
+          "proxy_mark_funding_events": 2170,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -12.054328171646162,
+          "max_dd_pct": 19.497189314747054,
+          "trades": 281,
+          "rejected": {
+            "wave_or_cooldown": 1440,
+            "portfolio_cap": 1627
+          },
+          "gross_reference_pnl_pct": -2.2139253751792096,
+          "fees_pct": 1.1495622730775399,
+          "slippage_pct": 11.495567382640898,
+          "funding_pct": 2.8047268592512093,
+          "funding_events": 2287,
+          "proxy_mark_funding_events": 2287,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": 3.148325917746533,
+          "max_dd_pct": 11.80862668422138,
+          "trades": 422,
+          "rejected": {
+            "wave_or_cooldown": 2108,
+            "portfolio_cap": 818
+          },
+          "gross_reference_pnl_pct": 6.512591863871713,
+          "fees_pct": 1.0514951797103387,
+          "slippage_pct": 4.205987231432977,
+          "funding_pct": 1.8932164650192964,
+          "funding_events": 1096,
+          "proxy_mark_funding_events": 1096,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -10.734858079970422,
+          "max_dd_pct": 15.129352078141567,
+          "trades": 427,
+          "rejected": {
+            "wave_or_cooldown": 2141,
+            "portfolio_cap": 780
+          },
+          "gross_reference_pnl_pct": 7.3442277095529125,
+          "fees_pct": 1.794039119845312,
+          "slippage_pct": 17.940574804145673,
+          "funding_pct": 1.6555281344665491,
+          "funding_events": 1116,
+          "proxy_mark_funding_events": 1116,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": -2.511079889883362,
+          "max_dd_pct": 11.572063764030638,
+          "trades": 351,
+          "rejected": {
+            "wave_or_cooldown": 1565,
+            "portfolio_cap": 496
+          },
+          "gross_reference_pnl_pct": 0.19415784852686097,
+          "fees_pct": 0.8752726981165059,
+          "slippage_pct": 3.5010909866236757,
+          "funding_pct": 1.6711259463299541,
+          "funding_events": 917,
+          "proxy_mark_funding_events": 917,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -13.702711996316111,
+          "max_dd_pct": 16.028578751178213,
+          "trades": 363,
+          "rejected": {
+            "wave_or_cooldown": 1572,
+            "portfolio_cap": 477
+          },
+          "gross_reference_pnl_pct": 1.6925604429983914,
+          "fees_pct": 1.535069607900704,
+          "slippage_pct": 15.35073839301796,
+          "funding_pct": 1.4905355616047684,
+          "funding_events": 948,
+          "proxy_mark_funding_events": 948,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    },
+    "2022": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": 45.7257059179926,
+          "max_dd_pct": 29.685674419281916,
+          "trades": 175,
+          "rejected": {
+            "wave_or_cooldown": 1722,
+            "portfolio_cap": 427
+          },
+          "gross_reference_pnl_pct": 58.57621326881471,
+          "fees_pct": 2.403504629533275,
+          "slippage_pct": 9.614077094345859,
+          "funding_pct": -0.8329256269417111,
+          "funding_events": 1296,
+          "proxy_mark_funding_events": 1296,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 9.18081017200177,
+          "max_dd_pct": 34.91801008196453,
+          "trades": 172,
+          "rejected": {
+            "wave_or_cooldown": 1705,
+            "portfolio_cap": 447
+          },
+          "gross_reference_pnl_pct": 55.10717015916054,
+          "fees_pct": 4.126368836806755,
+          "slippage_pct": 41.26506604732112,
+          "funding_pct": -0.534925103028596,
+          "funding_events": 1286,
+          "proxy_mark_funding_events": 1286,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": 2.30510255136727,
+          "max_dd_pct": 9.14536579223838,
+          "trades": 158,
+          "rejected": {
+            "wave_or_cooldown": 1640,
+            "portfolio_cap": 526
+          },
+          "gross_reference_pnl_pct": 5.108651068247577,
+          "fees_pct": 0.5360747576927103,
+          "slippage_pct": 2.14430413942179,
+          "funding_pct": -0.12316961976645985,
+          "funding_events": 1182,
+          "proxy_mark_funding_events": 1182,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -3.20562710636068,
+          "max_dd_pct": 10.539975549531388,
+          "trades": 163,
+          "rejected": {
+            "wave_or_cooldown": 1640,
+            "portfolio_cap": 521
+          },
+          "gross_reference_pnl_pct": 7.263078753562518,
+          "fees_pct": 0.9430298943890515,
+          "slippage_pct": 9.43048052085926,
+          "funding_pct": -0.09519544467519174,
+          "funding_events": 1218,
+          "proxy_mark_funding_events": 1218,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 6.519151534029845,
+          "max_dd_pct": 6.082952174920663,
+          "trades": 131,
+          "rejected": {
+            "wave_or_cooldown": 792,
+            "portfolio_cap": 272
+          },
+          "gross_reference_pnl_pct": 8.460121782715266,
+          "fees_pct": 0.3621737674212653,
+          "slippage_pct": 1.4487035298067688,
+          "funding_pct": -0.13009295145526587,
+          "funding_events": 1134,
+          "proxy_mark_funding_events": 1134,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 1.0009099378331427,
+          "max_dd_pct": 7.039958802735113,
+          "trades": 137,
+          "rejected": {
+            "wave_or_cooldown": 811,
+            "portfolio_cap": 247
+          },
+          "gross_reference_pnl_pct": 8.303768382497237,
+          "fees_pct": 0.6561335799338849,
+          "slippage_pct": 6.561543393548344,
+          "funding_pct": -0.08518147118212538,
+          "funding_events": 1193,
+          "proxy_mark_funding_events": 1193,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 5.927575859184472,
+          "max_dd_pct": 6.11209473549712,
+          "trades": 134,
+          "rejected": {
+            "wave_or_cooldown": 806,
+            "portfolio_cap": 287
+          },
+          "gross_reference_pnl_pct": 7.914197572183037,
+          "fees_pct": 0.3705305363870599,
+          "slippage_pct": 1.4821300597457354,
+          "funding_pct": -0.1339611168647267,
+          "funding_events": 1140,
+          "proxy_mark_funding_events": 1140,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 0.21050708494682624,
+          "max_dd_pct": 7.243784156792321,
+          "trades": 139,
+          "rejected": {
+            "wave_or_cooldown": 835,
+            "portfolio_cap": 253
+          },
+          "gross_reference_pnl_pct": 7.618864438035487,
+          "fees_pct": 0.6657269098900782,
+          "slippage_pct": 6.657459570511664,
+          "funding_pct": -0.08517087268705248,
+          "funding_events": 1196,
+          "proxy_mark_funding_events": 1196,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": -2.0600586455105656,
+          "max_dd_pct": 4.970996513317205,
+          "trades": 166,
+          "rejected": {
+            "wave_or_cooldown": 978,
+            "portfolio_cap": 83
+          },
+          "gross_reference_pnl_pct": 0.2182650561274453,
+          "fees_pct": 0.43416967747049373,
+          "slippage_pct": 1.7366789281469406,
+          "funding_pct": -0.10747509602149678,
+          "funding_events": 444,
+          "proxy_mark_funding_events": 444,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -8.297975093399558,
+          "max_dd_pct": 8.999412302481923,
+          "trades": 167,
+          "rejected": {
+            "wave_or_cooldown": 994,
+            "portfolio_cap": 66
+          },
+          "gross_reference_pnl_pct": 0.16529400901888391,
+          "fees_pct": 0.7609527944393065,
+          "slippage_pct": 7.609532076743212,
+          "funding_pct": -0.09278423123491106,
+          "funding_events": 444,
+          "proxy_mark_funding_events": 444,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": -3.6278630159963683,
+          "max_dd_pct": 6.113950233251875,
+          "trades": 138,
+          "rejected": {
+            "wave_or_cooldown": 717,
+            "portfolio_cap": 44
+          },
+          "gross_reference_pnl_pct": -1.6736522950436172,
+          "fees_pct": 0.3756157863840236,
+          "slippage_pct": 1.5024614718837184,
+          "funding_pct": -0.07613346268553033,
+          "funding_events": 374,
+          "proxy_mark_funding_events": 374,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -7.930029080406939,
+          "max_dd_pct": 9.626524084485055,
+          "trades": 140,
+          "rejected": {
+            "wave_or_cooldown": 717,
+            "portfolio_cap": 42
+          },
+          "gross_reference_pnl_pct": -0.4426370832117076,
+          "fees_pct": 0.6739884960589319,
+          "slippage_pct": 6.739873894662168,
+          "funding_pct": -0.07352960647375409,
+          "funding_events": 380,
+          "proxy_mark_funding_events": 380,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    },
+    "2023": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": -37.625419265812994,
+          "max_dd_pct": 38.66014962229581,
+          "trades": 184,
+          "rejected": {
+            "wave_or_cooldown": 1414,
+            "portfolio_cap": 240
+          },
+          "gross_reference_pnl_pct": -30.127631506813874,
+          "fees_pct": 1.452916906011007,
+          "slippage_pct": 5.811637496412211,
+          "funding_pct": -0.2332333565746313,
+          "funding_events": 1212,
+          "proxy_mark_funding_events": 827,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -55.934348290043985,
+          "max_dd_pct": 56.423639860986796,
+          "trades": 183,
+          "rejected": {
+            "wave_or_cooldown": 1414,
+            "portfolio_cap": 241
+          },
+          "gross_reference_pnl_pct": -28.317021560817242,
+          "fees_pct": 2.4829876278614953,
+          "slippage_pct": 24.82916835307567,
+          "funding_pct": -0.305170748291846,
+          "funding_events": 1203,
+          "proxy_mark_funding_events": 826,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": -14.85559734995978,
+          "max_dd_pct": 15.010079992762105,
+          "trades": 169,
+          "rejected": {
+            "wave_or_cooldown": 1310,
+            "portfolio_cap": 359
+          },
+          "gross_reference_pnl_pct": -11.539141542287663,
+          "fees_pct": 0.6002535427154599,
+          "slippage_pct": 2.4010026317201674,
+          "funding_pct": -0.31519963323746364,
+          "funding_events": 1082,
+          "proxy_mark_funding_events": 759,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -19.615935801591164,
+          "max_dd_pct": 19.731153082547447,
+          "trades": 169,
+          "rejected": {
+            "wave_or_cooldown": 1341,
+            "portfolio_cap": 328
+          },
+          "gross_reference_pnl_pct": -8.579842835902943,
+          "fees_pct": 0.9866559580336174,
+          "slippage_pct": 9.866345084265168,
+          "funding_pct": -0.18309192339083682,
+          "funding_events": 1110,
+          "proxy_mark_funding_events": 781,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": -6.079051254479907,
+          "max_dd_pct": 7.310739852975701,
+          "trades": 96,
+          "rejected": {
+            "wave_or_cooldown": 408,
+            "portfolio_cap": 111
+          },
+          "gross_reference_pnl_pct": -4.739268243309067,
+          "fees_pct": 0.27616742489472074,
+          "slippage_pct": 1.1046649603105807,
+          "funding_pct": 0.041049374034339656,
+          "funding_events": 759,
+          "proxy_mark_funding_events": 537,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -10.933096378575172,
+          "max_dd_pct": 11.37894126257103,
+          "trades": 97,
+          "rejected": {
+            "wave_or_cooldown": 404,
+            "portfolio_cap": 114
+          },
+          "gross_reference_pnl_pct": -5.643491154417169,
+          "fees_pct": 0.48425391664001344,
+          "slippage_pct": 4.84239807912122,
+          "funding_pct": 0.03704677160122497,
+          "funding_events": 769,
+          "proxy_mark_funding_events": 547,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": -9.70086786080958,
+          "max_dd_pct": 10.205323070322637,
+          "trades": 134,
+          "rejected": {
+            "wave_or_cooldown": 621,
+            "portfolio_cap": 183
+          },
+          "gross_reference_pnl_pct": -7.868920169053556,
+          "fees_pct": 0.3885751776859304,
+          "slippage_pct": 1.5542928418234692,
+          "funding_pct": 0.11092032775162512,
+          "funding_events": 1001,
+          "proxy_mark_funding_events": 689,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -15.482753243319095,
+          "max_dd_pct": 15.82319152868681,
+          "trades": 137,
+          "rejected": {
+            "wave_or_cooldown": 624,
+            "portfolio_cap": 177
+          },
+          "gross_reference_pnl_pct": -8.006025712737774,
+          "fees_pct": 0.6901440704291959,
+          "slippage_pct": 6.901240553649069,
+          "funding_pct": 0.11465709349681227,
+          "funding_events": 1020,
+          "proxy_mark_funding_events": 708,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": -7.596006706857935,
+          "max_dd_pct": 8.330339971688417,
+          "trades": 155,
+          "rejected": {
+            "wave_or_cooldown": 701,
+            "portfolio_cap": 82
+          },
+          "gross_reference_pnl_pct": -5.4475277403039195,
+          "fees_pct": 0.4517688752117134,
+          "slippage_pct": 1.8070700533190098,
+          "funding_pct": 0.11035996197785207,
+          "funding_events": 399,
+          "proxy_mark_funding_events": 270,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -13.701179134200032,
+          "max_dd_pct": 14.026228006923958,
+          "trades": 155,
+          "rejected": {
+            "wave_or_cooldown": 716,
+            "portfolio_cap": 67
+          },
+          "gross_reference_pnl_pct": -5.28203561686168,
+          "fees_pct": 0.7743648973938929,
+          "slippage_pct": 7.7435169230484275,
+          "funding_pct": 0.09873830310420416,
+          "funding_events": 399,
+          "proxy_mark_funding_events": 270,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": -3.710447695507895,
+          "max_dd_pct": 5.793529867769209,
+          "trades": 119,
+          "rejected": {
+            "wave_or_cooldown": 507,
+            "portfolio_cap": 45
+          },
+          "gross_reference_pnl_pct": -1.962908809624173,
+          "fees_pct": 0.369805133975774,
+          "slippage_pct": 1.4792185729941965,
+          "funding_pct": 0.10148482108561131,
+          "funding_events": 319,
+          "proxy_mark_funding_events": 210,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -8.48675901323007,
+          "max_dd_pct": 9.102876649475512,
+          "trades": 120,
+          "rejected": {
+            "wave_or_cooldown": 517,
+            "portfolio_cap": 34
+          },
+          "gross_reference_pnl_pct": -1.5386611949164661,
+          "fees_pct": 0.6402713704871277,
+          "slippage_pct": 6.402675238341338,
+          "funding_pct": 0.09484879051558182,
+          "funding_events": 322,
+          "proxy_mark_funding_events": 213,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    },
+    "2024": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": -2.5121281350104994,
+          "max_dd_pct": 27.47463666018638,
+          "trades": 243,
+          "rejected": {
+            "wave_or_cooldown": 2497,
+            "portfolio_cap": 751
+          },
+          "gross_reference_pnl_pct": 5.642265473168701,
+          "fees_pct": 2.628979729868708,
+          "slippage_pct": 10.515924561739686,
+          "funding_pct": 4.990510683428915,
+          "funding_events": 2433,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -38.88841483552965,
+          "max_dd_pct": 48.866335316327614,
+          "trades": 236,
+          "rejected": {
+            "wave_or_cooldown": 2503,
+            "portfolio_cap": 752
+          },
+          "gross_reference_pnl_pct": 0.3047219177866271,
+          "fees_pct": 3.931466355339004,
+          "slippage_pct": 39.31467117143759,
+          "funding_pct": 4.05300077346151,
+          "funding_events": 2388,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": 3.96992399937308,
+          "max_dd_pct": 9.188997027753532,
+          "trades": 220,
+          "rejected": {
+            "wave_or_cooldown": 2343,
+            "portfolio_cap": 928
+          },
+          "gross_reference_pnl_pct": 6.370835685910503,
+          "fees_pct": 0.720588629118304,
+          "slippage_pct": 2.882360887308729,
+          "funding_pct": 1.202037829886411,
+          "funding_events": 2340,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -8.269517904224173,
+          "max_dd_pct": 13.017310503879687,
+          "trades": 225,
+          "rejected": {
+            "wave_or_cooldown": 2412,
+            "portfolio_cap": 854
+          },
+          "gross_reference_pnl_pct": 3.820388767784225,
+          "fees_pct": 1.19503467338057,
+          "slippage_pct": 11.95044224352478,
+          "funding_pct": 1.0555702448993975,
+          "funding_events": 2375,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 6.6236609040399514,
+          "max_dd_pct": 5.494703804835499,
+          "trades": 149,
+          "rejected": {
+            "wave_or_cooldown": 957,
+            "portfolio_cap": 402
+          },
+          "gross_reference_pnl_pct": 7.688091203523989,
+          "fees_pct": 0.37499439262219914,
+          "slippage_pct": 1.4999852585799123,
+          "funding_pct": 0.810549351717775,
+          "funding_events": 1918,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 0.13856085809251795,
+          "max_dd_pct": 6.2337464681598735,
+          "trades": 151,
+          "rejected": {
+            "wave_or_cooldown": 995,
+            "portfolio_cap": 362
+          },
+          "gross_reference_pnl_pct": 6.669490687817103,
+          "fees_pct": 0.6617299047941683,
+          "slippage_pct": 6.617465785208816,
+          "funding_pct": 0.7482658602781,
+          "funding_events": 1995,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 9.941631417258264,
+          "max_dd_pct": 6.117336156348829,
+          "trades": 178,
+          "rejected": {
+            "wave_or_cooldown": 1251,
+            "portfolio_cap": 502
+          },
+          "gross_reference_pnl_pct": 11.343445857760967,
+          "fees_pct": 0.4887443843459726,
+          "slippage_pct": 1.9549888808296338,
+          "funding_pct": 1.0419188246706776,
+          "funding_events": 2201,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 2.27417083969263,
+          "max_dd_pct": 6.546778570482936,
+          "trades": 180,
+          "rejected": {
+            "wave_or_cooldown": 1282,
+            "portfolio_cap": 469
+          },
+          "gross_reference_pnl_pct": 10.802256557246494,
+          "fees_pct": 0.859273761738364,
+          "slippage_pct": 8.593007673797494,
+          "funding_pct": 0.9241957179830542,
+          "funding_events": 2249,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": 12.250089530340091,
+          "max_dd_pct": 2.6549177085490316,
+          "trades": 232,
+          "rejected": {
+            "wave_or_cooldown": 1558,
+            "portfolio_cap": 141
+          },
+          "gross_reference_pnl_pct": 14.849071592972075,
+          "fees_pct": 0.6333938496583429,
+          "slippage_pct": 2.53359024770483,
+          "funding_pct": 0.5680020347299732,
+          "funding_events": 830,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 1.923305372916147,
+          "max_dd_pct": 3.2239123018412807,
+          "trades": 233,
+          "rejected": {
+            "wave_or_cooldown": 1559,
+            "portfolio_cap": 139
+          },
+          "gross_reference_pnl_pct": 13.402837465772624,
+          "fees_pct": 1.0889253441291755,
+          "slippage_pct": 10.889588512228297,
+          "funding_pct": 0.4989817635005999,
+          "funding_events": 833,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": 14.95946475204623,
+          "max_dd_pct": 3.433134028220741,
+          "trades": 186,
+          "rejected": {
+            "wave_or_cooldown": 1158,
+            "portfolio_cap": 112
+          },
+          "gross_reference_pnl_pct": 17.249348697833426,
+          "fees_pct": 0.5341897442216751,
+          "slippage_pct": 2.136776226235281,
+          "funding_pct": 0.38108202466966856,
+          "funding_events": 688,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 2.8406714916377496,
+          "max_dd_pct": 3.7819612970141137,
+          "trades": 187,
+          "rejected": {
+            "wave_or_cooldown": 1165,
+            "portfolio_cap": 104
+          },
+          "gross_reference_pnl_pct": 12.548023580986024,
+          "fees_pct": 0.9126713211680914,
+          "slippage_pct": 9.12702691227035,
+          "funding_pct": 0.3323461440901161,
+          "funding_events": 692,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    },
+    "2025": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "return_pct": 70.34317718067655,
+          "max_dd_pct": 25.027393700622902,
+          "trades": 169,
+          "rejected": {
+            "wave_or_cooldown": 1457,
+            "portfolio_cap": 779
+          },
+          "gross_reference_pnl_pct": 81.53895579037551,
+          "fees_pct": 2.058573780104736,
+          "slippage_pct": 8.234376659374282,
+          "funding_pct": -0.9028281702177214,
+          "funding_events": 1961,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 22.838331225535725,
+          "max_dd_pct": 33.16852338824576,
+          "trades": 167,
+          "rejected": {
+            "wave_or_cooldown": 1466,
+            "portfolio_cap": 772
+          },
+          "gross_reference_pnl_pct": 61.63545146170171,
+          "fees_pct": 3.4638833108334053,
+          "slippage_pct": 34.64037399462025,
+          "funding_pct": -0.692862930708655,
+          "funding_events": 1910,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "return_pct": 15.15556069372164,
+          "max_dd_pct": 7.303092040603653,
+          "trades": 148,
+          "rejected": {
+            "wave_or_cooldown": 1398,
+            "portfolio_cap": 859
+          },
+          "gross_reference_pnl_pct": 18.01757293628799,
+          "fees_pct": 0.49324176978902506,
+          "slippage_pct": 1.972985096728923,
+          "funding_pct": -0.39578537604748326,
+          "funding_events": 1802,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 5.6982450203354915,
+          "max_dd_pct": 9.374202986049319,
+          "trades": 156,
+          "rejected": {
+            "wave_or_cooldown": 1423,
+            "portfolio_cap": 826
+          },
+          "gross_reference_pnl_pct": 15.421253052570144,
+          "fees_pct": 0.8692300164765474,
+          "slippage_pct": 8.6926856960917,
+          "funding_pct": -0.16109231966891965,
+          "funding_events": 1902,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 8.15152287056516,
+          "max_dd_pct": 6.300262355411935,
+          "trades": 110,
+          "rejected": {
+            "wave_or_cooldown": 538,
+            "portfolio_cap": 480
+          },
+          "gross_reference_pnl_pct": 9.819417515486348,
+          "fees_pct": 0.3171314861298855,
+          "slippage_pct": 1.2685357639369867,
+          "funding_pct": -0.08222739485387967,
+          "funding_events": 1437,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 3.7704499881068614,
+          "max_dd_pct": 7.349535332676771,
+          "trades": 114,
+          "rejected": {
+            "wave_or_cooldown": 548,
+            "portfolio_cap": 466
+          },
+          "gross_reference_pnl_pct": 10.20503018496373,
+          "fees_pct": 0.5779979264878367,
+          "slippage_pct": 5.780234390632933,
+          "funding_pct": -0.07634787973639515,
+          "funding_events": 1536,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "return_pct": 8.060228926556874,
+          "max_dd_pct": 7.597509900713028,
+          "trades": 129,
+          "rejected": {
+            "wave_or_cooldown": 780,
+            "portfolio_cap": 526
+          },
+          "gross_reference_pnl_pct": 9.938867271602726,
+          "fees_pct": 0.3653534450311206,
+          "slippage_pct": 1.4614237189916737,
+          "funding_pct": -0.05186118102216308,
+          "funding_events": 1663,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": 2.4262785237832247,
+          "max_dd_pct": 8.743646963635355,
+          "trades": 135,
+          "rejected": {
+            "wave_or_cooldown": 796,
+            "portfolio_cap": 504
+          },
+          "gross_reference_pnl_pct": 9.92575534473779,
+          "fees_pct": 0.6772946898773966,
+          "slippage_pct": 6.773195042657518,
+          "funding_pct": -0.048987088421956586,
+          "funding_events": 1740,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "return_pct": 1.4638098750552189,
+          "max_dd_pct": 6.171511506699701,
+          "trades": 176,
+          "rejected": {
+            "wave_or_cooldown": 975,
+            "portfolio_cap": 284
+          },
+          "gross_reference_pnl_pct": 4.141355138806226,
+          "fees_pct": 0.5364270244362415,
+          "slippage_pct": 2.1457122390999865,
+          "funding_pct": 0.004593999785250356,
+          "funding_events": 637,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -6.605844264467734,
+          "max_dd_pct": 9.352644566817814,
+          "trades": 181,
+          "rejected": {
+            "wave_or_cooldown": 987,
+            "portfolio_cap": 267
+          },
+          "gross_reference_pnl_pct": 3.7918977106368863,
+          "fees_pct": 0.9457139458388112,
+          "slippage_pct": 9.457234255830784,
+          "funding_pct": 0.005206226565859288,
+          "funding_events": 653,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "return_pct": 5.652355407349205,
+          "max_dd_pct": 4.192201122786388,
+          "trades": 143,
+          "rejected": {
+            "wave_or_cooldown": 668,
+            "portfolio_cap": 173
+          },
+          "gross_reference_pnl_pct": 7.978953513717415,
+          "fees_pct": 0.4608072341369835,
+          "slippage_pct": 1.843236915501346,
+          "funding_pct": -0.022553956729190767,
+          "funding_events": 522,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "return_pct": -1.1109341429873325,
+          "max_dd_pct": 5.57610277941285,
+          "trades": 143,
+          "rejected": {
+            "wave_or_cooldown": 685,
+            "portfolio_cap": 156
+          },
+          "gross_reference_pnl_pct": 7.562909080315481,
+          "fees_pct": 0.7876832749083241,
+          "slippage_pct": 7.877021821810176,
+          "funding_pct": -0.009138126585957888,
+          "funding_events": 530,
+          "proxy_mark_funding_events": 0,
+          "accepted_missing_execution_bars": 0,
+          "accepted_execution_issue_ids": [],
+          "execution_qualified": true
+        }
+      }
+    }
+  },
+  "fixed_policy_periods": {
+    "development_context_2020_2023": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 50.04913997168872,
+          "return_pct": -49.95086002831128,
+          "max_dd_pct": 66.84420763297103,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.1420408997262513,
+            "ci_pct": [
+              -1.0697454738800487,
+              0.7430532015411073
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 843,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 11.520613830593701,
+          "return_pct": -88.4793861694063,
+          "max_dd_pct": 89.4670459185552,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.8308740886666196,
+            "ci_pct": [
+              -1.8129611289469996,
+              0.0752013700218225
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 822,
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 82.1808161355603,
+          "return_pct": -17.81918386443969,
+          "max_dd_pct": 25.337472585993005,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.08279802125859231,
+            "ci_pct": [
+              -0.32216231871237866,
+              0.14143991328112904
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 756,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 61.655778724551816,
+          "return_pct": -38.344221275448184,
+          "max_dd_pct": 40.73829912960901,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.22174673752149757,
+            "ci_pct": [
+              -0.4472334274696832,
+              -0.017978938241029845
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 768,
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 109.4320206396808,
+          "return_pct": 9.432020639680804,
+          "max_dd_pct": 15.33308478564146,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.04798049186242887,
+            "ci_pct": [
+              -0.1158489731776537,
+              0.20143339761942486
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 531,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 82.3004373157538,
+          "return_pct": -17.699562684246207,
+          "max_dd_pct": 24.09847988401713,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.08870359422960722,
+            "ci_pct": [
+              -0.24832102680838072,
+              0.052920648582590026
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 548,
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 96.41102461392911,
+          "return_pct": -3.5889753860708806,
+          "max_dd_pct": 17.449293366792773,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.010887173674924297,
+            "ci_pct": [
+              -0.19682181353880487,
+              0.15904796240666713
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 633,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 73.45798589825503,
+          "return_pct": -26.54201410174497,
+          "max_dd_pct": 29.787049978948453,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.14099737243698,
+            "ci_pct": [
+              -0.32059635634222805,
+              0.0235855322875532
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 654,
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 94.0690525702997,
+          "return_pct": -5.930947429700295,
+          "max_dd_pct": 18.166172076061628,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.02529681478903057,
+            "ci_pct": [
+              -0.16375589153662598,
+              0.10278737299210157
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 855,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 67.68097789032022,
+          "return_pct": -32.31902210967977,
+          "max_dd_pct": 33.77059794156293,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.18285243840231225,
+            "ci_pct": [
+              -0.3228503623091855,
+              -0.05839799464333281
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 863,
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 88.84476989284774,
+          "return_pct": -11.155230107152258,
+          "max_dd_pct": 16.27988037676682,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.05341101478191802,
+            "ci_pct": [
+              -0.1671777080266417,
+              0.05251046622113659
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 696,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 68.70222449774913,
+          "return_pct": -31.297775502250868,
+          "max_dd_pct": 32.66165439858869,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.17642173963916324,
+            "ci_pct": [
+              -0.29068323256821155,
+              -0.07543409609618343
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 209,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 713,
+          "execution_qualified": true
+        }
+      }
+    },
+    "retrospective_2024_2025": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "start_nav": 50.04913997168872,
+          "end_nav": 83.1135729225911,
+          "return_pct": 66.06393830064998,
+          "max_dd_pct": 27.47463666018638,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.6022156734673894,
+            "ci_pct": [
+              -0.1988577327107608,
+              1.35546664543279
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 412,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 11.520613830593701,
+          "end_nav": 8.648346394574576,
+          "return_pct": -24.93154859849257,
+          "max_dd_pct": 53.102498840693556,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.1500913051898952,
+            "ci_pct": [
+              -1.0191345588808571,
+              0.6569280024851404
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 403,
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "start_nav": 82.1808161355603,
+          "end_nav": 98.39274813005731,
+          "return_pct": 19.727148934314332,
+          "max_dd_pct": 9.188997027753542,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.18020445769147467,
+            "ci_pct": [
+              -0.03825759276762188,
+              0.38633466340326317
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 368,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 61.655778724551816,
+          "end_nav": 59.77990765222091,
+          "return_pct": -3.0424902760719075,
+          "max_dd_pct": 15.789318936541829,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.02162029574136301,
+            "ci_pct": [
+              -0.24110180200308293,
+              0.17420225849418663
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 381,
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 109.4320206396808,
+          "end_nav": 126.1916582676587,
+          "return_pct": 15.315113008066605,
+          "max_dd_pct": 6.300262355411945,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.1403927391073885,
+            "ci_pct": [
+              -0.001702857483802634,
+              0.27882167800566104
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 259,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 82.3004373157538,
+          "end_nav": 85.5218700144898,
+          "return_pct": 3.9142352140568493,
+          "max_dd_pct": 7.349535332676771,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.04109422196488482,
+            "ci_pct": [
+              -0.10938017390836925,
+              0.1791436798050126
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 265,
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 96.41102461392911,
+          "end_nav": 114.53936175743338,
+          "return_pct": 18.803178595080674,
+          "max_dd_pct": 7.597509900713028,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.170539436860615,
+            "ci_pct": [
+              0.0031929905460033868,
+              0.3334793493605897
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 307,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 73.45798589825503,
+          "end_nav": 76.95137376963692,
+          "return_pct": 4.7556270821534685,
+          "max_dd_pct": 8.743646963635365,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.0499785646507055,
+            "ci_pct": [
+              -0.11995486110789763,
+              0.20754739916192
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 315,
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "start_nav": 94.0690525702997,
+          "end_nav": 107.13827057413435,
+          "return_pct": 13.893217425643535,
+          "max_dd_pct": 6.171511506699712,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.12654739969828263,
+            "ci_pct": [
+              0.004816854142051926,
+              0.24160090184129385
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 408,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 67.68097789032022,
+          "end_nav": 64.42580071858079,
+          "return_pct": -4.809589449216556,
+          "max_dd_pct": 9.352644566817814,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.04460016375672853,
+            "ci_pct": [
+              -0.17115412177220884,
+              0.06878091960916866
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 414,
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "start_nav": 88.84476989284774,
+          "end_nav": 107.90853179940561,
+          "return_pct": 21.457382274218205,
+          "max_dd_pct": 4.1922011227863765,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.18777734164305593,
+            "ci_pct": [
+              0.07271406753072317,
+              0.29924062968190274
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 329,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 68.70222449774913,
+          "end_nav": 69.86891149345347,
+          "return_pct": 1.6981793591597016,
+          "max_dd_pct": 5.576102779412839,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.018085939186852903,
+            "ci_pct": [
+              -0.09080212697748774,
+              0.12046168602578503
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 105,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 330,
+          "execution_qualified": true
+        }
+      }
+    },
+    "all_2020_2025": {
+      "reference_m6_fixed": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 83.1135729225911,
+          "return_pct": -16.886427077408893,
+          "max_dd_pct": 66.84420763297103,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.10683470595952027,
+            "ci_pct": [
+              -0.5661267468173569,
+              0.7467830143470789
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1255,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 8.648346394574576,
+          "return_pct": -91.35165360542543,
+          "max_dd_pct": 94.41610652167894,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.6032237948288613,
+            "ci_pct": [
+              -1.3129487573781708,
+              0.05984993825938543
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1225,
+          "execution_qualified": true
+        }
+      },
+      "m6_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 98.39274813005731,
+          "return_pct": -1.607251869942683,
+          "max_dd_pct": 28.724764686803983,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.005148667562289955,
+            "ci_pct": [
+              -0.1708477246384018,
+              0.16945835651741795
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1124,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 59.77990765222091,
+          "return_pct": -40.220092347779094,
+          "max_dd_pct": 48.2792386472462,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.15482547514279016,
+            "ci_pct": [
+              -0.324540357017063,
+              -0.0017300380614468575
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1149,
+          "execution_qualified": true
+        }
+      },
+      "elite_sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 126.1916582676587,
+          "return_pct": 26.191658267658703,
+          "max_dd_pct": 15.33308478564146,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.07888267645071155,
+            "ci_pct": [
+              -0.04110489419079459,
+              0.18768382720695648
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 790,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 85.5218700144898,
+          "return_pct": -14.47812998551019,
+          "max_dd_pct": 26.164855216922412,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.0452998658843153,
+            "ci_pct": [
+              -0.16400018265835173,
+              0.05859747884258272
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 813,
+          "execution_qualified": true
+        }
+      },
+      "sniper_risk": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 114.53936175743338,
+          "return_pct": 14.539361757433378,
+          "max_dd_pct": 18.04503748148607,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.04978096042135477,
+            "ci_pct": [
+              -0.08577189133549239,
+              0.1744176671562219
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 940,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 76.95137376963692,
+          "return_pct": -23.048626230363077,
+          "max_dd_pct": 31.53587914336167,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.07713599220065204,
+            "ci_pct": [
+              -0.21384284710585097,
+              0.04299686857870467
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 969,
+          "execution_qualified": true
+        }
+      },
+      "sniper_horizon24": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 107.13827057413435,
+          "return_pct": 7.138270574134342,
+          "max_dd_pct": 18.447780341235433,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.02547911680704551,
+            "ci_pct": [
+              -0.07644291787619362,
+              0.11886254119739885
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1263,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 64.42580071858079,
+          "return_pct": -35.57419928141922,
+          "max_dd_pct": 37.9158214859533,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.1366215822310183,
+            "ci_pct": [
+              -0.23949048704461012,
+              -0.04664135049846645
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1277,
+          "execution_qualified": true
+        }
+      },
+      "sniper_rr1_horizon24": {
+        "standard_vip6": {
+          "start_nav": 100.0,
+          "end_nav": 107.90853179940561,
+          "return_pct": 7.908531799405605,
+          "max_dd_pct": 17.341332620478322,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": 0.027241142621337595,
+            "ci_pct": [
+              -0.06259803368375182,
+              0.1098473200628386
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1025,
+          "execution_qualified": true
+        },
+        "stress_regular": {
+          "start_nav": 100.0,
+          "end_nav": 69.86891149345347,
+          "return_pct": -30.131088506546533,
+          "max_dd_pct": 34.67930015449156,
+          "calendar_weekly_ci95": {
+            "mean_weekly_pct": -0.11137936296167375,
+            "ci_pct": [
+              -0.1995338050662834,
+              -0.0347492999502019
+            ],
+            "confidence_pct": 95.0,
+            "intervals": 314,
+            "block_weeks": 4,
+            "draws": 10000,
+            "seed": 412,
+            "global_selection_adjusted": false
+          },
+          "trades": 1043,
+          "execution_qualified": true
+        }
+      }
+    }
+  },
+  "walk_forward_locks": {
+    "2022": {
+      "test_year": 2022,
+      "training_years": [
+        "2020",
+        "2021"
+      ],
+      "selected": "CASH",
+      "audit": {
+        "m6_risk": {
+          "standard": {
+            "return_pct": -5.655399039471092,
+            "max_dd_pct": 19.339566804807873,
+            "trades": 429,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -20.75831229974,
+            "max_dd_pct": 26.423775083808987,
+            "trades": 436,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 20.98754992854581,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "elite_sniper_risk": {
+          "standard": {
+            "return_pct": 9.384112896085199,
+            "max_dd_pct": 15.33308478564146,
+            "trades": 304,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -8.512765048123583,
+            "max_dd_pct": 18.394403744787667,
+            "trades": 314,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 18.394403744787667,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": true,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_risk": {
+          "standard": {
+            "return_pct": 0.7938625892735871,
+            "max_dd_pct": 17.41183704385454,
+            "trades": 365,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -13.267789381729244,
+            "max_dd_pct": 20.98737755337192,
+            "trades": 378,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 19.497189314747054,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_horizon24": {
+          "standard": {
+            "return_pct": 3.943225737931229,
+            "max_dd_pct": 11.808626684221368,
+            "trades": 534,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -14.477017565214922,
+            "max_dd_pct": 17.725913615756017,
+            "trades": 541,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 15.129352078141567,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": true,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_rr1_horizon24": {
+          "standard": {
+            "return_pct": -4.258283344633696,
+            "max_dd_pct": 11.572063764030627,
+            "trades": 439,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -18.460347386524674,
+            "max_dd_pct": 21.768441699173692,
+            "trades": 453,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 16.028578751178213,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        }
+      },
+      "uses_test_year_metrics": false,
+      "fresh_oos": false,
+      "economic_protocol_sha256": "a11e15fc20e78a0e5baa47008d4415372a8f9725ba5dc996cc30b0d0446445cd",
+      "input_verification_sha256": "f5b79c0b560491ee27a3bade9e03be496c8b4f1d3f2cf0e85f2d0498d765f18b",
+      "path_manifest_sha256": "6637fc789babbec2efc38d699ab2fb75b97e70f084d31333d24dd744f8794236",
+      "funding_manifest_sha256": "1d25c4df927350bece71612f3eca017b9db3738d79878cb098a1fb3336321741",
+      "locked_at_utc": "2026-10-17T22:09:33.682137+00:00"
+    },
+    "2023": {
+      "test_year": 2023,
+      "training_years": [
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "selected": "CASH",
+      "audit": {
+        "m6_risk": {
+          "standard": {
+            "return_pct": -3.4806592356526806,
+            "max_dd_pct": 19.339566804807873,
+            "trades": 587,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -23.298505320197208,
+            "max_dd_pct": 26.423775083808987,
+            "trades": 599,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 20.98754992854581,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "elite_sniper_risk": {
+          "standard": {
+            "return_pct": 16.515028969935273,
+            "max_dd_pct": 15.33308478564146,
+            "trades": 435,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -7.597060221641485,
+            "max_dd_pct": 18.394403744787667,
+            "trades": 451,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 18.394403744787667,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": true,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_risk": {
+          "standard": {
+            "return_pct": 6.768495255654926,
+            "max_dd_pct": 17.41183704385454,
+            "trades": 499,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -13.085211933446772,
+            "max_dd_pct": 20.98737755337192,
+            "trades": 517,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 19.497189314747054,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_horizon24": {
+          "standard": {
+            "return_pct": 1.8019343296944186,
+            "max_dd_pct": 12.011575856155421,
+            "trades": 700,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -21.57369334678586,
+            "max_dd_pct": 23.080517291542833,
+            "trades": 708,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 15.129352078141567,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_rr1_horizon24": {
+          "standard": {
+            "return_pct": -7.731661674053768,
+            "max_dd_pct": 12.47054810607372,
+            "trades": 577,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -24.92646555083607,
+            "max_dd_pct": 26.416827908929143,
+            "trades": 593,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 16.028578751178213,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        }
+      },
+      "uses_test_year_metrics": false,
+      "fresh_oos": false,
+      "economic_protocol_sha256": "a11e15fc20e78a0e5baa47008d4415372a8f9725ba5dc996cc30b0d0446445cd",
+      "input_verification_sha256": "f5b79c0b560491ee27a3bade9e03be496c8b4f1d3f2cf0e85f2d0498d765f18b",
+      "path_manifest_sha256": "6637fc789babbec2efc38d699ab2fb75b97e70f084d31333d24dd744f8794236",
+      "funding_manifest_sha256": "1d25c4df927350bece71612f3eca017b9db3738d79878cb098a1fb3336321741",
+      "locked_at_utc": "2026-10-17T22:09:44.809323+00:00"
+    },
+    "2024": {
+      "test_year": 2024,
+      "training_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023"
+      ],
+      "selected": "CASH",
+      "audit": {
+        "m6_risk": {
+          "standard": {
+            "return_pct": -17.819183864439708,
+            "max_dd_pct": 25.337472585993016,
+            "trades": 756,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -38.344221275448184,
+            "max_dd_pct": 40.73829912960901,
+            "trades": 768,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 20.98754992854581,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "elite_sniper_risk": {
+          "standard": {
+            "return_pct": 9.4320206396808,
+            "max_dd_pct": 15.33308478564146,
+            "trades": 531,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -17.69956268424619,
+            "max_dd_pct": 24.09847988401711,
+            "trades": 548,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 18.394403744787667,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_risk": {
+          "standard": {
+            "return_pct": -3.5889753860708993,
+            "max_dd_pct": 17.449293366792794,
+            "trades": 633,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -26.542014101744954,
+            "max_dd_pct": 29.78704997894843,
+            "trades": 654,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 19.497189314747054,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_horizon24": {
+          "standard": {
+            "return_pct": -5.930947429700282,
+            "max_dd_pct": 18.166172076061613,
+            "trades": 855,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -32.319022109679764,
+            "max_dd_pct": 33.77059794156292,
+            "trades": 863,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 15.129352078141567,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_rr1_horizon24": {
+          "standard": {
+            "return_pct": -11.155230107152263,
+            "max_dd_pct": 16.27988037676682,
+            "trades": 696,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -31.29777550225087,
+            "max_dd_pct": 32.66165439858869,
+            "trades": 713,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 16.028578751178213,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        }
+      },
+      "uses_test_year_metrics": false,
+      "fresh_oos": false,
+      "economic_protocol_sha256": "a11e15fc20e78a0e5baa47008d4415372a8f9725ba5dc996cc30b0d0446445cd",
+      "input_verification_sha256": "f5b79c0b560491ee27a3bade9e03be496c8b4f1d3f2cf0e85f2d0498d765f18b",
+      "path_manifest_sha256": "6637fc789babbec2efc38d699ab2fb75b97e70f084d31333d24dd744f8794236",
+      "funding_manifest_sha256": "1d25c4df927350bece71612f3eca017b9db3738d79878cb098a1fb3336321741",
+      "locked_at_utc": "2026-10-17T22:09:53.164679+00:00"
+    },
+    "2025": {
+      "test_year": 2025,
+      "training_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "selected": "CASH",
+      "audit": {
+        "m6_risk": {
+          "standard": {
+            "return_pct": -14.556667921793434,
+            "max_dd_pct": 28.724764686803983,
+            "trades": 976,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -43.44285693606384,
+            "max_dd_pct": 46.57671843481018,
+            "trades": 993,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 20.98754992854581,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "elite_sniper_risk": {
+          "standard": {
+            "return_pct": 16.68042660729226,
+            "max_dd_pct": 15.33308478564146,
+            "trades": 680,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -17.58552649208758,
+            "max_dd_pct": 25.777948785637005,
+            "trades": 699,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 18.394403744787667,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_risk": {
+          "standard": {
+            "return_pct": 5.99585332664806,
+            "max_dd_pct": 18.04503748148608,
+            "trades": 811,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -24.871454007021313,
+            "max_dd_pct": 31.535879143361655,
+            "trades": 834,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 19.497189314747054,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_horizon24": {
+          "standard": {
+            "return_pct": 5.592595730504115,
+            "max_dd_pct": 18.447780341235422,
+            "trades": 1087,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -31.017310225473054,
+            "max_dd_pct": 35.145890048763896,
+            "trades": 1096,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 15.129352078141567,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        },
+        "sniper_rr1_horizon24": {
+          "standard": {
+            "return_pct": 2.135471929004879,
+            "max_dd_pct": 17.341332620478322,
+            "trades": 882,
+            "missing_bars": 0
+          },
+          "stress": {
+            "return_pct": -29.346170996822337,
+            "max_dd_pct": 34.67930015449156,
+            "trades": 900,
+            "missing_bars": 0
+          },
+          "worst_annual_dd": 16.028578751178213,
+          "rules": {
+            "at_least_60_trades": true,
+            "every_prior_standard_year_positive": false,
+            "linked_stress_nonnegative": false,
+            "worst_annual_dd_at_most15": false,
+            "no_accepted_missing_execution_bars": true,
+            "no_unresolved_accepted_execution_issues": true
+          },
+          "failed_rules": [
+            "every_prior_standard_year_positive",
+            "linked_stress_nonnegative",
+            "worst_annual_dd_at_most15"
+          ],
+          "eligible": false
+        }
+      },
+      "uses_test_year_metrics": false,
+      "fresh_oos": false,
+      "economic_protocol_sha256": "a11e15fc20e78a0e5baa47008d4415372a8f9725ba5dc996cc30b0d0446445cd",
+      "input_verification_sha256": "f5b79c0b560491ee27a3bade9e03be496c8b4f1d3f2cf0e85f2d0498d765f18b",
+      "path_manifest_sha256": "6637fc789babbec2efc38d699ab2fb75b97e70f084d31333d24dd744f8794236",
+      "funding_manifest_sha256": "1d25c4df927350bece71612f3eca017b9db3738d79878cb098a1fb3336321741",
+      "locked_at_utc": "2026-10-17T22:10:07.703536+00:00"
+    }
+  },
+  "walk_forward_oos": {
+    "standard_vip6": {
+      "2022_2025": {
+        "start_nav": 100.0,
+        "end_nav": 100.0,
+        "return_pct": 0.0,
+        "max_dd_pct": 0.0,
+        "calendar_weekly_ci95": {
+          "mean_weekly_pct": 0.0,
+          "ci_pct": [
+            0.0,
+            0.0
+          ],
+          "confidence_pct": 95.0,
+          "intervals": 210,
+          "block_weeks": 4,
+          "draws": 10000,
+          "seed": 412,
+          "global_selection_adjusted": false
+        },
+        "trades": 0,
+        "execution_qualified": true
+      },
+      "2024_2025": {
+        "start_nav": 100.0,
+        "end_nav": 100.0,
+        "return_pct": 0.0,
+        "max_dd_pct": 0.0,
+        "calendar_weekly_ci95": {
+          "mean_weekly_pct": 0.0,
+          "ci_pct": [
+            0.0,
+            0.0
+          ],
+          "confidence_pct": 95.0,
+          "intervals": 105,
+          "block_weeks": 4,
+          "draws": 10000,
+          "seed": 412,
+          "global_selection_adjusted": false
+        },
+        "trades": 0,
+        "execution_qualified": true
+      }
+    },
+    "stress_regular": {
+      "2022_2025": {
+        "start_nav": 100.0,
+        "end_nav": 100.0,
+        "return_pct": 0.0,
+        "max_dd_pct": 0.0,
+        "calendar_weekly_ci95": {
+          "mean_weekly_pct": 0.0,
+          "ci_pct": [
+            0.0,
+            0.0
+          ],
+          "confidence_pct": 95.0,
+          "intervals": 210,
+          "block_weeks": 4,
+          "draws": 10000,
+          "seed": 412,
+          "global_selection_adjusted": false
+        },
+        "trades": 0,
+        "execution_qualified": true
+      },
+      "2024_2025": {
+        "start_nav": 100.0,
+        "end_nav": 100.0,
+        "return_pct": 0.0,
+        "max_dd_pct": 0.0,
+        "calendar_weekly_ci95": {
+          "mean_weekly_pct": 0.0,
+          "ci_pct": [
+            0.0,
+            0.0
+          ],
+          "confidence_pct": 95.0,
+          "intervals": 105,
+          "block_weeks": 4,
+          "draws": 10000,
+          "seed": 412,
+          "global_selection_adjusted": false
+        },
+        "trades": 0,
+        "execution_qualified": true
+      }
+    }
+  },
+  "scenarios": {
+    "standard_vip6": {
+      "fee_bps": 2.5,
+      "slippage_bps": 10.0
+    },
+    "stress_regular": {
+      "fee_bps": 5.0,
+      "slippage_bps": 50.0
+    }
+  },
+  "fresh_oos": false,
+  "post2025_observations": 0,
+  "goal_complete": false,
+  "live_signoff": "NOT_GRANTED",
+  "economic_protocol_sha256": "a11e15fc20e78a0e5baa47008d4415372a8f9725ba5dc996cc30b0d0446445cd",
+  "input_verification_sha256": "f5b79c0b560491ee27a3bade9e03be496c8b4f1d3f2cf0e85f2d0498d765f18b",
+  "path_manifest_sha256": "6637fc789babbec2efc38d699ab2fb75b97e70f084d31333d24dd744f8794236",
+  "funding_manifest_sha256": "1d25c4df927350bece71612f3eca017b9db3738d79878cb098a1fb3336321741"
+}

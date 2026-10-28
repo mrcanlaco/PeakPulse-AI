@@ -1,0 +1,51 @@
+{
+  "protocol_version": "research_branches_v1",
+  "created_on": "2026-10-12",
+  "purpose": "Develop three separate research branches without changing live trading or existing shadows.",
+  "branches": {
+    "v3": {
+      "question": "Can confirmation and entry allocation improve net outcomes of short-after-pump events?",
+      "first_gate": "Reconcile verified baseline, funding coverage, duplicate events and executable paired comparisons."
+    },
+    "trend": {
+      "question": "Can a market-regime trend strategy produce reproducible account-level returns?",
+      "first_gate": "Explain locked-versus-final validation discrepancy and audit decision/execution timing."
+    },
+    "flow": {
+      "question": "Does cross-sectional flow and funding contain incremental predictive value after realistic execution?",
+      "first_gate": "Audit funding timing, execution assumptions and redundant candidates before extending research."
+    }
+  },
+  "safety": {
+    "live_config_changes": false,
+    "live_orders": false,
+    "deployment": false,
+    "existing_shadow_mutation": false,
+    "automatic_promotion": false
+  },
+  "research_rules": [
+    "Preserve existing source data and dirty workspace changes; write isolated branch outputs.",
+    "Declare a bounded hypothesis and comparison before computing new outcomes.",
+    "Already inspected historical periods are exploratory, not fresh independent holdouts.",
+    "Future evaluation starts only after the exact policy, data contract and selection rule are frozen; do not relabel earlier observations as prospectively frozen.",
+    "Missing funding or price coverage must remain unknown, never zero or silently excluded.",
+    "Count independent source events separately from rows, variants and repeated observations.",
+    "Price target hits, planned-notional returns and account equity returns are different measures.",
+    "Account evaluation includes open positions, costs, capital constraints and liquidation assumptions.",
+    "Do not rank branches with different universes, dates, capital or execution assumptions as directly comparable.",
+    "Checksums prove artifact identity, not statistical independence, causal correctness or profitability."
+  ],
+  "required_next_stage_metrics": [
+    "net account return including marked open positions",
+    "maximum drawdown and liquidation events",
+    "actual fee and funding coverage",
+    "exposure, turnover and capital holding time",
+    "sensitivity to higher costs and delayed fills",
+    "contribution concentration by coin and period",
+    "independent future observation count and evaluation duration"
+  ],
+  "promotion": {
+    "enabled": false,
+    "reason": "No branch is authorized for live promotion by this research protocol. Future risk limits and acceptance thresholds must be fixed before the next independent evaluation."
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "version": "4.0.6",
+  "paper_policy": {
+    "version": "4.0.6",
+    "sizing_mode": "fixed_1x",
+    "base_notional_frac": 0.2,
+    "max_positions": 5,
+    "max_total_notional_frac": 1.0,
+    "max_total_sl_risk_frac": 0.12,
+    "cost_budget_bps": 40.0,
+    "max_signal_age_seconds": 300
+  },
+  "signal_policy": "M6B factor gate; 2/2 pivots; causal PST; no extra score gate",
+  "execution_mode": "PAPER_PROPOSALS_ONLY",
+  "fresh_oos": false,
+  "selection_reason": "Fixed sizing is the simple paper reference; both sizing policies remain reported; no claim of optimality",
+  "historical_performance_scope": "Historical continuous-size simulation, not a forecast for rounded paper or live orders"
+}

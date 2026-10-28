@@ -1,0 +1,132 @@
+{
+  "Hạng D (< 35 điểm): Sóng tăng bền vững / Nhiễu (Cấm Short)": {
+    "total_trades": 115,
+    "win_rate_pct": 49.57,
+    "tp1_hit_rate_pct": 31.3,
+    "tp2_hit_rate_pct": 20.0,
+    "tp3_hit_rate_pct": 6.96,
+    "avg_net_return_pct": 0.15,
+    "total_net_return_pct": 17.21,
+    "avg_r_multiple": -0.088,
+    "profit_factor": 1.04,
+    "max_drawdown_pct": 106.21,
+    "outcomes": {
+      "STOP_LOSS": 50,
+      "TP2_HIT": 15,
+      "TIME_EXIT": 29,
+      "TP1_HIT": 13,
+      "TP3_HIT": 8
+    }
+  },
+  "Hạng C (35 – 49 điểm): Hội tụ yếu (Đứng ngoài)": {
+    "total_trades": 173,
+    "win_rate_pct": 48.55,
+    "tp1_hit_rate_pct": 36.99,
+    "tp2_hit_rate_pct": 24.86,
+    "tp3_hit_rate_pct": 7.51,
+    "avg_net_return_pct": -1.011,
+    "total_net_return_pct": -174.88,
+    "avg_r_multiple": -0.069,
+    "profit_factor": 0.77,
+    "max_drawdown_pct": 237.31,
+    "outcomes": {
+      "STOP_LOSS": 76,
+      "TIME_EXIT": 33,
+      "TP2_HIT": 30,
+      "TP1_HIT": 21,
+      "TP3_HIT": 13
+    }
+  },
+  "Hạng B (50 – 64 điểm): Hội tụ Cơ bản (Vào 0.5R – 1.0R)": {
+    "total_trades": 150,
+    "win_rate_pct": 62.0,
+    "tp1_hit_rate_pct": 46.67,
+    "tp2_hit_rate_pct": 28.67,
+    "tp3_hit_rate_pct": 12.67,
+    "avg_net_return_pct": 2.018,
+    "total_net_return_pct": 302.77,
+    "avg_r_multiple": 0.194,
+    "profit_factor": 1.62,
+    "max_drawdown_pct": 69.09,
+    "outcomes": {
+      "TP2_HIT": 24,
+      "TIME_EXIT": 35,
+      "STOP_LOSS": 45,
+      "TP1_HIT": 27,
+      "TP3_HIT": 19
+    }
+  },
+  "★ Hạng A (65 – 79 điểm): Hội tụ Mạnh (Vào 1.0R – 1.5R)": {
+    "total_trades": 37,
+    "win_rate_pct": 70.27,
+    "tp1_hit_rate_pct": 40.54,
+    "tp2_hit_rate_pct": 29.73,
+    "tp3_hit_rate_pct": 18.92,
+    "avg_net_return_pct": 1.409,
+    "total_net_return_pct": 52.12,
+    "avg_r_multiple": 0.22,
+    "profit_factor": 1.56,
+    "max_drawdown_pct": 45.19,
+    "outcomes": {
+      "TIME_EXIT": 14,
+      "STOP_LOSS": 8,
+      "TP2_HIT": 4,
+      "TP1_HIT": 4,
+      "TP3_HIT": 7
+    }
+  },
+  "🏆 Hạng S (>= 80 điểm): Siêu Hội Tụ 4 Tầng (Vào 2.0R)": {
+    "total_trades": 5,
+    "win_rate_pct": 100.0,
+    "tp1_hit_rate_pct": 40.0,
+    "tp2_hit_rate_pct": 40.0,
+    "tp3_hit_rate_pct": 0.0,
+    "avg_net_return_pct": 7.084,
+    "total_net_return_pct": 35.42,
+    "avg_r_multiple": 0.652,
+    "profit_factor": 99.0,
+    "max_drawdown_pct": 0.0,
+    "outcomes": {
+      "TP2_HIT": 2,
+      "TIME_EXIT": 3
+    }
+  },
+  "🔥 Tổng hợp giao dịch (Hạng B + A + S: Score >= 50)": {
+    "total_trades": 192,
+    "win_rate_pct": 64.58,
+    "tp1_hit_rate_pct": 45.31,
+    "tp2_hit_rate_pct": 29.17,
+    "tp3_hit_rate_pct": 13.54,
+    "avg_net_return_pct": 2.033,
+    "total_net_return_pct": 390.31,
+    "avg_r_multiple": 0.211,
+    "profit_factor": 1.67,
+    "max_drawdown_pct": 93.57,
+    "outcomes": {
+      "TP2_HIT": 30,
+      "TIME_EXIT": 52,
+      "STOP_LOSS": 53,
+      "TP1_HIT": 31,
+      "TP3_HIT": 26
+    }
+  },
+  "⚡ Tinh hoa giao dịch (Hạng A + S: Score >= 65)": {
+    "total_trades": 42,
+    "win_rate_pct": 73.81,
+    "tp1_hit_rate_pct": 40.48,
+    "tp2_hit_rate_pct": 30.95,
+    "tp3_hit_rate_pct": 16.67,
+    "avg_net_return_pct": 2.084,
+    "total_net_return_pct": 87.54,
+    "avg_r_multiple": 0.272,
+    "profit_factor": 1.94,
+    "max_drawdown_pct": 40.12,
+    "outcomes": {
+      "TIME_EXIT": 17,
+      "STOP_LOSS": 8,
+      "TP2_HIT": 6,
+      "TP1_HIT": 4,
+      "TP3_HIT": 7
+    }
+  }
+}

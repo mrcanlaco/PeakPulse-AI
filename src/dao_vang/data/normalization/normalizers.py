@@ -21,6 +21,20 @@ from dao_vang.data.schemas import (
 from dao_vang.domain.time import system_now
 
 
+def _safe_ratio_decimal(val: Any) -> tuple[Decimal, list[str]]:
+    """Convert ratio value to a finite Decimal, protecting against Infinity/NaN."""
+    if val is None:
+        return Decimal("1.0"), ["missing_long_short_ratio"]
+    try:
+        d = Decimal(str(val))
+        if not d.is_finite():
+            clamped = Decimal("9999.0") if d > 0 else Decimal("0.0")
+            return clamped, ["infinite_long_short_ratio_clamped"]
+        return d, []
+    except Exception:
+        return Decimal("1.0"), ["invalid_long_short_ratio"]
+
+
 def normalize_kline(
     envelope: dict[str, Any], dataset_version: str = "1.0.0"
 ) -> list[NormalizedKline]:
@@ -221,12 +235,12 @@ def normalize_global_ratio(
             source_version=source_version,
             dataset_version=dataset_version,
             quality_status=QualityStatus.VALID,
-            quality_flags=[],
+            quality_flags=list(_safe_ratio_decimal(raw.long_short_ratio)[1]),
             period_start=period_start,
             period_end=period_end,
             long_account=Decimal(str(raw.long_account)),
             short_account=Decimal(str(raw.short_account)),
-            long_short_ratio=Decimal(str(raw.long_short_ratio)),
+            long_short_ratio=_safe_ratio_decimal(raw.long_short_ratio)[0],
         )
         results.append(norm)
     return results
@@ -263,12 +277,12 @@ def normalize_top_ratio(
             source_version=source_version,
             dataset_version=dataset_version,
             quality_status=QualityStatus.VALID,
-            quality_flags=[],
+            quality_flags=list(_safe_ratio_decimal(raw.long_short_ratio)[1]),
             period_start=period_start,
             period_end=period_end,
             long_account=Decimal(str(raw.long_account)),
             short_account=Decimal(str(raw.short_account)),
-            long_short_ratio=Decimal(str(raw.long_short_ratio)),
+            long_short_ratio=_safe_ratio_decimal(raw.long_short_ratio)[0],
         )
         results.append(norm)
     return results
@@ -338,12 +352,12 @@ def normalize_top_position_ratio(
             source_version=source_version,
             dataset_version=dataset_version,
             quality_status=QualityStatus.VALID,
-            quality_flags=[],
+            quality_flags=list(_safe_ratio_decimal(ratio)[1]),
             period_start=dt,
             period_end=period_end,
             long_position=Decimal(str(long_position)) if long_position is not None else None,
             short_position=Decimal(str(short_position)) if short_position is not None else None,
-            long_short_ratio=Decimal(str(ratio)),
+            long_short_ratio=_safe_ratio_decimal(ratio)[0],
         )
         results.append(norm)
     return results

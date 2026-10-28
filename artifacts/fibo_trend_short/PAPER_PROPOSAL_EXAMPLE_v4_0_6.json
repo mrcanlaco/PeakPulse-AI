@@ -1,0 +1,30 @@
+{
+  "status": "PAPER_PROPOSAL",
+  "paper_only": true,
+  "policy_version": "4.0.6",
+  "symbol": "TESTUSDT",
+  "tf": "4h",
+  "wave_key": "example-wave",
+  "decision_time": "2026-10-18T01:00:00+00:00",
+  "sizing_mode": "fixed_1x",
+  "entry_reference": "100",
+  "initial_stop": "110",
+  "quantity": "20.0",
+  "target_prices": [
+    "90",
+    "80",
+    "70"
+  ],
+  "target_quantities": [
+    "10.0",
+    "6.0",
+    "4.0"
+  ],
+  "stop_after_tp1": "100",
+  "stop_after_tp2": "90",
+  "notional_fraction": 0.2,
+  "initial_stop_risk_fraction": 0.02,
+  "cost_budget_bps": 40.0,
+  "state_commit_rule": "Consume wave and occupy slot only after confirmed simulated fill; cooldown until actual exit and at least 4h since entry",
+  "limitations": "Not an exchange order; stop gaps, actual fees/funding and partial fills require paper event accounting"
+}

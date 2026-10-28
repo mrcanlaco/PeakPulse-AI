@@ -164,3 +164,33 @@ execution_policy:
 
 updater:
   enabled: true
+
+fibo_trend_short:
+  enabled: true
+  higher_timeframes: ["4h", "1d"]
+  confirm_timeframe: "1h"
+  swing_lookback_bars: 30
+  min_prior_pump_pct: 0.05
+  min_impulse_drop_pct: 0.04
+  fibo_entry_min: 0.500
+  fibo_entry_max: 0.618
+  fibo_watch_min: 0.382
+  fibo_watch_max: 0.786
+  fibo_invalidation_level: 1.000
+  sl_mode: above_swing_high
+  sl_atr_buffer: 0.20
+  tp1_fibo_level: 0.000
+  tp2_extension_level: 1.272
+  tp3_extension_level: 1.618
+  require_both_h1_conditions: false
+  max_candidates: 40
+  horizon_hours: 72
+  telegram_enabled: true
+  telegram_require_qualified_short: true
+  telegram_allowed_policies:
+    - sniper_risk
+    - sniper_horizon24
+    - sniper_rr1_horizon24
+    - elite_sniper_risk
+  telegram_cooldown_minutes: 180
+  in_sample_end_utc: "2025-12-31T23:59:59+00:00"

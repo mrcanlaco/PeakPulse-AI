@@ -1,0 +1,2009 @@
+{
+  "item_1_1_toy": {
+    "legacy_engine": {
+      "outcome": "TP3_HIT",
+      "exit_price": 70.0,
+      "exit_time": "2025-01-01T02:00:00+00:00",
+      "hold_hours": 2,
+      "gross_pct": 17.0,
+      "net_pct": 16.9
+    },
+    "fixed_pessimistic_high": {
+      "outcome": "TP1_HIT",
+      "detailed_outcome": "TP1_THEN_SL_AT_BE",
+      "exit_price": 100.0,
+      "exit_time": "2025-01-01T01:00:00+00:00",
+      "hold_hours": 1,
+      "tp1_hit": true,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "ratcheted_sl_hit": true,
+      "time_exit_used": false,
+      "gross_pct": 5.0,
+      "net_pct": 4.9,
+      "r_mult": 0.49000000000000005
+    },
+    "fixed_close_rebound": {
+      "outcome": "TP1_HIT",
+      "detailed_outcome": "TP1_THEN_SL_AT_BE",
+      "exit_price": 100.0,
+      "exit_time": "2025-01-01T01:00:00+00:00",
+      "hold_hours": 1,
+      "tp1_hit": true,
+      "tp2_hit": false,
+      "tp3_hit": false,
+      "ratcheted_sl_hit": true,
+      "time_exit_used": false,
+      "gross_pct": 5.0,
+      "net_pct": 4.9,
+      "r_mult": 0.49000000000000005
+    }
+  },
+  "item_3_3_data_coverage": {
+    "BTCUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-01-01 00:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "ETHUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-01-01 00:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "SOLUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-09-14 07:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "BNBUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-02-10 08:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "LTCUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-01-09 08:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "BCHUSDT": {
+      "source": "1h_shared",
+      "is_start": "2020-01-01 00:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-09-29 23:00:00+00:00",
+      "oos_bars_2026": 6528
+    },
+    "1000PEPEUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2023-05-05 17:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "1000BONKUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2023-11-22 14:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "1000SHIBUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2021-05-10 18:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "AAVEUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2020-10-16 07:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "ADAUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2020-01-31 08:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "1INCHUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2020-12-25 10:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "ACEUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2023-12-18 10:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    },
+    "AKTUSDT": {
+      "source": "5m_resampled",
+      "is_start": "2024-11-18 12:00:00+00:00",
+      "is_end": "2025-12-31 23:00:00+00:00",
+      "oos_end": "2026-08-31 23:00:00+00:00",
+      "oos_bars_2026": 5832
+    }
+  },
+  "item_2_4_bfill_impact": {
+    "raw_candidates_with_bfill": 17817,
+    "raw_candidates_without_bfill": 17817,
+    "trades_or_scores_changed_by_bfill": 590
+  },
+  "item_2_2_same_bar_low_high": {
+    "m1_is_total": 1467,
+    "m1_is_same_bar_low_high_count": 4,
+    "m1_oos_total": 52,
+    "m1_oos_same_bar_low_high_count": 0
+  },
+  "milestones_recalculation": {
+    "m1_f1a_pump50": {
+      "is_2020_2025": {
+        "legacy_subset": {
+          "total_trades": 1467,
+          "win_rate_pct": 51.53,
+          "tp1_hit_rate_pct": 37.9,
+          "tp2_hit_rate_pct": 24.4,
+          "tp3_hit_rate_pct": 9.75,
+          "avg_net_return_pct": 0.114,
+          "total_net_return_pct": 166.54,
+          "avg_r_multiple": -0.009,
+          "profit_factor": 1.03,
+          "max_drawdown_pct": 815.79,
+          "outcomes": {
+            "TP1_HIT": 198,
+            "STOP_LOSS": 578,
+            "TIME_EXIT": 333,
+            "TP3_HIT": 143,
+            "TP2_HIT": 215
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 1465,
+          "win_rate_pct": 51.4,
+          "tp1_hit_rate_pct": 38.09,
+          "tp2_hit_rate_pct": 23.28,
+          "tp3_hit_rate_pct": 5.39,
+          "avg_net_return_pct": -0.148,
+          "total_net_return_pct": -217.49,
+          "avg_r_multiple": -0.037,
+          "profit_factor": 0.96,
+          "max_drawdown_pct": 877.37,
+          "outcomes": {
+            "TP1_HIT": 217,
+            "STOP_LOSS": 578,
+            "TIME_EXIT": 329,
+            "TP2_HIT": 262,
+            "TP3_HIT": 79
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 1465,
+          "win_rate_pct": 51.4,
+          "tp1_hit_rate_pct": 38.09,
+          "tp2_hit_rate_pct": 23.28,
+          "tp3_hit_rate_pct": 5.39,
+          "avg_net_return_pct": -0.148,
+          "total_net_return_pct": -217.49,
+          "avg_r_multiple": -0.037,
+          "profit_factor": 0.96,
+          "max_drawdown_pct": 877.37,
+          "outcomes": {
+            "TP1_HIT": 217,
+            "STOP_LOSS": 578,
+            "TIME_EXIT": 329,
+            "TP2_HIT": 262,
+            "TP3_HIT": 79
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 1465,
+          "win_rate_pct": 51.4,
+          "tp1_hit_rate_pct": 38.09,
+          "tp2_hit_rate_pct": 24.51,
+          "tp3_hit_rate_pct": 9.76,
+          "avg_net_return_pct": -0.018,
+          "total_net_return_pct": -27.04,
+          "avg_r_multiple": -0.021,
+          "profit_factor": 1.0,
+          "max_drawdown_pct": 844.49,
+          "outcomes": {
+            "TP1_HIT": 199,
+            "STOP_LOSS": 578,
+            "TIME_EXIT": 329,
+            "TP3_HIT": 143,
+            "TP2_HIT": 216
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP1_THEN_TIME_EXIT": 72,
+          "INITIAL_STOP_LOSS": 578,
+          "NO_TP_TIME_EXIT": 329,
+          "TP1_THEN_SL_AT_BE": 145,
+          "TP2_THEN_SL_AT_TP1": 240,
+          "TP3_FULL": 79,
+          "TP2_THEN_TIME_EXIT": 22
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 3.92,
+          "entry_sampled_p95": 9.0,
+          "max_concurrent": 16,
+          "time_weighted_avg_all_hours": 1.628,
+          "time_weighted_p95_all_hours": 6.0,
+          "time_weighted_avg_active_hours": 2.69,
+          "time_weighted_p95_active_hours": 7.0,
+          "active_hours_pct": 60.46,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 1262,
+            "skipped_due_to_cap": 203,
+            "additive_nav_total_return_pct": -22.3,
+            "additive_nav_max_dd_pct_pts": 148.23,
+            "additive_nav_max_dd_rel_pct": 124.24,
+            "compounded_nav_total_return_pct": -55.68,
+            "compounded_nav_max_dd_rel_pct": 81.5
+          }
+        }
+      },
+      "oos_2026": {
+        "legacy_subset": {
+          "total_trades": 52,
+          "win_rate_pct": 65.38,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 36.54,
+          "tp3_hit_rate_pct": 5.77,
+          "avg_net_return_pct": 1.827,
+          "total_net_return_pct": 94.99,
+          "avg_r_multiple": 0.238,
+          "profit_factor": 1.51,
+          "max_drawdown_pct": 100.56,
+          "outcomes": {
+            "TP2_HIT": 16,
+            "TIME_EXIT": 11,
+            "STOP_LOSS": 15,
+            "TP1_HIT": 7,
+            "TP3_HIT": 3
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 52,
+          "win_rate_pct": 65.38,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 32.69,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 1.475,
+          "total_net_return_pct": 76.68,
+          "avg_r_multiple": 0.193,
+          "profit_factor": 1.41,
+          "max_drawdown_pct": 101.66,
+          "outcomes": {
+            "TP2_HIT": 17,
+            "TIME_EXIT": 11,
+            "STOP_LOSS": 15,
+            "TP1_HIT": 9
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 52,
+          "win_rate_pct": 65.38,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 32.69,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 1.475,
+          "total_net_return_pct": 76.68,
+          "avg_r_multiple": 0.193,
+          "profit_factor": 1.41,
+          "max_drawdown_pct": 101.66,
+          "outcomes": {
+            "TP2_HIT": 17,
+            "TIME_EXIT": 11,
+            "STOP_LOSS": 15,
+            "TP1_HIT": 9
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 52,
+          "win_rate_pct": 65.38,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 36.54,
+          "tp3_hit_rate_pct": 3.85,
+          "avg_net_return_pct": 1.681,
+          "total_net_return_pct": 87.42,
+          "avg_r_multiple": 0.222,
+          "profit_factor": 1.47,
+          "max_drawdown_pct": 101.66,
+          "outcomes": {
+            "TP2_HIT": 17,
+            "TIME_EXIT": 11,
+            "STOP_LOSS": 15,
+            "TP1_HIT": 7,
+            "TP3_HIT": 2
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP2_THEN_SL_AT_TP1": 12,
+          "NO_TP_TIME_EXIT": 11,
+          "INITIAL_STOP_LOSS": 15,
+          "TP1_THEN_SL_AT_BE": 5,
+          "TP1_THEN_TIME_EXIT": 4,
+          "TP2_THEN_TIME_EXIT": 5
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 2.38,
+          "entry_sampled_p95": 6.0,
+          "max_concurrent": 7,
+          "time_weighted_avg_all_hours": 0.497,
+          "time_weighted_p95_all_hours": 2.0,
+          "time_weighted_avg_active_hours": 1.48,
+          "time_weighted_p95_active_hours": 3.0,
+          "active_hours_pct": 33.62,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 47,
+            "skipped_due_to_cap": 5,
+            "additive_nav_total_return_pct": 11.52,
+            "additive_nav_max_dd_pct_pts": 24.04,
+            "additive_nav_max_dd_rel_pct": 19.82,
+            "compounded_nav_total_return_pct": 10.22,
+            "compounded_nav_max_dd_rel_pct": 21.91
+          }
+        }
+      },
+      "stress_2020_2023_vs_calib_2024_2025": {
+        "legacy_2020_2023_20bps": {
+          "n": 971,
+          "wr": 49.23,
+          "pf": 0.95,
+          "tot_net": -200.87,
+          "be_bps": -0.7
+        },
+        "legacy_2020_2023_40bps": {
+          "n": 971,
+          "wr": 49.12,
+          "pf": 0.91,
+          "tot_net": -395.07,
+          "be_bps": -0.7
+        },
+        "legacy_2024_2025_20bps": {
+          "n": 496,
+          "wr": 55.85,
+          "pf": 1.12,
+          "tot_net": 220.71,
+          "be_bps": 64.5
+        },
+        "legacy_2024_2025_40bps": {
+          "n": 496,
+          "wr": 55.24,
+          "pf": 1.06,
+          "tot_net": 121.51,
+          "be_bps": 64.5
+        },
+        "standalone_fixed_2020_2023_20bps": {
+          "n": 969,
+          "wr": 49.12,
+          "pf": 0.91,
+          "tot_net": -379.77,
+          "be_bps": -19.2
+        },
+        "standalone_fixed_2020_2023_40bps": {
+          "n": 969,
+          "wr": 49.02,
+          "pf": 0.87,
+          "tot_net": -573.57,
+          "be_bps": -19.2
+        },
+        "standalone_fixed_2024_2025_20bps": {
+          "n": 496,
+          "wr": 55.85,
+          "pf": 1.09,
+          "tot_net": 162.28,
+          "be_bps": 52.7
+        },
+        "standalone_fixed_2024_2025_40bps": {
+          "n": 496,
+          "wr": 55.24,
+          "pf": 1.03,
+          "tot_net": 63.08,
+          "be_bps": 52.7
+        },
+        "by_year_40bps_legacy": {
+          "2020": {
+            "n": 175,
+            "wr": 46.29,
+            "pf": 0.72,
+            "tot_net": -199.97,
+            "be_bps": -74.3
+          },
+          "2021": {
+            "n": 561,
+            "wr": 47.42,
+            "pf": 0.9,
+            "tot_net": -289.34,
+            "be_bps": -11.6
+          },
+          "2022": {
+            "n": 106,
+            "wr": 59.43,
+            "pf": 1.46,
+            "tot_net": 150.73,
+            "be_bps": 182.2
+          },
+          "2023": {
+            "n": 129,
+            "wr": 51.94,
+            "pf": 0.88,
+            "tot_net": -56.5,
+            "be_bps": -3.8
+          },
+          "2024": {
+            "n": 300,
+            "wr": 53.67,
+            "pf": 0.9,
+            "tot_net": -125.03,
+            "be_bps": -1.7
+          },
+          "2025": {
+            "n": 196,
+            "wr": 57.65,
+            "pf": 1.42,
+            "tot_net": 246.54,
+            "be_bps": 165.8
+          },
+          "2026_oos": {
+            "n": 52,
+            "wr": 63.46,
+            "pf": 1.42,
+            "tot_net": 79.39,
+            "be_bps": 192.7
+          }
+        },
+        "by_year_40bps_standalone_fixed": {
+          "2020": {
+            "n": 175,
+            "wr": 46.29,
+            "pf": 0.68,
+            "tot_net": -225.0,
+            "be_bps": -88.6
+          },
+          "2021": {
+            "n": 559,
+            "wr": 47.23,
+            "pf": 0.85,
+            "tot_net": -413.07,
+            "be_bps": -33.9
+          },
+          "2022": {
+            "n": 106,
+            "wr": 59.43,
+            "pf": 1.44,
+            "tot_net": 143.58,
+            "be_bps": 175.5
+          },
+          "2023": {
+            "n": 129,
+            "wr": 51.94,
+            "pf": 0.83,
+            "tot_net": -79.09,
+            "be_bps": -21.3
+          },
+          "2024": {
+            "n": 300,
+            "wr": 53.67,
+            "pf": 0.87,
+            "tot_net": -170.1,
+            "be_bps": -16.7
+          },
+          "2025": {
+            "n": 196,
+            "wr": 57.65,
+            "pf": 1.4,
+            "tot_net": 233.18,
+            "be_bps": 159.0
+          },
+          "2026_oos": {
+            "n": 52,
+            "wr": 63.46,
+            "pf": 1.35,
+            "tot_net": 66.27,
+            "be_bps": 167.5
+          }
+        }
+      }
+    },
+    "m4_f2_elite": {
+      "is_2020_2025": {
+        "legacy_subset": {
+          "total_trades": 299,
+          "win_rate_pct": 61.54,
+          "tp1_hit_rate_pct": 42.81,
+          "tp2_hit_rate_pct": 26.42,
+          "tp3_hit_rate_pct": 9.7,
+          "avg_net_return_pct": 1.528,
+          "total_net_return_pct": 456.78,
+          "avg_r_multiple": 0.146,
+          "profit_factor": 1.46,
+          "max_drawdown_pct": 147.61,
+          "outcomes": {
+            "TIME_EXIT": 84,
+            "STOP_LOSS": 87,
+            "TP2_HIT": 50,
+            "TP1_HIT": 49,
+            "TP3_HIT": 29
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 317,
+          "win_rate_pct": 59.94,
+          "tp1_hit_rate_pct": 42.9,
+          "tp2_hit_rate_pct": 24.92,
+          "tp3_hit_rate_pct": 5.68,
+          "avg_net_return_pct": 1.067,
+          "total_net_return_pct": 338.1,
+          "avg_r_multiple": 0.109,
+          "profit_factor": 1.31,
+          "max_drawdown_pct": 172.5,
+          "outcomes": {
+            "TIME_EXIT": 84,
+            "STOP_LOSS": 97,
+            "TP2_HIT": 61,
+            "TP1_HIT": 57,
+            "TP3_HIT": 18
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 378,
+          "win_rate_pct": 59.52,
+          "tp1_hit_rate_pct": 44.44,
+          "tp2_hit_rate_pct": 25.93,
+          "tp3_hit_rate_pct": 6.61,
+          "avg_net_return_pct": 1.044,
+          "total_net_return_pct": 394.54,
+          "avg_r_multiple": 0.098,
+          "profit_factor": 1.3,
+          "max_drawdown_pct": 161.35,
+          "outcomes": {
+            "TP2_HIT": 73,
+            "TP1_HIT": 70,
+            "STOP_LOSS": 118,
+            "TIME_EXIT": 92,
+            "TP3_HIT": 25
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 378,
+          "win_rate_pct": 59.52,
+          "tp1_hit_rate_pct": 44.44,
+          "tp2_hit_rate_pct": 28.04,
+          "tp3_hit_rate_pct": 11.38,
+          "avg_net_return_pct": 1.194,
+          "total_net_return_pct": 451.48,
+          "avg_r_multiple": 0.119,
+          "profit_factor": 1.34,
+          "max_drawdown_pct": 153.79,
+          "outcomes": {
+            "TP2_HIT": 63,
+            "TP1_HIT": 62,
+            "STOP_LOSS": 118,
+            "TIME_EXIT": 92,
+            "TP3_HIT": 43
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP2_THEN_SL_AT_TP1": 65,
+          "TP1_THEN_SL_AT_BE": 44,
+          "INITIAL_STOP_LOSS": 118,
+          "NO_TP_TIME_EXIT": 92,
+          "TP3_FULL": 25,
+          "TP1_THEN_TIME_EXIT": 26,
+          "TP2_THEN_TIME_EXIT": 8
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 2.01,
+          "entry_sampled_p95": 5.0,
+          "max_concurrent": 8,
+          "time_weighted_avg_all_hours": 0.443,
+          "time_weighted_p95_all_hours": 2.0,
+          "time_weighted_avg_active_hours": 1.59,
+          "time_weighted_p95_active_hours": 4.0,
+          "active_hours_pct": 27.83,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 368,
+            "skipped_due_to_cap": 10,
+            "additive_nav_total_return_pct": 66.72,
+            "additive_nav_max_dd_pct_pts": 34.48,
+            "additive_nav_max_dd_rel_pct": 31.59,
+            "compounded_nav_total_return_pct": 67.42,
+            "compounded_nav_max_dd_rel_pct": 32.54
+          }
+        }
+      },
+      "oos_2026": {
+        "legacy_subset": {
+          "total_trades": 15,
+          "win_rate_pct": 73.33,
+          "tp1_hit_rate_pct": 53.33,
+          "tp2_hit_rate_pct": 46.67,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.169,
+          "total_net_return_pct": 77.53,
+          "avg_r_multiple": 0.482,
+          "profit_factor": 4.55,
+          "max_drawdown_pct": 10.85,
+          "outcomes": {
+            "TIME_EXIT": 5,
+            "TP2_HIT": 7,
+            "STOP_LOSS": 2,
+            "TP1_HIT": 1
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 15,
+          "win_rate_pct": 73.33,
+          "tp1_hit_rate_pct": 53.33,
+          "tp2_hit_rate_pct": 46.67,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.069,
+          "total_net_return_pct": 76.03,
+          "avg_r_multiple": 0.469,
+          "profit_factor": 4.42,
+          "max_drawdown_pct": 11.05,
+          "outcomes": {
+            "TIME_EXIT": 5,
+            "TP2_HIT": 7,
+            "STOP_LOSS": 2,
+            "TP1_HIT": 1
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 16,
+          "win_rate_pct": 68.75,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 43.75,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 4.364,
+          "total_net_return_pct": 69.83,
+          "avg_r_multiple": 0.375,
+          "profit_factor": 3.46,
+          "max_drawdown_pct": 11.05,
+          "outcomes": {
+            "TIME_EXIT": 5,
+            "STOP_LOSS": 3,
+            "TP2_HIT": 7,
+            "TP1_HIT": 1
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 16,
+          "win_rate_pct": 68.75,
+          "tp1_hit_rate_pct": 50.0,
+          "tp2_hit_rate_pct": 43.75,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 4.364,
+          "total_net_return_pct": 69.83,
+          "avg_r_multiple": 0.375,
+          "profit_factor": 3.46,
+          "max_drawdown_pct": 11.05,
+          "outcomes": {
+            "TIME_EXIT": 5,
+            "STOP_LOSS": 3,
+            "TP2_HIT": 7,
+            "TP1_HIT": 1
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "NO_TP_TIME_EXIT": 5,
+          "INITIAL_STOP_LOSS": 3,
+          "TP2_THEN_SL_AT_TP1": 5,
+          "TP2_THEN_TIME_EXIT": 2,
+          "TP1_THEN_TIME_EXIT": 1
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 1.12,
+          "entry_sampled_p95": 2.0,
+          "max_concurrent": 2,
+          "time_weighted_avg_all_hours": 0.186,
+          "time_weighted_p95_all_hours": 1.0,
+          "time_weighted_avg_active_hours": 1.06,
+          "time_weighted_p95_active_hours": 2.0,
+          "active_hours_pct": 17.63,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 16,
+            "skipped_due_to_cap": 0,
+            "additive_nav_total_return_pct": 13.97,
+            "additive_nav_max_dd_pct_pts": 3.71,
+            "additive_nav_max_dd_rel_pct": 3.25,
+            "compounded_nav_total_return_pct": 14.73,
+            "compounded_nav_max_dd_rel_pct": 3.68
+          }
+        }
+      },
+      "stress_2020_2023_vs_calib_2024_2025": {
+        "legacy_2020_2023_20bps": {
+          "n": 198,
+          "wr": 56.06,
+          "pf": 1.16,
+          "tot_net": 124.14,
+          "be_bps": 82.7
+        },
+        "legacy_2020_2023_40bps": {
+          "n": 198,
+          "wr": 56.06,
+          "pf": 1.1,
+          "tot_net": 84.54,
+          "be_bps": 82.7
+        },
+        "legacy_2024_2025_20bps": {
+          "n": 101,
+          "wr": 72.28,
+          "pf": 2.52,
+          "tot_net": 302.74,
+          "be_bps": 319.7
+        },
+        "legacy_2024_2025_40bps": {
+          "n": 101,
+          "wr": 70.3,
+          "pf": 2.38,
+          "tot_net": 282.54,
+          "be_bps": 319.7
+        },
+        "standalone_fixed_2020_2023_20bps": {
+          "n": 265,
+          "wr": 56.23,
+          "pf": 1.13,
+          "tot_net": 140.45,
+          "be_bps": 73.0
+        },
+        "standalone_fixed_2020_2023_40bps": {
+          "n": 265,
+          "wr": 56.23,
+          "pf": 1.08,
+          "tot_net": 87.45,
+          "be_bps": 73.0
+        },
+        "standalone_fixed_2024_2025_20bps": {
+          "n": 113,
+          "wr": 67.26,
+          "pf": 1.91,
+          "tot_net": 254.09,
+          "be_bps": 244.9
+        },
+        "standalone_fixed_2024_2025_40bps": {
+          "n": 113,
+          "wr": 65.49,
+          "pf": 1.81,
+          "tot_net": 231.49,
+          "be_bps": 244.9
+        },
+        "by_year_40bps_legacy": {
+          "2020": {
+            "n": 45,
+            "wr": 60.0,
+            "pf": 1.22,
+            "tot_net": 30.87,
+            "be_bps": 108.6
+          },
+          "2021": {
+            "n": 95,
+            "wr": 52.63,
+            "pf": 1.01,
+            "tot_net": 6.89,
+            "be_bps": 47.3
+          },
+          "2022": {
+            "n": 38,
+            "wr": 57.89,
+            "pf": 1.41,
+            "tot_net": 47.45,
+            "be_bps": 164.9
+          },
+          "2023": {
+            "n": 20,
+            "wr": 60.0,
+            "pf": 0.99,
+            "tot_net": -0.67,
+            "be_bps": 36.7
+          },
+          "2024": {
+            "n": 54,
+            "wr": 74.07,
+            "pf": 2.79,
+            "tot_net": 183.41,
+            "be_bps": 379.6
+          },
+          "2025": {
+            "n": 47,
+            "wr": 65.96,
+            "pf": 1.97,
+            "tot_net": 99.13,
+            "be_bps": 250.9
+          },
+          "2026_oos": {
+            "n": 15,
+            "wr": 66.67,
+            "pf": 4.16,
+            "tot_net": 73.03,
+            "be_bps": 526.9
+          }
+        },
+        "by_year_40bps_standalone_fixed": {
+          "2020": {
+            "n": 66,
+            "wr": 54.55,
+            "pf": 0.99,
+            "tot_net": -2.99,
+            "be_bps": 35.5
+          },
+          "2021": {
+            "n": 132,
+            "wr": 56.06,
+            "pf": 1.06,
+            "tot_net": 38.44,
+            "be_bps": 69.1
+          },
+          "2022": {
+            "n": 41,
+            "wr": 53.66,
+            "pf": 1.22,
+            "tot_net": 28.78,
+            "be_bps": 110.2
+          },
+          "2023": {
+            "n": 26,
+            "wr": 65.38,
+            "pf": 1.37,
+            "tot_net": 23.22,
+            "be_bps": 129.3
+          },
+          "2024": {
+            "n": 64,
+            "wr": 67.19,
+            "pf": 1.88,
+            "tot_net": 148.0,
+            "be_bps": 271.2
+          },
+          "2025": {
+            "n": 49,
+            "wr": 63.27,
+            "pf": 1.71,
+            "tot_net": 83.49,
+            "be_bps": 210.4
+          },
+          "2026_oos": {
+            "n": 16,
+            "wr": 62.5,
+            "pf": 3.26,
+            "tot_net": 66.63,
+            "be_bps": 456.4
+          }
+        }
+      }
+    },
+    "m6_f4_expanded": {
+      "is_2020_2025": {
+        "legacy_subset": {
+          "total_trades": 443,
+          "win_rate_pct": 54.18,
+          "tp1_hit_rate_pct": 40.63,
+          "tp2_hit_rate_pct": 26.19,
+          "tp3_hit_rate_pct": 8.13,
+          "avg_net_return_pct": 1.169,
+          "total_net_return_pct": 517.95,
+          "avg_r_multiple": 0.139,
+          "profit_factor": 1.32,
+          "max_drawdown_pct": 226.98,
+          "outcomes": {
+            "TIME_EXIT": 87,
+            "STOP_LOSS": 176,
+            "TP2_HIT": 80,
+            "TP1_HIT": 64,
+            "TP3_HIT": 36
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 452,
+          "win_rate_pct": 53.76,
+          "tp1_hit_rate_pct": 41.15,
+          "tp2_hit_rate_pct": 25.0,
+          "tp3_hit_rate_pct": 5.09,
+          "avg_net_return_pct": 1.009,
+          "total_net_return_pct": 456.16,
+          "avg_r_multiple": 0.129,
+          "profit_factor": 1.28,
+          "max_drawdown_pct": 257.88,
+          "outcomes": {
+            "TIME_EXIT": 85,
+            "STOP_LOSS": 181,
+            "TP2_HIT": 90,
+            "TP1_HIT": 73,
+            "TP3_HIT": 23
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 504,
+          "win_rate_pct": 54.37,
+          "tp1_hit_rate_pct": 42.66,
+          "tp2_hit_rate_pct": 25.79,
+          "tp3_hit_rate_pct": 5.36,
+          "avg_net_return_pct": 1.254,
+          "total_net_return_pct": 632.09,
+          "avg_r_multiple": 0.138,
+          "profit_factor": 1.36,
+          "max_drawdown_pct": 224.11,
+          "outcomes": {
+            "TP2_HIT": 103,
+            "TP1_HIT": 85,
+            "STOP_LOSS": 199,
+            "TIME_EXIT": 90,
+            "TP3_HIT": 27
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 504,
+          "win_rate_pct": 54.37,
+          "tp1_hit_rate_pct": 42.66,
+          "tp2_hit_rate_pct": 28.17,
+          "tp3_hit_rate_pct": 9.13,
+          "avg_net_return_pct": 1.413,
+          "total_net_return_pct": 712.16,
+          "avg_r_multiple": 0.163,
+          "profit_factor": 1.41,
+          "max_drawdown_pct": 209.82,
+          "outcomes": {
+            "TP2_HIT": 96,
+            "TP1_HIT": 73,
+            "STOP_LOSS": 199,
+            "TIME_EXIT": 90,
+            "TP3_HIT": 46
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP2_THEN_SL_AT_TP1": 93,
+          "TP1_THEN_SL_AT_BE": 59,
+          "INITIAL_STOP_LOSS": 199,
+          "NO_TP_TIME_EXIT": 90,
+          "TP3_FULL": 27,
+          "TP1_THEN_TIME_EXIT": 26,
+          "TP2_THEN_TIME_EXIT": 10
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 2.12,
+          "entry_sampled_p95": 5.0,
+          "max_concurrent": 8,
+          "time_weighted_avg_all_hours": 0.505,
+          "time_weighted_p95_all_hours": 3.0,
+          "time_weighted_avg_active_hours": 1.7,
+          "time_weighted_p95_active_hours": 4.0,
+          "active_hours_pct": 29.68,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 491,
+            "skipped_due_to_cap": 13,
+            "additive_nav_total_return_pct": 110.2,
+            "additive_nav_max_dd_pct_pts": 49.73,
+            "additive_nav_max_dd_rel_pct": 46.73,
+            "compounded_nav_total_return_pct": 133.37,
+            "compounded_nav_max_dd_rel_pct": 43.26
+          }
+        }
+      },
+      "oos_2026": {
+        "legacy_subset": {
+          "total_trades": 25,
+          "win_rate_pct": 76.0,
+          "tp1_hit_rate_pct": 56.0,
+          "tp2_hit_rate_pct": 48.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.078,
+          "total_net_return_pct": 126.96,
+          "avg_r_multiple": 0.672,
+          "profit_factor": 4.76,
+          "max_drawdown_pct": 12.12,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 2,
+            "STOP_LOSS": 5
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 25,
+          "win_rate_pct": 76.0,
+          "tp1_hit_rate_pct": 56.0,
+          "tp2_hit_rate_pct": 48.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.033,
+          "total_net_return_pct": 125.83,
+          "avg_r_multiple": 0.664,
+          "profit_factor": 4.73,
+          "max_drawdown_pct": 12.12,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 2,
+            "STOP_LOSS": 5
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 25,
+          "win_rate_pct": 76.0,
+          "tp1_hit_rate_pct": 56.0,
+          "tp2_hit_rate_pct": 48.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.033,
+          "total_net_return_pct": 125.83,
+          "avg_r_multiple": 0.664,
+          "profit_factor": 4.73,
+          "max_drawdown_pct": 12.12,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 2,
+            "STOP_LOSS": 5
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 25,
+          "win_rate_pct": 76.0,
+          "tp1_hit_rate_pct": 56.0,
+          "tp2_hit_rate_pct": 48.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.078,
+          "total_net_return_pct": 126.96,
+          "avg_r_multiple": 0.672,
+          "profit_factor": 4.76,
+          "max_drawdown_pct": 12.12,
+          "outcomes": {
+            "TP2_HIT": 12,
+            "TIME_EXIT": 6,
+            "TP1_HIT": 2,
+            "STOP_LOSS": 5
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP2_THEN_SL_AT_TP1": 8,
+          "NO_TP_TIME_EXIT": 6,
+          "TP1_THEN_SL_AT_BE": 1,
+          "INITIAL_STOP_LOSS": 5,
+          "TP2_THEN_TIME_EXIT": 4,
+          "TP1_THEN_TIME_EXIT": 1
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 1.6,
+          "entry_sampled_p95": 3.0,
+          "max_concurrent": 3,
+          "time_weighted_avg_all_hours": 0.281,
+          "time_weighted_p95_all_hours": 2.0,
+          "time_weighted_avg_active_hours": 1.27,
+          "time_weighted_p95_active_hours": 2.0,
+          "active_hours_pct": 22.01,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 25,
+            "skipped_due_to_cap": 0,
+            "additive_nav_total_return_pct": 25.17,
+            "additive_nav_max_dd_pct_pts": 3.4,
+            "additive_nav_max_dd_rel_pct": 2.88,
+            "compounded_nav_total_return_pct": 28.03,
+            "compounded_nav_max_dd_rel_pct": 3.35
+          }
+        }
+      },
+      "stress_2020_2023_vs_calib_2024_2025": {
+        "legacy_2020_2023_20bps": {
+          "n": 295,
+          "wr": 48.14,
+          "pf": 1.03,
+          "tot_net": 42.0,
+          "be_bps": 33.2
+        },
+        "legacy_2020_2023_40bps": {
+          "n": 295,
+          "wr": 48.14,
+          "pf": 0.98,
+          "tot_net": -21.44,
+          "be_bps": 33.2
+        },
+        "legacy_2024_2025_20bps": {
+          "n": 148,
+          "wr": 66.22,
+          "pf": 2.44,
+          "tot_net": 475.95,
+          "be_bps": 312.9
+        },
+        "legacy_2024_2025_40bps": {
+          "n": 148,
+          "wr": 65.54,
+          "pf": 2.3,
+          "tot_net": 443.45,
+          "be_bps": 312.9
+        },
+        "standalone_fixed_2020_2023_20bps": {
+          "n": 346,
+          "wr": 50.0,
+          "pf": 1.15,
+          "tot_net": 204.75,
+          "be_bps": 74.0
+        },
+        "standalone_fixed_2020_2023_40bps": {
+          "n": 346,
+          "wr": 50.0,
+          "pf": 1.09,
+          "tot_net": 128.95,
+          "be_bps": 74.0
+        },
+        "standalone_fixed_2024_2025_20bps": {
+          "n": 158,
+          "wr": 63.92,
+          "pf": 2.12,
+          "tot_net": 427.34,
+          "be_bps": 268.6
+        },
+        "standalone_fixed_2024_2025_40bps": {
+          "n": 158,
+          "wr": 63.29,
+          "pf": 2.0,
+          "tot_net": 392.96,
+          "be_bps": 268.6
+        },
+        "by_year_40bps_legacy": {
+          "2020": {
+            "n": 54,
+            "wr": 50.0,
+            "pf": 0.81,
+            "tot_net": -40.74,
+            "be_bps": -29.9
+          },
+          "2021": {
+            "n": 158,
+            "wr": 43.67,
+            "pf": 0.93,
+            "tot_net": -56.47,
+            "be_bps": 7.8
+          },
+          "2022": {
+            "n": 44,
+            "wr": 61.36,
+            "pf": 1.81,
+            "tot_net": 93.93,
+            "be_bps": 247.1
+          },
+          "2023": {
+            "n": 39,
+            "wr": 48.72,
+            "pf": 0.85,
+            "tot_net": -18.15,
+            "be_bps": -7.5
+          },
+          "2024": {
+            "n": 87,
+            "wr": 65.52,
+            "pf": 2.19,
+            "tot_net": 261.33,
+            "be_bps": 319.8
+          },
+          "2025": {
+            "n": 61,
+            "wr": 65.57,
+            "pf": 2.52,
+            "tot_net": 182.12,
+            "be_bps": 303.6
+          },
+          "2026_oos": {
+            "n": 25,
+            "wr": 72.0,
+            "pf": 4.48,
+            "tot_net": 121.84,
+            "be_bps": 515.9
+          }
+        },
+        "by_year_40bps_standalone_fixed": {
+          "2020": {
+            "n": 70,
+            "wr": 48.57,
+            "pf": 0.82,
+            "tot_net": -49.46,
+            "be_bps": -23.9
+          },
+          "2021": {
+            "n": 184,
+            "wr": 47.83,
+            "pf": 1.1,
+            "tot_net": 84.38,
+            "be_bps": 80.6
+          },
+          "2022": {
+            "n": 47,
+            "wr": 57.45,
+            "pf": 1.58,
+            "tot_net": 75.75,
+            "be_bps": 195.2
+          },
+          "2023": {
+            "n": 45,
+            "wr": 53.33,
+            "pf": 1.14,
+            "tot_net": 18.29,
+            "be_bps": 80.5
+          },
+          "2024": {
+            "n": 95,
+            "wr": 63.16,
+            "pf": 1.86,
+            "tot_net": 223.58,
+            "be_bps": 261.7
+          },
+          "2025": {
+            "n": 63,
+            "wr": 63.49,
+            "pf": 2.28,
+            "tot_net": 169.38,
+            "be_bps": 278.4
+          },
+          "2026_oos": {
+            "n": 25,
+            "wr": 72.0,
+            "pf": 4.44,
+            "tot_net": 120.71,
+            "be_bps": 511.5
+          }
+        }
+      }
+    },
+    "m6_f4_sniper": {
+      "is_2020_2025": {
+        "legacy_subset": {
+          "total_trades": 250,
+          "win_rate_pct": 60.4,
+          "tp1_hit_rate_pct": 44.4,
+          "tp2_hit_rate_pct": 27.6,
+          "tp3_hit_rate_pct": 7.6,
+          "avg_net_return_pct": 1.491,
+          "total_net_return_pct": 372.74,
+          "avg_r_multiple": 0.142,
+          "profit_factor": 1.39,
+          "max_drawdown_pct": 164.61,
+          "outcomes": {
+            "TIME_EXIT": 60,
+            "TP2_HIT": 50,
+            "TP1_HIT": 42,
+            "TP3_HIT": 19,
+            "STOP_LOSS": 79
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 251,
+          "win_rate_pct": 60.16,
+          "tp1_hit_rate_pct": 45.42,
+          "tp2_hit_rate_pct": 26.69,
+          "tp3_hit_rate_pct": 5.98,
+          "avg_net_return_pct": 1.274,
+          "total_net_return_pct": 319.71,
+          "avg_r_multiple": 0.142,
+          "profit_factor": 1.33,
+          "max_drawdown_pct": 184.69,
+          "outcomes": {
+            "TIME_EXIT": 57,
+            "TP2_HIT": 52,
+            "TP1_HIT": 47,
+            "TP3_HIT": 15,
+            "STOP_LOSS": 80
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 401,
+          "win_rate_pct": 58.35,
+          "tp1_hit_rate_pct": 44.39,
+          "tp2_hit_rate_pct": 26.18,
+          "tp3_hit_rate_pct": 6.48,
+          "avg_net_return_pct": 1.253,
+          "total_net_return_pct": 502.45,
+          "avg_r_multiple": 0.139,
+          "profit_factor": 1.31,
+          "max_drawdown_pct": 310.03,
+          "outcomes": {
+            "TP1_HIT": 73,
+            "TIME_EXIT": 84,
+            "STOP_LOSS": 139,
+            "TP2_HIT": 79,
+            "TP3_HIT": 26
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 400,
+          "win_rate_pct": 58.5,
+          "tp1_hit_rate_pct": 44.5,
+          "tp2_hit_rate_pct": 28.0,
+          "tp3_hit_rate_pct": 9.75,
+          "avg_net_return_pct": 1.421,
+          "total_net_return_pct": 568.36,
+          "avg_r_multiple": 0.164,
+          "profit_factor": 1.36,
+          "max_drawdown_pct": 285.81,
+          "outcomes": {
+            "TP1_HIT": 66,
+            "TIME_EXIT": 84,
+            "STOP_LOSS": 138,
+            "TP2_HIT": 73,
+            "TP3_HIT": 39
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP1_THEN_SL_AT_BE": 46,
+          "NO_TP_TIME_EXIT": 84,
+          "INITIAL_STOP_LOSS": 139,
+          "TP2_THEN_SL_AT_TP1": 70,
+          "TP3_FULL": 26,
+          "TP1_THEN_TIME_EXIT": 27,
+          "TP2_THEN_TIME_EXIT": 9
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 2.05,
+          "entry_sampled_p95": 5.0,
+          "max_concurrent": 6,
+          "time_weighted_avg_all_hours": 0.46,
+          "time_weighted_p95_all_hours": 2.0,
+          "time_weighted_avg_active_hours": 1.66,
+          "time_weighted_p95_active_hours": 4.0,
+          "active_hours_pct": 27.76,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 393,
+            "skipped_due_to_cap": 8,
+            "additive_nav_total_return_pct": 93.86,
+            "additive_nav_max_dd_pct_pts": 68.29,
+            "additive_nav_max_dd_rel_pct": 65.29,
+            "compounded_nav_total_return_pct": 100.55,
+            "compounded_nav_max_dd_rel_pct": 52.77
+          }
+        }
+      },
+      "oos_2026": {
+        "legacy_subset": {
+          "total_trades": 15,
+          "win_rate_pct": 80.0,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 60.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.734,
+          "total_net_return_pct": 86.02,
+          "avg_r_multiple": 0.655,
+          "profit_factor": 4.68,
+          "max_drawdown_pct": 8.42,
+          "outcomes": {
+            "TP2_HIT": 9,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 3,
+            "TIME_EXIT": 2
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 15,
+          "win_rate_pct": 80.0,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 60.0,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.659,
+          "total_net_return_pct": 84.88,
+          "avg_r_multiple": 0.642,
+          "profit_factor": 4.64,
+          "max_drawdown_pct": 8.42,
+          "outcomes": {
+            "TP2_HIT": 9,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 3,
+            "TIME_EXIT": 2
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 21,
+          "win_rate_pct": 80.95,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 61.9,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.682,
+          "total_net_return_pct": 119.32,
+          "avg_r_multiple": 0.783,
+          "profit_factor": 4.81,
+          "max_drawdown_pct": 16.38,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "TIME_EXIT": 4,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 3
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 21,
+          "win_rate_pct": 80.95,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 61.9,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.766,
+          "total_net_return_pct": 121.09,
+          "avg_r_multiple": 0.798,
+          "profit_factor": 4.87,
+          "max_drawdown_pct": 16.38,
+          "outcomes": {
+            "TP2_HIT": 13,
+            "TIME_EXIT": 4,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 3
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP2_THEN_SL_AT_TP1": 9,
+          "NO_TP_TIME_EXIT": 4,
+          "TP2_THEN_TIME_EXIT": 4,
+          "TP1_THEN_TIME_EXIT": 1,
+          "INITIAL_STOP_LOSS": 3
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 1.52,
+          "entry_sampled_p95": 3.0,
+          "max_concurrent": 3,
+          "time_weighted_avg_all_hours": 0.246,
+          "time_weighted_p95_all_hours": 1.0,
+          "time_weighted_avg_active_hours": 1.26,
+          "time_weighted_p95_active_hours": 2.0,
+          "active_hours_pct": 19.5,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 21,
+            "skipped_due_to_cap": 0,
+            "additive_nav_total_return_pct": 23.86,
+            "additive_nav_max_dd_pct_pts": 4.77,
+            "additive_nav_max_dd_rel_pct": 4.08,
+            "compounded_nav_total_return_pct": 26.32,
+            "compounded_nav_max_dd_rel_pct": 4.68
+          }
+        }
+      },
+      "stress_2020_2023_vs_calib_2024_2025": {
+        "legacy_2020_2023_20bps": {
+          "n": 160,
+          "wr": 52.5,
+          "pf": 1.06,
+          "tot_net": 48.8,
+          "be_bps": 47.0
+        },
+        "legacy_2020_2023_40bps": {
+          "n": 160,
+          "wr": 52.5,
+          "pf": 1.02,
+          "tot_net": 12.63,
+          "be_bps": 47.0
+        },
+        "legacy_2024_2025_20bps": {
+          "n": 90,
+          "wr": 74.44,
+          "pf": 2.63,
+          "tot_net": 323.94,
+          "be_bps": 324.7
+        },
+        "legacy_2024_2025_40bps": {
+          "n": 90,
+          "wr": 73.33,
+          "pf": 2.48,
+          "tot_net": 302.68,
+          "be_bps": 324.7
+        },
+        "standalone_fixed_2020_2023_20bps": {
+          "n": 275,
+          "wr": 52.73,
+          "pf": 1.07,
+          "tot_net": 92.93,
+          "be_bps": 48.6
+        },
+        "standalone_fixed_2020_2023_40bps": {
+          "n": 275,
+          "wr": 52.73,
+          "pf": 1.02,
+          "tot_net": 27.86,
+          "be_bps": 48.6
+        },
+        "standalone_fixed_2024_2025_20bps": {
+          "n": 126,
+          "wr": 70.63,
+          "pf": 2.37,
+          "tot_net": 409.52,
+          "be_bps": 303.3
+        },
+        "standalone_fixed_2024_2025_40bps": {
+          "n": 126,
+          "wr": 69.84,
+          "pf": 2.24,
+          "tot_net": 380.61,
+          "be_bps": 303.3
+        },
+        "by_year_40bps_legacy": {
+          "2020": {
+            "n": 28,
+            "wr": 53.57,
+            "pf": 0.8,
+            "tot_net": -22.7,
+            "be_bps": -33.7
+          },
+          "2021": {
+            "n": 93,
+            "wr": 46.24,
+            "pf": 0.92,
+            "tot_net": -46.36,
+            "be_bps": -3.2
+          },
+          "2022": {
+            "n": 23,
+            "wr": 65.22,
+            "pf": 1.86,
+            "tot_net": 55.25,
+            "be_bps": 257.5
+          },
+          "2023": {
+            "n": 16,
+            "wr": 68.75,
+            "pf": 1.66,
+            "tot_net": 26.45,
+            "be_bps": 192.4
+          },
+          "2024": {
+            "n": 50,
+            "wr": 74.0,
+            "pf": 2.1,
+            "tot_net": 147.92,
+            "be_bps": 297.2
+          },
+          "2025": {
+            "n": 40,
+            "wr": 72.5,
+            "pf": 3.19,
+            "tot_net": 154.76,
+            "be_bps": 357.1
+          },
+          "2026_oos": {
+            "n": 15,
+            "wr": 80.0,
+            "pf": 4.45,
+            "tot_net": 82.78,
+            "be_bps": 551.0
+          }
+        },
+        "by_year_40bps_standalone_fixed": {
+          "2020": {
+            "n": 57,
+            "wr": 47.37,
+            "pf": 0.67,
+            "tot_net": -91.02,
+            "be_bps": -93.9
+          },
+          "2021": {
+            "n": 150,
+            "wr": 50.0,
+            "pf": 0.99,
+            "tot_net": -4.58,
+            "be_bps": 37.5
+          },
+          "2022": {
+            "n": 37,
+            "wr": 62.16,
+            "pf": 1.59,
+            "tot_net": 70.55,
+            "be_bps": 208.6
+          },
+          "2023": {
+            "n": 31,
+            "wr": 64.52,
+            "pf": 1.65,
+            "tot_net": 52.91,
+            "be_bps": 191.4
+          },
+          "2024": {
+            "n": 71,
+            "wr": 71.83,
+            "pf": 2.21,
+            "tot_net": 223.72,
+            "be_bps": 318.8
+          },
+          "2025": {
+            "n": 55,
+            "wr": 67.27,
+            "pf": 2.29,
+            "tot_net": 156.88,
+            "be_bps": 284.0
+          },
+          "2026_oos": {
+            "n": 21,
+            "wr": 80.95,
+            "pf": 4.56,
+            "tot_net": 114.77,
+            "be_bps": 544.5
+          }
+        }
+      }
+    },
+    "m6_f4_elite_sniper": {
+      "is_2020_2025": {
+        "legacy_subset": {
+          "total_trades": 169,
+          "win_rate_pct": 63.91,
+          "tp1_hit_rate_pct": 44.38,
+          "tp2_hit_rate_pct": 26.63,
+          "tp3_hit_rate_pct": 8.28,
+          "avg_net_return_pct": 2.242,
+          "total_net_return_pct": 378.86,
+          "avg_r_multiple": 0.209,
+          "profit_factor": 1.59,
+          "max_drawdown_pct": 120.77,
+          "outcomes": {
+            "TIME_EXIT": 48,
+            "TP2_HIT": 31,
+            "TP1_HIT": 30,
+            "TP3_HIT": 14,
+            "STOP_LOSS": 46
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 176,
+          "win_rate_pct": 63.07,
+          "tp1_hit_rate_pct": 44.89,
+          "tp2_hit_rate_pct": 25.0,
+          "tp3_hit_rate_pct": 6.25,
+          "avg_net_return_pct": 1.82,
+          "total_net_return_pct": 320.29,
+          "avg_r_multiple": 0.193,
+          "profit_factor": 1.46,
+          "max_drawdown_pct": 127.24,
+          "outcomes": {
+            "TIME_EXIT": 47,
+            "TP2_HIT": 33,
+            "TP1_HIT": 35,
+            "TP3_HIT": 11,
+            "STOP_LOSS": 50
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 314,
+          "win_rate_pct": 59.24,
+          "tp1_hit_rate_pct": 43.63,
+          "tp2_hit_rate_pct": 24.2,
+          "tp3_hit_rate_pct": 6.37,
+          "avg_net_return_pct": 1.4,
+          "total_net_return_pct": 439.5,
+          "avg_r_multiple": 0.151,
+          "profit_factor": 1.33,
+          "max_drawdown_pct": 285.02,
+          "outcomes": {
+            "TP1_HIT": 61,
+            "TIME_EXIT": 72,
+            "STOP_LOSS": 105,
+            "TP2_HIT": 56,
+            "TP3_HIT": 20
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 313,
+          "win_rate_pct": 59.42,
+          "tp1_hit_rate_pct": 43.77,
+          "tp2_hit_rate_pct": 26.2,
+          "tp3_hit_rate_pct": 10.22,
+          "avg_net_return_pct": 1.595,
+          "total_net_return_pct": 499.28,
+          "avg_r_multiple": 0.18,
+          "profit_factor": 1.38,
+          "max_drawdown_pct": 260.8,
+          "outcomes": {
+            "TP1_HIT": 55,
+            "TIME_EXIT": 72,
+            "STOP_LOSS": 104,
+            "TP2_HIT": 50,
+            "TP3_HIT": 32
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "TP1_THEN_SL_AT_BE": 36,
+          "NO_TP_TIME_EXIT": 72,
+          "INITIAL_STOP_LOSS": 105,
+          "TP2_THEN_SL_AT_TP1": 47,
+          "TP3_FULL": 20,
+          "TP1_THEN_TIME_EXIT": 25,
+          "TP2_THEN_TIME_EXIT": 9
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 1.84,
+          "entry_sampled_p95": 4.3,
+          "max_concurrent": 6,
+          "time_weighted_avg_all_hours": 0.376,
+          "time_weighted_p95_all_hours": 2.0,
+          "time_weighted_avg_active_hours": 1.52,
+          "time_weighted_p95_active_hours": 4.0,
+          "active_hours_pct": 24.72,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 309,
+            "skipped_due_to_cap": 5,
+            "additive_nav_total_return_pct": 84.92,
+            "additive_nav_max_dd_pct_pts": 61.57,
+            "additive_nav_max_dd_rel_pct": 58.87,
+            "compounded_nav_total_return_pct": 89.24,
+            "compounded_nav_max_dd_rel_pct": 49.15
+          }
+        }
+      },
+      "oos_2026": {
+        "legacy_subset": {
+          "total_trades": 9,
+          "win_rate_pct": 77.78,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 55.56,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.026,
+          "total_net_return_pct": 45.23,
+          "avg_r_multiple": 0.633,
+          "profit_factor": 4.03,
+          "max_drawdown_pct": 7.6,
+          "outcomes": {
+            "TP2_HIT": 5,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 2,
+            "TIME_EXIT": 1
+          }
+        },
+        "subset_fixed_pessimistic_20bps": {
+          "total_trades": 9,
+          "win_rate_pct": 77.78,
+          "tp1_hit_rate_pct": 66.67,
+          "tp2_hit_rate_pct": 55.56,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.026,
+          "total_net_return_pct": 45.23,
+          "avg_r_multiple": 0.633,
+          "profit_factor": 4.03,
+          "max_drawdown_pct": 7.6,
+          "outcomes": {
+            "TP2_HIT": 5,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 2,
+            "TIME_EXIT": 1
+          }
+        },
+        "standalone_fixed_pessimistic_20bps": {
+          "total_trades": 13,
+          "win_rate_pct": 76.92,
+          "tp1_hit_rate_pct": 61.54,
+          "tp2_hit_rate_pct": 53.85,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.475,
+          "total_net_return_pct": 71.18,
+          "avg_r_multiple": 0.815,
+          "profit_factor": 4.11,
+          "max_drawdown_pct": 15.57,
+          "outcomes": {
+            "TIME_EXIT": 3,
+            "TP2_HIT": 7,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 2
+          }
+        },
+        "standalone_fixed_close_rebound_20bps": {
+          "total_trades": 13,
+          "win_rate_pct": 76.92,
+          "tp1_hit_rate_pct": 61.54,
+          "tp2_hit_rate_pct": 53.85,
+          "tp3_hit_rate_pct": 0.0,
+          "avg_net_return_pct": 5.475,
+          "total_net_return_pct": 71.18,
+          "avg_r_multiple": 0.815,
+          "profit_factor": 4.11,
+          "max_drawdown_pct": 15.57,
+          "outcomes": {
+            "TIME_EXIT": 3,
+            "TP2_HIT": 7,
+            "TP1_HIT": 1,
+            "STOP_LOSS": 2
+          }
+        },
+        "detailed_outcomes_standalone": {
+          "NO_TP_TIME_EXIT": 3,
+          "TP2_THEN_SL_AT_TP1": 5,
+          "TP2_THEN_TIME_EXIT": 2,
+          "TP1_THEN_TIME_EXIT": 1,
+          "INITIAL_STOP_LOSS": 2
+        },
+        "concurrency_and_nav_standalone": {
+          "entry_sampled_avg": 1.15,
+          "entry_sampled_p95": 2.0,
+          "max_concurrent": 2,
+          "time_weighted_avg_all_hours": 0.149,
+          "time_weighted_p95_all_hours": 1.0,
+          "time_weighted_avg_active_hours": 1.07,
+          "time_weighted_p95_active_hours": 2.0,
+          "active_hours_pct": 13.89,
+          "nav_simulation_20pct_notional_per_1x": {
+            "max_concurrent_cap": 5,
+            "executed_trades": 13,
+            "skipped_due_to_cap": 0,
+            "additive_nav_total_return_pct": 14.24,
+            "additive_nav_max_dd_pct_pts": 4.77,
+            "additive_nav_max_dd_rel_pct": 4.16,
+            "compounded_nav_total_return_pct": 14.97,
+            "compounded_nav_max_dd_rel_pct": 4.68
+          }
+        }
+      },
+      "stress_2020_2023_vs_calib_2024_2025": {
+        "legacy_2020_2023_20bps": {
+          "n": 101,
+          "wr": 56.44,
+          "pf": 1.22,
+          "tot_net": 107.53,
+          "be_bps": 108.3
+        },
+        "legacy_2020_2023_40bps": {
+          "n": 101,
+          "wr": 56.44,
+          "pf": 1.16,
+          "tot_net": 83.18,
+          "be_bps": 108.3
+        },
+        "legacy_2024_2025_20bps": {
+          "n": 68,
+          "wr": 75.0,
+          "pf": 2.83,
+          "tot_net": 271.33,
+          "be_bps": 337.2
+        },
+        "legacy_2024_2025_40bps": {
+          "n": 68,
+          "wr": 73.53,
+          "pf": 2.67,
+          "tot_net": 254.22,
+          "be_bps": 337.2
+        },
+        "standalone_fixed_2020_2023_20bps": {
+          "n": 217,
+          "wr": 54.84,
+          "pf": 1.12,
+          "tot_net": 126.28,
+          "be_bps": 66.4
+        },
+        "standalone_fixed_2020_2023_40bps": {
+          "n": 217,
+          "wr": 54.84,
+          "pf": 1.06,
+          "tot_net": 71.89,
+          "be_bps": 66.4
+        },
+        "standalone_fixed_2024_2025_20bps": {
+          "n": 97,
+          "wr": 69.07,
+          "pf": 2.22,
+          "tot_net": 313.22,
+          "be_bps": 283.4
+        },
+        "standalone_fixed_2024_2025_40bps": {
+          "n": 97,
+          "wr": 68.04,
+          "pf": 2.1,
+          "tot_net": 289.44,
+          "be_bps": 283.4
+        },
+        "by_year_40bps_legacy": {
+          "2020": {
+            "n": 22,
+            "wr": 59.09,
+            "pf": 0.97,
+            "tot_net": -2.57,
+            "be_bps": 29.6
+          },
+          "2021": {
+            "n": 52,
+            "wr": 51.92,
+            "pf": 1.14,
+            "tot_net": 46.16,
+            "be_bps": 109.5
+          },
+          "2022": {
+            "n": 20,
+            "wr": 60.0,
+            "pf": 1.54,
+            "tot_net": 34.81,
+            "be_bps": 196.1
+          },
+          "2023": {
+            "n": 7,
+            "wr": 71.43,
+            "pf": 1.24,
+            "tot_net": 4.78,
+            "be_bps": 96.9
+          },
+          "2024": {
+            "n": 36,
+            "wr": 77.78,
+            "pf": 2.59,
+            "tot_net": 141.22,
+            "be_bps": 359.5
+          },
+          "2025": {
+            "n": 32,
+            "wr": 68.75,
+            "pf": 2.78,
+            "tot_net": 113.0,
+            "be_bps": 313.3
+          },
+          "2026_oos": {
+            "n": 9,
+            "wr": 77.78,
+            "pf": 3.82,
+            "tot_net": 43.23,
+            "be_bps": 472.3
+          }
+        },
+        "by_year_40bps_standalone_fixed": {
+          "2020": {
+            "n": 54,
+            "wr": 48.15,
+            "pf": 0.68,
+            "tot_net": -86.64,
+            "be_bps": -92.8
+          },
+          "2021": {
+            "n": 111,
+            "wr": 53.15,
+            "pf": 1.07,
+            "tot_net": 45.49,
+            "be_bps": 71.3
+          },
+          "2022": {
+            "n": 33,
+            "wr": 60.61,
+            "pf": 1.5,
+            "tot_net": 56.33,
+            "be_bps": 188.4
+          },
+          "2023": {
+            "n": 19,
+            "wr": 73.68,
+            "pf": 2.34,
+            "tot_net": 56.71,
+            "be_bps": 283.9
+          },
+          "2024": {
+            "n": 54,
+            "wr": 70.37,
+            "pf": 2.08,
+            "tot_net": 172.6,
+            "be_bps": 303.1
+          },
+          "2025": {
+            "n": 43,
+            "wr": 65.12,
+            "pf": 2.12,
+            "tot_net": 116.84,
+            "be_bps": 259.2
+          },
+          "2026_oos": {
+            "n": 13,
+            "wr": 76.92,
+            "pf": 3.89,
+            "tot_net": 68.19,
+            "be_bps": 496.1
+          }
+        }
+      }
+    }
+  }
+}

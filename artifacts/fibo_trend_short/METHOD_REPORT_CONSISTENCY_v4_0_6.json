@@ -1,0 +1,12 @@
+{
+  "exact_json_render_match": true,
+  "mutation_rejections": {
+    "changed_nav_cell": true,
+    "missing_table_row": true,
+    "changed_live_conclusion": true,
+    "changed_cost_assumption": true
+  },
+  "table_rows": 48,
+  "json_nav_mutation_rejected": true,
+  "json_funding_mutation_rejected": true
+}

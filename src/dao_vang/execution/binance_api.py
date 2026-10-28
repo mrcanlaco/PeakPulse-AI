@@ -1,3 +1,7 @@
+"""Binance USD-M adapter. Unknown submission outcomes must be reconciled."""
+
+from __future__ import annotations
+
 import hashlib
 import hmac
 import json
@@ -8,228 +12,277 @@ from decimal import Decimal
 from typing import Any
 from urllib.parse import urlencode
 
-from dao_vang.config.settings import ExecutionConfig
-from dao_vang.logging import get_logger
+from .contracts import floor_step
 
-logger = get_logger(__name__)
+
+class ExchangeError(RuntimeError):
+    def __init__(self, code: int, uncertain: bool = False):
+        super().__init__(f"binance_error_{code}")
+        self.code = code
+        self.uncertain = uncertain
 
 
 def format_to_step(value: float, step_size: str) -> str:
-    """Format value to step size precision using Decimal truncation."""
-    d_val = Decimal(str(value))
-    d_step = Decimal(str(step_size))
-    remainder = d_val % d_step
-    d_val = d_val - remainder
-    decimals = max(0, -d_step.as_tuple().exponent)
-    return f"{d_val:.{decimals}f}"
+    exponent = Decimal(step_size).as_tuple().exponent
+    if not isinstance(exponent, int):
+        raise ValueError("invalid_precision")
+    decimals = max(0, -exponent)
+    return f"{floor_step(value, step_size):.{decimals}f}"
+
+
 class BinanceExecutionClient:
-    """Authenticated client for Binance USD-M Futures execution."""
-
-    def __init__(self, config: ExecutionConfig):
+    def __init__(self, config):
         self.config = config
-        self.base_url = str(config.base_url).rstrip("/")
-        self.api_key = config.api_key
-        self.api_secret = config.api_secret
-        self.timeout_seconds = 10.0
-        self._rules_cache: dict[str, dict[str, Any]] = {}
-    def _sign(self, query_string: str) -> str:
-        """Sign the query string with HMAC SHA256."""
-        if not self.api_secret:
-            raise ValueError("API secret is missing")
-        return hmac.new(
-            self.api_secret.encode("utf-8"),
-            query_string.encode("utf-8"),
-            hashlib.sha256,
-        ).hexdigest()
+        self.base_url = (
+            "https://demo-fapi.binance.com"
+            if config.environment == "demo"
+            else "https://fapi.binance.com"
+        )
+        self.api_key = (
+            config.live_api_key if config.environment == "live" else config.api_key
+        )
+        self.api_secret = (
+            config.live_api_secret
+            if config.environment == "live"
+            else config.api_secret
+        )
+        self.timeout_seconds = 10
+        self.clock_offset = 0
+        self.retry_after_monotonic = 0.0
 
-    def _request(
-        self,
-        method: str,
-        endpoint: str,
-        params: dict[str, Any] | None = None,
-        auth: bool = True,
-    ) -> Any:
-        """Send an HTTP request to Binance USD-M Futures."""
-        params = params or {}
+    def _request(self, method, endpoint, params=None, auth=True, key_only=False, _retry=False):
+        if time.monotonic() < self.retry_after_monotonic:
+            raise ExchangeError(429)
+        params = dict(params or {})
+        if auth or key_only:
+            if self.config.environment == "simulation":
+                raise ValueError("simulation_cannot_use_private_exchange_api")
+            if not self.api_key or (auth and not self.api_secret):
+                raise ValueError("execution_credentials_missing")
+            if (
+                self.config.environment == "live"
+                and method != "GET"
+                and not self.config.live_activated
+            ):
+                raise ValueError("live_not_activated")
+            if auth:
+                params.update(
+                    timestamp=int(time.time() * 1000) + self.clock_offset, recvWindow=15000
+                )
+        query = urlencode({k: v for k, v in params.items() if v is not None})
         if auth:
-            if not self.api_key or not self.api_secret:
-                logger.error("Missing API credentials for execution")
-                raise ValueError("API credentials missing")
-            params["timestamp"] = int(time.time() * 1000)
-            query_dict = {k: v for k, v in params.items() if v is not None}
-            query_string = urlencode(query_dict)
-            signature = self._sign(query_string)
-            query_string = f"{query_string}&signature={signature}"
-        else:
-            query_dict = {k: v for k, v in params.items() if v is not None}
-            query_string = urlencode(query_dict)
-        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+            signature = hmac.new(
+                self.api_secret.encode(), query.encode(), hashlib.sha256
+            ).hexdigest()
+            query += "&signature=" + signature
+        url = self.base_url + endpoint
+        data = None
         if method == "GET":
-            url = f"{url}?{query_string}"
-            data = None
+            url += "?" + query
         else:
-            data = query_string.encode("utf-8")
-
+            data = query.encode()
         req = urllib.request.Request(url, data=data, method=method)
-        req.add_header("X-MBX-APIKEY", self.api_key)
-        
-        if self.config.paper_trading:
-            logger.debug(f"[PAPER] {method} {url}")
-            
+        req.add_header("Content-Type", "application/x-www-form-urlencoded")
+        if auth or key_only:
+            req.add_header("X-MBX-APIKEY", self.api_key)
         try:
             with urllib.request.urlopen(req, timeout=self.timeout_seconds) as response:
-                body = response.read()
-                return json.loads(body.decode("utf-8"))
-        except urllib.error.HTTPError as e:
-            error_body = e.read().decode("utf-8")
-            logger.error(f"Binance API HTTP {e.code}: {error_body}")
-            raise RuntimeError(f"Binance API error: {error_body}")
-        except urllib.error.URLError as e:
-            logger.error(f"Binance API connection error: {e}")
-            raise RuntimeError(f"Binance connection error: {e}")
+                return json.load(response)
+        except urllib.error.HTTPError as exc:
+            if exc.code in (418, 429):
+                try:
+                    delay = float(
+                        exc.headers.get("Retry-After", 900 if exc.code == 418 else 60)
+                    )
+                except (ValueError, TypeError):
+                    delay = 60
+                self.retry_after_monotonic = time.monotonic() + max(1, delay)
+            try:
+                payload = json.loads(exc.read())
+                code = int(payload.get("code", exc.code))
+            except (ValueError, TypeError):
+                code = exc.code
+            if code == -1021 and auth and not _retry:
+                try:
+                    self.synchronize_clock()
+                    clean_params = {k: v for k, v in params.items() if k not in ("timestamp", "recvWindow", "signature")}
+                    return self._request(method, endpoint, params=clean_params, auth=auth, key_only=key_only, _retry=True)
+                except Exception:
+                    pass
+            raise ExchangeError(
+                code,
+                exc.code >= 500 or exc.code == 408 or code in {-1006, -1007, -4116},
+            ) from None
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            ConnectionError,
+            json.JSONDecodeError,
+            UnicodeDecodeError,
+        ):
+            raise ExchangeError(0, True) from None
 
-    def get_open_positions(self) -> list[dict[str, Any]]:
-        """Fetch all open positions (positionAmt != 0)."""
-        data = self._request("GET", "/fapi/v2/positionRisk")
-        open_positions = [p for p in data if float(p.get("positionAmt", 0)) != 0]
-        return open_positions
+    def synchronize_clock(self):
+        self.clock_offset = int(
+            self._request("GET", "/fapi/v1/time", auth=False)["serverTime"]
+        ) - int(time.time() * 1000)
 
-    def place_market_order(self, symbol: str, side: str, quantity: float, position_side: str = "BOTH") -> dict[str, Any]:
-        """Place a market order."""
+    def listen_key(self, method):
+        return self._request(method, "/fapi/v1/listenKey", auth=False, key_only=True)
+
+    def preflight(self):
+        self.synchronize_clock()
+        mode = self._request("GET", "/fapi/v1/positionSide/dual")
+        assets = self._request("GET", "/fapi/v1/multiAssetsMargin")
+        if (
+            mode["dualSidePosition"] is not False
+            or assets["multiAssetsMargin"] is not False
+        ):
+            raise ValueError("requires_one_way_single_asset")
+
+    def get_symbol_rules(self, symbol):
+        data = self._request("GET", "/fapi/v1/exchangeInfo", auth=False)
+        for item in data["symbols"]:
+            if item["symbol"] != symbol:
+                continue
+            if (
+                item["status"] != "TRADING"
+                or item["contractType"] != "PERPETUAL"
+                or item["marginAsset"] != "USDT"
+            ):
+                raise ValueError("symbol_not_eligible")
+            filters = {f["filterType"]: f for f in item["filters"]}
+            lot, market, price, notional = (
+                filters[k]
+                for k in ("LOT_SIZE", "MARKET_LOT_SIZE", "PRICE_FILTER", "MIN_NOTIONAL")
+            )
+            return {
+                "step_size": lot["stepSize"],
+                "market_step": market["stepSize"],
+                "min_qty": float(lot["minQty"]),
+                "max_qty": float(lot["maxQty"]),
+                "market_min_qty": float(market["minQty"]),
+                "market_max_qty": float(market["maxQty"]),
+                "tick_size": price["tickSize"],
+                "min_notional": float(notional["notional"]),
+            }
+        raise ValueError("symbol_rules_missing")
+
+    def quote(self, symbol):
+        depth = self._request(
+            "GET", "/fapi/v1/depth", {"symbol": symbol, "limit": 20}, auth=False
+        )
+        return {
+            "bid": float(depth["bids"][0][0]),
+            "ask": float(depth["asks"][0][0]),
+            "bids": [[float(p), float(q)] for p, q in depth["bids"]],
+            "asks": [[float(p), float(q)] for p, q in depth["asks"]],
+        }
+
+    def prepare_symbol(self, symbol):
+        try:
+            self._request(
+                "POST",
+                "/fapi/v1/marginType",
+                {"symbol": symbol, "marginType": "CROSSED"},
+            )
+        except ExchangeError as exc:
+            if exc.code != -4046:
+                raise
+        self._request("POST", "/fapi/v1/leverage", {"symbol": symbol, "leverage": 5})
+        rows = self._request("GET", "/fapi/v1/symbolConfig", {"symbol": symbol})
+        if (
+            not rows
+            or rows[0]["marginType"] != "CROSSED"
+            or int(rows[0]["leverage"]) != 5
+        ):
+            raise ValueError("cross_leverage_verification_failed")
+
+    def account(self) -> dict[str, Any]:
+        value = self._request("GET", "/fapi/v3/account")
+        if not any(asset["asset"] == "USDT" for asset in value["assets"]):
+            raise ValueError("usdt_collateral_missing")
+        if any(
+            asset["asset"] != "USDT" and float(asset["walletBalance"]) != 0
+            for asset in value["assets"]
+        ):
+            raise ValueError("account_has_other_collateral")
+        return {
+            "wallet": float(value["totalWalletBalance"]),
+            "equity": float(value["totalMarginBalance"]),
+            "available": float(value["availableBalance"]),
+            "unrealized": float(value["totalUnrealizedProfit"]),
+            "maintenance_margin": float(value["totalMaintMargin"]),
+        }
+
+    def get_open_positions(self):
+        rows = self._request("GET", "/fapi/v3/positionRisk")
+        return [r for r in rows if float(r["positionAmt"]) != 0]
+
+    def open_orders(self):
+        return self._request("GET", "/fapi/v1/openOrders")
+
+    def algo_orders(self):
+        result = self._request("GET", "/fapi/v1/openAlgoOrders")
+        return result if isinstance(result, list) else result.get("orders", [])
+
+    def order(self, symbol, client_id):
+        try:
+            return self._request(
+                "GET",
+                "/fapi/v1/order",
+                {"symbol": symbol, "origClientOrderId": client_id},
+            )
+        except ExchangeError as exc:
+            if exc.code == -2013:
+                return None
+            raise
+
+    def submit(self, symbol, client_id, side, qty, *, price=None, reduce_only=False):
         params = {
             "symbol": symbol,
+            "newClientOrderId": client_id,
             "side": side,
-            "positionSide": position_side,
-            "type": "MARKET",
-            "quantity": quantity,
+            "quantity": qty,
+            "positionSide": "BOTH",
+            "newOrderRespType": "RESULT",
+            "type": "LIMIT" if price is not None else "MARKET",
         }
+        if price is not None:
+            params.update(price=price, timeInForce="GTC")
+        if reduce_only:
+            params["reduceOnly"] = "true"
         return self._request("POST", "/fapi/v1/order", params)
 
-    def get_symbol_rules(self, symbol: str) -> dict[str, Any]:
-        """Fetch and cache trading rules (stepSize, tickSize, minQty, minNotional) for a symbol."""
-        if symbol in self._rules_cache:
-            return self._rules_cache[symbol]
-
-        try:
-            data = self._request("GET", "/fapi/v1/exchangeInfo", auth=False)
-            for s in data.get("symbols", []):
-                sym = s.get("symbol")
-                step_size = "1"
-                min_qty = 0.0
-                tick_size = "0.01"
-                min_notional = 5.0
-
-                for f in s.get("filters", []):
-                    ftype = f.get("filterType")
-                    if ftype == "LOT_SIZE":
-                        step_size = str(f.get("stepSize", "1"))
-                        min_qty = float(f.get("minQty", 0.0))
-                    elif ftype == "PRICE_FILTER":
-                        tick_size = str(f.get("tickSize", "0.01"))
-                    elif ftype == "MIN_NOTIONAL":
-                        min_notional = float(f.get("notional", 5.0))
-
-                self._rules_cache[sym] = {
-                    "step_size": step_size,
-                    "tick_size": tick_size,
-                    "min_qty": min_qty,
-                    "min_notional": min_notional,
-                }
-        except Exception as e:
-            logger.error(f"Failed to fetch exchangeInfo: {e}")
-
-        return self._rules_cache.get(
-            symbol,
-            {
-                "step_size": "0.001",
-                "tick_size": "0.01",
-                "min_qty": 0.001,
-                "min_notional": 5.0,
-            },
+    def cancel(self, symbol, client_id):
+        return self._request(
+            "DELETE",
+            "/fapi/v1/order",
+            {"symbol": symbol, "origClientOrderId": client_id},
         )
 
-    def place_batch_orders(self, orders: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        """Place batch orders in a single HTTP request (up to 5 orders)."""
-        params = {"batchOrders": json.dumps(orders)}
-        res = self._request("POST", "/fapi/v1/batchOrders", params)
-        if isinstance(res, dict) and "code" in res and res.get("code") != 200:
-            raise RuntimeError(f"Batch order error: {res.get('msg')} (code {res.get('code')})")
-        return res
+    def fills(self, symbol, order_id):
+        rows = self._request(
+            "GET",
+            "/fapi/v1/userTrades",
+            {"symbol": symbol, "orderId": order_id, "limit": 1000},
+        )
+        if len(rows) >= 1000:
+            raise ValueError("fill_history_truncated")
+        return rows
 
-    def place_bracket_short(
-        self,
-        symbol: str,
-        quantity: float,
-        entry_price: float,
-        stop_loss_price: float,
-        take_profit_price: float,
-    ) -> dict[str, Any]:
-        """Execute a SHORT entry with atomic/batch TP and SL orders."""
-        rules = self.get_symbol_rules(symbol)
-        qty_str = format_to_step(quantity, rules["step_size"])
-        sl_str = format_to_step(stop_loss_price, rules["tick_size"])
-        tp_str = format_to_step(take_profit_price, rules["tick_size"])
-
-        notional = float(qty_str) * entry_price
-        if notional < rules["min_notional"]:
-            raise ValueError(
-                f"Order notional ${notional:.2f} below minNotional ${rules['min_notional']:.2f}"
+    def income(self, start_ms, end_ms):
+        result = []
+        page = 1
+        while True:
+            rows = self._request(
+                "GET",
+                "/fapi/v1/income",
+                {"startTime": start_ms, "endTime": end_ms, "limit": 1000, "page": page},
             )
-
-        orders = [
-            {
-                "symbol": symbol,
-                "side": "SELL",
-                "type": "MARKET",
-                "quantity": qty_str,
-                "positionSide": "BOTH",
-            },
-            {
-                "symbol": symbol,
-                "side": "BUY",
-                "type": "STOP_MARKET",
-                "stopPrice": sl_str,
-                "closePosition": "true",
-                "positionSide": "BOTH",
-            },
-            {
-                "symbol": symbol,
-                "side": "BUY",
-                "type": "TAKE_PROFIT_MARKET",
-                "stopPrice": tp_str,
-                "closePosition": "true",
-                "positionSide": "BOTH",
-            },
-        ]
-
-        try:
-            results = self.place_batch_orders(orders)
-            return {"batch": True, "results": results}
-        except Exception as e:
-            logger.warning(f"Batch orders failed ({e}). Falling back to sequential execution.")
-            entry_res = self.place_market_order(symbol, "SELL", float(qty_str))
-            sl_res = self._request(
-                "POST",
-                "/fapi/v1/order",
-                {
-                    "symbol": symbol,
-                    "side": "BUY",
-                    "type": "STOP_MARKET",
-                    "stopPrice": sl_str,
-                    "closePosition": "true",
-                    "positionSide": "BOTH",
-                },
-            )
-            tp_res = self._request(
-                "POST",
-                "/fapi/v1/order",
-                {
-                    "symbol": symbol,
-                    "side": "BUY",
-                    "type": "TAKE_PROFIT_MARKET",
-                    "stopPrice": tp_str,
-                    "closePosition": "true",
-                    "positionSide": "BOTH",
-                },
-            )
-            return {"batch": False, "results": [entry_res, sl_res, tp_res]}
+            result.extend(rows)
+            if len(rows) < 1000:
+                return result
+            page += 1
+            if page > 100:
+                raise ValueError("income_history_truncated")

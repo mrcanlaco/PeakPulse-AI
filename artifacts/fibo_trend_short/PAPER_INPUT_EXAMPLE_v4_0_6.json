@@ -1,0 +1,38 @@
+{
+  "example_only": true,
+  "now": "2026-10-18T01:01:00Z",
+  "candidate": {
+    "symbol": "TESTUSDT",
+    "tf": "4h",
+    "wave_key": "example-wave",
+    "decision_time": "2026-10-18T01:00:00Z",
+    "eligible_milestones": [
+      "m6_f4_expanded"
+    ],
+    "closed_candles_complete": true,
+    "entry_price": 100,
+    "sl_m6": 110,
+    "tp1": 90,
+    "tp2": 80,
+    "tp3": 70,
+    "full_conviction_score": 90
+  },
+  "state": {
+    "equity": 10000,
+    "positions": [],
+    "allowed_symbols": [
+      "TESTUSDT"
+    ],
+    "universe_month": "2026-10",
+    "paused": false,
+    "consumed_waves": {},
+    "cooldown_until": {}
+  },
+  "filters": {
+    "step_size": ".1",
+    "tick_size": ".01",
+    "min_qty": ".1",
+    "max_qty": "1000",
+    "min_notional": "5"
+  }
+}

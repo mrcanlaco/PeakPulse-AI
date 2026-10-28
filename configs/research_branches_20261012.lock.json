@@ -1,0 +1,6 @@
+{
+  "protocol_path": "configs/research_branches_20261012.json",
+  "sha256": "709b52cedc80b8d029fa2b05dccf861d2b4c0fef0e55850aaaee4ce00a6cffe0",
+  "scope": "Common research rules only; branch-specific experimental locks are separate.",
+  "does_not_prove": ["unseen data", "no lookahead", "profitability"]
+}

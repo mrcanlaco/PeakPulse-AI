@@ -1,0 +1,21 @@
+# Copy and adapt data/model paths. No secrets belong in this file.
+paths:
+  data_dir: data_live
+  raw_dir: data_live/raw
+  normalized_dir: data_live/normalized
+scanner:
+  db_path: data_live/live.duckdb
+  artifact_dir: artifacts
+  frozen_model_id: frozen_20260906_105716_bc3c369b
+execution:
+  enabled: false
+  environment: simulation
+  initial_equity: 500.0
+  margin_per_position: 5.0
+  leverage: 5
+  margin_type: CROSSED
+  max_position_usd: 25.0
+  max_open_positions: 1
+  entry_pause_drawdown: 0.20
+  manifest_path: artifacts/trading/cross_short_atr_v1.json
+  live_activated: false

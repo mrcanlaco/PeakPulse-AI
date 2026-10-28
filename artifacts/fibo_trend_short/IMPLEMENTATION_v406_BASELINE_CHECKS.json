@@ -1,0 +1,338 @@
+{
+  "manifest_checks": {
+    "src/dao_vang/config/settings.py": true,
+    "src/dao_vang/fibo_short/detector.py": true,
+    "src/dao_vang/fibo_short/backtest.py": true,
+    "tests/unit/fibo_short/test_fibo_short.py": true,
+    "scripts/fibo_research/verify_red_team_audit_2026.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v402.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v403.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v404.py": true,
+    "scripts/fibo_research/verify_red_team_reaudit_v405.py": true,
+    "scripts/fibo_research/universe_reaudit_v402_worker.py": true,
+    "scripts/fibo_research/study_factor1_multi_repo_benchmark_2025.py": true,
+    "scripts/fibo_research/study_factor2_3_4_complete_2025.py": true,
+    "scripts/fibo_research/study_independent_audit_metrics.py": true,
+    "scripts/fibo_research/study_insample_2020_2025_by_year.py": true,
+    "scripts/fibo_research/study_oos_2026_all_7_milestones.py": true,
+    "scripts/fibo_research/study_coin_universe_selection_2026.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/settings.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/detector.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/backtest.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/test_fibo_short.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_audit_2026.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v402.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v403.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v404.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/verify_red_team_reaudit_v405.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/universe_reaudit_v402_worker.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_factor1_multi_repo_benchmark_2025.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_factor2_3_4_complete_2025.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_independent_audit_metrics.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_insample_2020_2025_by_year.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_oos_2026_all_7_milestones.py": true,
+    "artifacts/fibo_trend_short/snapshots/v4_0_5/study_coin_universe_selection_2026.py": true,
+    "artifacts/fibo_trend_short/red_team_reaudit_recalculation_v4_0_5.json": true,
+    "artifacts/fibo_trend_short/RED_TEAM_REAUDIT_RESPONSE_v4_0_5_2026-10-17.md": true,
+    "artifacts/fibo_trend_short/universe_338_reaudit_v4_0_5_summary.json": true,
+    "artifacts/fibo_trend_short/coupled_trade_ledgers_v4_0_5.json": true,
+    "artifacts/fibo_trend_short/INPUT_DATA_AND_CODE_MANIFEST_v4_0_5.json": true,
+    "artifacts/fibo_trend_short/HISTORICAL_ARTIFACTS_BASELINE_BEFORE_v4_0_5.json": true
+  },
+  "consistency": {
+    "total_checks": 1598,
+    "tables_verified": 8,
+    "coupled_nav_nodes_checked": 320,
+    "universe_coupled_nodes_with_trade_ids_checked": 112,
+    "accepted_vs_executed_mismatches": 0,
+    "all_passed": true
+  },
+  "mutations": {
+    "total_mutations_tested": 16,
+    "all_mutations_caught": true,
+    "mutations": [
+      {
+        "mutation_id": "mutation_01_trade_count_N",
+        "target": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2020-2025 Full IS | `350` |",
+        "corrupted_with": "| **M6_F124_EXP (Mốc 6B, Sized)** | 2020-2025 Full IS | `9999` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Số lệnh']: Cell mismatch at Table 5 Row 33 Col 'Số lệnh': actual='`9999`' vs expected='`350`'"
+      },
+      {
+        "mutation_id": "mutation_02_profit_factor_PF",
+        "target": "**`+464.38%`** / `1.38` |",
+        "corrupted_with": "**`+464.38%`** / `9.99` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Sized Avg (`[95% CI]`) / Total / PF']: Cell mismatch at Table 5 Row 33 Col 'Sized Avg (`[95% CI]`) / Total / PF': actual='**`+1.327%`** (`[+0.13%, +2.60%]`) / **`+464.38%`** / `9.99`' vs expected='**`+1.327%`** (`[+0.13%, +2.60%]`) / **`+464.38%`** / `1.38`'"
+      },
+      {
+        "mutation_id": "mutation_03_rolling_pit_compounded_nav",
+        "target": "**`+28.70%`** (DD `10.72%`)",
+        "corrupted_with": "**`+999.99%`** (DD `99.99%`)",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 6 Row 5 Col 'Mốc 6B Post-Cap NAV (`Cap=5`): Exec / Add. / Comp. NAV (MaxDD)']: Cell mismatch at Table 6 Row 5 Col 'Mốc 6B Post-Cap NAV (`Cap=5`): Exec / Add. / Comp. NAV (MaxDD)': actual='`67` lệnh / `+27.54%` / **`+999.99%`** (DD `99.99%`)' vs expected='`67` lệnh / `+27.54%` / **`+28.70%`** (DD `10.72%`)'"
+      },
+      {
+        "mutation_id": "mutation_04_trailing_p_holm_bh_fdr_column",
+        "target": "| `0.0155` / `0.1595` / `0.0852` |",
+        "corrupted_with": "| `0.0001` / `0.0002` / `0.0003` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'Raw `p` / Holm `p` / BH-FDR `q`']: Cell mismatch at Table 5 Row 33 Col 'Raw `p` / Holm `p` / BH-FDR `q`': actual='`0.0001` / `0.0002` / `0.0003`' vs expected='`0.0155` / `0.1595` / `0.0852`'"
+      },
+      {
+        "mutation_id": "mutation_05_trailing_break_even_fee_column",
+        "target": "| `114.9` / `143.1 bps` |",
+        "corrupted_with": "| `999.9` / `888.8 bps` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'BE Fee (1x / Sized)']: Cell mismatch at Table 5 Row 33 Col 'BE Fee (1x / Sized)': actual='`999.9` / `888.8 bps`' vs expected='`114.9` / `143.1 bps`'"
+      },
+      {
+        "mutation_id": "mutation_06_trailing_rgd_terminal_counts_column",
+        "target": "| `36` / `51` |",
+        "corrupted_with": "| `999` / `888` |",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 5 Row 33 Col 'RGD SL@BE / SL@TP1']: Cell mismatch at Table 5 Row 33 Col 'RGD SL@BE / SL@TP1': actual='`999` / `888`' vs expected='`36` / `51`'"
+      },
+      {
+        "mutation_id": "mutation_07_trailing_historical_funding_column",
+        "target": "`+19.13%` / **`+20.65%`** (DD `5.72%`) [`263 (176+87)/0`]",
+        "corrupted_with": "`+888.88%` / **`+888.88%`** (DD `88.88%`) [`0 (0+0)/999`]",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 4 Row 11 Col 'Historical Funding Add. / Comp. NAV (MaxDD) [Matched (8h+Off8h)/Missing]']: Cell mismatch at Table 4 Row 11 Col 'Historical Funding Add. / Comp. NAV (MaxDD) [Matched (8h+Off8h)/Missing]': actual='`+888.88%` / **`+888.88%`** (DD `88.88%`) [`0 (0+0)/999`]' vs expected='`+19.13%` / **`+20.65%`** (DD `5.72%`) [`263 (176+87)/0`]'"
+      },
+      {
+        "mutation_id": "mutation_08_trailing_stress_funding_column",
+        "target": "`+20.25%` / `+21.97%` (DD `5.49%`)",
+        "corrupted_with": "`+777.77%` / `+777.77%` (DD `77.77%`)",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 4 Row 11 Col 'Stress (+1bp/8h) Add. / Comp. NAV (MaxDD)']: Cell mismatch at Table 4 Row 11 Col 'Stress (+1bp/8h) Add. / Comp. NAV (MaxDD)': actual='`+777.77%` / `+777.77%` (DD `77.77%`)' vs expected='`+20.25%` / `+21.97%` (DD `5.49%`)'"
+      },
+      {
+        "mutation_id": "mutation_09_delete_markdown_table_row",
+        "target": "| **`BTCUSDT`** |",
+        "corrupted_with": "",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Table 1 row count]: Row count mismatch in Table 1: 13 vs 14"
+      },
+      {
+        "mutation_id": "mutation_10_prose_funding_records_split",
+        "target": "**`80969`** bản ghi tại mốc chuẩn `00:00, 08:00, 16:00 UTC` và **`8356`** bản ghi",
+        "corrupted_with": "**`89325`** bản ghi tại mốc chuẩn `00:00, 08:00, 16:00 UTC` và **`0`** bản ghi",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Funding records split prose (total, 8h, off-8h)]: Funding prose split mismatch"
+      },
+      {
+        "mutation_id": "mutation_11_standalone_vs_embedded_universe_json_divergence",
+        "target": "universe_summary['total_symbols_evaluated'] = 338",
+        "corrupted_with": "universe_summary['total_symbols_evaluated'] = 999",
+        "caught_by_verifier": true,
+        "error_raised": "Consistency check failed for [Standalone universe_338_reaudit_v4_0_5_summary.json equals embedded re_audit_3_universe_338_and_rolling_pit]: Standalone universe summary diverges from embedded payload"
+      },
+      {
+        "mutation_id": "mutation_12_json_accepted_vs_executed_ledger_mismatch",
+        "target": "execution_coupled_portfolio.nav_ex_funding.executed_trades == accepted_trades",
+        "corrupted_with": "executed_trades = 9999",
+        "caught_by_verifier": true,
+        "error_raised": "Found 1 coupled trade identity/ledger mismatches: [{'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/nav_ex_funding', 'accepted': 333, 'executed': 9999, 'skipped_total_cap': 0}]"
+      },
+      {
+        "mutation_id": "mutation_13_corrupted_trade_id_in_benchmark_executed_list",
+        "target": "executed_trade_ids[0] == accepted_trade_ids[0]",
+        "corrupted_with": "executed_trade_ids[0] = 'CORRUPTED_TRADE_ID'",
+        "caught_by_verifier": true,
+        "error_raised": "Found 2 coupled trade identity/ledger mismatches: [{'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/trade_id_list_equality', 'reason': 'accepted_trade_ids_ne_executed_trade_ids', 'first_accepted': ['fibo_d456a74cd48e_438679', 'fibo_c18074573c3a_439296'], 'first_executed': ['CORRUPTED_TRADE_ID', 'fibo_c18074573c3a_439296']}, {'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/ledger_records_trade_ids', 'reason': 'record_ids_ne_executed_trade_ids'}]"
+      },
+      {
+        "mutation_id": "mutation_14_missing_trade_id_lists_on_universe_coupled_node",
+        "target": "universe coupled node accepted_trade_ids present",
+        "corrupted_with": "del accepted_trade_ids",
+        "caught_by_verifier": true,
+        "error_raised": "Found 2 coupled trade identity/ledger mismatches: [{'path': '/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/accepted_or_executed_trade_ids', 'reason': 'missing_trade_id_list'}, {'path': '/standalone_universe_338/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/accepted_or_executed_trade_ids', 'reason': 'missing_trade_id_list'}]"
+      },
+      {
+        "mutation_id": "mutation_15_duplicate_trade_ids_with_unchanged_count",
+        "target": "len(set(accepted_trade_ids)) == len(accepted_trade_ids)",
+        "corrupted_with": "accepted_trade_ids[1] = accepted_trade_ids[0]",
+        "caught_by_verifier": true,
+        "error_raised": "Found 2 coupled trade identity/ledger mismatches: [{'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/duplicate_trade_ids', 'reason': 'duplicate_trade_id_detected', 'len_total': 333, 'len_unique': 332}, {'path': '/re_audit_1_portfolio_accounting_and_caps/portfolio_coupled_vs_independent_14_coins/is_2020_2025/m6_f4_expanded/execution_coupled_portfolio/ledger_records_trade_ids', 'reason': 'record_ids_ne_executed_trade_ids'}]"
+      },
+      {
+        "mutation_id": "mutation_16_corrupted_universe_ledger_sha256",
+        "target": "universe coupled node ledger_sha256 matches computed SHA256",
+        "corrupted_with": "ledger_sha256 = '0'*64",
+        "caught_by_verifier": true,
+        "error_raised": "Found 2 coupled trade identity/ledger mismatches: [{'path': '/re_audit_3_universe_338_and_rolling_pit/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/ledger_sha256_verify', 'reason': 'sha256_mismatch', 'expected': '65ab0326f18c31adf7eef34e9008ab5e3174c1014aa24c0cfbb734840bb20752', 'actual': '0000000000000000000000000000000000000000000000000000000000000000'}, {'path': '/standalone_universe_338/by_universe_tier/ALL_338_UNFILTERED/portfolio_coupled_execution_is_2024_2025/m6_f4_expanded/ledger_sha256_verify', 'reason': 'sha256_mismatch', 'expected': '65ab0326f18c31adf7eef34e9008ab5e3174c1014aa24c0cfbb734840bb20752', 'actual': '0000000000000000000000000000000000000000000000000000000000000000'}]"
+      }
+    ]
+  },
+  "counterexamples": {
+    "rt2_c1_six_same_timestamp_cap5": {
+      "submitted_candidates": 6,
+      "max_concurrent_cap": 5,
+      "executed_trades": 5,
+      "skipped_concurrency_cap": 1,
+      "uncapped_max_concurrency": 6,
+      "accepted_max_concurrency": 5,
+      "assertion_passed": true
+    },
+    "rt2_c1_five_15x_notional_cap100pct": {
+      "submitted_candidates": 5,
+      "pos_mult_each": 1.5,
+      "notional_frac_each": 0.3,
+      "max_total_notional_frac": 1.0,
+      "executed_trades": 3,
+      "skipped_notional_cap": 2,
+      "accepted_max_notional_frac": 0.9,
+      "assertion_passed": true
+    },
+    "rt2_c1_missing_bar_gap_slot_retention": {
+      "trade1_bars_count": 4,
+      "trade1_entry_utc": "2025-05-01T00:00:00+00:00",
+      "trade1_real_exit_close_utc": "2025-05-01T04:00:00+00:00",
+      "trade2_arrival_utc": "2025-05-01T02:00:00+00:00",
+      "max_concurrent_cap": 1,
+      "executed_trades": 1,
+      "skipped_concurrency_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c1_notional_cap_current_equity_mtm": {
+      "initial_positions": 4,
+      "equity_at_0100_utc": 84.0,
+      "mtm_open_notional_at_0100_utc": 96.0,
+      "mtm_notional_over_equity_ratio": 1.1429,
+      "executed_trades": 4,
+      "skipped_notional_cap": 1,
+      "assertion_passed": true
+    },
+    "rt2_c2_round_trip_100_50_100_fixed_quantity": {
+      "initial_nav": 100.0,
+      "notional_opened": 20.0,
+      "price_path": [
+        100.0,
+        50.0,
+        100.0
+      ],
+      "round_trip_fee_bps": 20.0,
+      "final_gross_pct": 0.0,
+      "expected_final_nav": 99.96,
+      "expected_return_pct": -0.04,
+      "legacy_buggy_compounded_return_pct": -1.04,
+      "patched_additive_final_nav": 99.96,
+      "patched_additive_return_pct": -0.04,
+      "patched_compounded_final_nav": 99.96,
+      "patched_compounded_return_pct": -0.04,
+      "assertion_passed": true
+    },
+    "f19b_funding_no_settlement_0100_to_0300_utc": {
+      "entry_utc": "2025-05-01T01:00:00+00:00",
+      "exit_utc": "2025-05-01T03:00:00+00:00",
+      "funding_bps_per_8h": 1.0,
+      "settlements_charged": 0,
+      "funding_net_pct_of_nav": 0.0,
+      "final_nav": 100.0,
+      "legacy_v402_hourly_prorated_nav": 99.9995,
+      "assertion_passed": true
+    },
+    "rt2_m3_unified_conviction_score_counterexample": {
+      "score": 79.0,
+      "tier": "A",
+      "pos_mult": 1.15,
+      "breakdown": {
+        "L1_pump_exhaustion_pts": 19.0,
+        "L2_wave_impulse_physics_pts": 21.0,
+        "L3_pst_momentum_collapse_pts": 21.0,
+        "L4_fibo_h1_trigger_pts": 18.0,
+        "wave_ker": 0.5,
+        "impulse_ker": 0.6,
+        "peak_ewmac_16_64": -1.0,
+        "cur_accel_4_16": -1.2,
+        "pullback_vol_ratio": 1.0
+      },
+      "legacy_research_divergent_score": 85.0,
+      "legacy_research_divergent_mult": 1.5,
+      "assertion_passed": true
+    },
+    "fs403_01_02_coupled_idempotent_same_hour_and_ledger_equality": {
+      "equity_at_0100_utc_single_pass": 95.98,
+      "legacy_v403_double_subtracted_equity_at_0100_utc": 91.96,
+      "benchmark_coupled_accepted_trades": 3,
+      "benchmark_coupled_executed_trades": 3,
+      "benchmark_coupled_final_compounded_nav": 95.8832,
+      "universe_coupled_accepted_trades": 3,
+      "universe_coupled_executed_trades": 3,
+      "universe_coupled_final_compounded_nav": 95.8832,
+      "expected_final_compounded_nav_with_new_trade_fees": 95.8832,
+      "assertion_passed": true
+    },
+    "fs403_04_funding_numeric_unit_and_off8h_settlement": {
+      "ms_1746057600000_status": "OK",
+      "ms_1746057600000_unit": "ms",
+      "ms_1746057600000_min_utc": "2025-05-01T00:00:00+00:00",
+      "ambiguous_99999999999_status": "SCHEMA_ERROR",
+      "off8h_0400_utc_matched_total": 1,
+      "off8h_0400_utc_matched_8h": 0,
+      "off8h_0400_utc_matched_off_8h": 1,
+      "off8h_0400_utc_final_nav": 99.98,
+      "assertion_passed": true
+    },
+    "fs403_06_content_sha256_fingerprint_mutation": {
+      "byte_length": 32,
+      "preserved_mtime": 1750000000.0,
+      "actual_size_after": 32,
+      "actual_mtime_after": 1750000000.0,
+      "fingerprint_before": "3dda28e3076847127c0a057929484bcdffb8534bdcd21d161516bc187ec4c93d",
+      "fingerprint_after": "ea2d17d09a56c3544a733c0ca90205cfb1d3e80216372fcc9135f971b40f27bc",
+      "fingerprint_changed": true,
+      "assertion_passed": true
+    },
+    "fs403_07_dataclass_replace_terminal_outcome_sync": {
+      "old_outcome": "STOP_LOSS",
+      "old_terminal_outcome": "INITIAL_STOP_LOSS",
+      "replaced_outcome": "TP3_HIT",
+      "replaced_terminal_outcome": "TP3_FULL",
+      "expected_terminal_outcome": "TP3_FULL",
+      "assertion_passed": true
+    },
+    "fs404_01_missing_bar_real_exit_cooldown": {
+      "observed_bars": 2,
+      "real_hold_hours": 10,
+      "exit_close_time": "2026-05-01T10:00:00+00:00",
+      "legacy_v404_premature_cooldown_end_utc": "2026-05-01T04:00:00+00:00",
+      "patched_v405_cooldown_end_utc": "2026-05-01T10:00:00+00:00",
+      "independent_accepted_decision_times": [
+        "2026-05-01T00:00:00+00:00",
+        "2026-05-01T10:00:00+00:00"
+      ],
+      "coupled_accepted_trade_ids": [
+        "GAPCOINUSDT_4h_493776",
+        "GAPCOINUSDT_4h_493786"
+      ],
+      "rejected_at_0500_utc": true,
+      "accepted_at_1000_utc": true,
+      "assertion_passed": true
+    },
+    "fs404_02_single_source_and_trade_id_verification": {
+      "single_source_coupled_no_second_cap_call_in_code": true,
+      "corrupted_trade_id_rejected_by_verifier": true,
+      "assertion_passed": true
+    },
+    "fs404_03_funding_8h_fingerprint_and_manifest": {
+      "shared_funding_dir_path": "D:/SharedMarketData/multiyear_2020_2026/funding_8h",
+      "shared_funding_files_hashed_count": 6,
+      "missing_required_dir_raises_filenotfound": true,
+      "assertion_passed": true
+    },
+    "fs404_04_preserve_simulator_exit_flags_near_stop": {
+      "final_bar_high": 99.9998,
+      "final_bar_close": 99.9995,
+      "ratcheted_be_stop": 100.0,
+      "sim_detailed_outcome": "TP1_THEN_TIME_EXIT",
+      "trade_outcome": "TP1_HIT",
+      "trade_terminal_outcome": "TP1_THEN_TIME_EXIT",
+      "ratcheted_sl_hit": false,
+      "time_exit_used": true,
+      "legacy_v404_misclassified_terminal_outcome": "TP1_THEN_SL_AT_BE",
+      "assertion_passed": true
+    }
+  }
+}

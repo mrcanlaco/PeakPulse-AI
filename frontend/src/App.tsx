@@ -137,11 +137,24 @@ export function App() {
   const [telegramSentSuccess, setTelegramSentSuccess] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<WorkspaceTab>(() => {
     if (typeof window !== 'undefined') {
+      const h = window.location.hash.toLowerCase();
+      if (h.includes('fibo') || h.includes('shadow') || h.includes('paper-oos')) return 'FIBO_SHORT';
       if (window.location.hash.includes('coin=')) return 'DECISION';
       if (window.innerWidth < 768) return 'RADAR';
     }
     return 'DECISION';
   });
+
+  useEffect(() => {
+    const onHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h.includes('fibo') || h.includes('shadow') || h.includes('paper-oos')) {
+        setActiveTab('FIBO_SHORT');
+      }
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
 
   // GUI Version: 'v1' (Classic 3-column) | 'v2' (Pro Mobile / Binance-OKX Style)
   const [guiVersion, setGuiVersion] = useState<'v1' | 'v2'>(() => {
@@ -927,7 +940,7 @@ export function App() {
         onClick={() => { setActiveTab('WATCHLIST'); if (guiVersion === 'v2') setMobileTab('TRACKING'); }}
       >{language === 'vi' ? 'Thông báo coin theo dõi' : 'Tracked coin notifications'} · {trackingItems.reduce((count, item) => count + (item.notifications?.filter(n => !n.read).length || 0), 0)}</button>}
       {/* Main Workspace Layout - Full 100% Width */}
-      <main className={`flex-1 max-w-[1750px] w-full mx-auto p-2.5 sm:p-3.5 block lg:overflow-hidden ${
+      <main className={`flex-1 max-w-[1750px] w-full mx-auto p-2.5 sm:p-3.5 block overflow-visible ${
         guiVersion === 'v2'
           ? showMobileActionBar
             ? 'mobile-content-with-actions sm:pb-3.5'
@@ -935,7 +948,7 @@ export function App() {
           : ''
       }`}>
         {/* Main Workspace & Charts */}
-        <div className="min-w-0 w-full h-auto lg:h-[calc(100vh-120px)] lg:min-h-[600px] block">
+        <div className="min-w-0 w-full h-auto lg:min-h-[calc(100vh-120px)] block">
           <MainWorkspace
             signals={signals}
             selectedSignal={selectedSignal}

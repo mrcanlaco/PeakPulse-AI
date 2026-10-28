@@ -3,8 +3,12 @@ import sys
 from datetime import datetime
 from typing import Any
 
-import structlog
-from structlog.typing import EventDict
+try:
+    import structlog
+    from structlog.typing import EventDict
+except ImportError:  # pragma: no cover - stdlib fallback when structlog is absent
+    structlog = None  # type: ignore[assignment]
+    EventDict = dict[str, Any]  # type: ignore[misc]
 
 from dao_vang.domain.time import SYSTEM_TIMEZONE
 
@@ -94,16 +98,46 @@ def configure_logging(json_format: bool = True, log_level: str = "INFO") -> None
     root_logger.setLevel(getattr(logging, log_level.upper(), logging.INFO))
 
 
-def get_logger(name: str) -> structlog.BoundLogger:
+class _StdlibBoundLogger:
+    def __init__(self, name: str) -> None:
+        self._log = logging.getLogger(name)
+
+    def _fmt(self, event: str, kwargs: dict[str, Any]) -> str:
+        if not kwargs:
+            return str(event)
+        kv = " ".join(
+            f"{k}={'***REDACTED***' if any(s in k.lower() for s in SECRET_KEYS) else repr(v)}"
+            for k, v in kwargs.items()
+        )
+        return f"{event:<30} {kv}"
+
+    def info(self, event: str, **kwargs: Any) -> None:
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [info     ] {self._fmt(event, kwargs)}", flush=True)
+
+    def warning(self, event: str, **kwargs: Any) -> None:
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [warning  ] {self._fmt(event, kwargs)}", flush=True)
+
+    def error(self, event: str, **kwargs: Any) -> None:
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} [error    ] {self._fmt(event, kwargs)}", flush=True)
+
+    def debug(self, event: str, **kwargs: Any) -> None:
+        self._log.debug(self._fmt(event, kwargs))
+
+
+def get_logger(name: str) -> Any:
+    if structlog is None:
+        return _StdlibBoundLogger(name)
     """Get a structured logger instance."""
     return structlog.get_logger(name)
 
 
 def bind_context(**kwargs: Any) -> None:
     """Bind variables to the logging context."""
-    structlog.contextvars.bind_contextvars(**kwargs)
+    if structlog is not None:
+        structlog.contextvars.bind_contextvars(**kwargs)
 
 
 def clear_context() -> None:
     """Clear the logging context."""
-    structlog.contextvars.clear_contextvars()
+    if structlog is not None:
+        structlog.contextvars.clear_contextvars()

@@ -380,6 +380,29 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
           playbook: [
             'Configure your Gemini / DeepSeek API key to unlock the Interactive AI Assistant in the Decision Center.'
           ]
+        },
+        FIBO_SHORT: {
+          id: 'FIBO_SHORT',
+          name: 'Fibo Short (H4/D1)',
+          nameEn: 'Confirmed Reversal & Fibo Short',
+          icon: GitPullRequest,
+          category: 'TRADING',
+          badge: 'H4/D1 → H1 Trigger',
+          purpose: 'Wait for a confirmed bearish reversal wave on H4 or D1, measure Fibonacci retracement into the Golden Pocket (0.500–0.618), and enter Short on a closed H1 confirmation candle.',
+          mechanism: [
+            'HTF Reversal Wave (H4/D1): Identifies a valid Swing High (1.0) followed by a bearish reversal candle and downward impulse wave to Impulse Low (0.0).',
+            'Fibonacci Price Grid: Draws Golden Pocket (0.500–0.618), SL above Swing High (1.0 + 0.2 ATR), and TP1 (0.0), TP2 (Ext 1.272), TP3 (Ext 1.618).',
+            'H1 Confirmation Trigger (1+2): Closed H1 red candle (close < open, price_ret_1h <= 0) + Bearish Candle Pattern (Cond 1) + Break of Previous H1 Low / Fibo 0.5 (Cond 2).'
+          ],
+          metrics: [
+            { label: 'Swing High (1.0) → Impulse Low (0.0)', desc: 'Defines the structural bearish wave on H4 or D1.' },
+            { label: 'Golden Pocket (0.500–0.618)', desc: 'Optimal Fibonacci retracement entry zone for trend-following Short.' },
+            { label: 'In-Sample Backtest (≤ 2025)', desc: 'Historical verification strictly locked at <= 2025-12-31 so 2026+ remains untouched for Out-of-Sample (OOS).' }
+          ],
+          playbook: [
+            'Wait for stage "FIRED_CONFIRMED_SHORT" when both H4/D1 Fibo pullback and H1 confirmation rules are satisfied.',
+            'Place Stop Loss above Swing High (Fibo 1.0 + ATR buffer) and scale out at TP1 (Fibo 0.0), TP2 (Ext 1.272), and TP3 (Ext 1.618).'
+          ]
         }
       };
     }
@@ -693,6 +716,29 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
         ],
         playbook: [
           'Điền API Key Gemini hoặc DeepSeek của bạn để mở khóa toàn bộ tính năng Trợ lý AI thông minh trong Trung tâm Ra quyết định.'
+        ]
+      },
+      FIBO_SHORT: {
+        id: 'FIBO_SHORT',
+        name: 'Fibo Short (H4/D1)',
+        nameEn: 'Confirmed Reversal & Fibo Short',
+        icon: GitPullRequest,
+        category: 'TRADING',
+        badge: 'H4/D1 → H1 Xác nhận',
+        purpose: 'Nhánh chiến lược mới: chờ xác nhận đảo chiều cấu trúc trên khung lớn H4/D1, đo Fibonacci tìm vùng hồi quy Golden Pocket (0.500–0.618) và vào lệnh Short theo xu hướng mới khi nến H1 đóng cửa xác nhận.',
+        mechanism: [
+          'Sóng Đảo Chiều Khung Lớn (H4/D1): Xác định đỉnh Swing High (1.0), nến đỏ đảo chiều và sóng đẩy giảm xuống đáy Impulse Low (0.0).',
+          'Thang Giá Fibonacci: Tự động kẻ vùng vào lệnh Golden Pocket (0.500–0.618), cài Stop Loss trên đỉnh Swing High (1.0 + 0.2 ATR), chốt lời TP1 (0.0), TP2 (Ext 1.272), TP3 (Ext 1.618).',
+          'Nến Xác Nhận H1 (1+2): Nến H1 đóng đỏ (close < open, price_ret_1h <= 0) + Mẫu hình nến đảo chiều giảm (ĐK 1) + Phá vỡ đáy nến H1 liền trước / gãy mốc Fibo 0.5 (ĐK 2).'
+        ],
+        metrics: [
+          { label: 'Swing High (1.0) → Impulse Low (0.0)', desc: 'Biên độ con sóng đẩy giảm đầu tiên xác nhận đảo chiều trên H4 hoặc D1.' },
+          { label: 'Golden Pocket (0.500–0.618)', desc: 'Vùng hồi quy Fibonacci tối ưu để canh vào lệnh Short thuận xu hướng mới.' },
+          { label: 'Backtest In-Sample (≤ 2025)', desc: 'Kiểm định lịch sử khóa cứng tới hết 31/12/2025 để giữ nguyên toàn bộ dữ liệu 2026+ làm Out-of-Sample (OOS).' }
+        ],
+        playbook: [
+          'Ưu tiên các mã ở trạng thái "ĐÃ XÁC NHẬN SHORT (H1)" có xác nhận kép (1+2) tại vùng Golden Pocket.',
+          'Đặt Stop Loss phía trên đỉnh Swing High (Fibo 1.0 + đệm ATR) và chia chốt lời từng phần tại TP1 (đáy cũ 0.0), TP2 (Ext 1.272) và TP3 (Ext 1.618).'
         ]
       }
     };
