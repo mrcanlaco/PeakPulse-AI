@@ -132,25 +132,21 @@ docker compose up -d --wait scanner web
 curl -s http://127.0.0.1:8000/api/ready | python -m json.tool
 ```
 
-### Triển khai lên Máy chủ Production Oracle Cloud (OCI)
-Hệ thống Live Production hiện vận hành trên **Oracle Cloud Infrastructure (`161.118.250.182` / alias `oracle-daovang`)** thay thế hoàn toàn máy chủ GCP cũ:
-- **Tự động qua GitHub Actions (`.github/workflows/deploy.yml`):** Khai báo GitHub Secrets `ORACLE_SSH_KEY` (bắt buộc), cùng tùy chọn `ORACLE_HOST` (`161.118.250.182`), `ORACLE_USER` (`opc`), `ORACLE_APP_DIR` (`$HOME/dao_vang`).
-- **Thủ công từ máy Local (`scripts/deploy_oracle_server.py`):**
+### Triển khai lên Máy chủ Production Oracle Cloud (OCI — Dokploy)
+Hệ thống Live Production vận hành trên **Oracle Cloud Infrastructure (`opc@161.118.250.182`, ARM64 `oracle-free-vm-01`)** dưới cụm Dokploy Compose (`/etc/dokploy/compose/daovang-daovang-beta-bw9sz2/files/runtime`, cổng web nội bộ `127.0.0.1:18000`):
+- **4 Container đang chạy:**
+  - `daovang-oracle-scanner` (`configs/msi-production.yaml` — Tầng 1 V3.1 UI Radar + Tầng 2 Fibo Short v4.0.21 Telegram chính thức)
+  - `daovang-oracle-web` (`127.0.0.1:18000:8000` — API + React UI)
+  - `daovang-oracle-paper_oos` (`paper_oos_v1` 12 tài khoản OOS độc lập — giữ chạy liên tục không gián đoạn)
+  - `daovang-oracle-tunnel` (`cloudflared` nối domain `https://daovang.comaygiauco.com`)
+- **Lệnh deploy an toàn từ máy Local (`scripts/deploy_oracle_server.py`, tự động dùng `IdentitiesOnly=yes` và tạo bản sao lưu `/var/backups/dao-vang/`):**
   ```bash
-  # Kiểm tra dry-run SHA chuẩn bị deploy
-  python scripts/deploy_oracle_server.py
+  # 1. Build frontend mới nhất & kiểm tra dry-run gói deploy
+  cd frontend && npm run build && cd ..
+  python scripts/deploy_oracle_server.py --key "<DUONG_DAN_FILE_ORACLE_KEY>"
 
-  # Thực thi cập nhật lên Oracle Cloud và kiểm tra /api/health + /api/ready
-  python scripts/deploy_oracle_server.py --apply
-  ```
-- **Trên trực tiếp máy chủ Oracle Cloud (`/home/opc/dao_vang`):**
-  ```bash
-  git pull --ff-only origin main
-  export DAO_VANG_RUNTIME_UID="$(id -u)" DAO_VANG_RUNTIME_GID="$(id -g)"
-  bash scripts/prepare_runtime_permissions.sh --apply
-  docker compose build && docker compose up -d --no-build --wait --wait-timeout 180
-  curl --fail -s http://localhost:8000/api/ready | python3 -m json.tool
-  bash scripts/install_production_cron.sh --apply
+  # 2. Thực thi deploy lên Oracle Cloud (chỉ restart scanner & web, giữ nguyên paper_oos + tunnel)
+  python scripts/deploy_oracle_server.py --key "<DUONG_DAN_FILE_ORACLE_KEY>" --apply
   ```
 
 ### Ý nghĩa kết quả `/api/ready`

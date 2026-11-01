@@ -8,32 +8,28 @@
 - `dao-vang-ui` cũng hỗ trợ --host, --port và --reload. Cổng positional cũ vẫn được hỗ trợ.
 - Dữ liệu và mật khẩu lấy từ môi trường/.env. Không mặc định bật scanner khi khởi động web.
 
-## Oracle Cloud (OCI — Production Live)
-- Máy chủ Production chính thức đã chuyển từ GCP (đã ngưng sử dụng) sang **Oracle Cloud Infrastructure (OCI)**.
-- Host / IP: `161.118.250.182` (SSH alias: `oracle-daovang`); tài khoản mặc định: `opc` (hoặc cấu hình qua `ORACLE_USER`).
-- Khóa SSH: `~/.ssh/id_ed25519` (hoặc truyền qua `--key` / GitHub Secret `ORACLE_SSH_KEY`).
-- Thư mục ứng dụng: `$HOME/dao_vang` (tương ứng `/home/opc/dao_vang`, tự động nhận diện qua đường dẫn tương đối của `scripts/*.sh` hoặc biến `DAO_VANG_PROJECT_DIR` / `ORACLE_APP_DIR`).
-- Domain: `https://daovang.comaygiauco.com`.
-- Docker Compose: `scanner`, `web`, `cloudflared` (cấu hình `configs/live.yaml` theo kiến trúc 2 tầng: `Fibo Short v4.0.21` chính thức + `V3.1` UI Radar).
-- Bind mount dữ liệu trên host `./data` vào `/app/data_live`; `artifacts` và `configs` giữ riêng ngoài image.
-- Không xóa file lock của dịch vụ đang chạy.
-- Scanner healthcheck và `/api/ready` kiểm tra đồng thời heartbeat mới trong 15 phút, trạng thái `running`, chu kỳ gần nhất không `failed`, nhánh `fibo_trend_short` không lỗi (`fibo_trend_short_failed`) và dung lượng ổ đĩa an toàn.
+## Oracle Cloud (OCI — Dokploy Production Live)
+- Máy chủ Production chính thức đã chuyển từ GCP (đã ngưng sử dụng) sang **Oracle Cloud Infrastructure (OCI — ARM64 `aarch64`, Oracle Linux 9)**.
+- Host / IP: `161.118.250.182` (`oracle-free-vm-01`); tài khoản SSH: `opc` (kết nối với `-i <path-to-key> -o IdentitiesOnly=yes`).
+- Quản lý Container: **Dokploy Compose** (`project: daovang-daovang-beta-bw9sz2`, `name: daovang-oracle`, gọi qua `sudo docker`):
+  - `daovang-oracle-web`: cổng nội bộ `127.0.0.1:18000 -> 8000/tcp`, phục vụ API + `frontend/dist`.
+  - `daovang-oracle-scanner`: chạy `dao-vang scanner start --config configs/msi-production.yaml` (kiến trúc 2 tầng: `Fibo Short v4.0.21` Telegram chính thức + `V3.1` UI Radar với `shadow_telegram_enabled: false`).
+  - `daovang-oracle-paper_oos`: chạy độc lập 12 tài khoản `paper_oos_v1` từ `source_snapshot` đã khóa SHA-256 (**không restart khi cập nhật web/scanner** để giữ mạch quan sát liên tục).
+  - `daovang-oracle-tunnel`: `cloudflare/cloudflared` nối thẳng ra domain `https://daovang.comaygiauco.com`.
+- Đường dẫn trên máy chủ Oracle:
+  - Compose file: `/etc/dokploy/compose/daovang-daovang-beta-bw9sz2/code/docker-compose.yml`
+  - Thư mục runtime bind-mount: `/etc/dokploy/compose/daovang-daovang-beta-bw9sz2/files/runtime/` (`data -> /app/data_live`, `artifacts -> /app/artifacts`, `configs -> /app/configs:ro`, `src -> /app/src:ro`, `frontend/dist -> /app/frontend/dist:ro`).
+  - Thư mục backup trước mỗi lần deploy: `/var/backups/dao-vang/prod-2tier-<TIMESTAMP>/`.
 
-## Quy trình Triển khai (CI/CD & Thủ công trên Oracle Cloud)
-1. Kiểm tra mã: Ruff, bộ kiểm thử Python, Pyright theo danh sách CI; frontend build & bundle budget.
+## Quy trình Triển khai lên Oracle Cloud
+1. Kiểm tra mã: Ruff, bộ kiểm thử Python, Pyright theo danh sách CI; build frontend (`cd frontend && npm run build && npm run check:bundle`).
 2. Commit và push mã lên nhánh `main` trên GitHub.
-3. **Auto-deploy qua GitHub Actions (`.github/workflows/deploy.yml` — `Deploy to Oracle Cloud (Live)`):**
-   - Cấu hình Secrets trên GitHub repo (`Settings -> Secrets and variables -> Actions`):
-     - `ORACLE_SSH_KEY`: nội dung private key SSH đăng nhập máy chủ Oracle Cloud (bắt buộc).
-     - `ORACLE_HOST`: IP/domain máy chủ Oracle (mặc định `161.118.250.182`).
-     - `ORACLE_USER`: user SSH (mặc định `opc`).
-     - `ORACLE_APP_DIR`: thư mục repo trên server (tùy chọn, mặc định `$HOME/dao_vang`).
-   - Workflow chỉ deploy đúng SHA 40 ký tự đã vượt qua `CI`, không tự `git reset --hard` hay xóa thay đổi chưa commit trên server.
-4. **Triển khai thủ công từ máy Local:**
-   - Xem trước (dry-run): `python scripts/deploy_oracle_server.py --revision <SHA-40-ký-tự>`
-   - Thực thi lên Oracle Cloud: `python scripts/deploy_oracle_server.py --revision <SHA-40-ký-tự> --apply` (có thể truyền thêm `--host`, `--key`, `--app-dir`).
-5. Chờ các dịch vụ Docker healthy, kiểm tra `/api/health` và `/api/ready` qua localhost trên server và qua domain `https://daovang.comaygiauco.com/api/ready`.
-6. Updater tự động trong container được tắt cứng (`updater.enabled: false`); mọi bản phát hành đi qua host/CI.
+3. **Triển khai trực tiếp lên Dokploy Runtime trên Oracle Cloud (`scripts/deploy_oracle_server.py`):**
+   - Xem trước (dry-run):
+     `python scripts/deploy_oracle_server.py --key "<PATH_TO_ORACLE_KEY>"`
+   - Thực thi cập nhật an toàn (tự động tạo backup `/var/backups/dao-vang/...`, kiểm tra schema `msi-production.yaml`, chỉ restart `daovang-oracle-scanner` + `daovang-oracle-web` và giữ nguyên `daovang-oracle-paper_oos`):
+     `python scripts/deploy_oracle_server.py --key "<PATH_TO_ORACLE_KEY>" --apply`
+4. Xác nhận `http://127.0.0.1:18000/api/ready` trên server và `https://daovang.comaygiauco.com/api/ready` trả `HTTP 200` với `checks.fibo_trend_short.status == "ok"`.
 ## Rà soát và phục hồi
 - Chạy `python scripts/audit_runtime.py` trong container web để kiểm tra API có xác thực; công cụ không in mật khẩu/cookie, không gửi Telegram.
 - Chạy `python scripts/check_public_url.py` từ bên ngoài để kiểm tra domain và yêu cầu đăng nhập.
