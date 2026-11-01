@@ -385,7 +385,7 @@ export const SystemHistoryTab: React.FC = () => {
           <div className="mb-3 p-2.5 rounded-lg bg-amber-950/40 border border-amber-800/60 text-amber-300 text-[11px] flex items-start gap-2">
             <Info className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <div className="leading-relaxed">
-              <strong>Máy quét Local Scanner Daemon hiện đang TẮT.</strong> Dữ liệu đường ống hiển thị mốc thời gian của lần quét trước đó nên hệ thống cảnh báo màu đỏ (&ldquo;Quá cũ / Stale&rdquo;). Để nạp nến 5m mới nhất và làm xanh toàn bộ 9 dịch vụ, hãy chạy file <code className="bg-slate-900 px-1.5 py-0.5 rounded text-amber-200 border border-amber-700/50 font-mono">run_scanner_dev.bat</code> (hoặc chạy <code className="bg-slate-900 px-1.5 py-0.5 rounded text-amber-200 border border-amber-700/50 font-mono">run_all_dev.bat</code> để bật cùng lúc cả Web + Scanner).
+              <strong>Máy quét Local Scanner Daemon hiện đang TẮT.</strong> Dữ liệu đường ống hiển thị mốc thời gian của lần quét trước đó nên hệ thống cảnh báo màu đỏ (&ldquo;Quá cũ / Stale&rdquo;). Để nạp nến 5m mới nhất và làm xanh toàn bộ 9 dịch vụ, hãy chạy file <code className="bg-slate-900 px-1.5 py-0.5 rounded text-amber-200 border border-amber-700/50 font-mono">scripts\windows\run_scanner_dev.bat</code> (hoặc chạy <code className="bg-slate-900 px-1.5 py-0.5 rounded text-amber-200 border border-amber-700/50 font-mono">scripts\windows\run_all_dev.bat</code> để bật cùng lúc cả Web + Scanner).
             </div>
           </div>
         )}

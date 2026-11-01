@@ -221,8 +221,8 @@ cd frontend && npm install && cd ..
   👉 Mở trình duyệt tại: `http://localhost:8088` *(Vite sẽ tự động proxy các request API sang port 8000)*.
 
 #### 3. Khởi chạy nhanh 1-Click trên Windows (Dev)
-- Nhấp đúp file `run_dev.bat` để chạy Web Server Dev.
-- (Tùy chọn) Nhấp đúp `run_scanner_dev.bat` để chạy tiến trình quét liên tục trên môi trường dev.
+- Nhấp đúp file `scripts\windows\run_dev.bat` để chạy Web Server Dev.
+- (Tùy chọn) Nhấp đúp `scripts\windows\run_scanner_dev.bat` để chạy tiến trình quét liên tục trên môi trường dev.
 
 ---
 

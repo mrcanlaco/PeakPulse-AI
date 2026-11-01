@@ -7,12 +7,12 @@ echo ================================================================
 echo           DAO VANG - ONE CLICK LOCAL DEV LAUNCHER
 echo ================================================================
 echo  Dang mo 2 cua so Local Development doc lap:
-echo    [1] Web UI Server  -> http://localhost:8000
-echo    [2] Scanner Daemon -> Quet thi truong Shadow Mode
+echo    [1] Web UI Server  -^> http://localhost:8000
+echo    [2] Scanner Daemon -^> Quet thi truong Shadow Mode
 echo ================================================================
 echo.
 
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 
 start "DAO VANG - WEB UI [DEV]" cmd /c "%~dp0run_dev.bat"
 timeout /t 2 /nobreak >nul

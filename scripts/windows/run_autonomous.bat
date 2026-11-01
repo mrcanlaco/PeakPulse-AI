@@ -6,14 +6,14 @@ cls
 echo ================================================================
 echo      DAO VANG (PEAKPULSE AI) - 1-CLICK AUTONOMOUS LAUNCHER
 echo ================================================================
-echo  * Che do        : TU DONG HOAN TOAN (Autonomous Trading & Scanning)
+echo  * Che do        : TU DONG HOAN TOAN (Autonomous Trading ^& Scanning)
 echo  * Cau hinh      : configs/trading_auto.yaml
 echo  * Web Dashboard : http://localhost:8000
 echo  * Quan tri rui ro: Stop Loss 5 USDT, Trailing TP 1.5 ATR, Time Exit 72h
 echo ================================================================
 echo.
 
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 set PYTHONPATH=src
 
 if exist .venv\Scripts\python.exe (

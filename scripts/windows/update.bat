@@ -10,9 +10,9 @@ echo  Kiem tra va dong bo ma nguon moi nhat tu GitHub ve may Local...
 echo ================================================================
 echo.
 
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0scripts\update.ps1"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "scripts\update.ps1"
 
 echo.
 echo ================================================================

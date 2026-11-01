@@ -33,7 +33,7 @@ You can run the scanner and web server locally using the provided batch scripts 
 ### Start Scanner Daemon (Dev)
 ```bash
 # Windows
-run_scanner_dev.bat
+scripts\windows\run_scanner_dev.bat
 
 # Or via CLI
 dao-vang scanner run --config configs/dev.yaml
@@ -42,7 +42,7 @@ dao-vang scanner run --config configs/dev.yaml
 ### Start Web Server & UI (Dev)
 ```bash
 # Windows
-run_dev.bat
+scripts\windows\run_dev.bat
 
 # Or via CLI
 dao-vang web serve --host 127.0.0.1 --port 8501

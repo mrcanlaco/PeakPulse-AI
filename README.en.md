@@ -173,8 +173,8 @@ cd frontend && npm install && cd ..
   👉 Open browser at: `http://localhost:5173` *(Vite automatically proxies API requests to port 8000)*.
 
 #### 3. 1-Click Launch on Windows (Dev)
-- Double-click `run_dev.bat` to launch the Dev Web Server.
-- (Optional) Double-click `run_scanner_dev.bat` to start the continuous scanner daemon on dev data.
+- Double-click `scripts\windows\run_dev.bat` to launch the Dev Web Server.
+- (Optional) Double-click `scripts\windows\run_scanner_dev.bat` to start the continuous scanner daemon on dev data.
 
 ---
 

@@ -148,7 +148,7 @@ Ví dụ tin nhắn Telegram từ hệ thống:
 ### Khởi chạy môi trường
 ```bash
 # 1. Môi trường Dev (Port API 8000 + UI 5173, data/dev.duckdb, KHÔNG bắn Telegram)
-.\run_dev.bat
+.\scripts\windows\run_dev.bat
 
 # 2. Môi trường Production bằng Docker Compose (Khuyên dùng trên Server)
 docker compose up -d --wait scanner web

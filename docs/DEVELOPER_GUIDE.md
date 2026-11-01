@@ -34,7 +34,7 @@ cd ..
 ### Run in Development Mode:
 ```bash
 # Option A: Run via batch scripts (Windows)
-.\run_dev.bat
+.\scripts\windows\run_dev.bat
 
 # Option B: Run via individual commands
 # 1. Start Web API backend on port 8000

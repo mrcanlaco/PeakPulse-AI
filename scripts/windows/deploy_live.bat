@@ -1,6 +1,6 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0..\.."
 echo Trien khai commit da luu len Google Cloud.
 echo Script se dung neu server co thay doi chua commit.
 if exist .venv\Scripts\python.exe (

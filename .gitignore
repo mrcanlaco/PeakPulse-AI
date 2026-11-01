@@ -121,3 +121,9 @@ dao_vang_docs*
 Thumbs.db
 desktop.ini
 frontend/dist/
+# Root scratch CSVs & AI planning notes
+/*.csv
+/findings.md
+/progress.md
+/task_plan.md
+/tasks/
