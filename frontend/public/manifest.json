@@ -1,7 +1,7 @@
 {
-  "name": "Đảo Vàng AI Radar",
-  "short_name": "Đảo Vàng AI Radar",
-  "description": "Hệ thống AI Radar 24/7 phát hiện sớm đỉnh phân phối và bắt nhịp xả coin bơm xả.",
+  "name": "PeakPulse AI · FreqPilot",
+  "short_name": "PeakPulse AI",
+  "description": "PeakPulse AI (FreqPilot) — Hệ thống Radar & Fibo Short v4.0.21 24/7 phát hiện đảo chiều cấu trúc và kiểm định danh mục OOS.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

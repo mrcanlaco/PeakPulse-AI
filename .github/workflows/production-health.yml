@@ -18,24 +18,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Check web liveness
-        run: >-
-          curl
-          --fail
-          --silent
-          --show-error
-          --retry 3
-          --retry-all-errors
-          --max-time 20
-          https://daovang.comaygiauco.com/api/health
+      - name: Check web liveness (pulse.freqpilot.dev with legacy fallback during DNS cutover)
+        run: |
+          if getent hosts pulse.freqpilot.dev >/dev/null 2>&1; then
+            TARGET="https://pulse.freqpilot.dev"
+          else
+            TARGET="https://daovang.comaygiauco.com"
+          fi
+          echo "Checking liveness on $TARGET/api/health"
+          curl --fail --silent --show-error --retry 3 --retry-all-errors --max-time 20 "$TARGET/api/health"
 
       - name: Check scanner readiness
-        run: >-
-          curl
-          --fail
-          --silent
-          --show-error
-          --retry 3
-          --retry-all-errors
-          --max-time 20
-          https://daovang.comaygiauco.com/api/ready
+        run: |
+          if getent hosts pulse.freqpilot.dev >/dev/null 2>&1; then
+            TARGET="https://pulse.freqpilot.dev"
+          else
+            TARGET="https://daovang.comaygiauco.com"
+          fi
+          echo "Checking readiness on $TARGET/api/ready"
+          curl --fail --silent --show-error --retry 3 --retry-all-errors --max-time 20 "$TARGET/api/ready"

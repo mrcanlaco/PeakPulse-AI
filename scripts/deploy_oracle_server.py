@@ -67,6 +67,13 @@ p = pathlib.Path(sys.argv[1])
 if p.exists():
     st = p.stat()
     data = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+    web_cfg = data.setdefault("web", {})
+    if isinstance(web_cfg, dict):
+        web_cfg["public_url"] = "https://pulse.freqpilot.dev"
+        web_cfg["allowed_origins"] = [
+            "https://pulse.freqpilot.dev",
+            "https://daovang.comaygiauco.com",
+        ]
     if isinstance(data.get("scanner"), dict):
         data["scanner"]["shadow_telegram_enabled"] = False
     if isinstance(data.get("fibo_trend_short"), dict):
@@ -150,9 +157,63 @@ if cp.is_file():
         }
         cp.write_text(json.dumps(doc, indent=2), encoding="utf-8")
 PY
+sudo python3 - "$RT/cloudflared/config.yml" <<'PY'
+import os
+import pathlib
+import sys
+import yaml
+
+cf = pathlib.Path(sys.argv[1])
+if cf.is_file():
+    st = cf.stat()
+    doc = yaml.safe_load(cf.read_text(encoding="utf-8")) or {}
+    ingress = doc.get("ingress")
+    if isinstance(ingress, list):
+        hosts = {item.get("hostname") for item in ingress if isinstance(item, dict)}
+        if "pulse.freqpilot.dev" not in hosts:
+            doc["ingress"] = [
+                {"hostname": "pulse.freqpilot.dev", "service": "http://127.0.0.1:18000"},
+                *ingress,
+            ]
+            tmp = cf.with_suffix(".yml.tmp")
+            tmp.write_text(yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
+            os.chown(tmp, st.st_uid, st.st_gid)
+            os.chmod(tmp, st.st_mode & 0o777)
+            os.replace(tmp, cf)
+            pathlib.Path("/tmp/daovang_tunnel_changed").write_text("1", encoding="utf-8")
+PY
+if sudo test -f /tmp/daovang_tunnel_changed; then
+  sudo rm -f /tmp/daovang_tunnel_changed
+  sudo docker restart daovang-oracle-tunnel >/dev/null || true
+fi
+if sudo test -d /etc/dokploy/traefik/dynamic; then
+  sudo tee /etc/dokploy/traefik/dynamic/peakpulse.yml >/dev/null <<'YML'
+http:
+  routers:
+    peakpulse-http:
+      rule: Host(`pulse.freqpilot.dev`)
+      service: peakpulse-svc
+      entryPoints:
+        - web
+    peakpulse-https:
+      rule: Host(`pulse.freqpilot.dev`)
+      service: peakpulse-svc
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: letsencrypt
+  services:
+    peakpulse-svc:
+      loadBalancer:
+        servers:
+          - url: http://daovang-oracle-web:8000
+        passHostHeader: true
+YML
+fi
 echo "$REV" | sudo tee "$RT/.git/refs/heads/main" >/dev/null
 sudo docker exec daovang-oracle-scanner python -c "from pathlib import Path; from dao_vang.config.settings import AppSettings; s = AppSettings.from_yaml(Path('/app/configs/msi-production.yaml')); assert s.scanner.shadow_telegram_enabled is False and s.execution.enabled is True and s.execution.initial_equity == 10000.0 and s.execution.live_activated is False"
 sudo docker restart daovang-oracle-scanner daovang-oracle-web >/dev/null
+sudo docker network connect dokploy-network daovang-oracle-web 2>/dev/null || true
 COMPOSE_DIR="$(dirname "$(dirname "$RT")")/code"
 if sudo docker ps -a --format '{{.Names}}' | grep -qx 'daovang-oracle-execution'; then
   sudo docker restart daovang-oracle-execution >/dev/null

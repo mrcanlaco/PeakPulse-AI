@@ -2060,8 +2060,13 @@ class APIHandler(BaseHTTPRequestHandler):
                 return
 
         if parsed.path.startswith('/api/execution/'):
-            origin = self.headers.get('Origin', '')
-            if origin and origin not in _settings.web.allowed_origins:
+            origin = self.headers.get('Origin', '').rstrip('/')
+            allowed_origins = {
+                o.rstrip('/') for o in _settings.web.allowed_origins if o
+            }
+            if _settings.web.public_url:
+                allowed_origins.add(_settings.web.public_url.rstrip('/'))
+            if origin and origin not in allowed_origins:
                 self._set_headers(403)
                 self.wfile.write(json.dumps({'error': 'forbidden_origin'}).encode('utf-8'))
                 return

@@ -7,9 +7,11 @@ paths:
   normalized_dir: data_live/normalized
 
 web:
-  # Link mở thẳng trang phân tích của coin trong Telegram.
-  public_url: https://daovang.comaygiauco.com
-
+  # Link mở thẳng trang phân tích của coin trong Telegram & CORS cho phép thao tác trên tab Live.
+  public_url: https://pulse.freqpilot.dev
+  allowed_origins:
+    - https://pulse.freqpilot.dev
+    - https://daovang.comaygiauco.com
 coingecko:
   # Optional Binance-vs-CoinGecko price cross-reference only.
   enabled: false

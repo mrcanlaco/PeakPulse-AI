@@ -152,11 +152,12 @@ curl -s http://127.0.0.1:8000/api/ready | python -m json.tool
 
 ### Triển khai lên Máy chủ Production Oracle Cloud (OCI — Dokploy)
 Hệ thống Live Production vận hành trên **Oracle Cloud Infrastructure (`opc@161.118.250.182`, ARM64 `oracle-free-vm-01`)** dưới cụm Dokploy Compose (`/etc/dokploy/compose/daovang-daovang-beta-bw9sz2/files/runtime`, cổng web nội bộ `127.0.0.1:18000`):
-- **4 Container đang chạy:**
+- **5 Container đang chạy:**
   - `daovang-oracle-scanner` (`configs/msi-production.yaml` — Tầng 1 V3.1 UI Radar + Tầng 2 Fibo Short v4.0.21 Telegram chính thức)
-  - `daovang-oracle-web` (`127.0.0.1:18000:8000` — API + React UI)
+  - `daovang-oracle-web` (`127.0.0.1:18000:8000` — API + React UI 4 Tab Lớn)
+  - `daovang-oracle-execution` (`Paper Simulation 10,000.00 USDT` nối trực tiếp nguồn tín hiệu `fibo_short`, `live_activated: false`)
   - `daovang-oracle-paper_oos` (`paper_oos_v1` 12 tài khoản OOS độc lập — giữ chạy liên tục không gián đoạn)
-  - `daovang-oracle-tunnel` (`cloudflared` nối domain `https://daovang.comaygiauco.com`)
+  - `daovang-oracle-tunnel` + `dokploy-traefik` (nối domain chính thức **`https://pulse.freqpilot.dev`** và song song `https://daovang.comaygiauco.com`)
 - **Lệnh deploy an toàn từ máy Local (`scripts/deploy_oracle_server.py`, tự động dùng `IdentitiesOnly=yes` và tạo bản sao lưu `/var/backups/dao-vang/`):**
   ```bash
   # 1. Build frontend mới nhất & kiểm tra dry-run gói deploy
