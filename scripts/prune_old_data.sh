@@ -3,7 +3,8 @@
 
 set -Eeuo pipefail
 
-PROJECT_DIR="${DAO_VANG_PROJECT_DIR:-/home/ubuntu/dao_vang}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${DAO_VANG_PROJECT_DIR:-$(cd -- "$SCRIPT_DIR/.." && pwd)}"
 RETENTION_DAYS="${DAO_VANG_LOCAL_RETENTION_DAYS:-7}"
 MAX_BACKUP_AGE_HOURS="${DAO_VANG_MAX_BACKUP_AGE_HOURS:-36}"
 apply=0

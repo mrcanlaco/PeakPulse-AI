@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Wired `fibo_trend_short` cycle health into `scanner_heartbeat.json`, `inspect_heartbeat()`, and `GET/HEAD /api/ready` (`HTTP 503` with `reason: fibo_trend_short_failed` on lane failure).
   - Added thread-safe closed-candle caching (`fetch_closed_klines`) keyed by expected latest closed `H1/H4/D1` candle timestamp, cutting redundant 5-minute Binance kline REST requests by >96%.
 
+- **Oracle Cloud (OCI) Infrastructure Cutover (`.github/workflows/deploy.yml`, `scripts/deploy_oracle_server.py`, `docs/DEPLOYMENT_ENVIRONMENT.md`)**:
+  - Migrated CI/CD deployment workflow and manual deploy tooling from retired GCP (`136.110.29.208`) to **Oracle Cloud (`161.118.250.182` / `opc`, `ORACLE_SSH_KEY`, `ORACLE_HOST`, `ORACLE_USER`, `ORACLE_APP_DIR`)**.
+  - Replaced hardcoded `/home/ubuntu/dao_vang` defaults across `backup_to_gdrive.sh`, `restore_from_gdrive.sh`, `install_production_cron.sh`, `prepare_runtime_permissions.sh`, and `prune_old_data.sh` with dynamic script-relative repository root resolution.
 ## [2.1.0] - 2026-10-16
 
 ### Added — Fibonacci Trend Short (`dao_vang.fibo_short`) & 6-Pillar Alpha Research Portal (`v4.0.0`)

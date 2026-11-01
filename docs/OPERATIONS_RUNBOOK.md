@@ -36,14 +36,17 @@ dashboard process is alive but production scanning is not ready.
 
 Run the consistent backup once per day, then prune only after it succeeds:
 
-    10 2 * * * cd /home/ubuntu/dao_vang && bash scripts/backup_to_gdrive.sh
-    0 4 * * * cd /home/ubuntu/dao_vang && bash scripts/prune_old_data.sh --apply
+    10 2 * * * cd /home/opc/dao_vang && bash scripts/backup_to_gdrive.sh
+    0 4 * * * cd /home/opc/dao_vang && bash scripts/prune_old_data.sh --apply
 
 The deploy workflow installs these entries through
 scripts/install_production_cron.sh. The installer backs up the prior crontab,
 preserves unrelated jobs, removes the legacy five-minute git reset job and
 maintains one repository-owned block. Preview it with --print before applying
 manually.
+(All operational scripts automatically resolve `PROJECT_DIR` relative to their
+own `scripts/` location on Oracle Cloud `/home/opc/dao_vang` unless overridden
+by `DAO_VANG_PROJECT_DIR`.)
 
 Web and scanner run with the host deployment UID/GID rather than root. Deploy
 runs scripts/prepare_runtime_permissions.sh before Compose so existing

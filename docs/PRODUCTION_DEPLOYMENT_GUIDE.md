@@ -132,6 +132,27 @@ docker compose up -d --wait scanner web
 curl -s http://127.0.0.1:8000/api/ready | python -m json.tool
 ```
 
+### Triển khai lên Máy chủ Production Oracle Cloud (OCI)
+Hệ thống Live Production hiện vận hành trên **Oracle Cloud Infrastructure (`161.118.250.182` / alias `oracle-daovang`)** thay thế hoàn toàn máy chủ GCP cũ:
+- **Tự động qua GitHub Actions (`.github/workflows/deploy.yml`):** Khai báo GitHub Secrets `ORACLE_SSH_KEY` (bắt buộc), cùng tùy chọn `ORACLE_HOST` (`161.118.250.182`), `ORACLE_USER` (`opc`), `ORACLE_APP_DIR` (`$HOME/dao_vang`).
+- **Thủ công từ máy Local (`scripts/deploy_oracle_server.py`):**
+  ```bash
+  # Kiểm tra dry-run SHA chuẩn bị deploy
+  python scripts/deploy_oracle_server.py
+
+  # Thực thi cập nhật lên Oracle Cloud và kiểm tra /api/health + /api/ready
+  python scripts/deploy_oracle_server.py --apply
+  ```
+- **Trên trực tiếp máy chủ Oracle Cloud (`/home/opc/dao_vang`):**
+  ```bash
+  git pull --ff-only origin main
+  export DAO_VANG_RUNTIME_UID="$(id -u)" DAO_VANG_RUNTIME_GID="$(id -g)"
+  bash scripts/prepare_runtime_permissions.sh --apply
+  docker compose build && docker compose up -d --no-build --wait --wait-timeout 180
+  curl --fail -s http://localhost:8000/api/ready | python3 -m json.tool
+  bash scripts/install_production_cron.sh --apply
+  ```
+
 ### Ý nghĩa kết quả `/api/ready`
 - `status: "ok"` (HTTP `200`): Cả tiến trình Web, Scanner V3.1, nhánh chính thức `fibo_trend_short` (`checks.fibo_trend_short.status == "ok"`) và dung lượng ổ đĩa đều khỏe mạnh.
 - `checks.scanner.reason: "fibo_trend_short_failed"` (HTTP `503`): Nhánh Fibo Short gặp sự cố (ví dụ mất kết nối Binance Futures hoặc lỗi quyền ghi thư mục `data_live/fibo_trend_short/`). Kiểm tra ngay log container `docker compose logs --tail=100 scanner`.

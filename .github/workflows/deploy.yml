@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud (Live)
+name: Deploy to Oracle Cloud (Live)
 
 on:
   workflow_run:
@@ -21,26 +21,29 @@ jobs:
       github.event.workflow_run.head_repository.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
-      - name: Require deployment credentials
+      - name: Require Oracle Cloud deployment credentials
         env:
-          GCP_SSH_KEY: ${{ secrets.GCP_SSH_KEY }}
-        run: test -n "$GCP_SSH_KEY"
+          ORACLE_SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST || '161.118.250.182' }}
+        run: test -n "$ORACLE_SSH_KEY" && test -n "$ORACLE_HOST"
 
       - name: Deploy the exact revision that passed CI
         uses: appleboy/ssh-action@v1.0.3
         env:
           DEPLOY_SHA: ${{ github.event.workflow_run.head_sha }}
-          GCP_SSH_KEY: ${{ secrets.GCP_SSH_KEY }}
+          ORACLE_APP_DIR: ${{ secrets.ORACLE_APP_DIR || '' }}
         with:
-          host: ${{ secrets.GCP_HOST || '136.110.29.208' }}
-          username: ${{ secrets.GCP_USER || 'ubuntu' }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          envs: DEPLOY_SHA
+          host: ${{ secrets.ORACLE_HOST || '161.118.250.182' }}
+          username: ${{ secrets.ORACLE_USER || 'opc' }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          envs: DEPLOY_SHA,ORACLE_APP_DIR
           timeout: 120s
           command_timeout: 30m
           script: |
             set -eu
-            cd /home/ubuntu/dao_vang
+            APP_DIR="${ORACLE_APP_DIR:-$HOME/dao_vang}"
+            cd "$APP_DIR"
+            export DAO_VANG_PROJECT_DIR="$APP_DIR"
             test "$(git branch --show-current)" = "main" || {
               echo "Deployment stopped: server checkout is not on main."
               exit 1

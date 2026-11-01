@@ -24,12 +24,12 @@ $systemCloudflaredDir = "C:\Windows\System32\config\systemprofile\.cloudflared"
 if (Test-Path "$userCloudflaredDir\config.yml") {
     $configContent = Get-Content "$userCloudflaredDir\config.yml" -Raw
     $configContent = $configContent -replace [regex]::Escape($userCloudflaredDir), $systemCloudflaredDir
-    $configContent = $configContent -replace "http://127.0.0.1:8000", "http://136.110.29.208:8000"
+    $configContent = $configContent -replace "http://127.0.0.1:8000", "http://161.118.250.182:8000"
     Set-Content -Path "$systemCloudflaredDir\config.yml" -Value $configContent -NoNewline -Force
 }
 
 Write-Host "4. Restarting Cloudflared Windows Service..." -ForegroundColor Cyan
 Restart-Service -Name "Cloudflared" -Force -ErrorAction SilentlyContinue
 
-Write-Host "Done! MSI server processes stopped, tunnel updated to 136.110.29.208:8000." -ForegroundColor Green
+Write-Host "Done! MSI server processes stopped, tunnel updated to Oracle Cloud (161.118.250.182:8000)." -ForegroundColor Green
 

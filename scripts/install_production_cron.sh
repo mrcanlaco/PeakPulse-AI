@@ -3,7 +3,8 @@
 
 set -Eeuo pipefail
 
-PROJECT_DIR="${DAO_VANG_PROJECT_DIR:-/home/ubuntu/dao_vang}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${DAO_VANG_PROJECT_DIR:-$(cd -- "$SCRIPT_DIR/.." && pwd)}"
 apply=0
 
 case "${1:-}" in
