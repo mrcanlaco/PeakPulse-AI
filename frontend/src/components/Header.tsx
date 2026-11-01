@@ -440,11 +440,11 @@ export const Header: React.FC<HeaderProps> = ({
             {/* AI Model Selector */}
             <div className="relative shrink-0">
               <div
-                className="inline-flex max-w-[120px] lg:max-w-[160px] items-center gap-1.5 rounded-lg border border-sky-500/30 bg-sky-500/10 px-2 py-1 text-[11px] font-bold text-sky-300 cursor-default shadow-sm"
-                title={language === 'en' ? 'Active AI Model running on the server' : language === 'zh' ? '服务器正在运行的AI模型' : language === 'ko' ? '서버에서 실행 중인 활성 AI 모델' : 'Mô hình AI đang vận hành trực tiếp trên máy chủ'}
+                className="inline-flex max-w-[140px] lg:max-w-[195px] items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-2 py-1 text-[11px] font-bold text-emerald-300 cursor-default shadow-sm"
+                title={language === 'en' ? 'Official 2-Tier Engine: Fibo Short v4.0.21 (Primary Actionable & Telegram) + V3.1 ML (Early UI Radar)' : language === 'zh' ? '双层引擎：Fibo Short v4.0.21（主交易信号）+ V3.1（早期雷达）' : language === 'ko' ? '2계층 엔진: Fibo Short v4.0.21 (공식 신호) + V3.1 (조기 레이더)' : 'Kiến trúc 2 tầng: Fibo Short v4.0.21 (Tín hiệu hành động & Telegram chính thức) + V3.1 ML (Radar quét sớm trên UI)'}
               >
-                <Cpu className="h-3.5 w-3.5 shrink-0 text-sky-400" />
-                <span className="truncate">V3.1 Săn Đỉnh</span>
+                <Cpu className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+                <span className="truncate">Fibo v4.0 · Radar V3.1</span>
                 <span className="text-emerald-400 animate-pulse" title={t('online_247')}>●</span>
               </div>
             </div>

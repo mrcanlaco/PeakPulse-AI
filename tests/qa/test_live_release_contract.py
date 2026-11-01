@@ -115,3 +115,29 @@ def test_forward_protocol_is_locked_to_the_exact_live_bundle():
     assert protocol.label_version == info.label_spec["version"]
     assert protocol.label_horizon_hours == info.label_spec["horizon_hours"]
     assert protocol.universe_policy["post_hoc_symbol_filtering"] is False
+
+
+def test_live_config_enforces_two_tier_fibo_primary_and_v31_ui_radar_contract():
+    config = _load_live_config()
+    scanner = config["scanner"]
+    fibo = config["fibo_trend_short"]
+    execution = config["execution"]
+
+    # Tier 1: V3.1 Frozen ML acts strictly as UI overheating radar (Telegram muted)
+    assert scanner["enabled"] is True
+    assert scanner["operating_mode"] == "shadow"
+    assert scanner["shadow_telegram_enabled"] is False
+
+    # Tier 2: Fibo Short v4.0.21 acts as the primary actionable signal & Telegram engine
+    assert fibo["enabled"] is True
+    assert fibo["universe_mode"] == "rolling_pit_top50"
+    assert fibo["telegram_enabled"] is True
+    assert fibo["telegram_require_qualified_short"] is True
+    assert set(fibo["telegram_allowed_policies"]) == {
+        "elite_sniper_risk",
+        "sniper_rr1_horizon24",
+    }
+
+    # Tier 3: ExecutionEngine remains fail-closed until Paper OOS sign-off
+    assert execution["enabled"] is False
+    assert execution["live_activated"] is False

@@ -68,6 +68,7 @@ Hệ thống chạy 2 môi trường song song: **Dev** (port 8000) để sửa 
 | Truy cập | `http://localhost:8000` | `https://daovang.comaygiauco.com` |
 | Ai dùng | Developer (tôi) | End user |
 | Restart khi sửa code | Có (chỉ ảnh hưởng dev) | Không (live chạy độc lập) |
+| Chế độ Scanner & Telegram | `operating_mode: research`, `fibo_trend_short.telegram_enabled: false` (**Khóa kép**: chặn 100% gửi Telegram thật) | Tầng 1 `V3.1` chỉ hiển thị UI (`shadow_telegram_enabled: false`); Tầng 2 `Fibo Short v4.0.21` gửi cảnh báo Telegram chính thức (`elite_sniper_risk`, `sniper_rr1_horizon24`) |
 
 ## 3. File bat chi tiết
 

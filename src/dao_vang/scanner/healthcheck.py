@@ -30,6 +30,7 @@ def inspect_heartbeat(
         "heartbeat_time": None,
         "scanner_status": None,
         "last_cycle_status": None,
+        "fibo_status": None,
     }
     try:
         heartbeat = json.loads(path.read_text(encoding="utf-8"))
@@ -68,6 +69,14 @@ def inspect_heartbeat(
     elif heartbeat.get("last_cycle_status") == "failed":
         result["reason"] = "last_cycle_failed"
     else:
+        fibo_info = heartbeat.get("fibo_trend_short")
+        if isinstance(fibo_info, dict):
+            fibo_enabled = bool(fibo_info.get("enabled"))
+            fibo_status = str(fibo_info.get("status") or "unknown")
+            result["fibo_status"] = fibo_status if fibo_enabled else "disabled"
+            if fibo_enabled and fibo_status in {"failed", "error"}:
+                result["reason"] = "fibo_trend_short_failed"
+                return result
         result["healthy"] = True
         result["reason"] = "ok"
     # Heartbeats can advance while scoring/publication repeatedly fails.

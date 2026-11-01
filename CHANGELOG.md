@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed — Official 2-Tier Production Deployment (`Fibo Short v4.0.21` + `V3.1 UI Radar`)
+- **2-Tier Production Signal Routing (`configs/live.yaml`, `configs/dev.yaml`, `docs/PRODUCTION_DEPLOYMENT_GUIDE.md`)**:
+  - Promoted **`Fibo Short v4.0.21`** (`rolling_pit_top50`, policies `elite_sniper_risk` & `sniper_rr1_horizon24`) to the **Primary Actionable Signal & Official Telegram Alert Engine**.
+  - Assigned **`V3.1 Săn Đỉnh`** (`frozen_20260906_105716_bc3c369b`) to **Tier-1 Early Overheating UI Radar** (`operating_mode: shadow`, `shadow_telegram_enabled: false`) so early top-picking alerts no longer fire directly to Telegram.
+  - Retained `ExecutionEngine` locked at `enabled: false, live_activated: false` while `paper_oos_v1` accumulates live forward OOS observations.
+- **Production Hardening for `dao_vang.fibo_short`**:
+  - Enforced `operating_mode == "research"` and `KillSwitch` blocks inside `dispatch_fibo_telegram_signal()` (double-locked in `configs/dev.yaml` with `operating_mode: research` and `fibo_trend_short.telegram_enabled: false`).
+  - Wired `fibo_trend_short` cycle health into `scanner_heartbeat.json`, `inspect_heartbeat()`, and `GET/HEAD /api/ready` (`HTTP 503` with `reason: fibo_trend_short_failed` on lane failure).
+  - Added thread-safe closed-candle caching (`fetch_closed_klines`) keyed by expected latest closed `H1/H4/D1` candle timestamp, cutting redundant 5-minute Binance kline REST requests by >96%.
+
 ## [2.1.0] - 2026-10-16
 
 ### Added — Fibonacci Trend Short (`dao_vang.fibo_short`) & 6-Pillar Alpha Research Portal (`v4.0.0`)

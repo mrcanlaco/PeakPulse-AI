@@ -257,6 +257,13 @@ class ScannerDaemon:
                 "waiting_for_first_cycle" if comparison_cfg.enabled else "disabled"
             ),
         }
+        fibo_cfg = self._settings.fibo_trend_short
+        self._last_fibo_trend_short: dict[str, Any] = {
+            "enabled": bool(fibo_cfg.enabled),
+            "status": (
+                "waiting_for_first_cycle" if fibo_cfg.enabled else "disabled"
+            ),
+        }
         self._trigger_path = _data_dir / "scanner_trigger.flag"
         self._runtime_state_path = _data_dir / "scanner_runtime_state.json"
         self._instance_lock = ScannerInstanceLock(_data_dir / "scanner.lock")
@@ -346,6 +353,7 @@ class ScannerDaemon:
                     "last_cycle_n_symbols": self._last_cycle_n_symbols,
                     "last_cycle_n_alerts": self._last_cycle_n_alerts,
                     "candidate_filter_comparison": self._last_candidate_comparison,
+                    "fibo_trend_short": self._last_fibo_trend_short,
                 },
             )
         except Exception as e:
@@ -792,8 +800,29 @@ class ScannerDaemon:
                     run_cycle as run_fibo_cycle,
                 )
 
-                run_fibo_cycle(self._settings)
+                fibo_payload = run_fibo_cycle(self._settings)
+                self._last_fibo_trend_short = {
+                    "enabled": True,
+                    "status": str(fibo_payload.get("status", "ok")),
+                    "updated_at": fibo_payload.get("updated_at"),
+                    "scanned_symbols_count": int(
+                        fibo_payload.get("scanned_symbols_count", 0)
+                    ),
+                    "qualified_fired_count": int(
+                        fibo_payload.get("qualified_fired_count", 0)
+                    ),
+                    "telegram_sent_this_cycle": int(
+                        fibo_payload.get("telegram_sent_this_cycle", 0)
+                    ),
+                    "error": None,
+                }
             except Exception as exc:
+                self._last_fibo_trend_short = {
+                    "enabled": True,
+                    "status": "failed",
+                    "updated_at": system_now().isoformat(),
+                    "error": str(exc),
+                }
                 logger.warning("fibo_trend_short_cycle_failed", error=str(exc))
             logger.info(
                 "scanner_phase_done",

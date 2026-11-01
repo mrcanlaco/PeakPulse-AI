@@ -12,14 +12,16 @@ and optionally executes trades via an isolated Execution Engine (Testnet paper-t
 
 ```
 Binance REST
-  → Collectors (klines/OI/funding/taker/ratios)
-  → DuckDB + Parquet storage
-  → Feature builders (point-in-time, zero lookahead)
-  → Frozen model bundle (LightGBM + isotonic calibration)
-  → DistributionScorer (composite 0-100)
-  → Quality gate (>= 70% calibrated probability)
-  → Telegram alerts + REST API + React UI
-  → [Optional] ExecutionEngine (Auto-trading, Testnet-first)
+  ├─ [Tier 1: Early Overheating Radar — UI Only]
+  │    → Collectors (klines/OI/funding/taker/ratios) → DuckDB + Parquet
+  │    → Feature builders (point-in-time, zero lookahead)
+  │    → Frozen model bundle V3.1 (LightGBM + isotonic) + DistributionScorer (0-100)
+  │    → React UI (RADAR / WATCHLIST tabs; shadow_telegram_enabled: false)
+  └─ [Tier 2: Official Actionable Signal Engine — Telegram & FIBO_SHORT Tab]
+       → Closed-Candle Cache (H1 / H4 / D1) + Rolling PIT Top-50 Universe
+       → 4-Factor Fibo Short v4.0.21 (elite_sniper_risk & sniper_rr1_horizon24)
+       → Official Telegram Alerts (Entry, SL 0.886, TP1/2/3, 0.5% NAV risk) + React UI
+       → Parallel Shadow Comparison + paper_oos_v1 (ExecutionEngine locked live_activated: false)
 ```
 
 ### Key module map
@@ -39,6 +41,7 @@ Binance REST
 | `src/dao_vang/scanner/anomalies.py` | Independent anomaly radar (0-100) |
 | `src/dao_vang/scanner/outcomes.py` | Empirical precision/PnL tracking |
 | `src/dao_vang/alerts/telegram.py` | Telegram delivery + dedup |
+| `src/dao_vang/fibo_short/` | Official Tier-2 Primary Short Signal Engine (`v4.0.21`, H4/D1 → H1) |
 | `src/dao_vang/execution/` | Isolated Auto-Trading Execution Engine |
 | `src/dao_vang/web/api_server.py` | ThreadingHTTPServer REST API |
 | `src/dao_vang/validation/` | Walk-forward splitter, leakage auditor |

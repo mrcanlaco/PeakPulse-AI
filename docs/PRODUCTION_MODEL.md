@@ -5,6 +5,11 @@ phiên bản trong Git. Đây là nguồn duy nhất chọn bundle mà scanner l
 bí mật vận hành chỉ nằm trong `.env.docker`. `metadata.json` trong bundle là
 nguồn sự thật cho cutoff, threshold, feature schema và checksum.
 
+
+> **Kiến trúc Production Chính thức (Phân tầng 2 Động cơ):**
+> - **Tầng 2 — Engine Tín hiệu Hành động Chính thức (`dao_vang.fibo_short` · `v4.0.21`):** Đảm nhiệm toàn bộ cảnh báo **Telegram chính thức** và kế hoạch giao dịch (`Entry`, `SL Fibo 0.886`, `TP1/TP2/TP3`, định cỡ `0.5% NAV`) với 2 chính sách đã qua kiểm toán 6 năm (`2020–2025`): `elite_sniper_risk` và `sniper_rr1_horizon24`.
+> - **Tầng 1 — Frozen ML Bundle (`frozen_20260906_105716_bc3c369b`, mô tả bên dưới):** Đảm nhiệm vai trò **Radar Cảnh báo Sớm trên Web UI (`RADAR` / `WATCHLIST`)** ở chế độ `operating_mode: shadow` và `shadow_telegram_enabled: false` (không bắn Telegram trực tiếp).
+> - Xem toàn bộ bảng đối chứng định lượng và hướng dẫn vận hành tại [`docs/PRODUCTION_DEPLOYMENT_GUIDE.md`](PRODUCTION_DEPLOYMENT_GUIDE.md).
 ## Phiên bản đang phục vụ
 
 | Trường | Giá trị |

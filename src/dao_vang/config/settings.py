@@ -1,10 +1,11 @@
 import os
 import typing
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated, Literal
 
 import yaml
-from pydantic import BaseModel, Field, HttpUrl, StringConstraints, model_validator
+from pydantic import AliasChoices, BaseModel, Field, HttpUrl, StringConstraints, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -628,11 +629,40 @@ class FiboTrendShortConfig(BaseModel):
     horizon_hours_1d: int = Field(default=120, ge=6, le=336)
     min_cooldown_hours: int = Field(default=4, ge=1, le=168)
     round_trip_fee_bps: float = Field(default=20.0, ge=0.0, le=200.0)
-    telegram_enabled: bool = True
-    telegram_cooldown_minutes: int = Field(default=180, ge=0)
+    telegram_enabled: bool = Field(
+        default=True,
+        validation_alias=AliasChoices("telegram_enabled", "telegram_alerts_enabled"),
+    )
+    telegram_cooldown_minutes: int = Field(
+        default=180,
+        ge=0,
+        validation_alias=AliasChoices("telegram_cooldown_minutes", "alert_cooldown_minutes"),
+    )
+    telegram_start_after_utc: datetime | None = Field(
+        default=None,
+        description="Optional UTC activation cutoff; when set, only H1 confirmations closing after this timestamp may notify",
+    )
     telegram_require_qualified_short: bool = Field(
         default=True,
-        description="Only send Telegram alerts for FIRED_CONFIRMED_SHORT signals that pass the v4.0.21 Short qualification gates (matched_policies non-empty)",
+        description="Only send Telegram alerts for FIRED_CONFIRMED_SHORT signals that pass all 4 v4.0.21 Short qualification gates",
+    )
+    telegram_min_prior_pump_pct: float = Field(
+        default=0.50,
+        ge=0.0,
+        le=5.0,
+        description="Minimum prior HTF pump fraction required for Telegram dispatch (Gate 1 F1A: 0.50 = +50% pump)",
+    )
+    telegram_max_per_cycle: int = Field(
+        default=3,
+        ge=1,
+        le=20,
+        description="Maximum Fibo Short Telegram alerts dispatched in a single scan cycle (ranked by score & R:R)",
+    )
+    telegram_daily_limit: int = Field(
+        default=12,
+        ge=1,
+        le=100,
+        description="Maximum Fibo Short Telegram alerts dispatched across any rolling 24-hour window",
     )
     telegram_allowed_policies: list[str] = Field(
         default_factory=lambda: [
@@ -654,6 +684,8 @@ class FiboTrendShortConfig(BaseModel):
             raise ValueError("fibo_watch_min must be <= fibo_entry_min")
         if self.fibo_watch_max < self.fibo_entry_max:
             raise ValueError("fibo_watch_max must be >= fibo_entry_max")
+        if self.telegram_start_after_utc is not None and self.telegram_start_after_utc.tzinfo is None:
+            raise ValueError("telegram_start_after_utc must include a timezone")
         return self
 
 

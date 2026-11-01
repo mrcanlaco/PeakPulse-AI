@@ -44,3 +44,36 @@ def test_new_telemetry_cannot_hide_stale_source_data(tmp_path):
     assert check()["reason"] == "source_stale_open_interest"
     rows[-1]["max_time"] = "invalid"
     assert check()["healthy"] is False
+
+
+def test_fibo_trend_short_failure_marks_heartbeat_unhealthy(tmp_path):
+    now = datetime.now(timezone.utc)
+    hb = tmp_path / "hb.json"
+    hb.write_text(
+        json.dumps(
+            {
+                "timestamp": now.isoformat(),
+                "status": "running",
+                "last_cycle_status": "ok",
+                "fibo_trend_short": {"enabled": True, "status": "failed", "error": "boom"},
+            }
+        )
+    )
+    failed = inspect_heartbeat(hb, now=now)
+    assert failed["healthy"] is False
+    assert failed["reason"] == "fibo_trend_short_failed"
+    assert failed["fibo_status"] == "failed"
+
+    hb.write_text(
+        json.dumps(
+            {
+                "timestamp": now.isoformat(),
+                "status": "running",
+                "last_cycle_status": "ok",
+                "fibo_trend_short": {"enabled": True, "status": "ok"},
+            }
+        )
+    )
+    ok = inspect_heartbeat(hb, now=now)
+    assert ok["healthy"] is True
+    assert ok["fibo_status"] == "ok"

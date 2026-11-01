@@ -19,8 +19,12 @@ and test their recovery separately.
 - /api/health is web-process liveness. It remains compatible with simple load
   balancer checks.
 - /api/ready is application readiness. It returns HTTP 503 when the scanner
-  heartbeat is missing, stale, stopped, its last cycle failed, disk use reaches
-  90%, or free space falls below 5 GiB.
+  heartbeat is missing, stale, stopped, its last cycle failed, the official
+  `fibo_trend_short` lane failed (`reason: fibo_trend_short_failed`), disk use
+  reaches 90%, or free space falls below 5 GiB.
+- See `docs/PRODUCTION_DEPLOYMENT_GUIDE.md` for the official 2-tier signal
+  routing architecture (`Fibo Short v4.0.21` primary Telegram engine + `V3.1`
+  UI-only overheating radar) and emergency Kill Switch commands.
 - Docker Compose, deployment verification and the 15-minute GitHub production
   monitor all use /api/ready.
 - The scheduled workflow is .github/workflows/production-health.yml.

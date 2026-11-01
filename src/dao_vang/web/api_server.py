@@ -1377,6 +1377,17 @@ class APIHandler(BaseHTTPRequestHandler):
                     "last_cycle_status": scanner["last_cycle_status"],
                     "snapshot_age_seconds": scanner.get("snapshot_age_seconds"),
                 },
+                "fibo_trend_short": {
+                    "enabled": bool(_settings.fibo_trend_short.enabled),
+                    "status": (
+                        "error"
+                        if scanner.get("fibo_status") in {"failed", "error"}
+                        else str(
+                            scanner.get("fibo_status")
+                            or ("ok" if _settings.fibo_trend_short.enabled else "disabled")
+                        )
+                    ),
+                },
                 "disk": {
                     "status": disk["status"],
                     "reason": disk["reason"],

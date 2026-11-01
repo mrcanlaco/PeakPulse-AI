@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import sqlite3
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timedelta, timezone
@@ -14,7 +15,7 @@ from typing import Any, Literal, Sequence
 import httpx
 
 from dao_vang.config.settings import AppSettings, FiboTrendShortConfig
-from dao_vang.domain.time import as_system_timezone
+from dao_vang.domain.time import SYSTEM_TIMEZONE, as_system_timezone
 from dao_vang.fibo_short.detector import evaluate_symbol_timeframe
 from dao_vang.fibo_short.models import FiboShortSignal
 from dao_vang.logging import get_logger
@@ -38,6 +39,20 @@ _HTTP_CLIENT = httpx.Client(
     limits=httpx.Limits(max_keepalive_connections=12, max_connections=16),
 )
 
+_INTERVAL_MS: dict[str, int] = {
+    "1h": 3_600_000,
+    "4h": 14_400_000,
+    "1d": 86_400_000,
+}
+_CLOSED_KLINE_LOCK = threading.Lock()
+_CLOSED_KLINE_CACHE: dict[tuple[str, str, str], tuple[int, int, list[dict[str, Any]]]] = {}
+
+
+def clear_closed_kline_cache() -> None:
+    """Clear the in-memory closed-kline cache (used in tests or manual resets)."""
+    with _CLOSED_KLINE_LOCK:
+        _CLOSED_KLINE_CACHE.clear()
+
 
 def fetch_closed_klines(
     symbol: str,
@@ -46,12 +61,35 @@ def fetch_closed_klines(
     base_url: str = "https://fapi.binance.com",
     limit: int = 60,
     now_ms: int | None = None,
+    use_cache: bool = True,
 ) -> list[dict[str, Any]]:
-    """Fetch closed klines from Binance USD-M Futures, excluding the currently forming bar."""
+    """Fetch closed klines from Binance USD-M Futures, excluding the currently forming bar.
+
+    Closed H1/H4/D1 bars are immutable within the current interval bucket. Caching
+    by ``(base_url, symbol, interval)`` verified against the expected latest closed
+    ``open_time`` eliminates redundant 5-minute REST calls while auto-refreshing
+    the instant a new candle boundary closes.
+    """
     current_ms = now_ms if now_ms is not None else int(time.time() * 1000)
+    norm_url = base_url.rstrip("/")
+    interval_ms = _INTERVAL_MS.get(interval)
+    expected_last_open_ms = (
+        ((current_ms // interval_ms) - 1) * interval_ms if interval_ms else None
+    )
+    cache_key = (norm_url, symbol.upper(), interval)
+    if use_cache and expected_last_open_ms is not None:
+        with _CLOSED_KLINE_LOCK:
+            cached = _CLOSED_KLINE_CACHE.get(cache_key)
+            if (
+                cached is not None
+                and cached[0] == expected_last_open_ms
+                and cached[1] >= limit
+            ):
+                return [dict(bar) for bar in cached[2][-limit:]]
+
     try:
         resp = _HTTP_CLIENT.get(
-            f"{base_url.rstrip('/')}/fapi/v1/klines",
+            f"{norm_url}/fapi/v1/klines",
             params={
                 "symbol": symbol,
                 "interval": interval,
@@ -91,7 +129,17 @@ def fetch_closed_klines(
                 "volume": float(row[5]),
             }
         )
-    return closed_bars[-limit:]
+    if use_cache and closed_bars:
+        last_open_ms = int(closed_bars[-1]["open_time"])
+        with _CLOSED_KLINE_LOCK:
+            if len(_CLOSED_KLINE_CACHE) >= 1024 and cache_key not in _CLOSED_KLINE_CACHE:
+                _CLOSED_KLINE_CACHE.pop(next(iter(_CLOSED_KLINE_CACHE)))
+            _CLOSED_KLINE_CACHE[cache_key] = (
+                last_open_ms,
+                limit,
+                [dict(bar) for bar in closed_bars],
+            )
+    return [dict(bar) for bar in closed_bars[-limit:]]
 
 
 DEFAULT_BLACKLIST_SYMBOLS: frozenset[str] = frozenset(
@@ -752,6 +800,7 @@ class FiboStateStore:
 
             # Existing signal: check if it was already fired or is newly firing now
             signal.telegram_sent = bool(row["telegram_sent"])
+            sig_dict["telegram_sent"] = signal.telegram_sent
             prev_payload: dict[str, Any] = {}
             try:
                 prev_payload = json.loads(row["payload_json"])
@@ -833,6 +882,7 @@ class FiboStateStore:
 
             signal.outcome = outcome
             eval_payload["outcome"] = outcome
+            eval_payload["telegram_sent"] = signal.telegram_sent
             conn.execute(
                 """
                 UPDATE fibo_signals
@@ -1075,6 +1125,35 @@ class FiboStateStore:
             "signals_ledger": ledger[:50],
         }
 
+    def is_already_fired(self, sig_id: str) -> bool:
+        """Return True if this wave ID was already persisted in FIRED_CONFIRMED_SHORT state."""
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT stage, outcome_status, confirmation_tier FROM fibo_signals WHERE id = ?",
+                (sig_id,),
+            ).fetchone()
+            if row is None:
+                return False
+            return bool(
+                row["stage"] == "FIRED_CONFIRMED_SHORT"
+                or (
+                    row["outcome_status"] != "PENDING_CONFIRMATION"
+                    and row["confirmation_tier"] != "UNCONFIRMED"
+                )
+            )
+
+    def count_telegram_sent_since(self, cutoff_iso: str) -> int:
+        """Count Fibo Short signals sent to Telegram since cutoff_iso (rolling 24h flood cap)."""
+        with self._connect() as conn:
+            row = conn.execute(
+                """
+                SELECT COUNT(*) AS cnt FROM fibo_signals
+                WHERE telegram_sent = 1 AND telegram_sent_at IS NOT NULL AND telegram_sent_at >= ?
+                """,
+                (cutoff_iso,),
+            ).fetchone()
+            return int(row["cnt"] if row else 0)
+
     def can_send_telegram(self, symbol: str, cooldown_minutes: int, now: datetime) -> bool:
         cutoff = (now - timedelta(minutes=cooldown_minutes)).isoformat()
         with self._connect() as conn:
@@ -1086,6 +1165,31 @@ class FiboStateStore:
                 (symbol, cutoff),
             ).fetchone()
             return (row["cnt"] if row else 0) == 0
+
+    def is_new_telegram_signal(
+        self,
+        sig_id: str,
+        start_after: datetime | None,
+        now: datetime,
+    ) -> bool:
+        """Gate on the first confirmed candle persisted in the ledger, not a rescan."""
+        if start_after is None or start_after.tzinfo is None or now.tzinfo is None:
+            return False
+        with self._connect() as conn:
+            row = conn.execute(
+                "SELECT stage, telegram_sent, signal_time FROM fibo_signals WHERE id = ?",
+                (sig_id,),
+            ).fetchone()
+        if row is None or row["stage"] != "FIRED_CONFIRMED_SHORT" or row["telegram_sent"]:
+            return False
+        try:
+            candle_open = datetime.fromisoformat(str(row["signal_time"]).replace("Z", "+00:00"))
+            if candle_open.tzinfo is None:
+                candle_open = candle_open.replace(tzinfo=SYSTEM_TIMEZONE)
+            confirmed_at = candle_open.astimezone(timezone.utc) + timedelta(hours=1)
+        except (ValueError, TypeError, OverflowError):
+            return False
+        return start_after.astimezone(timezone.utc) < confirmed_at <= now.astimezone(timezone.utc)
 
     def mark_telegram_sent(self, sig_id: str, now_iso: str) -> None:
         with self._connect() as conn:
@@ -1128,16 +1232,54 @@ def is_qualified_short_for_telegram(
     signal: FiboShortSignal,
     cfg: FiboTrendShortConfig | None = None,
 ) -> bool:
-    """Return True only when a signal is FIRED_CONFIRMED_SHORT and passes the Short qualification standard."""
+    """Return True only when a signal is FIRED_CONFIRMED_SHORT, active, and passes all 4 v4.0.21 Short gates."""
     if signal.stage != "FIRED_CONFIRMED_SHORT" or not signal.h1_confirmation.confirmed:
         return False
+    if isinstance(signal.outcome, dict) and signal.outcome:
+        if any(
+            bool(signal.outcome.get(k))
+            for k in ("tp1_hit", "tp2_hit", "tp3_hit", "sl_hit")
+        ):
+            return False
+        outcome_status = str(signal.outcome.get("status") or "").strip().upper()
+        if outcome_status and outcome_status not in ("ACTIVE", "PENDING_CONFIRMATION"):
+            return False
+
     active_cfg = cfg or FiboTrendShortConfig()
     if not active_cfg.telegram_require_qualified_short:
         return True
+
+    # Gate 1 (F1A): Prior HTF pump must meet minimum exhaustion threshold (default >= +50%)
+    w = signal.wave
+    if float(w.prior_pump_pct or 0.0) < float(active_cfg.telegram_min_prior_pump_pct):
+        return False
+
+    # Gate 2 (F1B / F1C): Carver PST momentum collapse + Wave KER >= 0.35, or Wave KER >= 0.65
+    f1_elite = bool(w.pst_pass and float(w.wave_ker or 0.0) >= 0.35)
+    f1_expanded = bool(f1_elite or float(w.wave_ker or 0.0) >= 0.65)
+    if not f1_expanded:
+        return False
+
+    # Gate 3 (F2): Decisive downward impulse drop >= 6% and Impulse KER >= 0.50
+    raw_drop = float(w.impulse_drop_pct or 0.0)
+    imp_drop_frac = raw_drop / 100.0 if raw_drop >= 2.0 else raw_drop
+    if imp_drop_frac < 0.06 or float(w.impulse_ker or 0.0) < 0.50:
+        return False
+
+    # Gate 4 (F3 / F4): H1 structure break (cond2), pullback <= 0.786, valid M6 SL <= 12% cap, and Sniper policy
+    c = signal.h1_confirmation
+    if not (
+        c.no_gain_1h
+        and c.cond2_break_prev_low
+        and float(c.max_pullback_fibo_ratio) <= 0.786
+    ):
+        return False
+
     ts = signal.trade_setup
     valid_ladder = bool(
         ts.sl_m6 > ts.entry_price > ts.tp1 > ts.tp2 > ts.tp3 > 0
         and ts.sl_within_cap
+        and ts.recommended_notional_pct > 0.0
     )
     if not valid_ladder:
         return False
@@ -1148,6 +1290,12 @@ def is_qualified_short_for_telegram(
 
 def format_fibo_telegram_message(signal: FiboShortSignal, public_url: str = "") -> str:
     """Format an ultra-concise, minimalist Vietnamese Telegram notification for a Qualified Fibo Short signal (v4.0.21)."""
+    from html import escape
+    from urllib.parse import quote
+
+    sym_safe = escape(signal.symbol)
+    tf_safe = escape(signal.higher_timeframe.upper())
+    tier_safe = escape(str(signal.conviction_tier))
     ts = signal.trade_setup
     c = signal.h1_confirmation
     matched = set(signal.matched_policies or [])
@@ -1172,8 +1320,8 @@ def format_fibo_telegram_message(signal: FiboShortSignal, public_url: str = "") 
     )
 
     lines = [
-        f"🔻 <b>SHORT {signal.symbol}</b> (<code>{signal.higher_timeframe.upper()} → H1</code>)",
-        f"🛡 <b>{std_tag}</b> | Điểm: <code>{signal.score:.0f}</code> (Hạng <b>{signal.conviction_tier}</b>)",
+        f"🔻 <b>SHORT {sym_safe}</b> (<code>{tf_safe} → H1</code>)",
+        f"🛡 <b>{std_tag}</b> | Điểm: <code>{signal.score:.0f}</code> (Hạng <b>{tier_safe}</b>)",
         f"🟡 <b>Entry:</b> <code>${ts.entry_price:.5g}</code> (Fibo <code>{c.current_fibo_ratio:.3f}</code>)",
         f"🛑 <b>SL (0.886):</b> <code>${ts.sl_m6:.5g}</code> (<code>+{ts.sl_m6_pct:.2f}%</code>)",
         f"🟢 <b>TP1 (40%):</b> <code>${ts.tp1:.5g}</code> (<code>-{ts.tp1_pct:.2f}%</code>) · <i>dời SL hòa vốn</i>",
@@ -1182,9 +1330,89 @@ def format_fibo_telegram_message(signal: FiboShortSignal, public_url: str = "") 
         f"⚖️ <b>R:R:</b> <code>1:{ts.rr_m6_tp2:.2f}</code> | <b>Vốn:</b> <code>{ts.recommended_notional_pct:.1f}% NAV</code> (Risk {ts.risk_budget_pct:.1f}%) | <b>Giữ:</b> <code>{horizon_h}h</code>",
     ]
     if public_url:
-        url = f"{public_url.rstrip('/')}/#coin={signal.symbol}"
-        lines.append(f"🔗 <a href=\"{url}\">Chart {signal.symbol}</a>")
+        url = f"{public_url.rstrip('/')}/#coin={quote(signal.symbol, safe='')}"
+        lines.append(f"🔗 <a href=\"{escape(url, quote=True)}\">Chart {sym_safe}</a>")
     return "\n".join(lines)
+
+
+def dispatch_fibo_telegram_signal(
+    settings: AppSettings,
+    store: FiboStateStore,
+    signal: FiboShortSignal,
+    now: datetime,
+    *,
+    newly_fired: bool | None = None,
+    sent_this_cycle: int = 0,
+    sent_last_24h: int | None = None,
+) -> str:
+    """Dispatch an already-upserted signal only when operating_mode, kill-switch, and all 4 v4.0.21 Short gates pass."""
+    cfg = settings.fibo_trend_short
+    if not cfg.telegram_enabled:
+        return "disabled"
+    operating_mode = (
+        str(getattr(settings.scanner, "operating_mode", "research") or "research")
+        .strip()
+        .lower()
+    )
+    if operating_mode == "research":
+        return "research_mode_blocked"
+    ks_path = getattr(settings.scanner, "kill_switch_path", None)
+    if ks_path:
+        from dao_vang.scanner.operations import KillSwitch
+
+        if KillSwitch(ks_path).active:
+            return "kill_switch_active"
+    if signal.stage != "FIRED_CONFIRMED_SHORT" or not signal.h1_confirmation.confirmed:
+        return "not_confirmed"
+    if not is_qualified_short_for_telegram(signal, cfg):
+        return "unqualified_short"
+    if cfg.telegram_start_after_utc is not None:
+        if not store.is_new_telegram_signal(signal.id, cfg.telegram_start_after_utc, now) or (newly_fired is False):
+            return "old_or_already_sent"
+    else:
+        if signal.telegram_sent or (newly_fired is False):
+            return "old_or_already_sent"
+    if not settings.telegram.bot_token or not settings.telegram.chat_id:
+        return "not_configured"
+    if sent_this_cycle >= cfg.telegram_max_per_cycle:
+        return "cycle_cap"
+    daily_cutoff_dt = now.astimezone(timezone.utc) - timedelta(hours=24)
+    if cfg.telegram_start_after_utc is not None:
+        daily_cutoff_dt = max(daily_cutoff_dt, cfg.telegram_start_after_utc.astimezone(timezone.utc))
+    active_24h = (
+        sent_last_24h
+        if sent_last_24h is not None
+        else store.count_telegram_sent_since(daily_cutoff_dt.isoformat())
+    )
+    if active_24h >= cfg.telegram_daily_limit:
+        return "daily_cap"
+    if not store.can_send_telegram(signal.symbol, cfg.telegram_cooldown_minutes, now):
+        return "cooldown"
+    try:
+        from dao_vang.alerts.telegram import TelegramNotifier
+
+        notifier = TelegramNotifier(
+            settings.telegram,
+            web_base_url=settings.web.public_url,
+        )
+        msg = format_fibo_telegram_message(signal, public_url=settings.web.public_url)
+        if not notifier.send_message(msg, parse_mode="HTML"):
+            return "failed"
+        signal.telegram_sent = True
+        store.mark_telegram_sent(signal.id, now.isoformat())
+        logger.info(
+            "fibo_telegram_qualified_short_sent",
+            symbol=signal.symbol,
+            timeframe=signal.higher_timeframe,
+            prior_pump_pct=round(float(signal.wave.prior_pump_pct or 0.0), 4),
+            primary_policy=signal.primary_policy,
+            matched_policies=signal.matched_policies,
+            score=signal.score,
+        )
+        return "sent"
+    except Exception as exc:
+        logger.warning("fibo_telegram_send_failed", symbol=signal.symbol, error=str(exc))
+        return "failed"
 
 
 def _scan_single_symbol(
@@ -1297,47 +1525,33 @@ def run_cycle(
     )
 
     telegram_sent_this_cycle = 0
-    for sig in signals:
-        store.upsert_signal(sig, now_iso)
-        if sig.stage == "FIRED_CONFIRMED_SHORT" and not is_qualified_short_for_telegram(sig, cfg):
-            logger.info(
-                "fibo_telegram_skipped_unqualified_short",
-                symbol=sig.symbol,
-                timeframe=sig.higher_timeframe,
-                primary_policy=sig.primary_policy,
-                matched_policies=sig.matched_policies,
-            )
-            continue
-        if (
-            is_qualified_short_for_telegram(sig, cfg)
-            and cfg.telegram_enabled
-            and not sig.telegram_sent
-            and settings.telegram.bot_token
-            and settings.telegram.chat_id
-            and store.can_send_telegram(sig.symbol, cfg.telegram_cooldown_minutes, now)
-        ):
-            try:
-                from dao_vang.alerts.telegram import TelegramNotifier
+    daily_cutoff_dt = now.astimezone(timezone.utc) - timedelta(hours=24)
+    if cfg.telegram_start_after_utc is not None:
+        daily_cutoff_dt = max(daily_cutoff_dt, cfg.telegram_start_after_utc.astimezone(timezone.utc))
+    daily_cutoff_iso = daily_cutoff_dt.isoformat()
+    telegram_sent_last_24h = store.count_telegram_sent_since(daily_cutoff_iso)
+    telegram_dispatch_counts: dict[str, int] = {}
 
-                notifier = TelegramNotifier(
-                    settings.telegram,
-                    web_base_url=settings.web.public_url,
-                )
-                msg = format_fibo_telegram_message(sig, public_url=settings.web.public_url)
-                if notifier.send_message(msg, parse_mode="HTML"):
-                    sig.telegram_sent = True
-                    store.mark_telegram_sent(sig.id, now_iso)
-                    telegram_sent_this_cycle += 1
-                    logger.info(
-                        "fibo_telegram_qualified_short_sent",
-                        symbol=sig.symbol,
-                        timeframe=sig.higher_timeframe,
-                        primary_policy=sig.primary_policy,
-                        matched_policies=sig.matched_policies,
-                        score=sig.score,
-                    )
-            except Exception as exc:
-                logger.warning("fibo_telegram_send_failed", symbol=sig.symbol, error=str(exc))
+    for sig in signals:
+        was_already_fired = store.is_already_fired(sig.id)
+        store.upsert_signal(sig, now_iso)
+        newly_fired = (not was_already_fired) and (sig.stage == "FIRED_CONFIRMED_SHORT")
+        dispatch_status = dispatch_fibo_telegram_signal(
+            settings,
+            store,
+            sig,
+            now,
+            newly_fired=newly_fired,
+            sent_this_cycle=telegram_sent_this_cycle,
+            sent_last_24h=telegram_sent_last_24h,
+        )
+        telegram_dispatch_counts[dispatch_status] = telegram_dispatch_counts.get(dispatch_status, 0) + 1
+        if dispatch_status == "sent":
+            telegram_sent_this_cycle += 1
+            telegram_sent_last_24h += 1
+
+    if cfg.telegram_enabled:
+        logger.info("fibo_telegram_dispatch_summary", counts=telegram_dispatch_counts)
 
     live_prices: dict[str, float] = {s.symbol: float(s.current_price) for s in signals if s.current_price > 0}
     try:
@@ -1370,6 +1584,7 @@ def run_cycle(
         "fired_count": fired_count,
         "qualified_fired_count": qualified_fired_count,
         "telegram_sent_this_cycle": telegram_sent_this_cycle,
+        "telegram_sent_last_24h": telegram_sent_last_24h,
         "armed_count": armed_count,
         "watching_count": watching_count,
         "policy_counts": {
@@ -1377,6 +1592,17 @@ def run_cycle(
             "elite_sniper_risk": elite_sniper_count,
             "sniper_rr1_horizon24": rr1_24h_count,
             "m6_risk": m6_count,
+        },
+        "telegram": {
+            "enabled": cfg.telegram_enabled,
+            "operating_mode": str(getattr(settings.scanner, "operating_mode", "research")),
+            "start_after_utc": cfg.telegram_start_after_utc.isoformat() if cfg.telegram_start_after_utc else None,
+            "cooldown_minutes": cfg.telegram_cooldown_minutes,
+            "require_qualified_short": cfg.telegram_require_qualified_short,
+            "min_prior_pump_pct": cfg.telegram_min_prior_pump_pct,
+            "max_per_cycle": cfg.telegram_max_per_cycle,
+            "daily_limit": cfg.telegram_daily_limit,
+            "dispatch_counts": telegram_dispatch_counts,
         },
         "pit_universe": {
             "month": pit_meta.get("month"),
@@ -1398,6 +1624,9 @@ def run_cycle(
             "universe_mode": cfg.universe_mode,
             "telegram_enabled": cfg.telegram_enabled,
             "telegram_require_qualified_short": cfg.telegram_require_qualified_short,
+            "telegram_min_prior_pump_pct": cfg.telegram_min_prior_pump_pct,
+            "telegram_max_per_cycle": cfg.telegram_max_per_cycle,
+            "telegram_daily_limit": cfg.telegram_daily_limit,
             "telegram_allowed_policies": cfg.telegram_allowed_policies,
         },
         "items": [s.to_dict() for s in signals],

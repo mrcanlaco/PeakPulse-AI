@@ -539,7 +539,7 @@ interface SignalGateEvaluation {
 
 const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvaluation => {
   const rawPump = Number(item.wave?.prior_pump_pct ?? 0);
-  const priorPumpPct = rawPump < 10 ? rawPump * 100 : rawPump;
+  const priorPumpPct = rawPump < 25 ? rawPump * 100 : rawPump;
   const rawDrop = Number(item.wave?.impulse_drop_pct ?? 0);
   const impDropPct = rawDrop < 2 ? rawDrop * 100 : rawDrop;
   const waveKer = Number(item.wave?.wave_ker ?? 0);
@@ -557,16 +557,16 @@ const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvalu
   const f2ImpulsePass = impDropPct >= 6.0 && impKer >= 0.50;
   const h1BreakPass = confirmed && cond2Break && maxFibo <= 0.786 && slCapPass;
 
-  const isActionable =
-    item.stage === 'FIRED_CONFIRMED_SHORT' &&
-    matched.some((p) =>
-      ['sniper_rr1_horizon24', 'elite_sniper_risk', 'sniper_risk', 'sniper_horizon24', 'm6_risk'].includes(p)
-    );
   const isSniperActionable =
     item.stage === 'FIRED_CONFIRMED_SHORT' &&
+    pumpPass50 &&
+    f1ExpandedPass &&
+    f2ImpulsePass &&
+    h1BreakPass &&
     matched.some((p) => ['sniper_rr1_horizon24', 'elite_sniper_risk', 'sniper_risk', 'sniper_horizon24'].includes(p));
+  const isActionable = isSniperActionable;
   const isPaperEligible =
-    isActionable && pumpPass50 && item.alpha_layers?.universe_tier === 'PIT_TOP50';
+    isActionable && item.alpha_layers?.universe_tier === 'PIT_TOP50';
 
   const failReasonsVi: string[] = [];
   if (!f1ExpandedPass) {
@@ -1174,7 +1174,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
                           </span>
                         )}
                         <span className={`px-2 py-0.5 text-[10px] font-bold font-mono rounded border ${polMeta.badgeCls}`}>
-                          {gateEval.isActionable ? polMeta.label : '⛔ CHỈ QUAN SÁT (CHƯA ĐẠT M6)'}
+                          {gateEval.isActionable ? polMeta.label : '⛔ CHỈ QUAN SÁT (CHƯA ĐỦ 4 CỔNG)'}
                         </span>
                       </div>
 
@@ -1300,7 +1300,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
                               KẾT LUẬN: ĐỦ CHUẨN VÀO LỆNH SHORT ({(POLICY_META[selectedSignal.primary_policy || ''] || POLICY_META.sniper_risk).label})
                             </div>
                             <div className="text-[11px] text-emerald-200/90 mt-0.5">
-                              Đã vượt qua bộ lọc sóng Mốc 6 / Sniper. {selEval.pumpPass50 ? 'Đạt chuẩn sóng bơm ≥ 50% của Paper OOS.' : 'Lưu ý: Sóng bơm trước đó < 50% nên chỉ thuộc tín hiệu mở rộng trên Live Scanner.'}
+                              Đã vượt qua trọn vẹn cả 4 cổng chuẩn v4.0.21 (F1A Sóng bơm ≥ 50% · F1B/C Carver/Wave · F2 Sập ≥ 6% & KER ≥ 0.50 · F3/F4 H1 Phá đáy & SL 0.886 ≤ 12%).
                             </div>
                           </div>
                           <div className="bg-slate-950/90 border border-emerald-500/40 rounded-lg px-3 py-1.5 text-right font-mono shrink-0">

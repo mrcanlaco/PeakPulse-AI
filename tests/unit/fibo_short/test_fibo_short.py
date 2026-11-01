@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 
 import pandas as pd
 import pytest
@@ -2722,11 +2723,18 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
 
 
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    """Verify that only FIRED_CONFIRMED_SHORT signals meeting v4.0.21 Short standards are dispatched to Telegram."""
+    """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""
     import dataclasses
     import json
     import sqlite3
-    from dao_vang.config.settings import AppSettings, PathsConfig, TelegramConfig, WebConfig
+
+    from dao_vang.config.settings import (
+        AppSettings,
+        PathsConfig,
+        ScannerConfig,
+        TelegramConfig,
+        WebConfig,
+    )
     from dao_vang.fibo_short import scanner_lane as sl_mod
     from dao_vang.fibo_short.scanner_lane import (
         format_fibo_telegram_message,
@@ -2734,12 +2742,20 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         run_cycle,
     )
 
+    # Verify legacy production YAML aliases (telegram_alerts_enabled / alert_cooldown_minutes) are honored
+    alias_cfg = FiboTrendShortConfig(**{"telegram_alerts_enabled": False, "alert_cooldown_minutes": 240})
+    assert alias_cfg.telegram_enabled is False
+    assert alias_cfg.telegram_cooldown_minutes == 240
+
     cfg = FiboTrendShortConfig(
         higher_timeframes=["4h"],
-        min_prior_pump_pct=0.08,
+        min_prior_pump_pct=0.05,
         min_impulse_drop_pct=0.04,
         telegram_enabled=True,
         telegram_require_qualified_short=True,
+        telegram_min_prior_pump_pct=0.50,
+        telegram_max_per_cycle=2,
+        telegram_daily_limit=5,
     )
     base_time = datetime(2025, 5, 1, 0, 0, tzinfo=timezone.utc)
     htf_candles = _make_htf_reversal_candles(base_time, step_hours=4)
@@ -2750,24 +2766,45 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         {"open_time": "2025-05-03T23:00:00+00:00", "open": 117.2, "high": 118.2, "low": 114.4, "close": 114.6, "volume": 600.0},
     ]
 
-    sig_qualified = evaluate_symbol_timeframe("SOLUSDT", "4h", htf_candles, h1_candles, cfg)
-    assert sig_qualified is not None
-    assert sig_qualified.stage == "FIRED_CONFIRMED_SHORT"
+    # 1) Small prior pump (+30% < +50% Gate 1 F1A) must be BLOCKED from Telegram even if Sniper structure matches
+    sig_small_pump = evaluate_symbol_timeframe("WIFUSDT", "4h", htf_candles, h1_candles, cfg)
+    assert sig_small_pump is not None
+    assert sig_small_pump.stage == "FIRED_CONFIRMED_SHORT"
+    assert sig_small_pump.wave.prior_pump_pct < 0.50
+    assert is_qualified_short_for_telegram(sig_small_pump, cfg) is False
+
+    # 2) Full 4-Gate Sniper signal (prior_pump_pct = +68% >= +50%) MUST qualify
+    sig_qualified = dataclasses.replace(
+        sig_small_pump,
+        id="fibo_sol_qualified_68",
+        symbol="SOLUSDT",
+        score=82.0,
+        wave=dataclasses.replace(sig_small_pump.wave, symbol="SOLUSDT", prior_pump_pct=0.68),
+    )
     assert is_qualified_short_for_telegram(sig_qualified, cfg) is True
 
-    # Build a raw M1/M6-only signal (like JASMYUSDT without H1 structure break) that failed Sniper gates
+    # 3) Raw M1/M6-only signal (without H1 structure break / Sniper policy) and watch_only signal MUST be blocked
     sig_unqualified = dataclasses.replace(
         sig_qualified,
         id="fibo_noise_m6_only",
         symbol="DOGEUSDT",
+        h1_confirmation=dataclasses.replace(sig_qualified.h1_confirmation, cond2_break_prev_low=False),
         eligible_milestones=["m1_f1a_pump50", "m6_f4_expanded"],
         matched_policies=["reference_m6_fixed", "m6_risk"],
         primary_policy="m6_risk",
     )
-    assert sig_unqualified.stage == "FIRED_CONFIRMED_SHORT"
+    sig_watch_only = dataclasses.replace(
+        sig_qualified,
+        id="fibo_noise_watch_only",
+        symbol="XRPUSDT",
+        eligible_milestones=["m1_f1a_pump50"],
+        matched_policies=[],
+        primary_policy="watch_only",
+    )
     assert is_qualified_short_for_telegram(sig_unqualified, cfg) is False
+    assert is_qualified_short_for_telegram(sig_watch_only, cfg) is False
 
-    # Verify minimalist Telegram message formatting includes concise v4.0.21 Short setup details
+    # 4) Verify minimalist Telegram message formatting includes concise v4.0.21 Short setup details
     msg = format_fibo_telegram_message(sig_qualified, public_url="https://daovang.comaygiauco.com")
     assert "🔻 <b>SHORT SOLUSDT</b>" in msg
     assert "SL (0.886):" in msg
@@ -2776,7 +2813,31 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
     assert "% NAV" in msg
     assert len(msg.splitlines()) <= 10
 
-    # Verify run_cycle dispatches ONLY the qualified signal to Telegram
+    # 5) Verify run_cycle enforces 4-Gate filter + per-cycle flood cap (max 2) + no trickle re-send on next 5m cycle
+    sig_qualified_2 = dataclasses.replace(
+        sig_qualified,
+        id="fibo_sui_qualified_75",
+        symbol="SUIUSDT",
+        score=78.0,
+        wave=dataclasses.replace(sig_qualified.wave, symbol="SUIUSDT", prior_pump_pct=0.75),
+    )
+    sig_qualified_3_capped = dataclasses.replace(
+        sig_qualified,
+        id="fibo_avax_qualified_55",
+        symbol="AVAXUSDT",
+        score=65.0,
+        wave=dataclasses.replace(sig_qualified.wave, symbol="AVAXUSDT", prior_pump_pct=0.55),
+    )
+
+    by_sym = {
+        "SOLUSDT": [dataclasses.replace(sig_qualified)],
+        "SUIUSDT": [dataclasses.replace(sig_qualified_2)],
+        "AVAXUSDT": [dataclasses.replace(sig_qualified_3_capped)],
+        "WIFUSDT": [dataclasses.replace(sig_small_pump)],
+        "DOGEUSDT": [dataclasses.replace(sig_unqualified)],
+        "XRPUSDT": [dataclasses.replace(sig_watch_only)],
+    }
+
     sent_messages: list[str] = []
 
     class FakeNotifier:
@@ -2793,34 +2854,148 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
     monkeypatch.setattr(
         sl_mod,
         "_scan_single_symbol",
-        lambda sym, base_url, c: [sig_qualified] if sym == "SOLUSDT" else ([sig_unqualified] if sym == "DOGEUSDT" else []),
+        lambda sym, base_url, c: [dataclasses.replace(s) for s in by_sym.get(sym, [])],
     )
     monkeypatch.setattr(sl_mod, "fetch_all_tickers", lambda base_url: [])
 
-    settings = AppSettings(
-        paths=PathsConfig(data_dir=tmp_path),
+    # Verify research mode strictly blocks real Telegram delivery (AGENTS.md Rule #4)
+    research_settings = AppSettings(
+        paths=PathsConfig(data_dir=tmp_path / "research_env"),
+        scanner=ScannerConfig(
+            operating_mode="research",
+            kill_switch_path=tmp_path / "research_env" / "ks.json",
+        ),
         telegram=TelegramConfig(bot_token="fake_token", chat_id="fake_chat_id"),
         web=WebConfig(public_url="https://daovang.comaygiauco.com"),
         fibo_trend_short=cfg,
     )
-    result = run_cycle(settings, symbols=["SOLUSDT", "DOGEUSDT"])
-    assert result["fired_count"] == 2
-    assert result["qualified_fired_count"] == 1
-    assert result["telegram_sent_this_cycle"] == 1
-    assert len(sent_messages) == 1
+    scan_syms = ["SOLUSDT", "SUIUSDT", "AVAXUSDT", "WIFUSDT", "DOGEUSDT", "XRPUSDT"]
+    research_res = run_cycle(research_settings, symbols=scan_syms)
+    assert research_res["telegram_sent_this_cycle"] == 0
+    assert research_res["telegram"]["dispatch_counts"].get("research_mode_blocked") == 6
+    assert len(sent_messages) == 0
+
+    ks_path = tmp_path / "ks.json"
+    settings = AppSettings(
+        paths=PathsConfig(data_dir=tmp_path),
+        scanner=ScannerConfig(
+            operating_mode="shadow",
+            shadow_telegram_enabled=False,
+            kill_switch_path=ks_path,
+        ),
+        telegram=TelegramConfig(bot_token="fake_token", chat_id="fake_chat_id"),
+        web=WebConfig(public_url="https://daovang.comaygiauco.com"),
+        fibo_trend_short=cfg,
+    )
+    result = run_cycle(settings, symbols=scan_syms)
+    assert result["fired_count"] == 6
+    assert result["qualified_fired_count"] == 3
+    assert result["telegram_sent_this_cycle"] == 2
+    assert len(sent_messages) == 2
     assert "SOLUSDT" in sent_messages[0]
-    assert "DOGEUSDT" not in sent_messages[0]
+    assert "SUIUSDT" in sent_messages[1]
+
+    # Cycle 2 (+5m later on the same waves): AVAXUSDT was already fired in cycle 1, so 0 new alerts trickle out
+    result_cycle2 = run_cycle(settings, symbols=scan_syms)
+    assert result_cycle2["telegram_sent_this_cycle"] == 0
+    assert len(sent_messages) == 2
 
     # Verify SQLite persistence of telegram_sent in both column and payload_json
     conn = sqlite3.connect(tmp_path / "fibo_trend_short" / "state.sqlite3")
     conn.row_factory = sqlite3.Row
     sol_row = conn.execute("SELECT telegram_sent, payload_json FROM fibo_signals WHERE symbol = 'SOLUSDT'").fetchone()
+    wif_row = conn.execute("SELECT telegram_sent, payload_json FROM fibo_signals WHERE symbol = 'WIFUSDT'").fetchone()
     doge_row = conn.execute("SELECT telegram_sent, payload_json FROM fibo_signals WHERE symbol = 'DOGEUSDT'").fetchone()
     conn.close()
     assert sol_row["telegram_sent"] == 1
     assert json.loads(sol_row["payload_json"])["telegram_sent"] is True
+    assert wif_row["telegram_sent"] == 0
+    assert json.loads(wif_row["payload_json"])["telegram_sent"] is False
     assert doge_row["telegram_sent"] == 0
     assert json.loads(doge_row["payload_json"])["telegram_sent"] is False
+
+    # Activate KillSwitch and verify subsequent newly-fired signals are blocked
+    from dao_vang.scanner.operations import KillSwitch
+
+    KillSwitch(ks_path).activate("emergency maintenance")
+    sig_new = dataclasses.replace(sig_qualified, id="fibo_sol_after_ks")
+    monkeypatch.setattr(
+        sl_mod,
+        "_scan_single_symbol",
+        lambda sym, base_url, c: [sig_new] if sym == "SOLUSDT" else [],
+    )
+    ks_res = run_cycle(settings, symbols=["SOLUSDT"])
+    assert ks_res["telegram_sent_this_cycle"] == 0
+    assert ks_res["telegram"]["dispatch_counts"].get("kill_switch_active") == 1
+
+
+def test_fetch_closed_klines_caches_within_interval_and_refreshes_on_boundary(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Verify closed H1/H4/D1 klines hit cache across 5m polls and auto-refresh on hour rollover."""
+    from dao_vang.fibo_short import scanner_lane as sl_mod
+
+    sl_mod.clear_closed_kline_cache()
+    calls: list[dict[str, object]] = []
+    h_ms = 3_600_000
+    base_open = 1_760_000_000_000 // h_ms * h_ms
+
+    class FakeResp:
+        def __init__(self, rows: list[list[object]]) -> None:
+            self._rows = rows
+
+        def raise_for_status(self) -> None:
+            return None
+
+        def json(self) -> list[list[object]]:
+            return self._rows
+
+    current_latest_open = base_open
+
+    def tracked_get(url: str, params: dict[str, object]) -> FakeResp:
+        calls.append({"url": url, **params})
+        rows: list[list[object]] = []
+        for idx in range(10):
+            o_ms = current_latest_open - (9 - idx) * h_ms
+            c_ms = o_ms + h_ms - 1
+            rows.append([o_ms, "100.0", "105.0", "95.0", "101.0", "500.0", c_ms])
+        return FakeResp(rows)
+
+    monkeypatch.setattr(sl_mod._HTTP_CLIENT, "get", tracked_get)
+
+    # Poll 1 at +5m into hour (base_open + h_ms + 5m): latest closed open_time is base_open
+    bars1 = sl_mod.fetch_closed_klines(
+        "SOLUSDT", "1h", limit=5, now_ms=base_open + h_ms + 300_000
+    )
+    assert len(bars1) == 5
+    assert bars1[-1]["open_time"] == base_open
+    assert len(calls) == 1
+
+    # Poll 2 at +10m and Poll 3 at +55m in the SAME hour -> cache hit, 0 new REST calls
+    bars2 = sl_mod.fetch_closed_klines(
+        "SOLUSDT", "1h", limit=5, now_ms=base_open + h_ms + 600_000
+    )
+    bars3 = sl_mod.fetch_closed_klines(
+        "SOLUSDT", "1h", limit=5, now_ms=base_open + h_ms + 3_300_000
+    )
+    assert len(calls) == 1
+    assert bars2 == bars1 and bars3 == bars1
+
+    # Larger limit requested in same hour -> cache miss to fetch wider history
+    bars_wide = sl_mod.fetch_closed_klines(
+        "SOLUSDT", "1h", limit=8, now_ms=base_open + h_ms + 3_300_000
+    )
+    assert len(bars_wide) == 8
+    assert len(calls) == 2
+
+    # Rollover into NEXT hour (base_open + 2*h_ms + 10s): expected closed bar advances to base_open + h_ms
+    current_latest_open = base_open + h_ms
+    bars_next_hr = sl_mod.fetch_closed_klines(
+        "SOLUSDT", "1h", limit=5, now_ms=base_open + 2 * h_ms + 10_000
+    )
+    assert len(calls) == 3
+    assert bars_next_hr[-1]["open_time"] == base_open + h_ms
+    sl_mod.clear_closed_kline_cache()
 
 
 

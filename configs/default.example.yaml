@@ -186,3 +186,23 @@ execution_policy:
 
 updater:
   enabled: true
+
+# Tầng 2: Engine Tín hiệu Hành động Chính thức — Fibonacci Trend Short (H4/D1 -> H1 · v4.0.21)
+# Ở chế độ research (Dev), telegram_enabled giữ false và bị chặn cứng bởi operating_mode.
+fibo_trend_short:
+  enabled: true
+  universe_mode: rolling_pit_top50
+  higher_timeframes: ["4h", "1d"]
+  confirm_timeframe: "1h"
+  max_candidates: 50
+  horizon_hours: 72
+  telegram_enabled: false
+  telegram_cooldown_minutes: 180
+  telegram_require_qualified_short: true
+  telegram_min_prior_pump_pct: 0.50
+  telegram_max_per_cycle: 3
+  telegram_daily_limit: 12
+  telegram_allowed_policies:
+    - elite_sniper_risk
+    - sniper_rr1_horizon24
+  in_sample_end_utc: "2025-12-31T23:59:59+00:00"

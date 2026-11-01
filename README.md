@@ -24,11 +24,17 @@ Khác với các công cụ phân tích kỹ thuật truyền thống chỉ dự
 
 ---
 
-## 🔎 2. TRẠNG THÁI PHIÊN BẢN PRODUCTION
+## 🔎 2. KIẾN TRÚC & TRẠNG THÁI PHIÊN BẢN PRODUCTION (2 TẦNG PHỐI HỢP)
 
-Bản production được định danh bằng model ID và checksum, không bằng tên gọi
-marketing hoặc số liệu từ một báo cáo lịch sử.
+Bản chính thức của **PeakPulse AI** vận hành theo kiến trúc **2 tầng phân tách rõ vai trò** nhằm loại bỏ rủi ro bắt đỉnh sớm ngược nến bơm, đồng thời giữ khả năng quan sát toàn thị trường mỗi 5 phút (chi tiết tại [**Hướng dẫn Triển khai & Vận hành Bản Chính thức (`docs/PRODUCTION_DEPLOYMENT_GUIDE.md`)**](docs/PRODUCTION_DEPLOYMENT_GUIDE.md)):
 
+| Phân tầng Production | Động cơ / Phiên bản | Vai trò & Kênh phân phối (`configs/live.yaml`) | Bằng chứng kiểm định |
+| :--- | :--- | :--- | :--- |
+| **Tầng 2 — Tín hiệu Hành động Chính thức (Primary Engine)** | **`Fibo Short v4.0.21`** (`dao_vang.fibo_short`) | **Bắn Telegram Alert 24/7** & hiển thị tại tab **`FIBO_SHORT`**. Chỉ kích hoạt trên rổ `rolling_pit_top50` với 2 chính sách chuẩn: `elite_sniper_risk` & `sniper_rr1_horizon24` (kèm đầy đủ Entry, SL `0.886`, TP1/TP2/TP3, định cỡ `0.5% NAV`). | Kiểm toán danh mục 6 năm (`2020–2025`, 338 mã PIT, `360.781` sự kiện funding thực): **`+26.19%`**, `MaxDD 15.33%` (`elite_sniper_risk`); giai đoạn `2024–2025`: **`+21.46%`** (`sniper_rr1_horizon24`). |
+| **Tầng 1 — Radar Cảnh báo Sớm (Overheating Radar)** | **`V3.1 Săn Đỉnh`** (`frozen_20260906_105716_bc3c369b`) | **Chỉ hiển thị trên Web UI (`RADAR` / `WATCHLIST`)**, tắt gửi Telegram trực tiếp (`operating_mode: shadow`, `shadow_telegram_enabled: false`) để theo dõi các Altcoin đang bơm nóng & kiệt sức Funding. | Khóa SHA-256 bundle & fail-closed serving; trạng thái forward-test độc lập: `insufficient_evidence` (không dùng để Short trực tiếp ngược sóng bơm). |
+| **Tầng 3 — Giao dịch Tự động (`ExecutionEngine`)** | **`Paper OOS v1`** (`live_activated: false`) | Đang khóa an toàn đặt lệnh tiền thật; chạy 12 tài khoản `paper_oos_v1` thời gian thực để đo độ trượt giá thực tế (`<= 12.5 bps/fill`) trước khi xét duyệt auto-trading. | Giao thức khóa SHA-256 từ `18/10/2026` (`live_signoff = NOT_GRANTED`). |
+
+### Định danh Frozen ML Bundle của Tầng 1 (Radar Sớm)
 | Trường | Giá trị đang cấu hình |
 | :--- | :--- |
 | **Model ID** | **frozen_20260906_105716_bc3c369b** |
@@ -109,21 +115,18 @@ count và kết quả theo regime. Xem
 
 ```mermaid
 flowchart LR
-    A[Binance REST API] --> B[Data Collectors]
-    B --> C[DuckDB Storage / Parquet]
-    C --> D[Feature Builder & Normalizer]
-    D --> E[Scoring & Frozen ML Model]
-    E --> F{Kiểm tra Quality Gate}
-    F -->|Đạt serving contract và frozen threshold| G[Telegram Alerts Bot]
-    F -->|Hiển thị Realtime| H[React Web Dashboard]
+    A[Binance USD-M REST API] --> B[Collectors & DuckDB Storage]
+    B --> C[Feature Builder & Frozen ML V3.1]
+    C -->|Tầng 1: Radar Quá nhiệt UI-only| H[React Dashboard: Tab RADAR / WATCHLIST]
+    A --> I[Closed-Candle Cache H1/H4/D1]
+    I --> J[Fibo Short v4.0.21 Engine · PIT Top-50]
+    J -->|Tầng 2: Đạt 4 Cổng Sniper| G[Telegram Alerts Chính thức + Tab FIBO_SHORT]
 ```
 
-1. **Thu thập dữ liệu (Collect):** Quét nến OHLCV 5m, Open Interest, Funding Rate, Taker Volume và Long/Short Ratio từ Binance USD-M Futures.
-2. **Chuẩn hóa (Normalize & As-of Join):** Khớp dữ liệu theo mốc Point-in-Time và chạy các kiểm tra hồi quy chống lookahead.
-3. **Trích xuất Đặc trưng (Feature Engineering):** Tính toán các chỉ số biến động dòng tiền, tỷ lệ biến động OI vs Price, lực mua/bán Taker chủ động.
-4. **Suy luận & Cảnh báo (Inference & Alert):** Đưa qua mô hình Frozen ML để tính toán xác suất phân phối; đồng thời chạy lớp Market Anomaly Radar độc lập, lưu snapshot và hiển thị các quan sát trên Dashboard. Telegram vẫn chỉ gửi các tín hiệu vượt qua serving contract và quality gate.
+1. **Tầng 1 — Quét Quá nhiệt & Lưu trữ (V3.1 ML Radar):** Quét nến OHLCV 5m, Open Interest, Funding Rate, Taker Volume và Long/Short Ratio vào DuckDB; khớp mốc Point-in-Time và chấm điểm bằng Frozen ML Bundle + Market Anomaly Radar để cập nhật danh sách coin bơm nóng trên giao diện Web.
+2. **Tầng 2 — Xác nhận Đảo chiều & Phát Tín hiệu Hành động (`Fibo Short v4.0.21`):** Trên rổ `rolling_pit_top50`, kiểm tra 4 nhân tố độc lập (`Prior Pump >= 50%` $\to$ `Impulse Drop >= 6% & KER >= 0.50` $\to$ `Fibo Pullback <= 0.786 & H1 Break Close < Low[-1]` $\to$ `SL Fibo 0.886 <= 12% & Sniper Policy`). Chỉ tín hiệu đạt chuẩn `elite_sniper_risk` hoặc `sniper_rr1_horizon24` mới được bắn thông báo Telegram kèm kế hoạch quản trị vốn `0.5% NAV`.
 
-📖 *Xem chi tiết tại:* [**Tài liệu Kiến trúc Toàn diện (docs/ARCHITECTURE.md)**](docs/ARCHITECTURE.md)
+📖 *Xem chi tiết tại:* [**Hướng dẫn Triển khai & Vận hành Bản Chính thức (`docs/PRODUCTION_DEPLOYMENT_GUIDE.md`)**](docs/PRODUCTION_DEPLOYMENT_GUIDE.md) · [**Tài liệu Kiến trúc Toàn diện (`docs/ARCHITECTURE.md`)**](docs/ARCHITECTURE.md)
 
 ---
 

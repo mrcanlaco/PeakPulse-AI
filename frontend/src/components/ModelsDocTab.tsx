@@ -324,6 +324,42 @@ export const ModelsDocTab: React.FC = () => {
       ) : (
         /* Overview Sub-tab */
         <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6">
+          {/* Official 2-Tier Production Architecture Banner */}
+          <div className="bg-slate-900 border border-emerald-500/30 rounded-lg p-4">
+            <div className="flex items-center space-x-2 mb-3">
+              <Shield className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-xs font-bold text-emerald-300 uppercase">
+                Kiến Trúc Production Chính Thức 2 Tầng: Fibo Short v4.0.21 + Radar Sớm V3.1
+              </h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-[11px]">
+              <div className="bg-slate-950 p-3 rounded border border-emerald-900/50">
+                <div className="font-semibold text-emerald-400 mb-1">
+                  Tầng 2 (Chính thức): Fibo Short v4.0.21
+                </div>
+                <p className="text-slate-300 leading-relaxed">
+                  Đảm nhiệm toàn bộ <strong>cảnh báo Telegram chính thức</strong> và tab <strong>FIBO_SHORT</strong>. Chỉ phát lệnh trên rổ <code>rolling_pit_top50</code> khi đã có sóng xả <code>KER &ge; 0.50</code>, hồi nông Fibonacci và <strong>phá đáy H1</strong> (2 chính sách chuẩn: <code>elite_sniper_risk</code> +26.19%/6 năm &amp; <code>sniper_rr1_horizon24</code> +21.46%/2024–2025) kèm SL <code>0.886</code> và định cỡ <code>0.5% NAV</code>.
+                </p>
+              </div>
+              <div className="bg-slate-950 p-3 rounded border border-sky-900/50">
+                <div className="font-semibold text-sky-400 mb-1">
+                  Tầng 1 (Radar Sớm): V3.1 Săn Đỉnh (UI-Only)
+                </div>
+                <p className="text-slate-300 leading-relaxed">
+                  Chạy mỗi 5 phút trên tab <strong>RADAR / WATCHLIST</strong> (<code>shadow_telegram_enabled: false</code>) để phát hiện sớm các Altcoin đang bơm quá nhiệt &amp; cạn kiệt Funding. <strong>Không dùng để Short trực tiếp ngược sóng bơm</strong> khi chưa có xác nhận gãy cấu trúc H1 từ Fibo Short.
+                </p>
+              </div>
+              <div className="bg-slate-950 p-3 rounded border border-amber-900/50">
+                <div className="font-semibold text-amber-400 mb-1">
+                  Tầng 3 (Auto-Trading): Khóa An Toàn (Paper OOS)
+                </div>
+                <p className="text-slate-300 leading-relaxed">
+                  <code>ExecutionEngine</code> đang khóa cứng <code>live_activated: false</code>. Hệ thống vận hành 12 tài khoản <code>paper_oos_v1</code> thời gian thực để kiểm chứng trượt giá thực tế (&le; 12.5 bps/fill với lệnh Limit Post-Only ở TP1/TP2) trước khi cấp quyền đánh tự động.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Section 1: Kiến Trúc Hệ Thống */}
             <div className="bg-slate-900 border border-slate-800 rounded-lg p-4">

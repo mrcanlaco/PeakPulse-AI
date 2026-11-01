@@ -16,6 +16,9 @@ Welcome to the **DAO VANG (PeakPulse AI)** architectural documentation. This doc
 4. **Human-in-the-Loop (Analytical Radar, No Auto-Trading):**
    - The platform serves as an early-warning signal radar. It does not execute automatic market orders.
 
+5. **Two-Tier Production Signal Architecture (`V3.1 Radar` + `Fibo Short v4.0.21`):**
+   - **Tier 1 (Early Overheating Radar — UI Only):** The Frozen LightGBM V3.1 model + `DistributionScorer` scans 5m derivatives data to surface overheated pumps and funding exhaustion on the `RADAR` / `WATCHLIST` tabs (`shadow_telegram_enabled: false`).
+   - **Tier 2 (Primary Actionable Signal Engine — Telegram & `FIBO_SHORT` Tab):** `dao_vang.fibo_short` (`v4.0.21`) evaluates closed `H4/D1 -> H1` structural reversals across the monthly `rolling_pit_top50` universe and dispatches official Telegram setups (`elite_sniper_risk` and `sniper_rr1_horizon24`) with hard structural stop-loss (`Fibo 0.886`), 3-stage ratcheted exits, and `0.5% NAV` risk sizing. See [`docs/PRODUCTION_DEPLOYMENT_GUIDE.md`](PRODUCTION_DEPLOYMENT_GUIDE.md).
 ---
 
 ## 🔄 2. End-to-End Dataflow & Pipeline
@@ -84,6 +87,8 @@ The backend follows a **Modular Monolith** pattern organized cleanly by domain a
 | [`scoring/`](../src/dao_vang/scoring/) | Live scoring engine combining frozen-model probabilities, BTC context, and evidence explanations. | `DistributionScorer`, `BTCContextScorer`, `EvidenceGenerator` |
 | [`scanner/`](../src/dao_vang/scanner/) | 24/7 background scanner daemon, pump pattern detector, independent Market Anomaly Radar, Candidate Filter v2, watchlist manager, and signal outcome tracking. | `ScannerDaemon`, `PumpFilter`, `MarketAnomaly`, `TrackingWatchlist`, `CandidateFilterV2` |
 | [`alerts/`](../src/dao_vang/alerts/) | Telegram alert delivery manager, bilingual message formatting (Vietnamese/English), and alert dedup store. | `TelegramAlertManager`, `AlertStore` |
+| [`fibo_short/`](../src/dao_vang/fibo_short/) | Official primary actionable short-signal engine (`v4.0.21`): 4-factor `H4/D1 -> H1` Fibonacci structural reversal detector, closed-candle cache, rolling PIT Top-50 universe loader, parallel shadow comparison store, and Telegram dispatcher. | `evaluate_symbol_timeframe()`, `run_cycle()`, `FiboStateStore` |
+| [`execution/`](../src/dao_vang/execution/) | Isolated execution, paper simulation, account read-only monitor, and snapshot archiving engine (fail-closed `live_activated: false` in production). | `ExecutionEngine`, `PaperBroker`, `AccountMonitor` |
 | [`alpha_lab/`](../src/dao_vang/alpha_lab/) | Research modules for Triple Barrier evaluation, optional Meta-Labeling, Market Regime classification, and Drift Guardian. A module's presence does not mean it is enabled in live serving. | `AlphaBacktester`, `DriftGuardian`, `RegimeClassifier` |
 | [`reports/`](../src/dao_vang/reports/) | HTML / Markdown summary report generator for backtest benchmarks and live operational audits. | `ReportGenerator` |
 | [`web/`](../src/dao_vang/web/) | Custom threaded HTTP server providing REST endpoints and static frontend files. | `api_server.py`, `run.py` |
