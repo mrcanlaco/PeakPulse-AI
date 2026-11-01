@@ -931,12 +931,6 @@ export function App() {
         signalCount={signals.length}
       />
 
-      {/* Main Workspace Layout - Full 12 columns by default (or 9 cols if Action Drawer open) */}
-      {trackingItems.some(item => item.notifications?.some(n => !n.read)) && activeTab !== 'WATCHLIST' && <button
-        data-testid="tracking-notifications"
-        className="mx-auto mt-2 rounded-lg border border-amber-600 bg-amber-950/40 px-4 py-2 text-sm text-amber-200"
-        onClick={() => { setActiveTab('WATCHLIST'); if (guiVersion === 'v2') setMobileTab('LIVE'); }}
-      >{language === 'vi' ? 'Thông báo coin theo dõi' : 'Tracked coin notifications'} · {trackingItems.reduce((count, item) => count + (item.notifications?.filter(n => !n.read).length || 0), 0)}</button>}
       {/* Main Workspace Layout - Full 100% Width */}
       <main className={`flex-1 max-w-[1750px] w-full mx-auto p-2.5 sm:p-3.5 block overflow-visible ${
         guiVersion === 'v2'
