@@ -138,6 +138,9 @@ def test_live_config_enforces_two_tier_fibo_primary_and_v31_ui_radar_contract():
         "sniper_rr1_horizon24",
     }
 
-    # Tier 3: ExecutionEngine remains fail-closed until Paper OOS sign-off
-    assert execution["enabled"] is False
+    # Tier 3: Paper simulation runs at 10,000 USDT while real-money live trading stays fail-closed
+    assert execution["enabled"] is True
+    assert execution["environment"] == "simulation"
+    assert execution["signal_source"] == "fibo_short"
+    assert execution["initial_equity"] == 10000.0
     assert execution["live_activated"] is False

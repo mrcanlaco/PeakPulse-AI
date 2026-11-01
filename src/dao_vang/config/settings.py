@@ -371,22 +371,23 @@ class ExecutionConfig(BaseModel):
     enabled: bool = Field(default=False)
     paper_trading: bool = True  # Legacy compatibility; environment is authoritative.
     environment: Literal["simulation", "demo", "live"] = "simulation"
+    signal_source: Literal["scanner", "fibo_short"] = "scanner"
     base_url: HttpUrl = HttpUrl("https://demo-fapi.binance.com")
     api_key: str | None = Field(default=None, exclude=True, repr=False)
     api_secret: str | None = Field(default=None, exclude=True, repr=False)
     live_api_key: str | None = Field(default=None, exclude=True, repr=False)
     live_api_secret: str | None = Field(default=None, exclude=True, repr=False)
-    initial_equity: float = Field(default=500.0, ge=500, le=500, allow_inf_nan=False)
-    margin_per_position: float = Field(default=5.0, ge=5, le=5, allow_inf_nan=False)
-    leverage: Literal[5] = 5
+    initial_equity: float = Field(default=500.0, ge=100.0, le=1_000_000.0, allow_inf_nan=False)
+    margin_per_position: float = Field(default=5.0, ge=5.0, le=50_000.0, allow_inf_nan=False)
+    leverage: int = Field(default=5, ge=1, le=20)
     margin_type: Literal["CROSSED"] = "CROSSED"
-    max_position_usd: float = Field(default=25.0, ge=25, le=25, allow_inf_nan=False)
-    max_open_positions: Literal[1, 3, 5] = 1
-    entry_pause_drawdown: float = Field(default=0.20, ge=0.20, le=0.20, allow_inf_nan=False)
-    tp_min_usdt: float = Field(default=0.5, gt=0, le=5)
-    tp_max_usdt: float = Field(default=5.0, ge=5, le=5, allow_inf_nan=False)
+    max_position_usd: float = Field(default=25.0, ge=25.0, le=250_000.0, allow_inf_nan=False)
+    max_open_positions: int = Field(default=1, ge=1, le=20)
+    entry_pause_drawdown: float = Field(default=0.20, ge=0.05, le=0.50, allow_inf_nan=False)
+    tp_min_usdt: float = Field(default=0.5, gt=0.0, le=1_000.0)
+    tp_max_usdt: float = Field(default=5.0, ge=1.0, le=25_000.0, allow_inf_nan=False)
     atr_period: Literal[14] = 14
-    atr_multiplier: float = Field(default=2.0, ge=2, le=2, allow_inf_nan=False)
+    atr_multiplier: float = Field(default=2.0, ge=0.5, le=10.0, allow_inf_nan=False)
     fee_rate: float = Field(default=0.0005, ge=0, le=0.01)
     max_spread_bps: float = Field(default=20, gt=0, le=100)
     max_slippage_bps: float = Field(default=20, gt=0, le=100)
@@ -398,7 +399,7 @@ class ExecutionConfig(BaseModel):
     live_activated: bool = False
     # Automated Risk and Profit Enhancement
     enable_stop_loss: bool = Field(default=True, description="Enable automated position risk stop loss")
-    sl_max_loss_usdt: float = Field(default=5.0, ge=0.5, le=50.0, description="Max dollar loss per trade in USDT")
+    sl_max_loss_usdt: float = Field(default=5.0, ge=0.5, le=5_000.0, description="Max dollar loss per trade in USDT")
     sl_atr_multiplier: float = Field(default=3.0, ge=0.5, le=10.0, description="Stop loss distance in ATR units")
     stop_loss_pct: float = Field(default=0.12, ge=0.01, le=0.5, description="12% default stop loss")
     take_profit_pct: float = Field(default=0.10, ge=0.01, le=1.0, description="10% default take profit")

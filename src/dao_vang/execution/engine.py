@@ -71,6 +71,16 @@ class ExecutionEngine:
             self.store.record("paused", {"reason": reason})
 
     def load_manifest(self):
+        if (
+            getattr(self.settings, "signal_source", "scanner") == "fibo_short"
+            and self.settings.environment == "simulation"
+            and not self.settings.manifest_path
+        ):
+            from .sources import fibo_paper_manifest
+
+            self.manifest = fibo_paper_manifest(self.root, self.app_settings)
+            self.store.set("manifest_id", self.manifest.identity)
+            return self.manifest
         if not self.settings.manifest_path:
             raise ValueError("manifest_required")
         self.manifest = StrategyManifest.model_validate_json(
@@ -87,8 +97,8 @@ class ExecutionEngine:
         if self.settings.environment == "live" and not self.store.get(
             "initial_wallet_verified", False
         ):
-            if abs(account["wallet"] - 500) > 0.01:
-                self.pause("initial_balance_must_be_500_usdt")
+            if abs(account["wallet"] - self.settings.initial_equity) > 0.01:
+                self.pause("initial_balance_mismatch")
             else:
                 self.store.set("initial_wallet_verified", True)
         for key in ("wallet", "equity", "available", "unrealized"):
@@ -516,7 +526,11 @@ class ExecutionEngine:
             return "position_limit"
         if any(t["symbol"] == signal.symbol for t in active):
             return "duplicate_symbol"
-        if account["available"] < 5 + 25 * self.settings.fee_rate * 2:
+        min_avail = (
+            self.settings.margin_per_position
+            + self.settings.max_position_usd * self.settings.fee_rate * 2
+        )
+        if account["available"] < min_avail:
             return "insufficient_margin"
         rules = self.broker.get_symbol_rules(signal.symbol)
         quote = self.broker.quote(signal.symbol)
@@ -532,7 +546,8 @@ class ExecutionEngine:
         # Size against ask plus allowed slippage so rounding never deliberately
         # increases the 25 USDT budget to satisfy an exchange minimum.
         qty = floor_step(
-            25 / (ask * (1 + self.settings.max_slippage_bps / 10000)),
+            self.settings.max_position_usd
+            / (ask * (1 + self.settings.max_slippage_bps / 10000)),
             rules["market_step"],
         )
         qty = floor_step(qty, rules["step_size"])
@@ -627,9 +642,19 @@ class ExecutionEngine:
                     )
                     if not health["healthy"]:
                         raise ValueError("scanner_unhealthy")
-                    for signal in scanner_signals(
-                        self.db_path, manifest, self.settings
-                    ):
+                    if getattr(self.settings, "signal_source", "scanner") == "fibo_short":
+                        from .sources import fibo_short_signals
+
+                        signals_iter = fibo_short_signals(
+                            self.app_settings.paths.data_dir,
+                            manifest,
+                            self.app_settings,
+                        )
+                    else:
+                        signals_iter = scanner_signals(
+                            self.db_path, manifest, self.settings
+                        )
+                    for signal in signals_iter:
                         self.store.signal(signal)
                     self.store.set(
                         "source_health", {"healthy": True, "at": utc_now().isoformat()}

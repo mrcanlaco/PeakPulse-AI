@@ -14,7 +14,17 @@ export type TradingSnapshot = {
   open_orders?: { orderId: number; symbol: string; side: string; type: string; price: string; origQty: string; executedQty: string; status: string }[];
   environment: 'simulation' | 'demo' | 'live'; enabled: boolean; healthy: boolean;
   account_fresh: boolean; account_age_seconds: number | null; generated_at: string;
-  config: { max_positions: number }; account: {
+  config: {
+    max_positions: number;
+    capital?: number;
+    margin?: number;
+    max_position_usd?: number;
+    leverage?: number;
+    margin_type?: string;
+    stop_loss?: boolean;
+    sl_max_loss?: number;
+    signal_source?: string;
+  }; account: {
     equity: number; wallet: number; available: number; unrealized: number;
     peak: number; drawdown: number; at: string; maintenance_margin?: number;
   } | null;

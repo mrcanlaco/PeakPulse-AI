@@ -2537,7 +2537,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
                 <Cpu className="w-4 h-4" />
-                12 Tài Khoản Paper OOS Độc Lập (6 Chính Sách × 2 Kịch Bản Phí · NAV Khởi Điểm = 100.00)
+                12 Tài Khoản Paper OOS Độc Lập (6 Chính Sách × 2 Kịch Bản Phí · Vốn Quy Đổi $10,000.00 / TK · NAV Gốc = 100)
               </h3>
               <span className="text-[11px] font-mono text-slate-400">
                 Bấm vào từng dòng tài khoản để lọc riêng lệnh đang vào của tài khoản đó
@@ -2549,7 +2549,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   <tr className="border-b border-slate-800 text-slate-400 text-[11px]">
                     <th className="py-2 px-2.5">Tài Khoản / Chính Sách</th>
                     <th className="py-2 px-2.5">Kịch Bản Phí</th>
-                    <th className="py-2 px-2.5 text-right">NAV Hiện Tại</th>
+                    <th className="py-2 px-2.5 text-right">Tài Sản ($10k) / NAV</th>
                     <th className="py-2 px-2.5 text-right">Net Return</th>
                     <th className="py-2 px-2.5 text-right">MaxDD</th>
                     <th className="py-2 px-2.5 text-right">Đang Mở</th>
@@ -2592,7 +2592,10 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                             {acc.scenario_id === 'standard_vip6' ? 'VIP6 (2.5+10bps)' : 'Stress (5+50bps)'}
                           </span>
                         </td>
-                        <td className="py-2 px-2.5 text-right font-black text-slate-100">{acc.equity.toFixed(4)}</td>
+                        <td className="py-2 px-2.5 text-right font-black text-slate-100">
+                          <div>${(acc.equity * 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+                          <div className="text-[10px] font-normal text-slate-400">NAV {acc.equity.toFixed(2)}</div>
+                        </td>
                         <td
                           className={`py-2 px-2.5 text-right font-bold ${
                             acc.net_return_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'

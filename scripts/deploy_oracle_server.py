@@ -27,10 +27,14 @@ SYNC_PATHS = (
     "docs/ARCHITECTURE.md",
     "docs/DEV_LIVE_SETUP.md",
     "src/dao_vang/config/settings.py",
+    "src/dao_vang/execution/engine.py",
+    "src/dao_vang/execution/paper.py",
+    "src/dao_vang/execution/sources.py",
     "src/dao_vang/fibo_short/scanner_lane.py",
     "src/dao_vang/scanner/daemon.py",
     "src/dao_vang/scanner/healthcheck.py",
     "src/dao_vang/web/api_server.py",
+    "src/dao_vang/web/execution_api.py",
     "frontend/dist",
 )
 
@@ -43,7 +47,7 @@ BK="/var/backups/dao-vang/prod-2tier-$TS"
 sudo mkdir -p "$BK"
 sudo cp -a "$RT/configs/msi-production.yaml" "$RT/configs/live.yaml" "$RT/CHANGELOG.md" "$BK/" 2>/dev/null || true
 sudo cp -a "$RT/frontend/dist" "$BK/frontend_dist" 2>/dev/null || true
-for rel in src/dao_vang/config/settings.py src/dao_vang/fibo_short/scanner_lane.py src/dao_vang/scanner/daemon.py src/dao_vang/scanner/healthcheck.py src/dao_vang/web/api_server.py; do
+for rel in src/dao_vang/config/settings.py src/dao_vang/execution/engine.py src/dao_vang/execution/paper.py src/dao_vang/execution/sources.py src/dao_vang/fibo_short/scanner_lane.py src/dao_vang/scanner/daemon.py src/dao_vang/scanner/healthcheck.py src/dao_vang/web/api_server.py src/dao_vang/web/execution_api.py; do
   if sudo test -f "$RT/$rel"; then
     sudo mkdir -p "$BK/$(dirname "$rel")"
     sudo cp -a "$RT/$rel" "$BK/$rel"
@@ -77,15 +81,84 @@ if p.exists():
             "elite_sniper_risk",
             "sniper_rr1_horizon24",
         ]
+    acct_mon = data.setdefault("account_monitor", {})
+    if isinstance(acct_mon, dict):
+        acct_mon["enabled"] = False
+    exec_cfg = data.setdefault("execution", {})
+    if isinstance(exec_cfg, dict):
+        exec_cfg["enabled"] = True
+        exec_cfg["paper_trading"] = True
+        exec_cfg["live_activated"] = False
+        exec_cfg["environment"] = "simulation"
+        exec_cfg["signal_source"] = "fibo_short"
+        exec_cfg["manifest_path"] = None
+        exec_cfg["initial_equity"] = 10000.0
+        exec_cfg["margin_per_position"] = 200.0
+        exec_cfg["leverage"] = 5
+        exec_cfg["margin_type"] = "CROSSED"
+        exec_cfg["max_position_usd"] = 1000.0
+        exec_cfg["max_open_positions"] = 5
+        exec_cfg["entry_pause_drawdown"] = 0.20
+        exec_cfg["tp_min_usdt"] = 5.0
+        exec_cfg["tp_max_usdt"] = 250.0
+        exec_cfg["signal_ttl_seconds"] = 900
+        exec_cfg["poll_seconds"] = 10
+        exec_cfg["enable_stop_loss"] = True
+        exec_cfg["sl_max_loss_usdt"] = 50.0
+        exec_cfg["sl_atr_multiplier"] = 3.0
+        exec_cfg["stop_loss_pct"] = 0.12
+        exec_cfg["enable_trailing_tp"] = True
+        exec_cfg["trailing_trigger_atr"] = 1.5
+        exec_cfg["trailing_callback_atr"] = 1.0
+        exec_cfg["max_hold_hours"] = 72
+        exec_cfg["require_price_confirmation"] = True
     tmp = p.with_suffix(".yaml.tmp")
     tmp.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
     os.chown(tmp, st.st_uid, st.st_gid)
     os.chmod(tmp, st.st_mode & 0o777)
     os.replace(tmp, p)
 PY
+sudo python3 - "$(dirname "$(dirname "$RT")")/code/docker-compose.yml" <<'PY'
+import json
+import pathlib
+import sys
+
+cp = pathlib.Path(sys.argv[1])
+if cp.is_file():
+    doc = json.loads(cp.read_text(encoding="utf-8"))
+    services = doc.setdefault("services", {})
+    scanner_svc = services.get("scanner", {})
+    if scanner_svc and "execution" not in services:
+        services["execution"] = {
+            "restart": "unless-stopped",
+            "cpus": 1,
+            "mem_limit": "536870912",
+            "user": scanner_svc.get("user", "1001:1004"),
+            "image": scanner_svc.get("image", "dao-vang-oracle:v4.0.21-20261026"),
+            "pull_policy": "never",
+            "container_name": "daovang-oracle-execution",
+            "command": [
+                "dao-vang",
+                "execution",
+                "start",
+                "--config",
+                "configs/msi-production.yaml",
+            ],
+            "env_file": scanner_svc.get("env_file", ["../files/runtime/.runtime-scanner.env"]),
+            "logging": scanner_svc.get("logging", {"driver": "json-file", "options": {"max-size": "10m", "max-file": "3"}}),
+            "volumes": scanner_svc.get("volumes", []),
+        }
+        cp.write_text(json.dumps(doc, indent=2), encoding="utf-8")
+PY
 echo "$REV" | sudo tee "$RT/.git/refs/heads/main" >/dev/null
-sudo docker exec daovang-oracle-scanner python -c "from pathlib import Path; from dao_vang.config.settings import AppSettings; s = AppSettings.from_yaml(Path('/app/configs/msi-production.yaml')); assert s.scanner.shadow_telegram_enabled is False and s.fibo_trend_short.telegram_allowed_policies == ['elite_sniper_risk', 'sniper_rr1_horizon24']"
+sudo docker exec daovang-oracle-scanner python -c "from pathlib import Path; from dao_vang.config.settings import AppSettings; s = AppSettings.from_yaml(Path('/app/configs/msi-production.yaml')); assert s.scanner.shadow_telegram_enabled is False and s.execution.enabled is True and s.execution.initial_equity == 10000.0 and s.execution.live_activated is False"
 sudo docker restart daovang-oracle-scanner daovang-oracle-web >/dev/null
+COMPOSE_DIR="$(dirname "$(dirname "$RT")")/code"
+if sudo docker ps -a --format '{{.Names}}' | grep -qx 'daovang-oracle-execution'; then
+  sudo docker restart daovang-oracle-execution >/dev/null
+else
+  (cd "$COMPOSE_DIR" && sudo docker compose up -d --no-recreate execution)
+fi
 for i in $(seq 1 36); do
   if curl --fail --silent http://127.0.0.1:18000/api/health >/dev/null && curl --fail --silent http://127.0.0.1:18000/api/ready >/dev/null; then
     echo "DEPLOY_READY_OK (backup=$BK)"

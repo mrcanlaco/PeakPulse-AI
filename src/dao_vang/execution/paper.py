@@ -16,10 +16,11 @@ class PaperBroker:
     def __init__(self, config, store):
         self.config, self.store = config, store
         self.market = BinanceExecutionClient(config)
+        initial_wallet = float(getattr(config, "initial_equity", 500.0))
         self.data = store.get(
             "paper",
             {
-                "wallet": 500.0,
+                "wallet": initial_wallet,
                 "positions": {},
                 "orders": {},
                 "fills": {},
@@ -27,6 +28,17 @@ class PaperBroker:
                 "funding_cursor": int(time.time() * 1000),
             },
         )
+        if (
+            not self.data.get("positions")
+            and not self.data.get("orders")
+            and not self.data.get("fills")
+            and not self.data.get("income")
+            and self.data.get("wallet") != initial_wallet
+            and not store.trades(False)
+        ):
+            self.data["wallet"] = initial_wallet
+            store.set("equity_peak", initial_wallet)
+            self.save()
 
     def save(self):
         self.store.set("paper", self.data)
@@ -111,8 +123,9 @@ class PaperBroker:
             (p["entryPrice"] - p["markPrice"]) * abs(p["positionAmt"])
             for p in self.data["positions"].values()
         )
+        lev = max(1.0, float(getattr(self.config, "leverage", 5)))
         reserved = sum(
-            abs(p["positionAmt"]) * p["markPrice"] / 5
+            abs(p["positionAmt"]) * p["markPrice"] / lev
             for p in self.data["positions"].values()
         )
         equity = self.data["wallet"] + unrealized

@@ -188,17 +188,30 @@ execution_policy:
       risk_multiplier: 0.50
 
 account_monitor:
-  enabled: true
+  enabled: false
   credentials_file: .env.binance-readonly
   poll_seconds: 15
 
 execution:
-  enabled: false
+  enabled: true
+  paper_trading: true
   live_activated: false
   environment: simulation
-  manifest_path: artifacts/trading/cross_short_atr_v1.json
+  signal_source: fibo_short
+  manifest_path: null
+  initial_equity: 10000.0
+  margin_per_position: 200.0
+  leverage: 5
+  margin_type: CROSSED
+  max_position_usd: 1000.0
+  max_open_positions: 5
+  entry_pause_drawdown: 0.20
+  tp_min_usdt: 5.0
+  tp_max_usdt: 250.0
+  signal_ttl_seconds: 900
+  poll_seconds: 10
   enable_stop_loss: true
-  sl_max_loss_usdt: 5.0
+  sl_max_loss_usdt: 50.0
   sl_atr_multiplier: 3.0
   stop_loss_pct: 0.12
   enable_trailing_tp: true
@@ -206,7 +219,6 @@ execution:
   trailing_callback_atr: 1.0
   max_hold_hours: 72
   require_price_confirmation: true
-
 updater:
   # Production releases are applied only by the exact-SHA CI/CD workflow.
   enabled: false
