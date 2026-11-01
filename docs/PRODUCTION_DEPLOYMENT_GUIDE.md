@@ -72,6 +72,13 @@ Giao diện ứng dụng được tổ chức thành **4 Tab Lớn** tách biệ
    - **`Vị thế Theo dõi`:** Sổ quản lý các vị thế/mã đang theo dõi thủ công.
 4. **`Hệ thống` *(Vận hành & Quản trị)*:**
    - **`Cài đặt` · `Hạ tầng & Trạng thái` · `Lịch sử` · `Phiên bản`** *(và `Kiểm định ML V3.1` khi bật Dev Mode)*.
+
+### Cơ chế Phân quyền 2 Cấp: Người dùng Thường (Guest Read-Only) & Quản trị viên (Admin)
+- **Người dùng thường (Truy cập trực tiếp `https://pulse.freqpilot.dev` không cần mật khẩu):**
+  - Xem toàn bộ tín hiệu **`Fibo Short v4.0.21`**, biểu đồ nến & thang giá vào lệnh/SL/TP, link mở thẳng từ Telegram (`#coin=SYMBOL`), **`Shadow Live` 12 tài khoản Paper OOS**, **`Live` Paper 10.000 USD & Ví Binance ở chế độ Chỉ xem (Read-Only)**, cùng toàn bộ hồ sơ kiểm toán 6 năm & lịch sử phiên bản.
+  - Tính năng **`Vị thế Theo dõi`** tự động lưu riêng tư ngay trên trình duyệt (`localStorage`) của từng người dùng mà không làm ảnh hưởng dữ liệu máy chủ.
+- **Quản trị viên (`🔑 Admin` góc phải trên thanh Header):**
+  - Bấm **`Admin`** và nhập mật khẩu quản trị (`HttpOnly` session cookie) khi cần sử dụng **Trợ lý AI Định lượng (LLM)**, mở tab **Cài đặt Hệ thống**, đổi chế độ/danh sách quét máy chủ, bắn tin Telegram thủ công, đồng bộ Vị thế Theo dõi trên Server hoặc bấm **Dừng mở mới / Bật lại / Đóng thủ công** trên tab `Live`.
 ---
 
 ## 3. Hướng dẫn Đọc hiểu & Giao dịch Tín hiệu `Fibo Short` (`v4.0.21`)

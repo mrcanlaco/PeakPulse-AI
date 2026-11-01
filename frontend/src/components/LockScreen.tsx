@@ -12,6 +12,7 @@ import {
   Loader2,
   CheckCircle2,
   Globe,
+  X,
 } from 'lucide-react';
 import { useTranslation, LANGUAGES, type LanguageOption } from '../i18n/LanguageContext';
 import { verifyPassword } from '../utils/auth';
@@ -19,11 +20,15 @@ import { verifyPassword } from '../utils/auth';
 interface LockScreenProps {
   onAuthenticated: () => void;
   initialError?: string | null;
+  onClose?: () => void;
+  reasonMessage?: string | null;
 }
 
 export const LockScreen: React.FC<LockScreenProps> = ({
   onAuthenticated,
   initialError = null,
+  onClose,
+  reasonMessage = null,
 }) => {
   const { language, setLanguage, t } = useTranslation();
   const [password, setPassword] = useState('');
@@ -44,6 +49,17 @@ export const LockScreen: React.FC<LockScreenProps> = ({
       setError(initialError);
     }
   }, [initialError]);
+
+  useEffect(() => {
+    if (!onClose) return undefined;
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [onClose]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -77,7 +93,13 @@ export const LockScreen: React.FC<LockScreenProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#07090E] text-slate-100 overflow-hidden select-none px-4">
+    <div
+      data-testid="admin-login-modal"
+      onClick={() => onClose?.()}
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center text-slate-100 overflow-hidden select-none px-4 ${
+        onClose ? 'bg-slate-950/80 backdrop-blur-md' : 'bg-[#07090E]'
+      }`}
+    >
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-10 left-1/3 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
@@ -116,9 +138,22 @@ export const LockScreen: React.FC<LockScreenProps> = ({
       </div>
 
       {/* Main Card */}
-      <div className="w-full max-w-md relative z-10 animate-in fade-in zoom-in-95 duration-300">
-        <div className="rounded-2xl bg-slate-900/90 border border-amber-500/30 p-7 sm:p-8 shadow-[0_0_50px_-12px_rgba(245,158,11,0.25)] backdrop-blur-2xl">
-          {/* Header Icon & Title */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-md relative z-10 animate-in fade-in zoom-in-95 duration-300"
+      >
+        <div className="relative rounded-2xl bg-slate-900/95 border border-amber-500/30 p-7 sm:p-8 shadow-[0_0_50px_-12px_rgba(245,158,11,0.25)] backdrop-blur-2xl">
+          {onClose && (
+            <button
+              type="button"
+              data-testid="admin-login-close"
+              onClick={onClose}
+              aria-label="Close Admin Login"
+              className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700/80 bg-slate-800/80 text-slate-400 hover:border-slate-600 hover:text-white transition cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          )}
           <div className="text-center mb-6">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 via-slate-800 to-amber-950/40 border border-amber-500/40 shadow-inner mb-4">
               <Lock className="w-8 h-8 text-amber-400 animate-pulse" />
@@ -137,6 +172,11 @@ export const LockScreen: React.FC<LockScreenProps> = ({
               {t('auth_screen_subtitle')}
             </p>
           </div>
+          {reasonMessage && (
+            <div className="mb-4 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3.5 py-2.5 text-xs text-amber-200 leading-relaxed">
+              {reasonMessage}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -222,6 +262,21 @@ export const LockScreen: React.FC<LockScreenProps> = ({
               )}
             </button>
           </form>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-3 w-full rounded-xl border border-slate-700/80 bg-slate-800/60 py-2.5 px-4 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition cursor-pointer"
+            >
+              {language === 'en'
+                ? 'Continue browsing as Guest (Read-Only)'
+                : language === 'zh'
+                  ? '继续以访客模式浏览（只读）'
+                  : language === 'ko'
+                    ? '게스트 모드로 계속 보기 (읽기 전용)'
+                    : 'Tiếp tục xem chế độ Khách (Read-Only)'}
+            </button>
+          )}
 
           {/* Security Features Badge / Explanation */}
           <div className="mt-6 pt-5 border-t border-slate-800/80">

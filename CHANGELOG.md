@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Changed — Public Guest Read-Only Access & Admin Privilege Gate (`https://pulse.freqpilot.dev`)
+- **2-Role Access Model (`src/dao_vang/web/api_server.py`, `frontend/src/App.tsx`, `LockScreen.tsx`, `Header.tsx`, `MainWorkspace.tsx`, `ExecutionDashboard.tsx`, `FloatingAiAssistant.tsx`)**:
+  - **Public Guest (No Login Required):** Immediate read-only access to all 4 workspace pillars (`Fibo Short v4.0.21`, `Biểu đồ & Lệnh`, `Shadow Live 12 Paper OOS`, `Live Paper 10,000 USD & Binance Account Read-Only`, `Phương pháp & Kiểm toán 6 năm`, `Phiên bản & Hạ tầng`), deep-link support (`#coin=SYMBOL`), 15-second thread-safe kline response caching, and browser-local personal watchlist (`localStorage` `dao_vang_guest_tracking_watchlist_v1`) with client-side paper trade simulation.
+  - **Administrator (`🔑 Admin` inline modal + signed `HttpOnly` session cookie):** Required only for AI Quant Assistant / LLM queries (`/api/ai/*`), System Configuration (`Cài đặt Hệ thống`), manual scan/watchlist mutations, Telegram dispatches, server-persisted tracking ledger, and Live execution controls (`Dừng / Bật lại / Đóng thủ công`).
 ### Changed — Official 2-Tier Production Deployment (`Fibo Short v4.0.21` + `V3.1 UI Radar`)
 - **2-Tier Production Signal Routing (`configs/live.yaml`, `configs/dev.yaml`, `docs/PRODUCTION_DEPLOYMENT_GUIDE.md`)**:
   - Promoted **`Fibo Short v4.0.21`** (`rolling_pit_top50`, policies `elite_sniper_risk` & `sniper_rr1_horizon24`) to the **Primary Actionable Signal & Official Telegram Alert Engine**.

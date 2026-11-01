@@ -86,8 +86,29 @@ async function mockApi(page: Page, state: ApiState) {
     let body: unknown = {};
     let status = 200;
 
+    if (
+      !state.authenticated &&
+      (pathname === '/api/ai/config' ||
+        pathname === '/api/tracking-watchlist' ||
+        (request.method() !== 'GET' &&
+          !pathname.startsWith('/api/auth/') &&
+          pathname !== '/api/tracking-usage'))
+    ) {
+      await route.fulfill({
+        status: 401,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'Unauthorized', auth_required: true }),
+      });
+      return;
+    }
+
     if (pathname === '/api/auth/status') {
-      body = { auth_required: true, authenticated: state.authenticated };
+      body = {
+        auth_required: false,
+        admin_auth_required: true,
+        authenticated: state.authenticated,
+        role: state.authenticated ? 'admin' : 'guest',
+      };
     } else if (pathname === '/api/auth/verify') {
       const payload = request.postDataJSON() as { password?: string };
       state.authenticated = payload.password === 'smoke-password';
@@ -182,16 +203,46 @@ async function mockApi(page: Page, state: ApiState) {
   });
 }
 
-test('login unlocks the dashboard without storing the password', async ({ page }) => {
+test('guest browses public dashboard without login, saves browser tracking, gates AI/Settings, and Admin login unlocks privileges', async ({ page }) => {
   const state: ApiState = { authenticated: false, scannerTriggers: 0 };
+  await page.addInitScript(() => {
+    localStorage.setItem('dao_vang_app_language', 'vi');
+  });
   await mockApi(page, state);
   await page.goto('/');
 
+  // Public dashboard opens immediately without blocking lock screen
+  await expect(page.getByTestId('main-workspace')).toBeVisible();
+  await expect(page.getByTestId('admin-login-trigger')).toBeVisible();
+  await expect(page.getByTestId('admin-login-modal')).toHaveCount(0);
+
+  // Guest personal tracking saves locally in browser without hitting 401 server route
+  await page.getByTestId('open-tracking').click();
+  await page.getByLabel('Coin muốn theo dõi').fill('SOL');
+  await page.getByRole('button', { name: 'Thêm coin theo dõi' }).click();
+  await expect(page.getByTestId('tracking-SOLUSDT')).toBeVisible();
+  await expect
+    .poll(() => page.evaluate(() => localStorage.getItem('dao_vang_guest_tracking_watchlist_v1') || ''))
+    .toContain('SOLUSDT');
+
+  // Live 10k / Execution tab opens Read-Only for Guest with Admin control gate
+  await page.getByTestId('workspace-pillar-live').click();
+  await expect(page.getByTestId('trading-dashboard')).toContainText('CHẾ ĐỘ KHÁCH · CHỈ XEM');
+  await expect(page.getByTestId('execution-admin-login')).toBeVisible();
+
+  // System Settings shows Admin Gate Card for Guest
+  await page.getByTestId('workspace-system-menu').click();
+  await page.getByTestId('workspace-tab-settings').click();
+  await expect(page.getByTestId('settings-admin-gate')).toBeVisible();
+
+  // Clicking Floating AI Assistant opens dismissible Admin Login Modal; signing in unlocks Admin
+  await page.getByTestId('floating-ai-button').click();
+  await expect(page.getByTestId('admin-login-modal')).toBeVisible();
   await page.getByTestId('login-password').fill('smoke-password');
   await page.getByTestId('login-submit').click();
 
-  await expect(page.getByTestId('main-workspace')).toBeVisible();
   await expect.poll(() => state.authenticated).toBe(true);
+  await expect(page.getByTestId('admin-role-badge')).toBeVisible();
   await expect
     .poll(() => page.evaluate(() => localStorage.getItem('dao_vang_authenticated')))
     .toBe('1');

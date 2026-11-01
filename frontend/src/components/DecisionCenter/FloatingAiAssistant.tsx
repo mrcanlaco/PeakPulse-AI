@@ -5,6 +5,7 @@ import {
   Copy,
   HelpCircle,
   Loader2,
+  Lock,
   MessageCircle,
   Send,
   Settings,
@@ -50,6 +51,8 @@ interface FloatingAiAssistantProps {
   scannerModelId: string;
   status: SystemStatus | null;
   hasMobileActionBar?: boolean;
+  isAdmin?: boolean;
+  onRequireAdmin?: (reason?: string) => void;
 }
 
 const DEFAULT_SYMBOL = 'BTCUSDT';
@@ -82,6 +85,8 @@ export const FloatingAiAssistant = ({
   scannerModelId,
   status,
   hasMobileActionBar = false,
+  isAdmin = false,
+  onRequireAdmin,
 }: FloatingAiAssistantProps) => {
   const { language } = useTranslation();
   const isEn = language === 'en';
@@ -261,11 +266,11 @@ export const FloatingAiAssistant = ({
   // When the operator has not saved a browser override, inherit the model
   // configured by the server so a deployment-level model change is respected.
   useEffect(() => {
-    if (hasStoredLlmConfig()) return undefined;
+    if (!isAdmin || hasStoredLlmConfig()) return undefined;
     let cancelled = false;
     fetch('/api/ai/config', { cache: 'no-store' })
-      .then((response) => response.json())
-      .then((data: Partial<LlmConfig>) => {
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: Partial<LlmConfig> | null) => {
         if (cancelled || !data) return;
         setLlmConfig((previous) => ({
           ...previous,
@@ -279,7 +284,7 @@ export const FloatingAiAssistant = ({
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [isAdmin]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -353,9 +358,16 @@ export const FloatingAiAssistant = ({
   };
 
   const handleSendQuestion = async (overrideQuestion?: string) => {
+    if (!isAdmin) {
+      onRequireAdmin?.(
+        isEn
+          ? 'Admin login is required to query the AI Quant Assistant (LLM).'
+          : 'Tính năng Trợ lý AI Định lượng (LLM) dành riêng cho Quản trị viên. Vui lòng đăng nhập Admin để sử dụng.'
+      );
+      return;
+    }
     const question = (overrideQuestion ?? inputQuestion).trim();
     if (!question || isLoading) return;
-
     const userMessage: ChatMessage = {
       id: `floating-user-${Date.now()}`,
       role: 'user',
@@ -603,18 +615,44 @@ export const FloatingAiAssistant = ({
           <button
             data-testid="floating-ai-button"
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={() => {
+              if (!isAdmin && onRequireAdmin) {
+                onRequireAdmin(
+                  isEn
+                    ? 'Admin login is required to use the AI Quant Assistant (LLM).'
+                    : 'Tính năng Trợ lý AI Định lượng (LLM) dành riêng cho Quản trị viên. Vui lòng đăng nhập Admin để sử dụng.'
+                );
+                return;
+              }
+              setOpen(true);
+            }}
             aria-expanded={false}
             aria-label={isEn ? 'Open Đảo Vàng AI Radar assistant' : 'Mở Trợ lý Đảo Vàng AI Radar'}
-            className="group relative flex h-14 w-14 items-center justify-center rounded-full border border-amber-300/70 bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 text-slate-950 shadow-xl shadow-amber-950/50 transition hover:scale-105 hover:shadow-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-slate-950"
+            className="group relative flex h-14 w-14 items-center justify-center rounded-full border border-amber-300/70 bg-gradient-to-br from-amber-300 via-amber-500 to-orange-600 text-slate-950 shadow-xl shadow-amber-950/50 transition hover:scale-105 hover:shadow-amber-500/30 focus:outline-none focus:ring-2 focus:ring-amber-300 focus:ring-offset-2 focus:ring-offset-slate-950 cursor-pointer"
           >
-            <span className="absolute inset-0 rounded-full bg-amber-400/30 animate-ping" />
+            {isAdmin && <span className="absolute inset-0 rounded-full bg-amber-400/30 animate-ping" />}
             <span className="relative flex h-full w-full items-center justify-center rounded-full">
               <MessageCircle className="h-6 w-6" />
-              <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full border-2 border-orange-500 bg-emerald-400" />
+              {isAdmin ? (
+                <span className="absolute right-2 top-2 h-2.5 w-2.5 rounded-full border-2 border-orange-500 bg-emerald-400" />
+              ) : (
+                <span className="absolute -right-0.5 -top-0.5 flex h-5 w-5 items-center justify-center rounded-full border border-amber-400/80 bg-slate-950 text-amber-300 shadow">
+                  <Lock className="h-2.5 w-2.5" />
+                </span>
+              )}
             </span>
-            <span className="pointer-events-none absolute bottom-full right-0 mb-2 w-max max-w-[220px] translate-y-1 rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-[10px] font-medium text-slate-200 opacity-0 shadow-xl transition group-hover:translate-y-0 group-hover:opacity-100">
-              {isEn ? 'Ask Đảo Vàng AI Radar' : isZh ? '询问 Đảo Vàng AI Radar 助手' : isKo ? 'Đảo Vàng AI Radar 어시스턴트에게 질문' : 'Hỏi Trợ lý Đảo Vàng AI Radar'}
+            <span className="pointer-events-none absolute bottom-full right-0 mb-2 w-max max-w-[240px] translate-y-1 rounded-lg border border-slate-700 bg-slate-900 px-2.5 py-1.5 text-[10px] font-medium text-slate-200 opacity-0 shadow-xl transition group-hover:translate-y-0 group-hover:opacity-100">
+              {!isAdmin
+                ? isEn
+                  ? 'AI Assistant (Admin Login Required)'
+                  : 'Trợ lý AI Định lượng (Cần đăng nhập Admin)'
+                : isEn
+                  ? 'Ask Đảo Vàng AI Radar'
+                  : isZh
+                    ? '询问 Đảo Vàng AI Radar 助手'
+                    : isKo
+                      ? 'Đảo Vàng AI Radar 어시스턴트에게 질문'
+                      : 'Hỏi Trợ lý Đảo Vàng AI Radar'}
             </span>
           </button>
         )}

@@ -404,9 +404,7 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
 
 
   const handleSelectPillar = (pillar: PillarConfig) => {
-    if (activeCategory !== pillar.id) {
-      setActiveTab(pillar.defaultTab);
-    }
+    setActiveTab(pillar.defaultTab);
   };
 
   const currentSymbol = selectedSignal?.symbol || activeCoinSymbol;

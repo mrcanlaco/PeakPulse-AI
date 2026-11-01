@@ -118,3 +118,53 @@ def test_verify_auth_password_rate_limits_repeated_failures():
         APIHandler.verify_auth_password(handler, {"password": "wrong"})
 
     assert handler._set_headers.call_args.args[0] == 429
+
+
+def test_public_guest_vs_admin_only_route_matrix():
+    for public_path in (
+        "/api/status",
+        "/api/fibo-short/snapshot",
+        "/api/fibo-short/paper-oos",
+        "/api/execution/dashboard",
+        "/api/execution/status",
+        "/api/signals",
+        "/api/candidates",
+        "/api/scanner/telemetry",
+    ):
+        assert APIHandler._is_admin_only_get_path(public_path) is False
+
+    for admin_path in (
+        "/api/ai/config",
+        "/api/ai/settings",
+        "/api/tracking-watchlist",
+        "/api/system/update-logs",
+        "/api/updater/logs",
+    ):
+        assert APIHandler._is_admin_only_get_path(admin_path) is True
+
+
+def test_auth_status_reports_guest_and_admin_roles():
+    import io
+
+    handler = object.__new__(APIHandler)
+    handler.headers = {}
+    handler.path = "/api/auth/status"
+    handler.client_address = ("127.0.0.1", 1234)
+    handler._set_headers = MagicMock()
+    handler.wfile = io.BytesIO()
+
+    with patch("dao_vang.web.api_server._settings.web.access_password", "test-password"):
+        APIHandler.get_auth_status(handler)
+        guest_payload = json.loads(handler.wfile.getvalue().decode("utf-8"))
+        assert guest_payload["auth_required"] is False
+        assert guest_payload["admin_auth_required"] is True
+        assert guest_payload["authenticated"] is False
+        assert guest_payload["role"] == "guest"
+
+        token = APIHandler._make_session_token(handler)
+        handler.headers = {"Cookie": f"dao_vang_session={token}"}
+        handler.wfile = io.BytesIO()
+        APIHandler.get_auth_status(handler)
+        admin_payload = json.loads(handler.wfile.getvalue().decode("utf-8"))
+        assert admin_payload["authenticated"] is True
+        assert admin_payload["role"] == "admin"

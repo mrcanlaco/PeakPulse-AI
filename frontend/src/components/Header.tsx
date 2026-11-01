@@ -20,6 +20,8 @@ import {
   Settings,
   Radio,
   Lock,
+  KeyRound,
+  ShieldCheck,
 } from 'lucide-react';
 import {
   getRiskLabel,
@@ -48,6 +50,8 @@ interface HeaderProps {
   onOpenCoinSelector?: () => void;
   onOpenRadar?: () => void;
   onLogout?: () => void;
+  isAdmin?: boolean;
+  onOpenAdminLogin?: () => void;
   trackingCount: number;
   activeScanMode: string;
   autoTelegramEnabled: boolean;
@@ -87,6 +91,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenCoinSelector,
   onOpenRadar,
   onLogout,
+  isAdmin = false,
+  onOpenAdminLogin,
   trackingCount,
   activeScanMode,
   autoTelegramEnabled: _autoTelegramEnabled,
@@ -684,7 +690,7 @@ export const Header: React.FC<HeaderProps> = ({
                       )}
 
                       {/* Lock / Logout */}
-                      {onLogout && (
+                      {isAdmin && onLogout ? (
                         <button
                           type="button"
                           onClick={() => {
@@ -696,7 +702,27 @@ export const Header: React.FC<HeaderProps> = ({
                           <Lock className="w-3.5 h-3.5 text-red-400" />
                           <span>{t('auth_logout')}</span>
                         </button>
-                      )}
+                      ) : onOpenAdminLogin ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onOpenAdminLogin();
+                            setMoreToolsDropdownOpen(false);
+                          }}
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs text-amber-300 hover:bg-amber-950/40 hover:text-amber-200 transition font-semibold"
+                        >
+                          <KeyRound className="w-3.5 h-3.5 text-amber-400" />
+                          <span>
+                            {language === 'en'
+                              ? 'Admin Login'
+                              : language === 'zh'
+                                ? '管理员登录'
+                                : language === 'ko'
+                                  ? '관리자 로그인'
+                                  : 'Đăng nhập Quản trị (Admin)'}
+                          </span>
+                        </button>
+                      ) : null}
 
                       {/* PWA Install */}
                       <div className="px-1 py-1">
@@ -761,18 +787,39 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
 
-            {/* Top Bar Lock / Logout Button */}
-            {onLogout && (
+            {/* Top Bar Admin Login / Logout Controls */}
+            {isAdmin && onLogout ? (
+              <div className="inline-flex items-center gap-1">
+                <span
+                  data-testid="admin-role-badge"
+                  className="hidden sm:inline-flex items-center gap-1 rounded-lg border border-emerald-500/40 bg-emerald-950/60 px-2 h-8 text-[10px] font-bold uppercase tracking-wider text-emerald-300"
+                >
+                  <ShieldCheck className="h-3 w-3 text-emerald-400" />
+                  Admin
+                </span>
+                <button
+                  type="button"
+                  data-testid="admin-logout-button"
+                  onClick={onLogout}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700/80 bg-slate-800 text-slate-400 shadow-sm transition hover:border-red-500/50 hover:bg-red-950/30 hover:text-red-400 active:scale-95 cursor-pointer"
+                  title={t('auth_logout')}
+                  aria-label={t('auth_logout')}
+                >
+                  <Lock className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ) : onOpenAdminLogin ? (
               <button
                 type="button"
-                onClick={onLogout}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700/80 bg-slate-800 text-slate-400 shadow-sm transition hover:border-red-500/50 hover:bg-red-950/30 hover:text-red-400 active:scale-95 cursor-pointer"
-                title={t('auth_logout')}
-                aria-label={t('auth_logout')}
+                data-testid="admin-login-trigger"
+                onClick={onOpenAdminLogin}
+                className="inline-flex h-8 items-center justify-center gap-1 rounded-lg border border-amber-500/40 bg-amber-500/10 px-2.5 text-xs font-bold text-amber-300 shadow-sm transition hover:border-amber-400 hover:bg-amber-500/20 active:scale-95 cursor-pointer"
+                title={language === 'en' ? 'Admin Login' : 'Đăng nhập Quản trị (Admin)'}
               >
-                <Lock className="h-3.5 w-3.5" />
+                <KeyRound className="h-3.5 w-3.5 text-amber-400" />
+                <span className="hidden sm:inline">Admin</span>
               </button>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

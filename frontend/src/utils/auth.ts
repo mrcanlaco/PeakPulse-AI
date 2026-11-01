@@ -116,8 +116,13 @@ export function setupFetchAuthInterceptor(): void {
 
     if (isApiRequest && response.status === 401) {
       if (!urlStr.includes('/api/auth/verify') && !urlStr.includes('/api/auth/status')) {
+        const hadAdminSession = Boolean(getStoredPassword());
         clearStoredPassword();
-        window.dispatchEvent(new CustomEvent('dao_vang_auth_error', { detail: { status: 401 } }));
+        window.dispatchEvent(
+          new CustomEvent('dao_vang_auth_error', {
+            detail: { status: 401, url: urlStr, hadAdminSession },
+          })
+        );
       }
     }
 

@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
-import { LockScreen } from './components/LockScreen';
 import type { MobileTabType } from './components/v2/MobileBottomNav';
 import { getCategoryForTab } from './components/WorkspaceTabBar';
 import type { WorkspaceTab } from './components/WorkspaceTabBar';
@@ -11,6 +10,13 @@ import { isSignalFired, isSignalArmed } from './types';
 import { parseSystemDate } from './utils/time';
 import { clearStoredPassword, checkAuthStatus, logoutAuth } from './utils/auth';
 import { useTranslation, type Language } from './i18n/LanguageContext';
+import {
+  loadGuestTrackingItems,
+  addGuestTrackingItem,
+  updateGuestTrackingItem,
+  removeGuestTrackingItem,
+  enrichGuestTrackingItems,
+} from './utils/guestTracking';
 
 // Keep the authenticated shell small. Charts, modals, and secondary controls
 // are loaded only after the lock screen has been cleared.
@@ -24,12 +30,29 @@ const MobileBottomNav = lazy(() => import('./components/v2/MobileBottomNav').the
 const StickyActionBar = lazy(() => import('./components/v2/StickyActionBar').then(({ StickyActionBar: component }) => ({ default: component })));
 const OrderExecutionModal = lazy(() => import('./components/v2/OrderExecutionModal').then(({ OrderExecutionModal: component }) => ({ default: component })));
 const FloatingAiAssistant = lazy(() => import('./components/DecisionCenter/FloatingAiAssistant').then(({ FloatingAiAssistant: component }) => ({ default: component })));
+const LockScreen = lazy(() => import('./components/LockScreen').then(({ LockScreen: component }) => ({ default: component })));
 export function App() {
   const { language, t } = useTranslation();
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [authError, setAuthError] = useState<string | null>(null);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  const [adminLoginReason, setAdminLoginReason] = useState<string | null>(null);
+  const pendingAdminActionRef = useRef<(() => void) | null>(null);
+
+  const openAdminLogin = (reason?: string | null, afterLogin?: () => void) => {
+    setAdminLoginReason(reason ?? null);
+    pendingAdminActionRef.current = afterLogin ?? null;
+    setAuthError(null);
+    setIsAdminLoginOpen(true);
+  };
+
+  const requireAdmin = (reason: string, afterLogin?: () => void): boolean => {
+    if (isAuthenticated) return true;
+    openAdminLogin(reason, afterLogin);
+    return false;
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -48,18 +71,32 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const handleAuthError = () => {
+    const handleAuthError = (event: Event) => {
+      const detail = (event as CustomEvent<{ hadAdminSession?: boolean }>).detail;
       setIsAuthenticated(false);
-      setAuthError(t('auth_session_expired'));
+      if (detail?.hadAdminSession) {
+        setAuthError(t('auth_session_expired'));
+      } else {
+        setAdminLoginReason(
+          language === 'en'
+            ? 'Administrator sign-in is required for this action.'
+            : 'Thao tác này yêu cầu đăng nhập quyền Quản trị viên (Admin).'
+        );
+      }
+      setIsAdminLoginOpen(true);
     };
     window.addEventListener('dao_vang_auth_error', handleAuthError);
     return () => window.removeEventListener('dao_vang_auth_error', handleAuthError);
-  }, [t]);
+  }, [t, language]);
 
   const handleLogout = () => {
     void logoutAuth();
     setIsAuthenticated(false);
     setAuthError(null);
+    setIsAdminLoginOpen(false);
+    setAdminLoginReason(null);
+    pendingAdminActionRef.current = null;
+    setTrackingItems(enrichGuestTrackingItems(loadGuestTrackingItems(), signals, candidates));
   };
 
   const [status, setStatus] = useState<SystemStatus | null>(null);
@@ -75,7 +112,7 @@ export function App() {
 
   const [activeScanModes, setActiveScanModes] = useState<string[]>(['volatile']);
   const [manualWatchlist, setManualWatchlist] = useState<string[]>([]);
-  const [trackingItems, setTrackingItems] = useState<TrackingWatchlistItem[]>([]);
+  const [trackingItems, setTrackingItems] = useState<TrackingWatchlistItem[]>(() => loadGuestTrackingItems());
   const [isTrackingLoading, setIsTrackingLoading] = useState(false);
   const [trackingUpdatingId, setTrackingUpdatingId] = useState<string | null>(null);
   const [isWatchlistModalOpen, setIsWatchlistModalOpen] = useState(false);
@@ -234,6 +271,10 @@ export function App() {
   };
 
   const refreshTrackingWatchlist = async () => {
+    if (!isAuthenticated) {
+      setTrackingItems(enrichGuestTrackingItems(loadGuestTrackingItems(), signals, candidates));
+      return;
+    }
     setIsTrackingLoading(true);
     try {
       const freshItems = await loadTrackingWatchlist();
@@ -253,6 +294,11 @@ export function App() {
     setIsRefreshingCandidates(true);
     setCandidateRefreshStatus('idle');
     try {
+      if (!isAuthenticated) {
+        setCandidates(await loadCandidates());
+        setCandidateRefreshStatus('updated');
+        return;
+      }
       const beforeFingerprint = candidates
         .map((candidate) => `${candidate.symbol}:${candidate.scan_time || ''}`)
         .join('|');
@@ -295,7 +341,8 @@ export function App() {
   };
 
   // Fetch initial data & telemetry with progress tracking
-  const fetchData = async () => {
+  const fetchData = async (overrideIsAdmin?: boolean) => {
+    const adminActive = overrideIsAdmin ?? isAuthenticated;
     setIsRefreshing(true);
     setLoadingStep(getStepText('init', language));
     try {
@@ -322,8 +369,9 @@ export function App() {
         presets?: WatchlistPreset[];
       } | null>('/api/watchlist', null);
 
-      const trackingRes = await fetchJsonOr<TrackingWatchlistItem[]>('/api/tracking-watchlist', trackingItems);
-
+      const trackingRes = adminActive
+        ? await fetchJsonOr<TrackingWatchlistItem[]>('/api/tracking-watchlist', [])
+        : enrichGuestTrackingItems(loadGuestTrackingItems(), sigRes ?? [], candRes);
       setLoadingStep(getStepText('s7', language));
       const telemRes = await fetchJsonOr<ScannerTelemetry | null>('/api/scanner/telemetry', null);
 
@@ -403,34 +451,47 @@ export function App() {
   };
 
   useEffect(() => {
-    if (!isAuthenticated) return;
-    fetchData();
+    if (isAuthChecking) return;
+    void fetchData(isAuthenticated);
 
     const timer = setInterval(async () => {
       const freshSignals = await loadSignals();
       if (freshSignals !== null) setSignals(freshSignals);
+      let freshCandidates: CandidateCoin[] = candidates;
       try {
-        const freshTracking = await loadTrackingWatchlist();
-        if (freshTracking) setTrackingItems(freshTracking);
+        freshCandidates = await loadCandidates();
+        setCandidates(freshCandidates);
       } catch {
         // keep previous snapshot
+      }
+      if (isAuthenticated) {
+        try {
+          const freshTracking = await loadTrackingWatchlist();
+          if (freshTracking) setTrackingItems(freshTracking);
+        } catch {
+          // keep previous snapshot
+        }
+      } else {
+        setTrackingItems(
+          enrichGuestTrackingItems(
+            loadGuestTrackingItems(),
+            freshSignals ?? signals,
+            freshCandidates
+          )
+        );
       }
       try {
         const telemRes = await fetchJsonOr<ScannerTelemetry | null>('/api/scanner/telemetry', null);
         if (telemRes) setTelemetryData(telemRes);
       } catch {}
-      try {
-        setCandidates(await loadCandidates());
-      } catch {
-        // keep previous snapshot
-      }
     }, 30_000);
     return () => window.clearInterval(timer);
-  }, [isAuthenticated]);
+    // oxlint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthChecking, isAuthenticated]);
 
-  // Defer protected requests until login; URLSearchParams decodes Unicode symbols.
+  // Support public deep links (#coin=SYMBOL) for both Guests and Admins.
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (isAuthChecking) return;
     const loadHashCoin = () => {
       const symbol = new URLSearchParams(window.location.hash.slice(1)).get('coin')?.trim().toUpperCase();
       if (!symbol || !/^[\p{L}\p{N}_-]+$/u.test(symbol)) return;
@@ -447,7 +508,7 @@ export function App() {
     return () => window.removeEventListener('hashchange', loadHashCoin);
     // The handlers only write state and use refs for request ordering.
     // oxlint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated]);
+  }, [isAuthChecking]);
 
   const handleSelectSignal = (sig: SignalItem) => {
     setSelectedSignalId(sig.id);
@@ -480,6 +541,7 @@ export function App() {
   };
 
   const handlePushTelegram = async (sig: SignalItem) => {
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để bắn tín hiệu thủ công lên Telegram.')) return;
     try {
       const response = await fetch('/api/telegram/send', {
         method: 'POST',
@@ -498,6 +560,7 @@ export function App() {
   };
 
   const handleDismissSignal = async (sig: SignalItem) => {
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để ẩn tín hiệu trên bảng chung.')) return;
     try {
       const response = await fetch('/api/alerts/dismiss', {
         method: 'POST',
@@ -519,6 +582,7 @@ export function App() {
   };
 
   const handleTriggerManualScan = async () => {
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để kích hoạt chu kỳ quét mới trên máy chủ.')) return;
     setIsTriggeringScan(true);
     setScanTriggeredSuccess(null);
     try {
@@ -544,7 +608,7 @@ export function App() {
   const handleAddManualCoin = async (symbol: string): Promise<boolean> => {
     const nextSymbol = symbol.trim().toUpperCase();
     if (!nextSymbol) return false;
-
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để thêm coin vào danh sách quét của máy chủ.')) return false;
     setWatchlistPendingAction(`add:${nextSymbol}`);
     setWatchlistFeedback(null);
     try {
@@ -571,6 +635,7 @@ export function App() {
   };
 
   const handleRemoveManualCoin = async (symbol: string): Promise<boolean> => {
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để xóa coin khỏi danh sách quét của máy chủ.')) return false;
     setWatchlistPendingAction(`remove:${symbol}`);
     setWatchlistFeedback(null);
     try {
@@ -610,6 +675,20 @@ export function App() {
   }): Promise<boolean> => {
     const symbol = payload.symbol.trim().toUpperCase();
     if (!symbol) return false;
+
+    if (!isAuthenticated) {
+      const { items } = addGuestTrackingItem({ ...payload, symbol }, loadGuestTrackingItems());
+      setTrackingItems(enrichGuestTrackingItems(items, signals, candidates));
+      const successMsg =
+        language === 'en'
+          ? `Saved ${symbol} to your browser watchlist`
+          : `${t('toast_tracking_added').replace('{symbol}', symbol)} (Lưu trên trình duyệt)`;
+      setWatchlistFeedback({ type: 'success', message: successMsg });
+      setActiveTab('WATCHLIST');
+      if (guiVersion === 'v2') setMobileTab('LIVE');
+      return true;
+    }
+
     setWatchlistPendingAction(`tracking:add:${symbol}`);
     setWatchlistFeedback(null);
     try {
@@ -693,6 +772,13 @@ export function App() {
   };
 
   const updateTrackingItem = async (id: string, patch: Record<string, unknown>): Promise<boolean> => {
+    if (!isAuthenticated || id.startsWith('guest-')) {
+      const { items, item } = updateGuestTrackingItem(id, patch, loadGuestTrackingItems());
+      if (!item) return false;
+      setTrackingItems(enrichGuestTrackingItems(items, signals, candidates));
+      setWatchlistFeedback({ type: 'success', message: t('toast_tracking_updated') });
+      return true;
+    }
     setTrackingUpdatingId(id);
     try {
       const res = await fetch(`/api/tracking-watchlist/${encodeURIComponent(id)}`, {
@@ -717,6 +803,12 @@ export function App() {
   };
 
   const removeTrackingItem = async (id: string): Promise<boolean> => {
+    if (!isAuthenticated || id.startsWith('guest-')) {
+      const items = removeGuestTrackingItem(id, loadGuestTrackingItems());
+      setTrackingItems(enrichGuestTrackingItems(items, signals, candidates));
+      setWatchlistFeedback({ type: 'success', message: t('toast_tracking_removed') });
+      return true;
+    }
     setTrackingUpdatingId(id);
     try {
       const res = await fetch(`/api/tracking-watchlist/${encodeURIComponent(id)}`, { method: 'DELETE' });
@@ -740,7 +832,7 @@ export function App() {
   const handleChangeScanModes = async (modes: string[]): Promise<boolean> => {
     const normalizedModes = Array.from(new Set(modes.map((mode) => mode.trim().toLowerCase()).filter(Boolean)));
     if (normalizedModes.length === 0) return false;
-
+    if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để thay đổi chế độ quét của máy chủ.')) return false;
     const previousModes = activeScanModes;
     setWatchlistPendingAction('modes');
     setWatchlistFeedback(null);
@@ -845,22 +937,8 @@ export function App() {
   const activeScanMode = activeScanModes.join(' + ');
 
   if (isAuthChecking) {
-    return <div className="min-h-screen bg-[#07090E]" aria-label="Checking authentication" />;
+    return <div className="min-h-screen bg-[#080c14]" aria-label="Loading dashboard" />;
   }
-
-  if (!isAuthenticated) {
-    return (
-      <LockScreen
-        initialError={authError}
-        onAuthenticated={() => {
-          setIsAuthenticated(true);
-          setAuthError(null);
-          fetchData();
-        }}
-      />
-    );
-  }
-
   const showMobileActionBar = guiVersion === 'v2'
     && Boolean(coinDetail || selectedSignal)
     && activeTab === 'DECISION';
@@ -883,10 +961,13 @@ export function App() {
         setSelectedRiskFilter={setSelectedRiskFilter}
         threshold={threshold}
         setThreshold={setThreshold}
-        onRefresh={fetchData}
+        onRefresh={() => void fetchData()}
         isRefreshing={isRefreshing}
         onOpenGlossary={() => setIsGlossaryOpen(true)}
-        onOpenWatchlistModal={() => setIsWatchlistModalOpen(true)}
+        onOpenWatchlistModal={() => {
+          if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để cấu hình chế độ quét & danh sách coin trên máy chủ.')) return;
+          setIsWatchlistModalOpen(true);
+        }}
         onOpenTracking={() => {
           setActiveTab('WATCHLIST');
           if (guiVersion === 'v2') setMobileTab('LIVE');
@@ -897,6 +978,14 @@ export function App() {
           if (guiVersion === 'v2') setMobileTab('SIGNALS');
         }}
         onLogout={handleLogout}
+        isAdmin={isAuthenticated}
+        onOpenAdminLogin={() =>
+          openAdminLogin(
+            language === 'en'
+              ? 'Sign in as Administrator to unlock AI Quant Assistant, System Settings, and Live Execution Controls.'
+              : 'Đăng nhập Quản trị viên (Admin) để mở khóa Trợ lý AI Định lượng, Cấu hình Hệ thống và Điều khiển Lệnh Live.'
+          )
+        }
         trackingCount={trackingItems.filter(item => item.status !== 'CLOSED').length}
         activeScanMode={activeScanMode}
         autoTelegramEnabled={automationSettings.autoTelegramPush}
@@ -996,12 +1085,28 @@ export function App() {
             threshold={threshold}
             setThreshold={setThreshold}
             activeScanModes={activeScanModes}
-            onOpenWatchlistModal={() => setIsWatchlistModalOpen(true)}
+            onOpenWatchlistModal={() => {
+              if (!requireAdmin('Đăng nhập Quản trị viên (Admin) để cấu hình chế độ quét & danh sách coin trên máy chủ.')) return;
+              setIsWatchlistModalOpen(true);
+            }}
             onOpenTabHelp={() => setIsTabHelpModalOpen(true)}
             onLogout={handleLogout}
-            onOpenAiAssistant={() => setIsFloatingAiAssistantOpen(true)}
+            onOpenAiAssistant={() => {
+              if (!isAuthenticated) {
+                openAdminLogin(
+                  language === 'en'
+                    ? 'Sign in as Administrator to use the AI Quant Assistant (LLM).'
+                    : 'Tính năng Trợ lý AI Định lượng (LLM) dành cho Quản trị viên. Vui lòng đăng nhập Admin để sử dụng.',
+                  () => setIsFloatingAiAssistantOpen(true)
+                );
+                return;
+              }
+              setIsFloatingAiAssistantOpen(true);
+            }}
             isDevMode={isDevMode}
             setIsDevMode={setIsDevMode}
+            isAdmin={isAuthenticated}
+            onRequireAdmin={(reason) => openAdminLogin(reason)}
           />
         </div>
       </main>
@@ -1022,6 +1127,10 @@ export function App() {
         scannerModelId={scannerModelId}
         status={status}
         hasMobileActionBar={showMobileActionBar}
+        isAdmin={isAuthenticated}
+        onRequireAdmin={(reason) =>
+          openAdminLogin(reason, () => setIsFloatingAiAssistantOpen(true))
+        }
       />
 
       {/* GUI V2 Mobile Bottom Navigation Bar */}
@@ -1037,7 +1146,7 @@ export function App() {
             } else if (tab === 'LIVE') {
               setActiveTab('LIVE_ACCOUNT');
             } else if (tab === 'SYSTEM') {
-              setActiveTab('SETTINGS');
+              setActiveTab(isAuthenticated ? 'SETTINGS' : 'UPDATES');
             }
           }}
           signalCount={filteredSignals.length}
@@ -1162,6 +1271,29 @@ export function App() {
         >
           {telegramSentSuccess}
         </div>
+      )}
+
+      {isAdminLoginOpen && !isAuthenticated && (
+        <LockScreen
+          initialError={authError}
+          reasonMessage={adminLoginReason}
+          onClose={() => {
+            setIsAdminLoginOpen(false);
+            setAuthError(null);
+            setAdminLoginReason(null);
+            pendingAdminActionRef.current = null;
+          }}
+          onAuthenticated={() => {
+            setIsAuthenticated(true);
+            setIsAdminLoginOpen(false);
+            setAuthError(null);
+            setAdminLoginReason(null);
+            void fetchData(true);
+            const pending = pendingAdminActionRef.current;
+            pendingAdminActionRef.current = null;
+            if (pending) pending();
+          }}
+        />
       )}
 
       </div>

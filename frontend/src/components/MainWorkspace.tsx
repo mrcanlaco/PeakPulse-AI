@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 import {
   Activity, BarChart3,
-  ArrowUpRight, ArrowDownRight, CheckCircle2, Radio, Terminal, Send, Clock, Play, Loader2, LineChart as LineChartIcon, RefreshCw, HelpCircle, Eye, EyeOff
+  ArrowUpRight, ArrowDownRight, CheckCircle2, Radio, Terminal, Send, Clock, Play, Loader2, LineChart as LineChartIcon, RefreshCw, HelpCircle, Eye, EyeOff, Lock, KeyRound, ShieldCheck
 } from 'lucide-react';
 import { WorkspaceTabBar } from './WorkspaceTabBar';
 import type { WorkspaceTab } from './WorkspaceTabBar';
@@ -129,6 +129,8 @@ interface MainWorkspaceProps {
   onOpenAiAssistant?: () => void;
   isDevMode?: boolean;
   setIsDevMode?: (val: boolean) => void;
+  isAdmin?: boolean;
+  onRequireAdmin?: (reason?: string) => void;
 }
 
 export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
@@ -192,6 +194,8 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   onOpenAiAssistant,
   isDevMode = false,
   setIsDevMode,
+  isAdmin = false,
+  onRequireAdmin,
 }) => {
 
   const { language, t } = useTranslation();  
@@ -753,7 +757,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
 
       {activeTab === 'LIVE_ACCOUNT' && (
         <ErrorBoundary fallbackTitle="Lỗi hiển thị Tài khoản Thực & Giao dịch Live">
-          <ExecutionDashboard />
+          <ExecutionDashboard isAdmin={isAdmin} onRequireAdmin={onRequireAdmin} />
         </ErrorBoundary>
       )}
 
@@ -1896,17 +1900,99 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
       {/* TAB: SYSTEM SETTINGS & LLM CONFIG */}
       {activeTab === 'SETTINGS' && (
         <ErrorBoundary fallbackTitle="Lỗi hiển thị Cấu hình Hệ thống">
-          <SystemSettingsTab
-            isDevMode={isDevMode}
-            setIsDevMode={setIsDevMode}
-            guiVersion={guiVersion}
-            onSelectGuiVersion={onSelectGuiVersion}
-            threshold={threshold}
-            setThreshold={setThreshold}
-            activeScanModes={activeScanModes}
-            onOpenWatchlistModal={onOpenWatchlistModal}
-            onLogout={onLogout}
-          />
+          {isAdmin ? (
+            <SystemSettingsTab
+              isDevMode={isDevMode}
+              setIsDevMode={setIsDevMode}
+              guiVersion={guiVersion}
+              onSelectGuiVersion={onSelectGuiVersion}
+              threshold={threshold}
+              setThreshold={setThreshold}
+              activeScanModes={activeScanModes}
+              onOpenWatchlistModal={onOpenWatchlistModal}
+              onLogout={onLogout}
+            />
+          ) : (
+            <div
+              data-testid="settings-admin-gate"
+              className="mx-auto max-w-2xl rounded-2xl border border-amber-500/30 bg-slate-950/90 p-6 sm:p-8 shadow-2xl space-y-5"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-amber-500/40 bg-amber-500/15 text-amber-400">
+                  <Lock className="h-6 w-6" />
+                </div>
+                <div className="space-y-1.5">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-300">
+                    {language === 'en' ? 'Administrator Area' : 'Khu Vực Quản Trị Viên'}
+                  </span>
+                  <h2 className="text-lg sm:text-xl font-black text-white">
+                    {language === 'en'
+                      ? 'System Configuration & AI LLM Settings Require Admin Access'
+                      : 'Cấu hình Hệ thống & Kết nối AI LLM yêu cầu quyền Admin'}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                    {language === 'en'
+                      ? 'You are browsing PeakPulse AI in Public Guest (Read-Only) mode. All Fibonacci Short v4.0.21 signals, 12-account Shadow Live Paper OOS, Live 10,000 USD / Binance Account monitoring, and personal browser tracking remain open without login.'
+                      : 'Bạn đang truy cập PeakPulse AI ở chế độ Khách công khai (Read-Only). Toàn bộ Tín hiệu Fibo Short v4.0.21, Shadow Live 12 tài khoản Paper OOS, Tài khoản Live 10.000 USD / Binance và Vị thế Theo dõi lưu trên trình duyệt đều mở tự do không cần đăng nhập.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-3.5 space-y-1.5">
+                  <div className="flex items-center gap-1.5 font-bold text-emerald-300">
+                    <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                    <span>{language === 'en' ? 'Open for All Users' : 'Mở tự do cho Người dùng'}</span>
+                  </div>
+                  <ul className="space-y-1 text-slate-300 text-[11px]">
+                    <li>• Tín hiệu Fibo Short v4.0.21 &amp; Radar AI</li>
+                    <li>• Shadow Live 12 TK Paper OOS &amp; Backtest 6 năm</li>
+                    <li>• Xem Live Paper 10k USD &amp; Ví Binance (Read-Only)</li>
+                    <li>• Ghim Vị thế Theo dõi riêng trên trình duyệt</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-amber-500/20 bg-amber-950/20 p-3.5 space-y-1.5">
+                  <div className="flex items-center gap-1.5 font-bold text-amber-300">
+                    <KeyRound className="h-4 w-4 text-amber-400" />
+                    <span>{language === 'en' ? 'Admin Privileges' : 'Đặc quyền Admin'}</span>
+                  </div>
+                  <ul className="space-y-1 text-slate-300 text-[11px]">
+                    <li>• Hỏi đáp Trợ lý AI Định lượng &amp; Cấu hình LLM</li>
+                    <li>• Đổi chế độ quét, danh sách quét &amp; Quét thủ công</li>
+                    <li>• Bắn tin Telegram &amp; Lưu Vị thế Theo dõi trên Server</li>
+                    <li>• Dừng / Tiếp tục / Đóng lệnh trên Tài khoản Live</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800/80">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('UPDATES')}
+                  className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition cursor-pointer"
+                >
+                  {language === 'en' ? 'View Version History' : 'Xem Lịch sử Phiên bản'}
+                </button>
+                <button
+                  type="button"
+                  data-testid="settings-admin-login-btn"
+                  onClick={() =>
+                    onRequireAdmin?.(
+                      language === 'en'
+                        ? 'Sign in as Administrator to unlock System Configuration & AI LLM.'
+                        : 'Đăng nhập Quản trị viên (Admin) để mở khóa Cấu hình Hệ thống & Trợ lý AI.'
+                    )
+                  }
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-2.5 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition cursor-pointer"
+                >
+                  <KeyRound className="h-4 w-4" />
+                  <span>
+                    {language === 'en' ? 'Sign In as Admin' : 'Đăng nhập Quản trị viên (Admin)'}
+                  </span>
+                </button>
+              </div>
+            </div>
+          )}
         </ErrorBoundary>
       )}
       </Suspense>

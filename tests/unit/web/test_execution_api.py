@@ -89,14 +89,15 @@ def test_authenticated_status_and_pause_are_integrated(tmp_path):
     assert execution_store(settings).commands()[0]["action"] == "pause"
 
 
-def test_dashboard_route_requires_auth_and_validates_period(tmp_path):
+def test_dashboard_route_allows_public_readonly_and_validates_period(tmp_path):
     settings = settings_at(tmp_path)
     with patch("dao_vang.web.api_server._settings", settings):
-        get = handler("/api/execution/dashboard?period=30d")
-        get._check_auth.return_value = False
-        APIHandler._do_GET(get)
-        get._send_unauthorized.assert_called_once()
-        assert not get.wfile.getvalue()
+        guest_get = handler("/api/execution/dashboard?period=30d")
+        guest_get._check_auth.return_value = False
+        APIHandler._do_GET(guest_get)
+        guest_get._send_unauthorized.assert_not_called()
+        guest_result = json.loads(guest_get.wfile.getvalue())
+        assert guest_result["period"] == "30d"
         invalid = handler("/api/execution/dashboard?period=all")
         APIHandler._do_GET(invalid)
         assert invalid._set_headers.call_args.args[0] == 400
@@ -105,4 +106,4 @@ def test_dashboard_route_requires_auth_and_validates_period(tmp_path):
         result = json.loads(valid.wfile.getvalue())
         assert result["period"] == "24h"
         assert result["account"] is None
-    assert not execution_store(settings).commands()
+        assert not execution_store(settings).commands()

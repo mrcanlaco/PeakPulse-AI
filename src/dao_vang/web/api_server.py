@@ -87,6 +87,11 @@ FORWARD_TEST_PROTOCOL_PATH = REPO_ROOT / "configs" / "forward_test_live_v1.json"
 ACTIVE_TARGET_DRAWDOWN = 0.20
 ACTIVE_LABEL_VERSION = "distribution_short_v2"
 
+_KLINE_CACHE_TTL_SECONDS = 15.0
+_KLINE_CACHE_MAX_ENTRIES = 256
+_KLINE_CACHE: dict[tuple[int, str, str, int], tuple[float, list[dict[str, Any]]]] = {}
+_KLINE_CACHE_LOCK = threading.Lock()
+
 _settings = load_runtime_settings()
 _AUTH_FAILURES: dict[str, list[float]] = {}
 _AUTH_FAILURE_WINDOW_SECONDS = 300.0
@@ -1284,17 +1289,35 @@ class APIHandler(BaseHTTPRequestHandler):
         self._set_headers(401, content_length=len(err_body))
         self.wfile.write(err_body)
 
+    @staticmethod
+    def _is_admin_only_get_path(path: str) -> bool:
+        """Return True for GET/HEAD API routes restricted to Admin sessions.
+
+        Public viewers may browse read-only radar signals, Fibonacci Short
+        snapshots, Paper OOS, Live/Paper execution dashboards, models, and
+        version history. AI provider settings, server-side personal tracking,
+        and updater logs require an authenticated Admin session.
+        """
+        return path in (
+            "/api/ai/config",
+            "/api/ai/settings",
+            "/api/tracking-watchlist",
+            "/api/system/update-logs",
+            "/api/updater/logs",
+        )
+
     def get_auth_status(self):
         is_authenticated = self._check_auth()
         resp = {
-            "auth_required": True,
+            "auth_required": False,
+            "admin_auth_required": True,
             "auth_configured": bool(self._auth_secret()),
             "authenticated": is_authenticated,
+            "role": "admin" if is_authenticated else "guest",
         }
         body = json.dumps(resp).encode("utf-8")
         self._set_headers(200, content_length=len(body))
         self.wfile.write(body)
-
     def verify_auth_password(self, data: dict[str, Any]):
         password = str(data.get("password") or "").strip()
         if not self._auth_secret():
@@ -1420,7 +1443,7 @@ class APIHandler(BaseHTTPRequestHandler):
                 200 if scanner["healthy"] and disk["healthy"] else 503
             )
             return
-        if path.startswith('/api/') and path not in ('/api/auth/status', '/api/auth/check', '/api/health'):
+        if path.startswith('/api/') and self._is_admin_only_get_path(path):
             if not self._check_auth():
                 self._set_headers(401)
                 return
@@ -1569,7 +1592,10 @@ class APIHandler(BaseHTTPRequestHandler):
     def get_fibo_short_paper_oos(self):
         try:
             import importlib.util
-            from dao_vang.fibo_short.scanner_lane import load_latest_pit_top50_membership
+
+            from dao_vang.fibo_short.scanner_lane import (
+                load_latest_pit_top50_membership,
+            )
 
             root_dir = Path(__file__).resolve().parents[3]
             srv_path = root_dir / "apps" / "fibo-paper-monitor" / "server.py"
@@ -1834,7 +1860,7 @@ class APIHandler(BaseHTTPRequestHandler):
             elif path == '/api/ready':
                 self.get_readiness()
                 return
-            elif not self._check_auth():
+            elif self._is_admin_only_get_path(path) and not self._check_auth():
                 self._send_unauthorized()
                 return
 
@@ -1909,7 +1935,9 @@ class APIHandler(BaseHTTPRequestHandler):
                 query_params = parse_qs(parsed.query)
                 period = query_params.get('period', ['7d'])[0]
                 try:
-                    from dao_vang.web.execution_dashboard import dashboard as get_dashboard
+                    from dao_vang.web.execution_dashboard import (
+                        dashboard as get_dashboard,
+                    )
                     data = get_dashboard(_settings, period=period)
                     body = json.dumps(data).encode('utf-8')
                     self._set_headers(200, content_length=len(body))
@@ -2039,7 +2067,7 @@ class APIHandler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         parsed = urlparse(self.path)
-        public_paths = ('/api/auth/verify', '/api/auth/login', '/api/auth/logout')
+        public_paths = ('/api/auth/verify', '/api/auth/login', '/api/auth/logout', '/api/tracking-usage')
         if parsed.path.startswith('/api/') and parsed.path not in public_paths and not self._check_auth():
             self._send_unauthorized()
             return
@@ -2054,7 +2082,7 @@ class APIHandler(BaseHTTPRequestHandler):
             self.logout_auth()
             return
 
-        if parsed.path.startswith('/api/'):
+        if parsed.path.startswith('/api/') and parsed.path not in public_paths:
             if not self._check_auth():
                 self._send_unauthorized()
                 return
@@ -4311,28 +4339,49 @@ class APIHandler(BaseHTTPRequestHandler):
         limit = max(1, min(1500, requested_limit)) if requested_limit is not None else limits.get(interval, 168)
 
         try:
-            client = BinanceClient()
-            data = client.get("fapi/v1/klines", {
-                "symbol": symbol,
-                "interval": interval,
-                "limit": limit,
-            })
-            klines = [
-                {
-                    "time": k[0],
-                    "time_str": as_system_timezone(
-                        datetime.fromtimestamp(k[0] / 1000, tz=timezone.utc)
-                    ).strftime("%m-%d %H:%M"),
-                    "open": float(k[1]),
-                    "high": float(k[2]),
-                    "low": float(k[3]),
-                    "close": float(k[4]),
-                    "volume": float(k[5]),
-                }
-                for k in data
-            ]
+            cache_key = (id(BinanceClient), symbol.upper(), interval, limit)
+            now_mono = time.monotonic()
+            cached_klines: list[dict[str, Any]] | None = None
+            with _KLINE_CACHE_LOCK:
+                hit = _KLINE_CACHE.get(cache_key)
+                if hit is not None and (now_mono - hit[0]) < _KLINE_CACHE_TTL_SECONDS:
+                    cached_klines = hit[1]
+
+            if cached_klines is None:
+                client = BinanceClient()
+                data = client.get("fapi/v1/klines", {
+                    "symbol": symbol,
+                    "interval": interval,
+                    "limit": limit,
+                })
+                cached_klines = [
+                    {
+                        "time": k[0],
+                        "time_str": as_system_timezone(
+                            datetime.fromtimestamp(k[0] / 1000, tz=timezone.utc)
+                        ).strftime("%m-%d %H:%M"),
+                        "open": float(k[1]),
+                        "high": float(k[2]),
+                        "low": float(k[3]),
+                        "close": float(k[4]),
+                        "volume": float(k[5]),
+                    }
+                    for k in data
+                ]
+                with _KLINE_CACHE_LOCK:
+                    if len(_KLINE_CACHE) >= _KLINE_CACHE_MAX_ENTRIES:
+                        expired = [
+                            k for k, (ts, _) in _KLINE_CACHE.items()
+                            if (now_mono - ts) >= _KLINE_CACHE_TTL_SECONDS
+                        ]
+                        for k in expired:
+                            _KLINE_CACHE.pop(k, None)
+                        if len(_KLINE_CACHE) >= _KLINE_CACHE_MAX_ENTRIES:
+                            _KLINE_CACHE.pop(next(iter(_KLINE_CACHE)), None)
+                    _KLINE_CACHE[cache_key] = (now_mono, cached_klines)
+
             self._set_headers(200)
-            self.wfile.write(json.dumps({"symbol": symbol, "interval": interval, "klines": klines}).encode('utf-8'))
+            self.wfile.write(json.dumps({"symbol": symbol, "interval": interval, "klines": cached_klines}).encode('utf-8'))
         except Exception as exc:
             logger.warning(f"coin_chart_failed symbol={symbol} error={exc}")
             self._set_headers(200)

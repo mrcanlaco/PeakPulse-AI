@@ -1,12 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Activity, ArrowLeft, CheckCircle2, Circle, Clock3, RefreshCw, ShieldAlert, Wallet } from 'lucide-react';
+import { Activity, ArrowLeft, CheckCircle2, Circle, Clock3, Lock, RefreshCw, ShieldAlert, Wallet } from 'lucide-react';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { explainTrading as explain, tradingMoney as money, tradingTime as date, type TradingSnapshot } from './tradingTypes';
 
 const panel = 'rounded-2xl border border-slate-800 bg-slate-950/80';
 const button = 'rounded-lg border border-slate-700 px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed';
 
-export function ExecutionDashboard({ onClose }: { onClose?: () => void }) {
+export function ExecutionDashboard({
+  onClose,
+  isAdmin = false,
+  onRequireAdmin,
+}: {
+  onClose?: () => void;
+  isAdmin?: boolean;
+  onRequireAdmin?: (reason?: string) => void;
+}) {
   const [data, setData] = useState<TradingSnapshot | null>(null);
   const [period, setPeriod] = useState('7d');
   const [error, setError] = useState('');
@@ -101,7 +109,64 @@ export function ExecutionDashboard({ onClose }: { onClose?: () => void }) {
         </>}
       </article>
     </div>
-    {!data?.read_only && <div className={`${panel} p-4 flex flex-wrap justify-between items-center gap-4`}><div><p className="font-medium text-slate-100">Mở lệnh mới: {!data?.enabled ? 'Chưa bật' : data.pause.paused ? 'Đã dừng' : !data.healthy || stale ? 'Chưa xác minh trạng thái' : 'Theo điều kiện chiến lược'}</p><p className="text-xs text-slate-400 mt-1">{data?.pause.paused ? explain(data.pause.reason) : 'Theo dõi tài khoản không tự kích hoạt bot.'} Dừng mở mới giữ vị thế và TP.</p></div><div className="flex gap-2"><button disabled={busy || !data?.enabled} onClick={() => void command('pause')} className={`${button} border-amber-700/50 text-amber-300`}>Dừng mở mới</button><button disabled={!actionable || !data?.pause.paused || (data.account?.drawdown ?? 1) >= .2} onClick={() => void command('resume')} className={button}>Bật lại mở mới</button></div></div>}
+    {!data?.read_only && (
+      <div className={`${panel} p-4 flex flex-wrap justify-between items-center gap-4`}>
+        <div>
+          <p className="font-medium text-slate-100">
+            Mở lệnh mới:{' '}
+            {!data?.enabled
+              ? 'Chưa bật'
+              : data.pause.paused
+                ? 'Đã dừng'
+                : !data.healthy || stale
+                  ? 'Chưa xác minh trạng thái'
+                  : 'Theo điều kiện chiến lược'}
+          </p>
+          <p className="text-xs text-slate-400 mt-1">
+            {data?.pause.paused ? explain(data.pause.reason) : 'Theo dõi tài khoản không tự kích hoạt bot.'} Dừng mở mới giữ vị thế và TP.
+          </p>
+        </div>
+        {isAdmin ? (
+          <div className="flex gap-2">
+            <button
+              disabled={busy || !data?.enabled}
+              onClick={() => void command('pause')}
+              className={`${button} border-amber-700/50 text-amber-300`}
+            >
+              Dừng mở mới
+            </button>
+            <button
+              disabled={!actionable || !data?.pause.paused || (data.account?.drawdown ?? 1) >= 0.2}
+              onClick={() => void command('resume')}
+              className={button}
+            >
+              Bật lại mở mới
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-2.5 py-1.5 text-[11px] font-semibold text-sky-200">
+              CHẾ ĐỘ KHÁCH · CHỈ XEM
+            </span>
+            {onRequireAdmin && (
+              <button
+                type="button"
+                data-testid="execution-admin-login"
+                onClick={() =>
+                  onRequireAdmin(
+                    'Đăng nhập Quản trị viên (Admin) để Tạm dừng / Bật lại mở lệnh hoặc Đóng vị thế thủ công.'
+                  )
+                }
+                className="inline-flex items-center gap-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold text-amber-300 hover:bg-amber-500/20 transition cursor-pointer"
+              >
+                <Lock size={13} />
+                <span>Admin điều khiển</span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    )}
     <article className={`${panel} overflow-hidden`}>
       <div role="tablist" aria-label="Chi tiết giao dịch" className="flex overflow-x-auto border-b border-slate-800 px-2">{[['positions', `Vị thế (${data?.read_only ? data.unmanaged_positions.length : active.length})`], ['history', `Lịch sử (${data?.totals.closed_count ?? 0})`], ['signals', 'Tín hiệu'], ['activity', 'Nhật ký']].map(([key, label]) => <button key={key} role="tab" aria-selected={tab === key} onClick={() => setTab(key as typeof tab)} className={`whitespace-nowrap px-4 py-3 text-xs font-medium border-b-2 ${tab === key ? 'border-amber-400 text-amber-300' : 'border-transparent text-slate-400'}`}>{label}</button>)}</div>
       <div role="tabpanel" className="p-4 space-y-3">
@@ -112,7 +177,48 @@ export function ExecutionDashboard({ onClose }: { onClose?: () => void }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">{[['Giá khớp', trade.entry_price ?? 'Đang đối soát'], ['Giá đánh dấu', trade.mark_price ?? '—'], ['Khối lượng còn lại', trade.remaining_qty ?? '—'], ['Giá TP dự kiến', trade.tp_price ?? 'Chưa xác minh'], ['Mục tiêu ròng', money(trade.target)], ['Funding', money(trade.funding)], ['Thời điểm vào', date(trade.created_at)], ['Đã giữ', trade.created_at ? `${Math.max(0, (clock - Date.parse(trade.created_at)) / 3600000).toFixed(1)} giờ` : '—']].map(([label, value]) => <div key={String(label)}><p className="text-slate-500">{label}</p><p className="mt-1 text-slate-200 break-words">{value}</p></div>)}</div>
           <p className="text-xs text-slate-400">TP: {trade.tp_status ? explain(trade.tp_status) : 'Chưa xác minh'} · Đối soát gần nhất: {date(trade.last_reconciled_at)}</p>
           <details className="text-xs text-slate-500"><summary className="cursor-pointer">Nguồn tín hiệu & đối soát</summary><div className="mt-2 space-y-1 break-all"><p>Sự kiện: {trade.signal?.event_id ?? 'Chưa có'}</p><p>Lệnh vào: {trade.entry_id ?? 'Chưa có'}</p><p>Lệnh TP: {trade.tp_id ?? 'Chưa có'} · Có mã lệnh không đồng nghĩa đã được sàn xác nhận.</p><p>Phiên bản: {trade.signal?.manifest_id ?? 'Chưa có'}</p></div></details>
-          {closing === trade.id ? <div className="rounded-lg bg-rose-950/30 p-3 space-y-3"><p className="text-xs text-rose-200">Đóng thị trường có thể chốt lỗ và phát sinh phí. Xác nhận đóng {trade.symbol}?</p><div className="flex gap-3"><button disabled={!actionable} onClick={() => void command('close', trade.id)} className={`${button} bg-rose-900 border-rose-700`}>Xác nhận đóng</button><button disabled={busy} onClick={() => setClosing(null)} className={button}>Hủy</button></div></div> : <button disabled={!actionable} onClick={() => setClosing(trade.id)} className="text-xs text-rose-300 disabled:opacity-40">Đóng thủ công</button>}
+          {isAdmin ? (
+            closing === trade.id ? (
+              <div className="rounded-lg bg-rose-950/30 p-3 space-y-3">
+                <p className="text-xs text-rose-200">
+                  Đóng thị trường có thể chốt lỗ và phát sinh phí. Xác nhận đóng {trade.symbol}?
+                </p>
+                <div className="flex gap-3">
+                  <button
+                    disabled={!actionable}
+                    onClick={() => void command('close', trade.id)}
+                    className={`${button} bg-rose-900 border-rose-700`}
+                  >
+                    Xác nhận đóng
+                  </button>
+                  <button disabled={busy} onClick={() => setClosing(null)} className={button}>
+                    Hủy
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <button
+                disabled={!actionable}
+                onClick={() => setClosing(trade.id)}
+                className="text-xs text-rose-300 disabled:opacity-40"
+              >
+                Đóng thủ công
+              </button>
+            )
+          ) : (
+            <button
+              type="button"
+              onClick={() =>
+                onRequireAdmin?.(
+                  `Đăng nhập Quản trị viên (Admin) để đóng thủ công vị thế ${trade.symbol}.`
+                )
+              }
+              className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-amber-300 transition cursor-pointer"
+            >
+              <Lock size={12} />
+              <span>Chỉ xem · Đăng nhập Admin để đóng lệnh</span>
+            </button>
+          )}
         </article>)}</>}
         {tab === 'history' && <>{!history.length ? <p className="py-8 text-center text-slate-500">{data?.read_only ? "Chế độ chỉ đọc chưa nhập lịch sử khớp lệnh; không tạo giao dịch bot từ lịch sử tài khoản." : "Chưa có giao dịch đã kết thúc."}</p> : <div className="overflow-x-auto"><table className="w-full text-xs text-left whitespace-nowrap"><thead className="text-slate-500"><tr>{['Coin', 'Kết quả', 'Giá vào', 'Lãi/lỗ ròng', 'Funding', 'Kết thúc'].map(h => <th key={h} className="p-3 font-medium">{h}</th>)}</tr></thead><tbody>{history.map(t => <tr key={t.id} className="border-t border-slate-800"><td className="p-3 font-semibold text-slate-100">{t.symbol}</td><td className="p-3">{explain(t.status)}</td><td className="p-3">{t.entry_price ?? '—'}</td><td className={`p-3 ${(t.net_pnl ?? 0) < 0 ? 'text-rose-300' : 'text-emerald-300'}`}>{money(t.net_pnl)}</td><td className="p-3">{money(t.funding)}</td><td className="p-3">{date(t.closed_at)}</td></tr>)}</tbody></table></div>}{data?.trade_history_truncated && <p className="text-xs text-slate-500">Hiển thị 100 giao dịch kết thúc gần nhất; tổng tài khoản vẫn tính toàn bộ sổ.</p>}</>}
         {tab === 'signals' && <>{!data?.recent_signals.length && <p className="py-8 text-center text-slate-500">Chưa ghi nhận tín hiệu giao dịch.</p>}{data?.recent_signals.map((s, i) => <div key={`${s.event_id}-${i}`} className="border-b border-slate-800 pb-3 text-xs"><div className="flex justify-between gap-2"><strong className="text-slate-100">{s.symbol}</strong><span className="text-slate-500">{date(s.at)}</span></div><p className="mt-2 break-words">{explain(s.decision)}{s.reasons.length ? ` · ${s.reasons.map(explain).join(', ')}` : ''}</p></div>)}</>}

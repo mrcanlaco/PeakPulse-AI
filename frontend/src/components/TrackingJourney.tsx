@@ -38,6 +38,74 @@ export function TrackingJourney({
     setBusy(true);
     setError('');
     try {
+      if (item.id.startsWith('guest-')) {
+        const livePrice = item.current_price ?? item.source_price ?? null;
+        if (livePrice == null || livePrice <= 0) {
+          throw new Error(
+            vi
+              ? 'Chưa có giá thị trường hợp lệ để giả lập. Hãy làm mới dữ liệu rồi thử lại.'
+              : 'Valid market price required; refresh and retry.'
+          );
+        }
+        const notionalVal = Math.max(10, Number(size) || 1000);
+        const feeBps = Math.max(0, Number(fee) || 5);
+        const slipBps = Math.max(0, Number(slippage) || 5);
+        const nowIso = new Date().toISOString();
+
+        if (action === 'open') {
+          const tradeSide: 'LONG' | 'SHORT' = side === 'LONG' ? 'LONG' : 'SHORT';
+          const slipMult = tradeSide === 'SHORT' ? 1 - slipBps / 10000 : 1 + slipBps / 10000;
+          const effEntry = livePrice * slipMult;
+          const qty = notionalVal / effEntry;
+          const entryFee = (notionalVal * feeBps) / 10000;
+          await onUpdate(item.id, {
+            status: 'IN_POSITION',
+            paper_trade: {
+              status: 'OPEN',
+              side: tradeSide,
+              notional: notionalVal,
+              quantity: qty,
+              entry_price: effEntry,
+              entry_fee: entryFee,
+              fee_bps: feeBps,
+              slippage_bps: slipBps,
+              opened_at: nowIso,
+              funding: { status: 'LOCAL_BROWSER', cashflow: 0 },
+            },
+          });
+        } else if (action === 'close' && trade) {
+          const slipMult = trade.side === 'SHORT' ? 1 + trade.slippage_bps / 10000 : 1 - trade.slippage_bps / 10000;
+          const effExit = livePrice * slipMult;
+          const grossPnl =
+            trade.side === 'SHORT'
+              ? (trade.entry_price - effExit) * trade.quantity
+              : (effExit - trade.entry_price) * trade.quantity;
+          const exitFee = (effExit * trade.quantity * trade.fee_bps) / 10000;
+          const totalFees = trade.entry_fee + exitFee;
+          await onUpdate(item.id, {
+            paper_trade: {
+              ...trade,
+              status: 'CLOSED',
+              closed_at: nowIso,
+              exit_price: effExit,
+              gross_pnl: grossPnl,
+              fees: totalFees,
+              net_pnl: grossPnl - totalFees,
+              funding: { status: 'VERIFIED', cashflow: 0 },
+            },
+          });
+        } else if (action === 'reconcile' && trade) {
+          await onUpdate(item.id, {
+            paper_trade: {
+              ...trade,
+              funding: { status: 'VERIFIED', cashflow: trade.funding?.cashflow ?? 0 },
+            },
+          });
+        }
+        onRefresh();
+        return;
+      }
+
       const res = await fetch(`/api/tracking-watchlist/${encodeURIComponent(item.id)}/paper`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
