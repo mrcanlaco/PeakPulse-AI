@@ -103,6 +103,17 @@ export interface SignalTradeSetup {
   execution_policy?: ExecutionPolicyAudit;
 }
 
+export interface FiboHandoff {
+  symbol: string;
+  higherTimeframe: '4h' | '1d';
+  stage: 'FIRED_CONFIRMED_SHORT' | 'ARMED_IN_FIBO_ZONE' | 'WATCHING_PULLBACK' | 'INVALIDATED';
+  isActionable: boolean;
+  score: number;
+  signalTime: string;
+  primaryPolicy?: string;
+  tradeSetup: SignalTradeSetup | null;
+}
+
 export type MarketCapTier = 'LARGE' | 'MID' | 'SMALL' | 'MICRO' | 'UNKNOWN' | string;
 
 export interface MarketCapFields {

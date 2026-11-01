@@ -16,7 +16,7 @@ import {
   Gauge,
   Database,
 } from 'lucide-react';
-import type { TradeSetup } from '../types';
+import type { FiboHandoff, TradeSetup } from '../types';
 
 const CandlestickChart = React.lazy(() =>
   import('./CandlestickChart').then((m) => ({ default: m.CandlestickChart }))
@@ -445,8 +445,17 @@ interface PaperOosResponse {
   };
 }
 
+export interface FiboSummaryCounts {
+  actionableCount: number;
+  armedCount: number;
+  shadowCount: number;
+}
+
 interface FiboShortWorkspaceProps {
-  onSelectCoin?: (symbol: string) => void;
+  onSelectCoin?: (symbol: string, fiboHandoff?: FiboHandoff) => void;
+  forcedViewMode?: 'LIVE' | 'SHADOW_COMPARE' | 'BACKTEST' | 'PAPER_OOS';
+  hideModeSwitcher?: boolean;
+  onSummaryChange?: (counts: FiboSummaryCounts) => void;
 }
 
 const POLICY_META: Record<string, { label: string; badgeCls: string; desc: string }> = {
@@ -643,7 +652,12 @@ const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvalu
   };
 };
 
-export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelectCoin }) => {
+export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
+  onSelectCoin,
+  forcedViewMode,
+  hideModeSwitcher = false,
+  onSummaryChange,
+}) => {
   const [snapshot, setSnapshot] = useState<FiboSnapshotResponse | null>(null);
   const [backtest, setBacktest] = useState<FiboBacktestResponse | null>(null);
   const [paperOos, setPaperOos] = useState<PaperOosResponse | null>(null);
@@ -659,6 +673,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
     'ALL' | 'sniper_rr1_horizon24' | 'elite_sniper_risk' | 'sniper_risk' | 'm6_risk'
   >('ALL');
   const [viewMode, setViewMode] = useState<'LIVE' | 'SHADOW_COMPARE' | 'BACKTEST' | 'PAPER_OOS'>(() => {
+    if (forcedViewMode) return forcedViewMode;
     if (typeof window !== 'undefined') {
       const h = window.location.hash.toLowerCase();
       if (h.includes('shadow')) return 'SHADOW_COMPARE';
@@ -668,6 +683,13 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
   });
 
   useEffect(() => {
+    if (forcedViewMode) {
+      setViewMode(forcedViewMode);
+    }
+  }, [forcedViewMode]);
+
+  useEffect(() => {
+    if (forcedViewMode) return;
     const onHash = () => {
       const h = window.location.hash.toLowerCase();
       if (h.includes('shadow')) {
@@ -678,37 +700,37 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
     };
     window.addEventListener('hashchange', onHash);
     return () => window.removeEventListener('hashchange', onHash);
-  }, []);
+  }, [forcedViewMode]);
   const [auditWindow, setAuditWindow] = useState<'2024_2025' | '2020_2025'>('2024_2025');
   const [auditScenario, setAuditScenario] = useState<'standard_vip6' | 'stress_regular'>('standard_vip6');
   const [oosAccountFilter, setOosAccountFilter] = useState<string>('ALL');
   const [chartInterval, setChartInterval] = useState<'1h' | '4h' | '1d'>('1h');
   const [chartKlines, setChartKlines] = useState<any[]>([]);
 
-  const fetchSnapshotAndBacktest = async () => {
+  const fetchSnapshotAndBacktest = async (mode: 'LIVE' | 'SHADOW_COMPARE' | 'BACKTEST' | 'PAPER_OOS' = viewMode) => {
     try {
       const [snapRes, btRes, paperRes, candRes] = await Promise.all([
         fetch('/api/fibo-short/snapshot'),
-        fetch('/api/fibo-short/backtest'),
-        fetch('/api/fibo-short/paper-oos'),
-        fetch('/api/candidates/compare'),
+        mode === 'BACKTEST' ? fetch('/api/fibo-short/backtest') : Promise.resolve(null),
+        mode === 'PAPER_OOS' ? fetch('/api/fibo-short/paper-oos') : Promise.resolve(null),
+        mode === 'SHADOW_COMPARE' ? fetch('/api/candidates/compare') : Promise.resolve(null),
       ]);
-      if (snapRes.ok) {
+      if (snapRes && snapRes.ok) {
         const snapData: FiboSnapshotResponse = await snapRes.json();
         setSnapshot(snapData);
         if (!selectedId && snapData.items && snapData.items.length > 0) {
           setSelectedId(snapData.items[0].id);
         }
       }
-      if (btRes.ok) {
+      if (btRes && btRes.ok) {
         const btData: FiboBacktestResponse = await btRes.json();
         setBacktest(btData);
       }
-      if (paperRes.ok) {
+      if (paperRes && paperRes.ok) {
         const paperData: PaperOosResponse = await paperRes.json();
         setPaperOos(paperData);
       }
-      if (candRes.ok) {
+      if (candRes && candRes.ok) {
         const candData: CandidateComparisonResponse = await candRes.json();
         setCandidateCompare(candData);
       }
@@ -720,10 +742,13 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
   };
 
   useEffect(() => {
-    fetchSnapshotAndBacktest();
-    const timer = setInterval(fetchSnapshotAndBacktest, 30000);
+    void fetchSnapshotAndBacktest(viewMode);
+    const timer = setInterval(() => {
+      void fetchSnapshotAndBacktest(viewMode);
+    }, 30000);
     return () => clearInterval(timer);
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode]);
 
   const triggerManualScan = async () => {
     if (scanning) return;
@@ -752,6 +777,14 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
     const items = snapshot?.items || [];
     return items.filter((item) => evaluateSignalGateChecklist(item).isActionable).length;
   }, [snapshot]);
+
+  useEffect(() => {
+    onSummaryChange?.({
+      actionableCount,
+      armedCount: snapshot?.armed_count ?? 0,
+      shadowCount: snapshot?.shadow_comparison?.total_fired_signals ?? 0,
+    });
+  }, [actionableCount, snapshot, onSummaryChange]);
 
   const filteredOutFiredCount = useMemo(() => {
     const items = snapshot?.items || [];
@@ -829,6 +862,43 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
     };
   }, [selectedSignal]);
 
+  const selectedFiboHandoff: FiboHandoff | undefined = useMemo(() => {
+    if (!selectedSignal) return undefined;
+    const gateEval = evaluateSignalGateChecklist(selectedSignal);
+    const actionable =
+      selectedSignal.stage === 'FIRED_CONFIRMED_SHORT' && gateEval.isActionable;
+    const ts = selectedSignal.trade_setup;
+    const useM6Sl = Boolean(ts.sl_m6 && ts.sl_m6 > ts.entry_price);
+    const slPrice = useM6Sl ? ts.sl_m6! : ts.stop_loss;
+    const slPct = useM6Sl ? ts.sl_m6_pct! : ts.stop_loss_pct;
+    const rrVal = useM6Sl && ts.rr_m6_tp2 ? ts.rr_m6_tp2 : ts.rr_tp2;
+    return {
+      symbol: selectedSignal.symbol,
+      higherTimeframe: selectedSignal.higher_timeframe,
+      stage: selectedSignal.stage,
+      isActionable: actionable,
+      score: selectedSignal.score,
+      signalTime: selectedSignal.signal_time,
+      primaryPolicy: selectedSignal.primary_policy,
+      tradeSetup: actionable
+        ? {
+            entry_price: ts.entry_price,
+            entry_zone: ts.entry_zone,
+            stop_loss: slPrice,
+            stop_loss_pct: slPct,
+            tp1: ts.tp1,
+            tp1_pct: ts.tp1_pct,
+            tp2: ts.tp2,
+            tp2_pct: ts.tp2_pct,
+            tp3: ts.tp3,
+            tp3_pct: ts.tp3_pct,
+            rr_ratio: rrVal,
+            target_basis: 'Fibo Short v4.0.21 (SL 0.886)',
+          }
+        : null,
+    };
+  }, [selectedSignal]);
+
   const coupledTableRows = useMemo(() => {
     const cp = backtest?.v4_0_21_audit?.coupled_portfolio?.[auditWindow]?.[auditScenario];
     if (!cp) return [];
@@ -891,61 +961,63 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex flex-wrap rounded-lg bg-slate-950 p-1 border border-slate-800 gap-1">
-              <button
-                type="button"
-                onClick={() => setViewMode('LIVE')}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-                  viewMode === 'LIVE'
-                    ? 'bg-amber-500 text-slate-950 shadow'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <Activity className="w-3.5 h-3.5" />
-                Radar Trực Tiếp
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('SHADOW_COMPARE')}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-                  viewMode === 'SHADOW_COMPARE'
-                    ? 'bg-cyan-500 text-slate-950 shadow'
-                    : 'text-cyan-300 hover:text-white'
-                }`}
-              >
-                <Gauge className="w-3.5 h-3.5" />
-                Đối Chiếu Shadow (Cũ vs v4.0.21)
-                {(snapshot?.shadow_comparison?.total_fired_signals ?? 0) > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-950/80 text-cyan-300 border border-cyan-500/40">
-                    {snapshot?.shadow_comparison?.total_fired_signals}
-                  </span>
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('PAPER_OOS')}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-                  viewMode === 'PAPER_OOS'
-                    ? 'bg-emerald-500 text-slate-950 shadow'
-                    : 'text-emerald-300 hover:text-white'
-                }`}
-              >
-                <Cpu className="w-3.5 h-3.5" />
-                Paper OOS v1 (24/7)
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('BACKTEST')}
-                className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
-                  viewMode === 'BACKTEST'
-                    ? 'bg-amber-500 text-slate-950 shadow'
-                    : 'text-slate-300 hover:text-white'
-                }`}
-              >
-                <BarChart3 className="w-3.5 h-3.5" />
-                Kiểm Định v4.0.21 (≤ 2025)
-              </button>
-            </div>
+            {!hideModeSwitcher && (
+              <div className="inline-flex flex-wrap rounded-lg bg-slate-950 p-1 border border-slate-800 gap-1">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('LIVE')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+                    viewMode === 'LIVE'
+                      ? 'bg-amber-500 text-slate-950 shadow'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <Activity className="w-3.5 h-3.5" />
+                  Radar Trực Tiếp
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('SHADOW_COMPARE')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+                    viewMode === 'SHADOW_COMPARE'
+                      ? 'bg-cyan-500 text-slate-950 shadow'
+                      : 'text-cyan-300 hover:text-white'
+                  }`}
+                >
+                  <Gauge className="w-3.5 h-3.5" />
+                  Đối Chiếu Shadow (Cũ vs v4.0.21)
+                  {(snapshot?.shadow_comparison?.total_fired_signals ?? 0) > 0 && (
+                    <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-950/80 text-cyan-300 border border-cyan-500/40">
+                      {snapshot?.shadow_comparison?.total_fired_signals}
+                    </span>
+                  )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('PAPER_OOS')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+                    viewMode === 'PAPER_OOS'
+                      ? 'bg-emerald-500 text-slate-950 shadow'
+                      : 'text-emerald-300 hover:text-white'
+                  }`}
+                >
+                  <Cpu className="w-3.5 h-3.5" />
+                  Paper OOS v1 (24/7)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('BACKTEST')}
+                  className={`px-3 py-1.5 rounded-md text-xs font-bold transition flex items-center gap-1.5 ${
+                    viewMode === 'BACKTEST'
+                      ? 'bg-amber-500 text-slate-950 shadow'
+                      : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  <BarChart3 className="w-3.5 h-3.5" />
+                  Kiểm Định v4.0.21 (≤ 2025)
+                </button>
+              </div>
+            )}
 
             <button
               type="button"
@@ -1248,7 +1320,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
                     <div className="flex flex-wrap items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => onSelectCoin?.(selectedSignal.symbol)}
+                        onClick={() => onSelectCoin?.(selectedSignal.symbol, selectedFiboHandoff)}
                         className="text-lg font-black font-mono text-amber-300 hover:underline cursor-pointer"
                       >
                         {selectedSignal.symbol}
@@ -1268,6 +1340,14 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({ onSelect
                           {(POLICY_META[selectedSignal.primary_policy] || POLICY_META.watch_only).label}
                         </span>
                       )}
+                      <button
+                        type="button"
+                        data-testid="fibo-open-decision"
+                        onClick={() => onSelectCoin?.(selectedSignal.symbol, selectedFiboHandoff)}
+                        className="px-2.5 py-0.5 text-xs font-bold rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 transition cursor-pointer"
+                      >
+                        {selectedFiboHandoff?.isActionable ? 'Mở Biểu Đồ & Lệnh →' : 'Xem Biểu Đồ →'}
+                      </button>
                     </div>
 
                     <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">

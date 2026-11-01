@@ -46,8 +46,12 @@ for (const width of [390, 1440]) {
     await setup(page);
     await page.goto('/');
     const quick = page.getByTestId('open-tracking');
-    if (width >= 640) await quick.click();
-    else await page.getByTestId('mobile-bottom-nav').getByRole('button', { name: /Theo dõi/i }).click();
+    if (width >= 640) {
+      await quick.click();
+    } else {
+      await page.getByTestId('mobile-bottom-nav').getByRole('button', { name: /^Live$/i }).click();
+      await page.getByTestId('workspace-tab-watchlist').click();
+    }
     await page.getByLabel('Coin muốn theo dõi').fill('BTC');
     await page.getByRole('button', { name: 'Thêm coin theo dõi' }).click();
     const card = page.getByTestId('tracking-BTCUSDT');
@@ -70,8 +74,12 @@ for (const width of [390, 1440]) {
     await page.getByRole('button', { name: 'Toàn bộ lịch sử', exact: true }).click();
     await expect(card).toBeVisible();
     await page.reload();
-    if (width >= 640) await quick.click();
-    else await page.getByTestId('mobile-bottom-nav').getByRole('button', { name: /Theo dõi/i }).click();
+    if (width >= 640) {
+      await quick.click();
+    } else {
+      await page.getByTestId('mobile-bottom-nav').getByRole('button', { name: /^Live$/i }).click();
+      await page.getByTestId('workspace-tab-watchlist').click();
+    }
     await page.getByRole('button', { name: 'Toàn bộ lịch sử', exact: true }).click();
     await expect(card).toBeVisible();
   });

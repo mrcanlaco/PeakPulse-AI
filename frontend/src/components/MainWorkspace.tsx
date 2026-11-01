@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useState, useEffect, useMemo, useRef } from 'react';
-import type { SignalItem, CoinDetail, CandidateCoin, CandidateRefreshStatus, ModelAudit, MarketOverviewData, ScannerTelemetry, DeepAnalysis, CandlePoint, TrackingWatchlistItem, TradeSetup, FilterTag, SignalSort, TelegramFilter } from '../types';
+import { normalizeProbability } from '../types';
+import type { SignalItem, CoinDetail, CandidateCoin, CandidateRefreshStatus, ModelAudit, MarketOverviewData, ScannerTelemetry, DeepAnalysis, CandlePoint, TrackingWatchlistItem, TradeSetup, FilterTag, SignalSort, TelegramFilter, FiboHandoff } from '../types';
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine, CartesianGrid, AreaChart, Area, ComposedChart
 } from 'recharts';
@@ -7,7 +8,8 @@ import {
   Activity, BarChart3,
   ArrowUpRight, ArrowDownRight, CheckCircle2, Radio, Terminal, Send, Clock, Play, Loader2, LineChart as LineChartIcon, RefreshCw, HelpCircle, Eye, EyeOff
 } from 'lucide-react';
-import { WorkspaceTabBar, type WorkspaceTab } from './WorkspaceTabBar';
+import { WorkspaceTabBar } from './WorkspaceTabBar';
+import type { WorkspaceTab } from './WorkspaceTabBar';
 import { ErrorBoundary } from './ErrorBoundary';
 
 import type { CandlestickSignalMarker } from './CandlestickChart';
@@ -62,6 +64,9 @@ const CandlestickChart = lazy(() =>
 const FiboShortWorkspace = lazy(() =>
   import('./FiboShortWorkspace').then(({ FiboShortWorkspace: component }) => ({ default: component }))
 );
+const ExecutionDashboard = lazy(() =>
+  import('./ExecutionDashboard').then(({ ExecutionDashboard: component }) => ({ default: component }))
+);
 
 interface MainWorkspaceProps {
   signals: SignalItem[];
@@ -74,7 +79,8 @@ interface MainWorkspaceProps {
   auditData: ModelAudit | null;
   marketData: MarketOverviewData | null;
   telemetryData: ScannerTelemetry | null;
-  onSelectCandidate: (symbol: string) => void;
+  onSelectCandidate: (symbol: string, fiboHandoff?: FiboHandoff) => void;
+  fiboHandoff?: FiboHandoff | null;
   onPushTelegram: (sig: SignalItem) => void;
   onTriggerManualScan: () => void;
   isTriggeringScan: boolean;
@@ -137,6 +143,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   marketData,
   telemetryData,
   onSelectCandidate,
+  fiboHandoff = null,
   onPushTelegram,
   onTriggerManualScan,
   isTriggeringScan,
@@ -204,6 +211,40 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   const [decisionSubTab, setDecisionSubTab] = useState<'TRADE' | 'AI'>('TRADE');
   const [isChartHidden, setIsChartHidden] = useState(false);
   const [localCountdown, setLocalCountdown] = useState<number | null>(telemetryData?.next_scan_in_seconds ?? null);
+  const [methodologySubView, setMethodologySubView] = useState<'FIBO_AUDIT' | 'ARCH_DOCS'>('FIBO_AUDIT');
+  const [fiboCounts, setFiboCounts] = useState<{
+    actionableCount: number;
+    armedCount: number;
+    shadowCount: number;
+  }>({ actionableCount: 0, armedCount: 0, shadowCount: 0 });
+
+  useEffect(() => {
+    let cancelled = false;
+    const loadFiboCounts = async () => {
+      try {
+        const res = await fetch('/api/fibo-short/snapshot');
+        if (!res.ok) return;
+        const data = await res.json();
+        if (!cancelled && data && typeof data === 'object') {
+          setFiboCounts((prev) => ({
+            actionableCount: Number(data.qualified_fired_count ?? prev.actionableCount ?? 0),
+            armedCount: Number(data.armed_count ?? prev.armedCount ?? 0),
+            shadowCount: Number(data.shadow_comparison?.total_fired_signals ?? prev.shadowCount ?? 0),
+          }));
+        }
+      } catch {
+        // ignore background badge refresh failure
+      }
+    };
+    void loadFiboCounts();
+    const timer = window.setInterval(() => {
+      void loadFiboCounts();
+    }, 30000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, []);
 
   useEffect(() => {
     setLocalCountdown(telemetryData?.next_scan_in_seconds ?? null);
@@ -243,9 +284,9 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   const [candleDataOverride, setCandleDataOverride] = useState<CandlePoint[] | null>(null);
   useEffect(() => {
     if (!isDevMode) {
-      const devTabs = ['MULTISCAN', 'BACKTEST', 'FORWARD', 'TELEMETRY', 'MODELS', 'UPDATES'];
+      const devTabs: WorkspaceTab[] = ['MULTISCAN', 'BACKTEST', 'AUDIT'];
       if (devTabs.includes(activeTab)) {
-        setActiveTab('RADAR');
+        setActiveTab('FIBO_SHORT');
       }
     }
   }, [isDevMode, activeTab, setActiveTab]);
@@ -434,25 +475,44 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
   }, [displayDetail?.symbol, activeTab]);
 
   // Chỉ tính tradeSetup và vẽ lên biểu đồ khi coin ĐANG CÓ TÍN HIỆU CẢNH BÁO thực sự (FIRED / ARMED)
+  const matchedFibo = useMemo(() => {
+    if (!displayDetail || !fiboHandoff) return null;
+    return fiboHandoff.symbol.toUpperCase() === displayDetail.symbol.toUpperCase()
+      ? fiboHandoff
+      : null;
+  }, [displayDetail, fiboHandoff]);
+
+  const activeSignalTradeSetup = useMemo(() => {
+    if (!displayDetail) return undefined;
+    if (matchedFibo?.isActionable && matchedFibo.tradeSetup) {
+      return matchedFibo.tradeSetup;
+    }
+    const matchedSig =
+      selectedSignal && selectedSignal.symbol.toUpperCase() === displayDetail.symbol.toUpperCase()
+        ? selectedSignal
+        : null;
+    return matchedSig?.trade_setup;
+  }, [displayDetail, matchedFibo, selectedSignal]);
+
+  // Chỉ tính tradeSetup và vẽ lên biểu đồ khi coin ĐANG CÓ TÍN HIỆU CẢNH BÁO thực sự (FIRED / Actionable Fibo)
   const hasActiveSignal = useMemo(() => {
     if (!displayDetail) return false;
+    if (matchedFibo?.isActionable && matchedFibo.tradeSetup) return true;
     const isSelectedMatched = Boolean(selectedSignal && selectedSignal.symbol.toUpperCase() === displayDetail.symbol.toUpperCase());
     const hasMatchingSignalInFeed = signals.some(s => s.symbol.toUpperCase() === displayDetail.symbol.toUpperCase());
     const hasAlertFlag = Boolean(displayDetail.has_alert);
     return isSelectedMatched || hasMatchingSignalInFeed || hasAlertFlag;
-  }, [displayDetail, selectedSignal, signals]);
+  }, [displayDetail, matchedFibo, selectedSignal, signals]);
 
   // Compute trade setup levels (Entry, SL, TP1, TP2, R:R) only when an active signal exists
   const tradeSetup: TradeSetup | null = useMemo(() => {
     if (!displayDetail || displayDetail.current_price <= 0) return null;
     if (!hasActiveSignal) return null;
 
-    const matchedSig = selectedSignal && selectedSignal.symbol.toUpperCase() === displayDetail.symbol.toUpperCase() ? selectedSignal : null;
-    const ts = matchedSig?.trade_setup;
-    
+    const ts = activeSignalTradeSetup;
+
     // Strict requirement: Backend MUST provide a valid trade setup. No frontend fabrication.
     if (!ts || !ts.entry_price || !ts.stop_loss || !ts.tp1 || !ts.tp2) return null;
-
     const entry = ts.entry_price;
     const sl = ts.stop_loss;
     const tp1 = ts.tp1;
@@ -475,7 +535,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
       tp2Pct: tp2Pct,
       riskRewardRatio,
     };
-  }, [displayDetail, selectedSignal, hasActiveSignal]);
+  }, [displayDetail, activeSignalTradeSetup, hasActiveSignal]);
   // The radar can emit several alerts for the same coin. Keep all of them
   // available to the chart; selectedSignal only represents the card currently
   // focused in the feed.
@@ -601,10 +661,14 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         selectedSignal={selectedSignal}
+        activeCoinSymbol={coinDetail?.symbol || selectedSignal?.symbol || null}
         onSelectCandidate={onSelectCandidate}
         trackingCount={trackingItems.filter(item => item.status !== 'CLOSED').length}
         candidateCount={candidates.length}
         signalCount={signals.length}
+        fiboActionableCount={fiboCounts.actionableCount}
+        fiboArmedCount={fiboCounts.armedCount}
+        fiboShadowCount={fiboCounts.shadowCount}
         isTelemetryActive={telemetryData ? telemetryData.scanner_engine_status !== 'ERROR' : false}
         onOpenTabHelp={onOpenTabHelp}
       />
@@ -655,8 +719,41 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
       )}
 
       {activeTab === 'FIBO_SHORT' && (
-        <ErrorBoundary fallbackTitle="Lỗi hiển thị Fibo Trend-Short">
-          <FiboShortWorkspace onSelectCoin={onSelectCandidate} />
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Tín hiệu Fibo Short">
+          <FiboShortWorkspace
+            forcedViewMode="LIVE"
+            hideModeSwitcher
+            onSelectCoin={onSelectCandidate}
+            onSummaryChange={setFiboCounts}
+          />
+        </ErrorBoundary>
+      )}
+
+      {activeTab === 'PAPER_OOS' && (
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Shadow Live Paper OOS">
+          <FiboShortWorkspace
+            forcedViewMode="PAPER_OOS"
+            hideModeSwitcher
+            onSelectCoin={onSelectCandidate}
+            onSummaryChange={setFiboCounts}
+          />
+        </ErrorBoundary>
+      )}
+
+      {activeTab === 'SHADOW_COMPARE' && (
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Đối chiếu Phiên bản Shadow">
+          <FiboShortWorkspace
+            forcedViewMode="SHADOW_COMPARE"
+            hideModeSwitcher
+            onSelectCoin={onSelectCandidate}
+            onSummaryChange={setFiboCounts}
+          />
+        </ErrorBoundary>
+      )}
+
+      {activeTab === 'LIVE_ACCOUNT' && (
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Tài khoản Thực & Giao dịch Live">
+          <ExecutionDashboard />
         </ErrorBoundary>
       )}
 
@@ -678,6 +775,39 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
         <div ref={decisionContainerRef} className="flex-1 overflow-y-auto space-y-3 pr-1">
           {displayDetail ? (
             <div className="space-y-3">
+              {matchedFibo && (
+                <div
+                  data-testid="fibo-provenance-banner"
+                  className={`rounded-xl border px-3.5 py-2.5 text-xs flex flex-wrap items-center justify-between gap-2 ${
+                    matchedFibo.isActionable
+                      ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-200'
+                      : 'bg-slate-950/90 border-amber-500/30 text-amber-200'
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-bold font-mono uppercase px-2 py-0.5 rounded bg-slate-900 border border-slate-700">
+                      Fibo Short v4.0.21 · {matchedFibo.higherTimeframe.toUpperCase()} → H1
+                    </span>
+                    <span>
+                      Trạng thái: <strong>{matchedFibo.stage}</strong> · Điểm hội tụ:{' '}
+                      <strong>{matchedFibo.score.toFixed(0)}</strong>
+                    </span>
+                    {!matchedFibo.isActionable && (
+                      <span className="text-amber-300 font-semibold">
+                        (Chưa đủ chuẩn Sniper / Chưa xác nhận phá đáy H1 — Chỉ xem biểu đồ, không tạo lệnh)
+                      </span>
+                    )}
+                  </div>
+                  <span className="font-mono text-[11px] text-slate-300">
+                    Xác suất ML:{' '}
+                    <strong>
+                      {normalizeProbability(displayDetail.probability ?? selectedSignal?.probability) != null
+                        ? `${normalizeProbability(displayDetail.probability ?? selectedSignal?.probability)!.toFixed(1)}%`
+                        : 'N/A'}
+                    </strong>
+                  </span>
+                </div>
+              )}
               {/* 1. Quick Header (Search + Top 5 Candidates + Live Ticker) */}
               <DecisionHeader
                 symbol={displayDetail.symbol}
@@ -691,7 +821,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                 onOpenCoinSelector={onOpenCoinSelector}
                 probability={displayDetail.probability ?? selectedSignal?.probability}
                 riskLevel={displayDetail.risk_level ?? selectedSignal?.risk_level}
-                tradeSetup={selectedSignal?.trade_setup}
+                tradeSetup={activeSignalTradeSetup}
                 onOpenTabHelp={onOpenTabHelp ? () => onOpenTabHelp('DECISION') : undefined}
                 displayDetail={displayDetail}
                 high24h={candleData.length > 0 ? Math.max(...candleData.map(c => c.high || c.price)) : undefined}
@@ -833,7 +963,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                           targetPrice={displayDetail.target_price}
                           peakPrice={deepAnalysis?.pump_analysis?.peak_price}
                           invalidationPrice={tradeSetup?.stopLossPrice}
-                          tradeSetup={selectedSignal?.trade_setup}
+                          tradeSetup={activeSignalTradeSetup}
                           selectedSignal={selectedSignal}
                           onOpenOrderModal={onOpenOrderModal}
                         />
@@ -844,7 +974,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                           targetPrice={displayDetail.target_price}
                           peakPrice={deepAnalysis?.pump_analysis?.peak_price}
                           invalidationPrice={tradeSetup?.stopLossPrice}
-                          tradeSetup={selectedSignal?.trade_setup}
+                          tradeSetup={activeSignalTradeSetup}
                         />
                       )}
                       {/* AI Decision Cockpit */}
@@ -1702,10 +1832,57 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
         </ErrorBoundary>
       )}
 
-      {/* TAB: MODELS ARCHITECTURE & EVALUATION HISTORY */}
+      {/* TAB: TRADING METHODOLOGY, 6-YEAR AUDIT & 2-TIER ARCHITECTURE */}
       {activeTab === 'MODELS' && (
-        <ErrorBoundary fallbackTitle="Lỗi hiển thị Tài liệu Models & Đánh giá">
-          <ModelsDocTab />
+        <ErrorBoundary fallbackTitle="Lỗi hiển thị Phương pháp Giao dịch & Tài liệu">
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 bg-slate-950/90 border border-slate-800 rounded-xl p-2">
+              <div className="inline-flex flex-wrap gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setMethodologySubView('FIBO_AUDIT')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    methodologySubView === 'FIBO_AUDIT'
+                      ? 'bg-amber-500 text-slate-950 shadow'
+                      : 'text-slate-300 hover:bg-slate-900'
+                  }`}
+                >
+                  {language === 'en'
+                    ? '1. 4-Factor Trading Method & 6-Year Audit (≤ 2025)'
+                    : '1. Phương Pháp 4 Nhân Tố & Kiểm Toán 6 Năm (v4.0.21)'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMethodologySubView('ARCH_DOCS')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    methodologySubView === 'ARCH_DOCS'
+                      ? 'bg-emerald-500 text-slate-950 shadow'
+                      : 'text-slate-300 hover:bg-slate-900'
+                  }`}
+                >
+                  {language === 'en'
+                    ? '2. 2-Tier System Architecture & Research Papers'
+                    : '2. Kiến Trúc Hệ Thống 2 Tầng & Thư Viện Nghiên Cứu'}
+                </button>
+              </div>
+              <span className="text-[11px] text-slate-400 font-mono px-2">
+                {language === 'en'
+                  ? 'Fibo Short v4.0.21 Primary · V3.1 UI Radar'
+                  : 'Chuẩn Production: Fibo Short v4.0.21 + Radar Sớm V3.1'}
+              </span>
+            </div>
+
+            {methodologySubView === 'FIBO_AUDIT' ? (
+              <FiboShortWorkspace
+                forcedViewMode="BACKTEST"
+                hideModeSwitcher
+                onSelectCoin={onSelectCandidate}
+                onSummaryChange={setFiboCounts}
+              />
+            ) : (
+              <ModelsDocTab />
+            )}
+          </div>
         </ErrorBoundary>
       )}
 

@@ -251,7 +251,7 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
               </span>
             )}
             <span className="font-mono text-xs font-black text-amber-400">
-              {probabilityPct != null ? `${probabilityPct.toFixed(1)}%` : '—'}
+              {probabilityPct != null ? `${probabilityPct.toFixed(1)}%` : 'N/A'}
             </span>
           </div>
         </div>

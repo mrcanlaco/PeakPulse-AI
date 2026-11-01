@@ -66,7 +66,7 @@ test('mobile decision and CTA stay above the fixed navigation without overlap', 
   await page.goto('/#coin=DOGEUSDT');
 
   await expect(page.getByTestId('main-workspace')).toBeVisible();
-  await page.getByTestId('mobile-bottom-nav').getByRole('button').nth(1).click();
+  await page.getByTestId('workspace-tab-decision').click();
 
   const nav = page.getByTestId('mobile-bottom-nav');
   const actions = page.getByTestId('mobile-sticky-actions');

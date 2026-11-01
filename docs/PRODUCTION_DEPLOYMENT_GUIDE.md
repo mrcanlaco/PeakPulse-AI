@@ -54,6 +54,24 @@ flowchart LR
     Det --> Shadow -. "Chờ nghiệm thu OOS &\nSlippage <= 12.5 bps/fill" .-> Exec
 ```
 
+
+### Cấu trúc 4 Tab Lớn trên Giao diện Web & Mobile
+Giao diện ứng dụng được tổ chức thành **4 Tab Lớn** tách biệt rõ ràng theo đúng vòng đời nghiên cứu $\to$ kiểm chứng giả lập $\to$ giao dịch tài khoản thực $\to$ quản trị hệ thống:
+
+1. **`Tín hiệu` *(Mặc định khi mở ứng dụng — Tín hiệu & Chi tiết Phương pháp Giao dịch)*:**
+   - **`Fibo Short v4.0 (Chính)`:** Bảng tín hiệu Short chính thức (`4H/1D -> 1H`), checklist 4 cổng Sniper, thang giá Fibonacci và nút chuyển 1 chạm sang biểu đồ đặt lệnh.
+   - **`Biểu đồ & Lệnh`:** Biểu đồ nến TradingView chi tiết của đồng coin đang chọn, khung tính khối lượng theo rủi ro `0.5% NAV` và Trợ lý Phân tích AI.
+   - **`Phương pháp & Kiểm toán`:** Hồ sơ giải thích phương pháp 4 nhân tố (`F1–F4`), kết quả kiểm toán danh mục 6 năm (`2020–2025`), sơ đồ Kiến trúc 2 Tầng và thư viện báo cáo định lượng.
+   - **`Radar Quá Nhiệt (V3.1)` · `Bảng Ứng viên (V3.1)` · `Thị trường`:** Tầng quét sớm các Altcoin đang bơm nóng & kiệt sức Funding cùng bức tranh vĩ mô toàn sàn Binance.
+2. **`Shadow Live` *(Các Version & Các Bản Cải Tiến Chạy Giả Lập Thời Gian Thực)*:**
+   - **`Paper OOS v1 (12 Tài khoản)`:** Giám sát trực tiếp tiến trình `daovang-oracle-paper_oos` (`6 phiên bản chiến lược × 2 kịch bản chi phí Chuẩn 12.5 bps / Stress 55 bps`, đường cong NAV 100, kiểm chứng SHA-256).
+   - **`Đối chiếu Phiên bản (Cũ vs v4.0)`:** Sổ đối chứng song song thời gian thực giữa bản M1 gốc không lọc và các bản cải tiến `v4.0.21` (thống kê số kèo nhiễu bị chặn và hiệu quả dời SL hòa vốn sau TP1).
+   - **`Forward & So sánh Bộ lọc`:** Tiến độ kiểm chứng forward-test và so sánh phiên bản bộ lọc `V1 vs V2` *(cùng `Backtest ML` & `Quét đa khung` khi bật Dev Mode)*.
+3. **`Live` *(Bản Chạy Live Nối Với Tài Khoản Thực Binance Futures)*:**
+   - **`Tài khoản Thực Binance`:** Hiển thị trực tiếp số dư ví USDT, tài sản khả dụng, PnL chưa chốt, đường cong tài sản (`24h / 7d / 30d`), vị thế & lệnh chờ thực tế trên sàn Binance và cổng kiểm soát thực thi.
+   - **`Vị thế Theo dõi`:** Sổ quản lý các vị thế/mã đang theo dõi thủ công.
+4. **`Hệ thống` *(Vận hành & Quản trị)*:**
+   - **`Cài đặt` · `Hạ tầng & Trạng thái` · `Lịch sử` · `Phiên bản`** *(và `Kiểm định ML V3.1` khi bật Dev Mode)*.
 ---
 
 ## 3. Hướng dẫn Đọc hiểu & Giao dịch Tín hiệu `Fibo Short` (`v4.0.21`)

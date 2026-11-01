@@ -59,6 +59,7 @@ interface HeaderProps {
   guiVersion?: 'v1' | 'v2';
   onSelectGuiVersion?: (version: 'v1' | 'v2') => void;
   mobileTab?: MobileTabType;
+  isDecisionView?: boolean;
   onBackToRadar?: () => void;
   activeCoinSymbol?: string | null;
   activeCoinPrice?: number | null;
@@ -92,13 +93,14 @@ export const Header: React.FC<HeaderProps> = ({
   onGoHome,
   guiVersion = 'v2',
   onSelectGuiVersion,
-  mobileTab = 'RADAR',
+  mobileTab: _mobileTab = 'SIGNALS',
   onBackToRadar,
   activeCoinSymbol = null,
   activeCoinPrice = null,
   activeCoinProbability = null,
   activeCoinRisk: _activeCoinRisk = null,
   signalCount = 0,
+  isDecisionView = false,
 }) => {
   const { language, setLanguage, t } = useTranslation();
     const [langDropdownOpen, setLangDropdownOpen] = useState(false);
@@ -108,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const isMobileAnalysis = guiVersion === 'v2' && mobileTab === 'ANALYSIS' && Boolean(activeCoinSymbol);
+  const isMobileAnalysis = guiVersion === 'v2' && isDecisionView && Boolean(activeCoinSymbol);
 
   const formatPrice = (p?: number | null) => {
     if (p == null || p <= 0) return '—';

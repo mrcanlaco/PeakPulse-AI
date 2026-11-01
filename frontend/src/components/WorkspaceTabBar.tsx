@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   Activity,
   Target,
@@ -11,12 +11,13 @@ import {
   Radio,
   Clock,
   GitPullRequest,
-  ChevronDown,
-  Check,
   Zap,
   Settings,
   HelpCircle,
   Brain,
+  Wallet,
+  BookOpen,
+  Gauge,
 } from 'lucide-react';
 import { CoinLink } from './CoinLink';
 import { useTranslation } from '../i18n/LanguageContext';
@@ -24,22 +25,30 @@ import type { SignalItem } from '../types';
 import type { MobileTabType } from './v2/MobileBottomNav';
 
 export type WorkspaceTab =
-  | 'DECISION'
-  | 'RADAR'
+  // 1. Tín hiệu (SIGNALS) — Tín hiệu thực tế & chi tiết phương pháp giao dịch
   | 'FIBO_SHORT'
-  | 'WATCHLIST'
+  | 'DECISION'
+  | 'MODELS'
+  | 'RADAR'
   | 'RANKING'
-  | 'MULTISCAN'
-  | 'BACKTEST'
-  | 'FORWARD'
-  | 'AUDIT'
   | 'MARKET'
+  // 2. Shadow Live (SHADOW_LIVE) — Các version & các bản cải tiến giả lập thời gian thực
+  | 'PAPER_OOS'
+  | 'SHADOW_COMPARE'
+  | 'FORWARD'
+  | 'BACKTEST'
+  | 'MULTISCAN'
+  // 3. Live (LIVE) — Bản chạy Live nối với tài khoản thực Binance Futures
+  | 'LIVE_ACCOUNT'
+  | 'WATCHLIST'
+  // 4. Hệ thống (SYSTEM) — Vận hành, hạ tầng, nhật ký & cài đặt
+  | 'SETTINGS'
   | 'TELEMETRY'
   | 'HISTORY'
-  | 'MODELS'
   | 'UPDATES'
-  | 'SETTINGS';
-export type TabCategory = 'TRADING' | 'LAB' | 'SYSTEM';
+  | 'AUDIT';
+
+export type TabCategory = 'SIGNALS' | 'SHADOW_LIVE' | 'LIVE' | 'SYSTEM';
 
 interface TabItemConfig {
   id: WorkspaceTab;
@@ -51,14 +60,35 @@ interface TabItemConfig {
   category: TabCategory;
 }
 
+interface PillarConfig {
+  id: TabCategory;
+  testId: string;
+  labelVi: string;
+  labelEn: string;
+  labelZh: string;
+  labelKo: string;
+  subVi: string;
+  subEn: string;
+  icon: React.ElementType;
+  defaultTab: WorkspaceTab;
+  badge?: number | string | null;
+  badgeCls?: string;
+  pulseDot?: boolean;
+  activeCls: string;
+}
+
 interface WorkspaceTabBarProps {
   activeTab: WorkspaceTab;
   setActiveTab: (tab: WorkspaceTab) => void;
   selectedSignal: SignalItem | null;
+  activeCoinSymbol?: string | null;
   onSelectCandidate: (symbol: string) => void;
   trackingCount: number;
   candidateCount: number;
   signalCount?: number;
+  fiboActionableCount?: number;
+  fiboArmedCount?: number;
+  fiboShadowCount?: number;
   isTelemetryActive?: boolean;
   guiVersion?: 'v1' | 'v2';
   mobileTab?: MobileTabType;
@@ -66,547 +96,466 @@ interface WorkspaceTabBarProps {
   isDevMode?: boolean;
 }
 
+export function getCategoryForTab(tab: WorkspaceTab): TabCategory {
+  switch (tab) {
+    case 'FIBO_SHORT':
+    case 'DECISION':
+    case 'MODELS':
+    case 'RADAR':
+    case 'RANKING':
+    case 'MARKET':
+      return 'SIGNALS';
+    case 'PAPER_OOS':
+    case 'SHADOW_COMPARE':
+    case 'FORWARD':
+    case 'BACKTEST':
+    case 'MULTISCAN':
+      return 'SHADOW_LIVE';
+    case 'LIVE_ACCOUNT':
+    case 'WATCHLIST':
+      return 'LIVE';
+    case 'SETTINGS':
+    case 'TELEMETRY':
+    case 'HISTORY':
+    case 'UPDATES':
+    case 'AUDIT':
+      return 'SYSTEM';
+  }
+}
+
 export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
   activeTab,
   setActiveTab,
   selectedSignal,
+  activeCoinSymbol = null,
   onSelectCandidate,
   trackingCount,
   candidateCount,
   signalCount = 0,
+  fiboActionableCount = 0,
+  fiboArmedCount = 0,
+  fiboShadowCount = 0,
   isTelemetryActive = true,
-  guiVersion: _guiVersion = 'v2',
-  mobileTab: _mobileTab = 'RADAR',
   isDevMode = false,
   onOpenTabHelp,
 }) => {
   const { language, t } = useTranslation();
-  const [openDropdown, setOpenDropdown] = useState<'LAB' | 'SYSTEM' | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Tab configurations
-  const tradingTabs: TabItemConfig[] = useMemo(() => [
-    {
-      id: 'DECISION',
-      labelKey: 'ws_tab_decision',
-      icon: Activity,
-      category: 'TRADING',
-    },
-    {
-      id: 'RADAR',
-      labelKey: 'ws_tab_radar',
-      descKey: 'ws_tab_radar_desc',
-      icon: Radio,
-      badge: signalCount > 0 ? signalCount : null,
-      pulse: signalCount > 0,
-      category: 'TRADING',
-    },
-    {
-      id: 'FIBO_SHORT',
-      labelKey: 'ws_tab_fibo_short',
-      descKey: 'ws_tab_fibo_short_desc',
-      icon: GitPullRequest,
-      category: 'TRADING',
-    },
-    {
-      id: 'WATCHLIST',
-      labelKey: 'ws_tab_tracking',
-      icon: Target,
-      badge: trackingCount,
-      category: 'TRADING',
-    },
-    {
-      id: 'RANKING',
-      labelKey: 'ws_tab_candidates',
-      icon: BarChart3,
-      badge: candidateCount,
-      category: 'TRADING',
-    },
-    {
-      id: 'MARKET',
-      labelKey: 'ws_tab_market_context',
-      icon: Layers,
-      category: 'TRADING',
-    },
-  ], [trackingCount, candidateCount, signalCount]);
+  const signalTabs: TabItemConfig[] = useMemo(
+    () => [
+      {
+        id: 'FIBO_SHORT',
+        labelKey: 'ws_tab_fibo_short',
+        descKey: 'ws_tab_fibo_short_desc',
+        icon: Zap,
+        badge:
+          fiboActionableCount > 0
+            ? fiboActionableCount
+            : fiboArmedCount > 0
+              ? `${fiboArmedCount} chờ`
+              : null,
+        pulse: fiboActionableCount > 0,
+        category: 'SIGNALS',
+      },
+      {
+        id: 'DECISION',
+        labelKey: 'ws_tab_decision',
+        icon: Activity,
+        badge: activeCoinSymbol ? activeCoinSymbol.replace(/USDT$/i, '') : null,
+        category: 'SIGNALS',
+      },
+      {
+        id: 'MODELS',
+        labelKey: 'ws_tab_models',
+        descKey: 'ws_tab_models_desc',
+        icon: BookOpen,
+        category: 'SIGNALS',
+      },
+      {
+        id: 'RADAR',
+        labelKey: 'ws_tab_radar',
+        descKey: 'ws_tab_radar_desc',
+        icon: Radio,
+        badge: signalCount > 0 ? signalCount : null,
+        category: 'SIGNALS',
+      },
+      {
+        id: 'RANKING',
+        labelKey: 'ws_tab_candidates',
+        icon: BarChart3,
+        badge: candidateCount > 0 ? candidateCount : null,
+        category: 'SIGNALS',
+      },
+      {
+        id: 'MARKET',
+        labelKey: 'ws_tab_market_context',
+        icon: Layers,
+        category: 'SIGNALS',
+      },
+    ],
+    [fiboActionableCount, fiboArmedCount, activeCoinSymbol, signalCount, candidateCount]
+  );
 
-  const labTabs: TabItemConfig[] = useMemo(() => isDevMode ? [
-    {
-      id: 'MULTISCAN',
-      labelKey: 'ws_tab_multiscan',
-      descKey: 'ws_tab_multiscan_desc',
-      icon: FlaskConical,
-      category: 'LAB',
-    },
-    {
-      id: 'BACKTEST',
-      labelKey: 'ws_tab_experiments',
-      descKey: 'ws_tab_experiments_desc',
-      icon: ShieldCheck,
-      category: 'LAB',
-    },
-    {
-      id: 'FORWARD',
-      labelKey: 'ws_tab_forward',
-      descKey: 'ws_tab_forward_desc',
-      icon: Lock,
-      category: 'LAB',
-    },
-  ] : [], [isDevMode]);
+  const shadowLiveTabs: TabItemConfig[] = useMemo(() => {
+    const base: TabItemConfig[] = [
+      {
+        id: 'PAPER_OOS',
+        labelKey: 'ws_tab_paper_oos',
+        descKey: 'ws_tab_paper_oos_desc',
+        icon: Cpu,
+        badge: '12 Acc',
+        pulse: true,
+        category: 'SHADOW_LIVE',
+      },
+      {
+        id: 'SHADOW_COMPARE',
+        labelKey: 'ws_tab_shadow_compare',
+        descKey: 'ws_tab_shadow_compare_desc',
+        icon: Gauge,
+        badge: fiboShadowCount > 0 ? fiboShadowCount : null,
+        category: 'SHADOW_LIVE',
+      },
+      {
+        id: 'FORWARD',
+        labelKey: 'ws_tab_forward',
+        descKey: 'ws_tab_forward_desc',
+        icon: Lock,
+        category: 'SHADOW_LIVE',
+      },
+    ];
+    if (isDevMode) {
+      base.push(
+        {
+          id: 'BACKTEST',
+          labelKey: 'ws_tab_experiments',
+          descKey: 'ws_tab_experiments_desc',
+          icon: ShieldCheck,
+          category: 'SHADOW_LIVE',
+        },
+        {
+          id: 'MULTISCAN',
+          labelKey: 'ws_tab_multiscan',
+          descKey: 'ws_tab_multiscan_desc',
+          icon: FlaskConical,
+          category: 'SHADOW_LIVE',
+        }
+      );
+    }
+    return base;
+  }, [fiboShadowCount, isDevMode]);
+
+  const liveTabs: TabItemConfig[] = useMemo(
+    () => [
+      {
+        id: 'LIVE_ACCOUNT',
+        labelKey: 'ws_tab_live_account',
+        descKey: 'ws_tab_live_account_desc',
+        icon: Wallet,
+        badge: 'Binance',
+        category: 'LIVE',
+      },
+      {
+        id: 'WATCHLIST',
+        labelKey: 'ws_tab_tracking',
+        icon: Target,
+        badge: trackingCount > 0 ? trackingCount : null,
+        category: 'LIVE',
+      },
+    ],
+    [trackingCount]
+  );
 
   const systemTabs: TabItemConfig[] = useMemo(() => {
-    const tabs: TabItemConfig[] = [
-    {
-      id: 'AUDIT',
-      labelKey: 'ws_tab_audit',
-      descKey: 'ws_tab_audit_desc',
-      icon: Cpu,
-      category: 'SYSTEM',
-    },
-    {
-      id: 'TELEMETRY',
-      labelKey: 'ws_tab_telemetry',
-      descKey: 'ws_tab_telemetry_desc',
-      icon: Radio,
-      pulse: isTelemetryActive,
-      category: 'SYSTEM',
-    },
-    {
-      id: 'HISTORY',
-      labelKey: 'ws_tab_history',
-      descKey: 'ws_tab_history_desc',
-      icon: Clock,
-      category: 'SYSTEM',
-    },
-    {
-      id: 'MODELS',
-      labelKey: 'ws_tab_models',
-      descKey: 'ws_tab_models_desc',
-      icon: Brain,
-      category: 'SYSTEM',
-    },
-    {
-      id: 'UPDATES',
-      labelKey: 'ws_tab_updates',
-      descKey: 'ws_tab_updates_desc',
-      icon: GitPullRequest,
-      category: 'SYSTEM',
-    },
-    {
-      id: 'SETTINGS',
-      labelKey: 'ws_tab_settings',
-      descKey: 'ws_tab_settings_desc',
-      icon: Settings,
-      category: 'SYSTEM',
-    },
+    const base: TabItemConfig[] = [
+      {
+        id: 'SETTINGS',
+        labelKey: 'ws_tab_settings',
+        descKey: 'ws_tab_settings_desc',
+        icon: Settings,
+        category: 'SYSTEM',
+      },
+      {
+        id: 'TELEMETRY',
+        labelKey: 'ws_tab_telemetry',
+        descKey: 'ws_tab_telemetry_desc',
+        icon: Radio,
+        pulse: isTelemetryActive,
+        category: 'SYSTEM',
+      },
+      {
+        id: 'HISTORY',
+        labelKey: 'ws_tab_history',
+        descKey: 'ws_tab_history_desc',
+        icon: Clock,
+        category: 'SYSTEM',
+      },
+      {
+        id: 'UPDATES',
+        labelKey: 'ws_tab_updates',
+        descKey: 'ws_tab_updates_desc',
+        icon: GitPullRequest,
+        category: 'SYSTEM',
+      },
     ];
-    return isDevMode ? tabs : tabs.filter(t => t.id === 'AUDIT' || t.id === 'HISTORY' || t.id === 'SETTINGS');
+    if (isDevMode) {
+      base.push({
+        id: 'AUDIT',
+        labelKey: 'ws_tab_audit',
+        descKey: 'ws_tab_audit_desc',
+        icon: Brain,
+        category: 'SYSTEM',
+      });
+    }
+    return base;
   }, [isTelemetryActive, isDevMode]);
 
-  // Determine current active category
-  const activeCategory: TabCategory = useMemo(() => {
-    if (tradingTabs.some(item => item.id === activeTab)) return 'TRADING';
-    if (labTabs.some(item => item.id === activeTab)) return 'LAB';
-    return 'SYSTEM';
-  }, [activeTab, tradingTabs, labTabs]);
+  const activeCategory: TabCategory = getCategoryForTab(activeTab);
 
-  const [browsingCategory, setBrowsingCategory] = useState<TabCategory | null>(null);
-  const mobileCategory = browsingCategory ?? activeCategory;
+  const pillars: PillarConfig[] = useMemo(
+    () => [
+      {
+        id: 'SIGNALS',
+        testId: 'workspace-pillar-signals',
+        labelVi: 'Tín hiệu',
+        labelEn: 'Signals',
+        labelZh: '交易信号',
+        labelKo: '신호 & 방법론',
+        subVi: 'Fibo v4.0 · Phương pháp',
+        subEn: 'Fibo v4.0 · Methodology',
+        icon: Zap,
+        defaultTab: 'FIBO_SHORT',
+        badge:
+          fiboActionableCount > 0
+            ? `${fiboActionableCount} Sniper`
+            : fiboArmedCount > 0
+              ? `${fiboArmedCount} Chờ`
+              : null,
+        badgeCls:
+          fiboActionableCount > 0
+            ? 'bg-emerald-500 text-slate-950 font-black'
+            : 'bg-amber-500/20 text-amber-300 border border-amber-500/40',
+        activeCls:
+          'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 shadow-md shadow-amber-500/20 border-amber-400',
+      },
+      {
+        id: 'SHADOW_LIVE',
+        testId: 'workspace-pillar-shadow_live',
+        labelVi: 'Shadow Live',
+        labelEn: 'Shadow Live',
+        labelZh: '影子实盘 (OOS)',
+        labelKo: '섀도우 라이브',
+        subVi: 'Các Version & Cải tiến',
+        subEn: 'Versions & Paper OOS',
+        icon: FlaskConical,
+        defaultTab: 'PAPER_OOS',
+        badge: '12 OOS',
+        badgeCls: 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40',
+        pulseDot: true,
+        activeCls:
+          'bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 shadow-md shadow-cyan-500/20 border-cyan-400',
+      },
+      {
+        id: 'LIVE',
+        testId: 'workspace-pillar-live',
+        labelVi: 'Live',
+        labelEn: 'Live',
+        labelZh: '实盘账户',
+        labelKo: '라이브 계좌',
+        subVi: 'Tài khoản Thực & Vị thế',
+        subEn: 'Real Account & Positions',
+        icon: Wallet,
+        defaultTab: 'LIVE_ACCOUNT',
+        badge: trackingCount > 0 ? trackingCount : null,
+        badgeCls: 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40',
+        activeCls:
+          'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-md shadow-emerald-500/20 border-emerald-400',
+      },
+      {
+        id: 'SYSTEM',
+        testId: 'workspace-system-menu',
+        labelVi: 'Hệ thống',
+        labelEn: 'System',
+        labelZh: '系统管理',
+        labelKo: '시스템',
+        subVi: 'Cài đặt · Hạ tầng · Log',
+        subEn: 'Settings · Telemetry · Logs',
+        icon: Cpu,
+        defaultTab: 'SETTINGS',
+        pulseDot: isTelemetryActive,
+        activeCls:
+          'bg-gradient-to-r from-slate-200 to-slate-300 text-slate-950 shadow-md border-slate-300',
+      },
+    ],
+    [fiboActionableCount, fiboArmedCount, trackingCount, isTelemetryActive]
+  );
 
-  // Close dropdown on outside click or ESC key
-  useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setOpenDropdown(null);
-      }
-    };
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpenDropdown(null);
-      }
-    };
-
-    if (openDropdown) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('keydown', handleKeyDown);
+  const visibleSubTabs: TabItemConfig[] = useMemo(() => {
+    switch (activeCategory) {
+      case 'SIGNALS':
+        return signalTabs;
+      case 'SHADOW_LIVE':
+        return shadowLiveTabs;
+      case 'LIVE':
+        return liveTabs;
+      case 'SYSTEM':
+        return systemTabs;
     }
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [openDropdown]);
+  }, [activeCategory, signalTabs, shadowLiveTabs, liveTabs, systemTabs]);
 
-  // Find active item in a group for Smart Dropdown Title
-  const activeLabTab = labTabs.find(item => item.id === activeTab);
-  const activeSystemTab = systemTabs.find(item => item.id === activeTab);
 
-  const handleSelectTab = (tab: WorkspaceTab) => {
-    setActiveTab(tab);
-    setOpenDropdown(null);
-    setBrowsingCategory(null);
+  const handleSelectPillar = (pillar: PillarConfig) => {
+    if (activeCategory !== pillar.id) {
+      setActiveTab(pillar.defaultTab);
+    }
   };
 
-  const handleCategorySwitch = (category: TabCategory) => {
-    setBrowsingCategory(category);
-    // If current tab is not in this category, default to first tab of new category
-    if (category === 'TRADING' && !tradingTabs.some(item => item.id === activeTab)) {
-      setActiveTab('DECISION');
-    } else if (category === 'LAB' && !labTabs.some(item => item.id === activeTab)) {
-      setActiveTab('MULTISCAN');
-    } else if (category === 'SYSTEM' && !systemTabs.some(item => item.id === activeTab)) {
-      setActiveTab('AUDIT');
-    }
-  };
+  const currentSymbol = selectedSignal?.symbol || activeCoinSymbol;
 
-  const currentMobileTabs = mobileCategory === 'TRADING' ? tradingTabs : mobileCategory === 'LAB' ? labTabs : systemTabs;
   return (
-    <div className="border-b border-slate-800 pb-2 mb-3 min-w-0" ref={dropdownRef}>
+    <div className="border-b border-slate-800 pb-2.5 mb-3 min-w-0 space-y-2">
       {/* ─────────────────────────────────────────────────────────────
-          1. DESKTOP & TABLET VIEW (md and up)
+          ROW 1: 4 TOP-LEVEL PILLARS (Tín hiệu | Shadow Live | Live | Hệ thống)
       ───────────────────────────────────────────────────────────── */}
-      <div className="hidden md:flex items-center justify-between gap-3 min-w-0">
-        <div className="flex items-center gap-2.5 min-w-0 flex-1">
-          {/* Active Coin Badge */}
-          {selectedSignal && (
-            <div className="flex items-center gap-1.5 text-xs font-mono shrink-0">
-              <span className="text-slate-400 hidden xl:inline">{t('ranking_viewing_prefix')}</span>
-              <CoinLink
-                symbol={selectedSignal.symbol}
-                onClick={() => onSelectCandidate(selectedSignal.symbol)}
-                className="bg-amber-950/60 px-2.5 py-1 rounded-lg border border-amber-500/30 text-amber-300 font-bold hover:bg-amber-900/60 transition"
-              />
-            </div>
-          )}
-
-          {/* Grouped Tab Pills Bar */}
-          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 min-w-0 shadow-inner">
-            {/* Primary Trading Tabs (Always visible directly) */}
-            {tradingTabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  data-testid={'workspace-tab-' + tab.id.toLowerCase()}
-                  type="button"
-                  onClick={() => handleSelectTab(tab.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-all duration-150 ${
-                    isActive
-                      ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20 font-bold'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5" />
-                  <span>{t(tab.labelKey)}</span>
-                  {tab.badge !== undefined && tab.badge !== null && (typeof tab.badge === 'number' ? tab.badge > 0 : Boolean(tab.badge)) ? (
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold transition ${
-                        isActive
-                          ? 'bg-slate-950/90 text-amber-400'
-                          : 'bg-slate-800 text-slate-300'
+      <div className="flex items-center justify-between gap-2 min-w-0">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 flex-1 min-w-0 bg-slate-950/90 p-1.5 rounded-xl border border-slate-800/90 shadow-inner">
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
+            const isActive = activeCategory === pillar.id;
+            return (
+              <button
+                key={pillar.id}
+                data-testid={pillar.testId}
+                type="button"
+                onClick={() => handleSelectPillar(pillar)}
+                className={`px-2.5 py-2 rounded-lg text-left transition-all duration-150 border flex items-center justify-between gap-2 min-w-0 cursor-pointer ${
+                  isActive
+                    ? `${pillar.activeCls} font-extrabold`
+                    : 'bg-slate-900/60 hover:bg-slate-900 text-slate-300 hover:text-white border-slate-800/80'
+                }`}
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <div
+                    className={`p-1.5 rounded-md shrink-0 ${
+                      isActive ? 'bg-slate-950/20 text-slate-950' : 'bg-slate-950 text-amber-400'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs sm:text-[13px] font-bold truncate flex items-center gap-1.5">
+                      <span>
+                        {language === 'en'
+                          ? pillar.labelEn
+                          : language === 'zh'
+                            ? pillar.labelZh
+                            : language === 'ko'
+                              ? pillar.labelKo
+                              : pillar.labelVi}
+                      </span>
+                      {pillar.pulseDot && (
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full shrink-0 animate-pulse ${
+                            isActive ? 'bg-slate-950' : 'bg-emerald-400'
+                          }`}
+                        />
+                      )}
+                    </div>
+                    <div
+                      className={`hidden lg:block text-[10px] truncate font-medium ${
+                        isActive ? 'text-slate-900/85' : 'text-slate-400'
                       }`}
                     >
-                      {tab.badge}
-                    </span>
-                  ) : null}
-                </button>
-              );
-            })}
-
-            <span aria-hidden="true" className="mx-0.5 h-4 w-px shrink-0 bg-slate-800" />
-
-            {/* Dropdown 1: Lab & Scan */}
-            {labTabs.length > 0 && (
-            <div className="relative">
-              <button
-                data-testid="workspace-lab-menu"
-                type="button"
-                onClick={() => setOpenDropdown(openDropdown === 'LAB' ? null : 'LAB')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-all duration-150 ${
-                  activeLabTab
-                    ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm shadow-amber-500/10 font-bold'
-                    : openDropdown === 'LAB'
-                    ? 'bg-slate-900 text-slate-200 border border-slate-700'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
-                }`}
-                title={t('ws_group_lab')}
-              >
-                {activeLabTab ? (
-                  <>
-                    <activeLabTab.icon className="w-3.5 h-3.5 text-amber-400" />
-                    <span>{t(activeLabTab.labelKey)}</span>
-                  </>
-                ) : (
-                  <>
-                    <FlaskConical className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{t('ws_group_lab')}</span>
-                  </>
-                )}
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${
-                    openDropdown === 'LAB' ? 'rotate-180 text-amber-400' : 'text-slate-500'
-                  }`}
-                />
-              </button>
-
-              {/* Lab Dropdown Menu */}
-              {openDropdown === 'LAB' && (
-                <div className="absolute left-0 top-full mt-1.5 w-64 bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800/80 mb-1 flex items-center gap-1">
-                    <FlaskConical className="w-3 h-3 text-amber-400" />
-                    {t('ws_group_lab')}
-                  </div>
-                  {labTabs.map((tab) => {
-                    const Icon = tab.icon;
-                    const isSelected = activeTab === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        data-testid={'workspace-tab-' + tab.id.toLowerCase()}
-                        type="button"
-                        onClick={() => handleSelectTab(tab.id)}
-                        className={`w-full text-left px-2.5 py-2 rounded-lg text-xs flex items-center justify-between gap-2 transition ${
-                          isSelected
-                            ? 'bg-amber-500/20 text-amber-300 font-semibold'
-                            : 'text-slate-300 hover:bg-slate-900 hover:text-slate-100'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 min-w-0">
-                          <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-amber-400' : 'text-slate-400'}`} />
-                          <div className="min-w-0">
-                            <div className="truncate font-medium">{t(tab.labelKey)}</div>
-                            {tab.descKey && (
-                              <div className="text-[10px] text-slate-300 truncate font-normal">
-                                {t(tab.descKey)}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        {isSelected && <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-            )}
-
-            {/* Dropdown 2: System & Logs */}
-            <div className="relative">
-              <button
-                data-testid="workspace-system-menu"
-                type="button"
-                onClick={() => setOpenDropdown(openDropdown === 'SYSTEM' ? null : 'SYSTEM')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-all duration-150 ${
-                  activeSystemTab
-                    ? 'bg-amber-500/15 text-amber-300 border border-amber-500/40 shadow-sm shadow-amber-500/10 font-bold'
-                    : openDropdown === 'SYSTEM'
-                    ? 'bg-slate-900 text-slate-200 border border-slate-700'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent'
-                }`}
-                title={t('ws_group_system')}
-              >
-                {activeSystemTab ? (
-                  <>
-                    <activeSystemTab.icon
-                      className={`w-3.5 h-3.5 ${
-                        activeSystemTab.id === 'TELEMETRY'
-                          ? 'text-emerald-400 animate-pulse'
-                          : activeSystemTab.id === 'UPDATES'
-                          ? 'text-amber-400'
-                          : 'text-amber-400'
-                      }`}
-                    />
-                    <span>{t(activeSystemTab.labelKey)}</span>
-                  </>
-                ) : (
-                  <>
-                    <Cpu className="w-3.5 h-3.5 text-slate-400" />
-                    <span>{t('ws_group_system')}</span>
-                    {isTelemetryActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    )}
-                  </>
-                )}
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${
-                    openDropdown === 'SYSTEM' ? 'rotate-180 text-amber-400' : 'text-slate-500'
-                  }`}
-                />
-              </button>
-
-              {/* System Dropdown Menu */}
-              {openDropdown === 'SYSTEM' && (
-                <div className="absolute right-0 sm:left-0 top-full mt-1.5 w-64 bg-slate-950/95 backdrop-blur-md border border-slate-800 rounded-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <div className="px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-300 border-b border-slate-800/80 mb-1 flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Cpu className="w-3 h-3 text-amber-400" />
-                      {t('ws_group_system')}
+                      {language === 'en' ? pillar.subEn : pillar.subVi}
                     </div>
-                    {isTelemetryActive && (
-                      <span className="flex items-center gap-1 text-[9px] text-emerald-400 font-mono">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        LIVE
-                      </span>
-                    )}
                   </div>
-                  {systemTabs.map((tab) => {
-                    const Icon = tab.icon;
-                    const isSelected = activeTab === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        data-testid={'workspace-tab-' + tab.id.toLowerCase()}
-                        type="button"
-                        onClick={() => handleSelectTab(tab.id)}
-                        className={`w-full text-left px-2.5 py-2 rounded-lg text-xs flex items-center justify-between gap-2 transition ${
-                          isSelected
-                            ? 'bg-amber-500/20 text-amber-300 font-semibold'
-                            : 'text-slate-300 hover:bg-slate-900 hover:text-slate-100'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 min-w-0">
-                          <Icon
-                            className={`w-4 h-4 shrink-0 ${
-                              isSelected
-                                ? 'text-amber-400'
-                                : tab.id === 'TELEMETRY'
-                                ? 'text-emerald-400'
-                                : tab.id === 'UPDATES'
-                                ? 'text-amber-400'
-                                : 'text-slate-400'
-                            } ${tab.pulse ? 'animate-pulse' : ''}`}
-                          />
-                          <div className="min-w-0">
-                            <div className="truncate font-medium">{t(tab.labelKey)}</div>
-                            {tab.descKey && (
-                              <div className="text-[10px] text-slate-300 truncate font-normal">
-                                {t(tab.descKey)}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        {isSelected && <Check className="w-3.5 h-3.5 text-amber-400 shrink-0" />}
-                      </button>
-                    );
-                  })}
                 </div>
-              )}
-            </div>
-          </div>
+
+                {pillar.badge !== undefined && pillar.badge !== null && (
+                  <span
+                    className={`hidden sm:inline-flex text-[10px] px-1.5 py-0.5 rounded-full font-mono shrink-0 ${
+                      isActive
+                        ? 'bg-slate-950/85 text-amber-300 font-bold'
+                        : pillar.badgeCls || 'bg-slate-800 text-slate-300'
+                    }`}
+                  >
+                    {pillar.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Quick Tab Help Button (Desktop) */}
-        {onOpenTabHelp && (
-          <button
-            type="button"
-            onClick={() => onOpenTabHelp(activeTab)}
-            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-900/90 border border-slate-700/80 hover:border-violet-500/80 hover:text-violet-200 hover:bg-violet-950/40 transition shrink-0 shadow-sm"
-            title="Xem mô tả chi tiết & cơ chế hoạt động của tab này"
-          >
-            <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
-            <span className="hidden lg:inline">{language === 'en' ? 'Tab Guide' : language === 'zh' ? 'Tab 帮助' : language === 'ko' ? '탭 가이드' : 'Hướng dẫn Tab'}</span>
-          </button>
-        )}
+        {/* Right Controls: Active Coin Quick Pill + Tab Help */}
+        <div className="hidden md:flex items-center gap-2 shrink-0">
+          {currentSymbol && (
+            <CoinLink
+              symbol={currentSymbol}
+              onClick={() => onSelectCandidate(currentSymbol)}
+              className="bg-amber-950/60 px-2.5 py-1.5 rounded-lg border border-amber-500/30 text-amber-300 text-xs font-mono font-bold hover:bg-amber-900/60 transition"
+            />
+          )}
+          {onOpenTabHelp && (
+            <button
+              type="button"
+              onClick={() => onOpenTabHelp(activeTab)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 bg-slate-900/90 border border-slate-700/80 hover:border-violet-500/80 hover:text-violet-200 hover:bg-violet-950/40 transition shrink-0 shadow-sm cursor-pointer"
+              title="Xem mô tả chi tiết & cơ chế hoạt động của mục này"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
+              <span className="hidden xl:inline">
+                {language === 'en'
+                  ? 'Guide'
+                  : language === 'zh'
+                    ? '指南'
+                    : language === 'ko'
+                      ? '가이드'
+                      : 'Hướng dẫn'}
+              </span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          2. MOBILE VIEW (under md)
-          Two-Tier Layout: Category Switcher Pills + Compact Sub-tabs
+          ROW 2: SUB-TABS FOR THE ACTIVE PILLAR
       ───────────────────────────────────────────────────────────── */}
-      <div className="block md:hidden space-y-2 min-w-0">
-        {/* Mobile Header Row: Coin Pill + Category Segmented Bar */}
-        <div className="flex items-center justify-between gap-2 min-w-0">
-          {selectedSignal ? (
-            <CoinLink
-              symbol={selectedSignal.symbol}
-              onClick={() => onSelectCandidate(selectedSignal.symbol)}
-              className="bg-amber-950/60 px-2 py-0.5 rounded-lg border border-amber-500/30 text-amber-300 font-bold text-xs shrink-0"
-            />
-          ) : (
-            <div className="text-[11px] font-bold tracking-wider text-slate-400 uppercase flex items-center gap-1 shrink-0">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
-              Workspace
-            </div>
-          )}
-
-          {/* 3-Category Segmented Selector */}
-          <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800 text-[11px] shrink-0">
-            <button
-              type="button"
-              onClick={() => handleCategorySwitch('TRADING')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition flex items-center gap-1 ${
-                mobileCategory === 'TRADING'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Zap className="w-3 h-3" />
-              <span>{t('ws_group_trading')}</span>
-            </button>
-
-            {labTabs.length > 0 && (
-            <button
-              type="button"
-              onClick={() => handleCategorySwitch('LAB')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition flex items-center gap-1 ${
-                mobileCategory === 'LAB'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <FlaskConical className="w-3 h-3" />
-              <span>{t('ws_group_lab')}</span>
-            </button>
-            )}
-
-            <button
-              type="button"
-              onClick={() => handleCategorySwitch('SYSTEM')}
-              className={`px-2.5 py-1 rounded-md font-semibold transition flex items-center gap-1 ${
-                mobileCategory === 'SYSTEM'
-                  ? 'bg-amber-500 text-slate-950 shadow-sm font-bold'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              <Cpu className="w-3 h-3" />
-              <span>{t('ws_group_system')}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Sub-tab Row (3-4 touch chips, fits perfectly) */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 min-w-0 [&::-webkit-scrollbar]:hidden">
-          {currentMobileTabs.map((tab) => {
+      <div className="flex items-center justify-between gap-2 min-w-0">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 min-w-0 flex-1 [&::-webkit-scrollbar]:hidden">
+          {visibleSubTabs.map((tab) => {
             const Icon = tab.icon;
             const isSelected = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
+                data-testid={'workspace-tab-' + tab.id.toLowerCase()}
                 type="button"
-                onClick={() => handleSelectTab(tab.id)}
-                className={`px-2.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap transition active:scale-95 ${
+                onClick={() => setActiveTab(tab.id)}
+                title={tab.descKey ? t(tab.descKey) : undefined}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-all duration-150 border cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 shadow-md shadow-amber-500/20 font-bold'
-                    : 'bg-slate-900/90 border border-slate-800 text-slate-300 active:bg-slate-800'
+                    ? 'bg-slate-800 text-amber-300 border-amber-500/50 shadow-sm shadow-amber-500/10 font-bold'
+                    : 'bg-slate-950/70 text-slate-400 hover:text-slate-200 hover:bg-slate-900 border-slate-800/80'
                 }`}
               >
                 <Icon
-                  className={`w-3.5 h-3.5 ${
+                  className={`w-3.5 h-3.5 shrink-0 ${
                     isSelected
-                      ? 'text-slate-950'
-                      : tab.id === 'TELEMETRY'
-                      ? 'text-emerald-400'
-                      : tab.id === 'UPDATES'
                       ? 'text-amber-400'
-                      : 'text-slate-400'
-                  } ${tab.pulse && !isSelected ? 'animate-pulse' : ''}`}
+                      : tab.pulse
+                        ? 'text-emerald-400 animate-pulse'
+                        : 'text-slate-400'
+                  }`}
                 />
                 <span>{t(tab.labelKey)}</span>
-                {tab.badge !== undefined && tab.badge !== null && (typeof tab.badge === 'number' ? tab.badge > 0 : Boolean(tab.badge)) ? (
+                {tab.badge !== undefined &&
+                tab.badge !== null &&
+                (typeof tab.badge === 'number' ? tab.badge > 0 : Boolean(tab.badge)) ? (
                   <span
                     className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono font-bold ${
-                      isSelected ? 'bg-slate-950 text-amber-300' : 'bg-slate-800 text-slate-300'
+                      isSelected
+                        ? 'bg-amber-500/20 text-amber-200 border border-amber-400/40'
+                        : 'bg-slate-800 text-slate-300'
                     }`}
                   >
                     {tab.badge}
@@ -617,18 +566,16 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
           })}
         </div>
 
-        {/* Quick Tab Help Button (Mobile) */}
+        {/* Mobile Help Button */}
         {onOpenTabHelp && (
-          <div className="flex justify-end pt-0.5">
-            <button
-              type="button"
-              onClick={() => onOpenTabHelp(activeTab)}
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[11px] font-medium text-slate-300 bg-slate-900 border border-slate-800 hover:border-violet-500 hover:text-violet-200"
-            >
-              <HelpCircle className="w-3 h-3 text-violet-400" />
-              <span>{language === 'en' ? 'Tab Guide' : language === 'zh' ? 'Tab 帮助' : language === 'ko' ? '탭 가이드' : 'Hướng dẫn Tab'}</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => onOpenTabHelp(activeTab)}
+            className="md:hidden inline-flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px] font-semibold text-violet-300 bg-slate-950 border border-slate-800 shrink-0"
+            aria-label="Hướng dẫn Tab"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-violet-400" />
+          </button>
         )}
       </div>
     </div>

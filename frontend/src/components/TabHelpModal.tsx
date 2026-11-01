@@ -404,6 +404,67 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
             'Place Stop Loss above Swing High (Fibo 1.0 + ATR buffer) and scale out at TP1 (Fibo 0.0), TP2 (Ext 1.272), and TP3 (Ext 1.618).'
           ]
         }
+        ,
+        PAPER_OOS: {
+          id: 'PAPER_OOS',
+          name: 'Paper OOS v1 (12 Accounts)',
+          nameEn: 'Paper OOS v1 (12 Accounts)',
+          icon: Cpu,
+          category: 'LAB',
+          badge: 'Shadow Live · SHA-256 Sealed',
+          purpose: 'Prospective real-time Out-of-Sample observation running 12 isolated NAV-100 accounts (6 strategy versions × 2 cost scenarios: Standard VIP6 12.5 bps & Stress Regular 55 bps).',
+          mechanism: [
+            'Protocol SHA-256 Lock: Evaluates closed H1 bars strictly forward from 2026-10-18 without touching exchange order APIs.',
+            'Full Portfolio Accounting: Tracks fees, slippage, and exact historical signed funding settlements per account.'
+          ],
+          metrics: [
+            { label: 'NAV (Base 100)', desc: 'Normalized portfolio equity for each version under Standard vs Stress cost assumptions.' },
+            { label: 'Max Drawdown %', desc: 'Peak-to-trough equity drawdown observed in real time.' }
+          ],
+          playbook: [
+            'Compare Elite + Sniper and Sniper RR≥1 · 24h under Standard vs Stress costs before granting live auto-trading sign-off.'
+          ]
+        },
+        SHADOW_COMPARE: {
+          id: 'SHADOW_COMPARE',
+          name: 'Version Comparison (Legacy vs v4.0)',
+          nameEn: 'Version Comparison (Legacy vs v4.0)',
+          icon: FlaskConical,
+          category: 'LAB',
+          badge: 'Shadow Live · A/B Versions',
+          purpose: 'Side-by-side live comparison between unfiltered Legacy M1 signals and improved v4.0.21 Sniper policies with ratcheted Breakeven Stop-Loss.',
+          mechanism: [
+            'Noise Rejection Counter: Measures how many premature red-H1 signals are blocked by the 4 orthogonal Sniper gates.',
+            'Ratcheted Exit Tracking: Compares Legacy static SL against v4.0.21 Breakeven SL lock after TP1 hit.'
+          ],
+          metrics: [
+            { label: 'Rejected Noise', desc: 'Unqualified signals filtered out before reaching Telegram.' },
+            { label: 'TP1 Locked BE', desc: 'Trades protected from reversal loss after hitting TP1.' }
+          ],
+          playbook: [
+            'Use this ledger to verify that v4.0.21 improvements outperform raw unfiltered Fibonacci entries in live market conditions.'
+          ]
+        },
+        LIVE_ACCOUNT: {
+          id: 'LIVE_ACCOUNT',
+          name: 'Real Binance Account',
+          nameEn: 'Real Binance Account',
+          icon: ShieldCheck,
+          category: 'TRADING',
+          badge: 'Live · Binance USD-M',
+          purpose: 'Connects directly to your real Binance USD-M Futures account (Read-Only audit mode by default, with gated execution controls) to monitor live USDT equity, drawdown, open positions, and orders.',
+          mechanism: [
+            'Read-Only Safety Default: Polls wallet balance, unrealized PnL, and unmanaged positions every 15s without placing or canceling orders.',
+            'Live Promotion Gate: Displays exact sample, window, and confidence-interval requirements before enabling automated live orders.'
+          ],
+          metrics: [
+            { label: 'USDT Equity & Available', desc: 'Real-time wallet balance plus unrealized PnL on Binance Futures.' },
+            { label: 'Drawdown from Peak', desc: 'Observed drawdown from peak equity since monitoring began.' }
+          ],
+          playbook: [
+            'Keep Read-Only mode active while trading manually from Fibo Short signals, and monitor real account drawdown and open positions here.'
+          ]
+        }
       };
     }
 
@@ -739,6 +800,67 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
         playbook: [
           'Ưu tiên các mã ở trạng thái "ĐÃ XÁC NHẬN SHORT (H1)" có xác nhận kép (1+2) tại vùng Golden Pocket.',
           'Đặt Stop Loss phía trên đỉnh Swing High (Fibo 1.0 + đệm ATR) và chia chốt lời từng phần tại TP1 (đáy cũ 0.0), TP2 (Ext 1.272) và TP3 (Ext 1.618).'
+        ]
+      }
+      ,
+      PAPER_OOS: {
+        id: 'PAPER_OOS',
+        name: 'Paper OOS v1 (12 Tài khoản)',
+        nameEn: 'Paper OOS v1 (12 Accounts)',
+        icon: Cpu,
+        category: 'LAB',
+        badge: 'Shadow Live · Khóa SHA-256',
+        purpose: 'Hệ thống kiểm định Out-of-Sample thời gian thực chạy 24/7 trên 12 tài khoản độc lập (6 phiên bản chiến lược × 2 kịch bản chi phí: Chuẩn VIP6 12.5 bps & Stress 55 bps).',
+        mechanism: [
+          'Khóa Giao thức SHA-256: Chạy hoàn toàn tiến về tương lai từ 18/10/2026 trên dữ liệu thị trường công khai, tuyệt đối không chỉnh sửa tham số hậu nghiệm.',
+          'Hạch toán Danh mục Thực chiến: Tính đầy đủ phí Taker, độ trượt giá từng lần khớp TP1/TP2/TP3 và phí Funding thực tế.'
+        ],
+        metrics: [
+          { label: 'NAV (Gốc 100.0)', desc: 'Tài sản chuẩn hóa của từng phiên bản dưới mức phí Chuẩn và Stress.' },
+          { label: 'Max Drawdown %', desc: 'Mức sụt giảm vốn tối đa từ đỉnh của từng phiên bản.' }
+        ],
+        playbook: [
+          'Theo dõi sự chênh lệch giữa bản Chuẩn (12.5 bps) và bản Stress (55 bps) để đánh giá biên an toàn trước khi bật auto-trading.'
+        ]
+      },
+      SHADOW_COMPARE: {
+        id: 'SHADOW_COMPARE',
+        name: 'Đối chiếu Phiên bản (Cũ vs v4.0.21)',
+        nameEn: 'Version Comparison (Legacy vs v4.0)',
+        icon: FlaskConical,
+        category: 'LAB',
+        badge: 'Shadow Live · Các Bản Cải Tiến',
+        purpose: 'Đặt lên bàn cân thời gian thực giữa bản M1 gốc (không lọc) và các bản cải tiến v4.0.21 (Elite + Sniper, Sniper RR≥1 · 24h, dời SL hòa vốn sau TP1).',
+        mechanism: [
+          'Bộ đếm Lọc Nhiễu: Thống kê số lượng tín hiệu nến H1 đỏ yếu bị chặn lại bởi 4 cổng Sniper trước khi gửi Telegram.',
+          'Đối chứng Dời SL Hòa Vốn: So sánh trực tiếp kết quả giữ lệnh giữa SL tĩnh kiểu cũ và cơ chế khóa hòa vốn ngay khi chạm TP1.'
+        ],
+        metrics: [
+          { label: 'Tín hiệu Nhiễu đã chặn', desc: 'Số kèo rủi ro cao được loại bỏ nhờ bộ lọc F1–F4.' },
+          { label: 'Khóa Hòa Vốn (TP1 → BE)', desc: 'Số lệnh bảo toàn vốn thành công khi giá bật ngược sau TP1.' }
+        ],
+        playbook: [
+          'Kiểm tra sổ đối chứng này để thấy rõ giá trị thực tế của từng bản nâng cấp thuật toán trên dữ liệu thị trường đang chạy.'
+        ]
+      },
+      LIVE_ACCOUNT: {
+        id: 'LIVE_ACCOUNT',
+        name: 'Tài khoản Thực Binance (Live)',
+        nameEn: 'Real Binance Account',
+        icon: ShieldCheck,
+        category: 'TRADING',
+        badge: 'Live · Binance USD-M',
+        purpose: 'Kết nối trực tiếp với tài khoản Binance USD-M Futures thực tế (mặc định ở chế độ Chỉ Đọc an toàn, tách biệt với khóa giao dịch tự động) để giám sát số dư USDT, đường cong tài sản, vị thế đang mở và lệnh chờ.',
+        mechanism: [
+          'Chế độ Chỉ Đọc Mặc định (Read-Only): Đồng bộ số dư ví, PnL chưa chốt và vị thế trên sàn mỗi 15 giây mà không can thiệp đặt/hủy lệnh.',
+          'Cổng Nghiệm thu Tiền thật: Hiển thị rõ tiến độ số ngày quan sát, số sự kiện độc lập và điều kiện tin cậy 95% trước khi mở khóa Auto-Trading.'
+        ],
+        metrics: [
+          { label: 'Tổng tài sản & Số dư khả dụng', desc: ' Giá trị tài khoản USDT thực tế bao gồm lãi/lỗ chưa chốt trên Binance.' },
+          { label: 'Giảm từ đỉnh (Drawdown)', desc: 'Mức sụt giảm tài sản tính từ đỉnh gần nhất trong kỳ theo dõi.' }
+        ],
+        playbook: [
+          'Sử dụng tab này hằng ngày để kiểm soát sức khỏe tài khoản thực và đối chiếu rủi ro tổng danh mục song song với sổ Vị thế Theo dõi.'
         ]
       }
     };

@@ -2,9 +2,10 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Header } from './components/Header';
 import { LockScreen } from './components/LockScreen';
 import type { MobileTabType } from './components/v2/MobileBottomNav';
+import { getCategoryForTab } from './components/WorkspaceTabBar';
 import type { WorkspaceTab } from './components/WorkspaceTabBar';
 import type {
-  SignalItem, CoinDetail, CandidateCoin, CandidateRefreshStatus, ModelAudit, MarketOverviewData, SystemStatus, FilterTag, SignalSort, TelegramFilter, AutomationSettings, ScannerTelemetry, WatchlistPreset, DeepAnalysis, ModelChoice, ModelsData, TrackingWatchlistItem
+  SignalItem, CoinDetail, CandidateCoin, CandidateRefreshStatus, ModelAudit, MarketOverviewData, SystemStatus, FilterTag, SignalSort, TelegramFilter, AutomationSettings, ScannerTelemetry, WatchlistPreset, DeepAnalysis, ModelChoice, ModelsData, TrackingWatchlistItem, FiboHandoff
 } from './types';
 import { isSignalFired, isSignalArmed } from './types';
 import { parseSystemDate } from './utils/time';
@@ -110,6 +111,7 @@ export function App() {
   const [selectedSignalId, setSelectedSignalId] = useState<string | null>(null);
   const [selectedSignal, setSelectedSignal] = useState<SignalItem | null>(null);
   const [coinDetail, setCoinDetail] = useState<CoinDetail | null>(null);
+  const [fiboHandoff, setFiboHandoff] = useState<FiboHandoff | null>(null);
   const [deepAnalysis, setDeepAnalysis] = useState<DeepAnalysis | null>(null);
   const [isDeepAnalyzing, setIsDeepAnalyzing] = useState(false);
 
@@ -138,17 +140,25 @@ export function App() {
   const [activeTab, setActiveTab] = useState<WorkspaceTab>(() => {
     if (typeof window !== 'undefined') {
       const h = window.location.hash.toLowerCase();
-      if (h.includes('fibo') || h.includes('shadow') || h.includes('paper-oos')) return 'FIBO_SHORT';
+      if (h.includes('paper-oos')) return 'PAPER_OOS';
+      if (h.includes('shadow')) return 'SHADOW_COMPARE';
+      if (h.includes('live-account')) return 'LIVE_ACCOUNT';
+      if (h.includes('fibo')) return 'FIBO_SHORT';
       if (window.location.hash.includes('coin=')) return 'DECISION';
-      if (window.innerWidth < 768) return 'RADAR';
     }
-    return 'DECISION';
+    return 'FIBO_SHORT';
   });
 
   useEffect(() => {
     const onHash = () => {
       const h = window.location.hash.toLowerCase();
-      if (h.includes('fibo') || h.includes('shadow') || h.includes('paper-oos')) {
+      if (h.includes('paper-oos')) {
+        setActiveTab('PAPER_OOS');
+      } else if (h.includes('shadow')) {
+        setActiveTab('SHADOW_COMPARE');
+      } else if (h.includes('live-account')) {
+        setActiveTab('LIVE_ACCOUNT');
+      } else if (h.includes('fibo')) {
         setActiveTab('FIBO_SHORT');
       }
     };
@@ -177,23 +187,10 @@ export function App() {
     }
   };
 
-  const [mobileTab, setMobileTab] = useState<MobileTabType>(() => {
-    if (typeof window !== 'undefined' && window.location.hash.includes('coin=')) {
-      return 'ANALYSIS';
-    }
-    return 'RADAR';
-  });
+  const [mobileTab, setMobileTab] = useState<MobileTabType>(() => getCategoryForTab(activeTab));
 
   useEffect(() => {
-    if (activeTab === 'RADAR') {
-      setMobileTab('RADAR');
-    } else if (activeTab === 'DECISION') {
-      setMobileTab('ANALYSIS');
-    } else if (activeTab === 'WATCHLIST') {
-      setMobileTab('TRACKING');
-    } else {
-      setMobileTab('TOOLS');
-    }
+    setMobileTab(getCategoryForTab(activeTab));
   }, [activeTab]);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
   const [isModelComparisonOpen, setIsModelComparisonOpen] = useState(false);
@@ -439,6 +436,7 @@ export function App() {
       if (!symbol || !/^[\p{L}\p{N}_-]+$/u.test(symbol)) return;
       setSelectedSignalId(null);
       setSelectedSignal(null);
+      setFiboHandoff(null);
       setDeepAnalysis(null);
       setActiveTab('DECISION');
       void fetchCoinDetail(symbol);
@@ -454,32 +452,31 @@ export function App() {
   const handleSelectSignal = (sig: SignalItem) => {
     setSelectedSignalId(sig.id);
     setSelectedSignal(sig);
+    setFiboHandoff(null);
     setDeepAnalysis(null);
     setActiveTab('DECISION');
     if (guiVersion === 'v2') {
-      setMobileTab('ANALYSIS');
+      setMobileTab('SIGNALS');
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     fetchCoinDetail(sig.symbol);
     handleRunDeepAnalysis(sig.symbol);
   };
 
-  const handleSelectCandidate = (symbol: string) => {
-    const existingSig = signals.find(s => s.symbol === symbol);
-    if (existingSig) {
-      handleSelectSignal(existingSig);
-      return;
-    }
-    setSelectedSignalId(null);
-    setSelectedSignal(null);
+  const handleSelectCandidate = (symbol: string, handoff?: FiboHandoff) => {
+    const cleanSymbol = symbol.trim().toUpperCase();
+    const existingSig = signals.find(s => s.symbol.toUpperCase() === cleanSymbol) ?? null;
+    setFiboHandoff(handoff && handoff.symbol.toUpperCase() === cleanSymbol ? handoff : null);
+    setSelectedSignalId(existingSig ? existingSig.id : null);
+    setSelectedSignal(existingSig);
     setDeepAnalysis(null);
     setActiveTab('DECISION');
     if (guiVersion === 'v2') {
-      setMobileTab('ANALYSIS');
+      setMobileTab('SIGNALS');
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    fetchCoinDetail(symbol);
-    handleRunDeepAnalysis(symbol);
+    fetchCoinDetail(cleanSymbol);
+    handleRunDeepAnalysis(cleanSymbol);
   };
 
   const handlePushTelegram = async (sig: SignalItem) => {
@@ -630,7 +627,7 @@ export function App() {
       const successMsg = t('toast_tracking_added').replace('{symbol}', symbol);
       setWatchlistFeedback({ type: 'success', message: successMsg });
       setActiveTab('WATCHLIST');
-      if (guiVersion === 'v2') setMobileTab('TRACKING');
+      if (guiVersion === 'v2') setMobileTab('LIVE');
       return true;
     } catch (err) {
       const message = err instanceof Error ? err.message : t('error_failed_to_update_tracking');
@@ -866,7 +863,7 @@ export function App() {
 
   const showMobileActionBar = guiVersion === 'v2'
     && Boolean(coinDetail || selectedSignal)
-    && mobileTab === 'ANALYSIS';
+    && activeTab === 'DECISION';
 
   return (
     <Suspense fallback={<div className="min-h-screen bg-[#080c14]" aria-label="Loading dashboard" />}>
@@ -892,21 +889,21 @@ export function App() {
         onOpenWatchlistModal={() => setIsWatchlistModalOpen(true)}
         onOpenTracking={() => {
           setActiveTab('WATCHLIST');
-          if (guiVersion === 'v2') setMobileTab('TRACKING');
+          if (guiVersion === 'v2') setMobileTab('LIVE');
         }}
         onOpenCoinSelector={() => setIsCoinSelectorOpen(true)}
         onOpenRadar={() => {
           setActiveTab('RADAR');
-          if (guiVersion === 'v2') setMobileTab('RADAR');
+          if (guiVersion === 'v2') setMobileTab('SIGNALS');
         }}
         onLogout={handleLogout}
         trackingCount={trackingItems.filter(item => item.status !== 'CLOSED').length}
         activeScanMode={activeScanMode}
         autoTelegramEnabled={automationSettings.autoTelegramPush}
         onGoHome={() => {
-          setActiveTab('DECISION');
-          if (guiVersion === 'v2') setMobileTab('ANALYSIS');
-          setSelectedSignal(null);
+          setActiveTab('FIBO_SHORT');
+          if (guiVersion === 'v2') setMobileTab('SIGNALS');
+          setFiboHandoff(null);
           setSelectedSignalId(null);
           setCoinDetail(null);
           setDeepAnalysis(null);
@@ -922,9 +919,10 @@ export function App() {
         onOpenUpdates={() => setActiveTab('UPDATES')}
         onOpenSettings={() => setActiveTab('SETTINGS')}
         mobileTab={mobileTab}
+        isDecisionView={activeTab === 'DECISION'}
         onBackToRadar={() => {
-          setMobileTab('RADAR');
-          setActiveTab('RADAR');
+          setMobileTab('SIGNALS');
+          setActiveTab('FIBO_SHORT');
         }}
         activeCoinSymbol={selectedSignal?.symbol || coinDetail?.symbol || (candidates.length > 0 ? candidates[0].symbol : null)}
         activeCoinPrice={coinDetail?.current_price || selectedSignal?.signal_price || (candidates.length > 0 ? candidates[0].price : null)}
@@ -937,7 +935,7 @@ export function App() {
       {trackingItems.some(item => item.notifications?.some(n => !n.read)) && activeTab !== 'WATCHLIST' && <button
         data-testid="tracking-notifications"
         className="mx-auto mt-2 rounded-lg border border-amber-600 bg-amber-950/40 px-4 py-2 text-sm text-amber-200"
-        onClick={() => { setActiveTab('WATCHLIST'); if (guiVersion === 'v2') setMobileTab('TRACKING'); }}
+        onClick={() => { setActiveTab('WATCHLIST'); if (guiVersion === 'v2') setMobileTab('LIVE'); }}
       >{language === 'vi' ? 'Thông báo coin theo dõi' : 'Tracked coin notifications'} · {trackingItems.reduce((count, item) => count + (item.notifications?.filter(n => !n.read).length || 0), 0)}</button>}
       {/* Main Workspace Layout - Full 100% Width */}
       <main className={`flex-1 max-w-[1750px] w-full mx-auto p-2.5 sm:p-3.5 block overflow-visible ${
@@ -961,6 +959,7 @@ export function App() {
             marketData={marketData}
             telemetryData={telemetryData}
             onSelectCandidate={handleSelectCandidate}
+            fiboHandoff={fiboHandoff}
             onPushTelegram={handlePushTelegram}
             onTriggerManualScan={handleTriggerManualScan}
             isTriggeringScan={isTriggeringScan}
@@ -1037,18 +1036,14 @@ export function App() {
           activeTab={mobileTab}
           onSelectTab={(tab) => {
             setMobileTab(tab);
-            if (tab === 'RADAR') {
-              setActiveTab('RADAR');
-            } else if (tab === 'ANALYSIS') {
-              setActiveTab('DECISION');
-            } else if (tab === 'ORDER') {
-              setIsOrderModalOpen(true);
-            } else if (tab === 'TRACKING') {
-              setActiveTab('WATCHLIST');
-            } else if (tab === 'TOOLS') {
-              if (activeTab === 'DECISION' || activeTab === 'WATCHLIST' || activeTab === 'RADAR') {
-                setActiveTab('RANKING');
-              }
+            if (tab === 'SIGNALS') {
+              setActiveTab('FIBO_SHORT');
+            } else if (tab === 'SHADOW_LIVE') {
+              setActiveTab('PAPER_OOS');
+            } else if (tab === 'LIVE') {
+              setActiveTab('LIVE_ACCOUNT');
+            } else if (tab === 'SYSTEM') {
+              setActiveTab('SETTINGS');
             }
           }}
           signalCount={filteredSignals.length}
@@ -1089,7 +1084,13 @@ export function App() {
           onUntrackPosition={handleUntrackCurrentCoin}
           isSymbolTracked={Boolean((coinDetail?.symbol || selectedSignal?.symbol) && trackingItems.some(item => item.status !== 'CLOSED' && item.symbol === (coinDetail?.symbol || selectedSignal?.symbol)?.toUpperCase()))}
           isTrackingLoading={isTrackingLoading}
-          tradeSetup={selectedSignal?.trade_setup}
+          tradeSetup={
+            (fiboHandoff &&
+            fiboHandoff.symbol.toUpperCase() === (coinDetail?.symbol || selectedSignal?.symbol || '').toUpperCase() &&
+            fiboHandoff.isActionable
+              ? fiboHandoff.tradeSetup
+              : null) ?? selectedSignal?.trade_setup
+          }
         />
       )}
 

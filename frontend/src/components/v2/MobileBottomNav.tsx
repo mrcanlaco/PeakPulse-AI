@@ -1,8 +1,8 @@
 import React from 'react';
-import { Radio, BarChart3, Target, Eye, Wrench } from 'lucide-react';
+import { Zap, FlaskConical, Wallet, Cpu } from 'lucide-react';
 import { useTranslation } from '../../i18n/LanguageContext';
 
-export type MobileTabType = 'RADAR' | 'ANALYSIS' | 'ORDER' | 'TRACKING' | 'TOOLS';
+export type MobileTabType = 'SIGNALS' | 'SHADOW_LIVE' | 'LIVE' | 'SYSTEM';
 
 interface MobileBottomNavProps {
   activeTab: MobileTabType;
@@ -16,10 +16,9 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   activeTab,
   onSelectTab,
   signalCount = 0,
-  selectedSymbol = null,
   trackingCount = 0,
 }) => {
-  const { t } = useTranslation();
+  const { language, t } = useTranslation();
 
   const navItems: Array<{
     id: MobileTabType;
@@ -29,36 +28,44 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     badgeColor?: string;
   }> = [
     {
-      id: 'RADAR',
-      label: t('mobile_nav_radar'),
-      icon: Radio,
+      id: 'SIGNALS',
+      label:
+        language === 'en'
+          ? 'Signals'
+          : language === 'zh'
+            ? '信号'
+            : language === 'ko'
+              ? '신호'
+              : 'Tín hiệu',
+      icon: Zap,
       badge: signalCount > 0 ? signalCount : null,
-      badgeColor: 'bg-red-500 text-white',
+      badgeColor: 'bg-amber-500 text-slate-950 font-black',
     },
     {
-      id: 'ANALYSIS',
-      label: t('mobile_nav_analysis'),
-      icon: BarChart3,
-      badge: selectedSymbol ? selectedSymbol.replace('USDT', '') : null,
-      badgeColor: 'bg-amber-500/90 text-slate-950 font-black',
+      id: 'SHADOW_LIVE',
+      label: 'Shadow Live',
+      icon: FlaskConical,
+      badge: '12',
+      badgeColor: 'bg-cyan-500 text-slate-950 font-bold',
     },
     {
-      id: 'ORDER',
-      label: t('mobile_nav_order'),
-      icon: Target,
-      badge: null,
-    },
-    {
-      id: 'TRACKING',
-      label: t('mobile_nav_tracking'),
-      icon: Eye,
+      id: 'LIVE',
+      label: 'Live',
+      icon: Wallet,
       badge: trackingCount > 0 ? trackingCount : null,
-      badgeColor: 'bg-sky-500 text-slate-950 font-bold',
+      badgeColor: 'bg-emerald-500 text-slate-950 font-bold',
     },
     {
-      id: 'TOOLS',
-      label: t('mobile_nav_tools'),
-      icon: Wrench,
+      id: 'SYSTEM',
+      label:
+        language === 'en'
+          ? 'System'
+          : language === 'zh'
+            ? '系统'
+            : language === 'ko'
+              ? '시스템'
+              : 'Hệ thống',
+      icon: Cpu,
       badge: null,
     },
   ];
@@ -67,40 +74,36 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
     <nav
       data-testid="mobile-bottom-nav"
       aria-label={t('mobile_nav_aria') || 'Điều hướng chính trên di động'}
-      className="mobile-bottom-nav fixed left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800/90 px-1 pt-1 sm:hidden"
+      className="mobile-bottom-nav fixed left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-lg border-t border-slate-800/90 px-1.5 pt-1 sm:hidden"
     >
-      <div className="grid grid-cols-5 gap-0.5 items-center justify-around">
+      <div className="grid grid-cols-4 gap-1 items-center justify-around">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
           return (
             <button
               key={item.id}
+              type="button"
               onClick={() => onSelectTab(item.id)}
-              className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-200 ${
+              className={`relative flex flex-col items-center justify-center py-1.5 px-1 rounded-lg transition-all ${
                 isActive
-                  ? 'text-amber-400 bg-amber-500/10'
-                  : 'text-slate-400 hover:text-slate-200 active:bg-slate-900'
+                  ? 'text-amber-400 bg-amber-500/10 font-bold'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
               <div className="relative">
-                <Icon className={`w-5 h-5 transition-transform duration-200 ${isActive ? 'scale-110 stroke-[2.5]' : 'stroke-[1.75]'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'stroke-[2.4]' : 'stroke-[1.8]'}`} />
                 {item.badge !== null && item.badge !== undefined && (
                   <span
-                    className={`absolute -top-1.5 -right-2 px-1 min-w-[15px] h-[15px] flex items-center justify-center text-[9px] font-mono font-bold rounded-full shadow-sm ${
-                      item.badgeColor || 'bg-amber-500 text-slate-950'
+                    className={`absolute -top-1.5 -right-3.5 px-1 min-w-[16px] h-[14px] rounded-full text-[9px] leading-[14px] text-center font-mono ${
+                      item.badgeColor || 'bg-amber-500 text-slate-950 font-bold'
                     }`}
                   >
                     {item.badge}
                   </span>
                 )}
               </div>
-              <span className={`text-[10px] tracking-tight mt-0.5 font-medium leading-none ${isActive ? 'text-amber-300 font-bold' : ''}`}>
-                {item.label}
-              </span>
-              {isActive && (
-                <span className="w-1 h-1 rounded-full bg-amber-400 mt-0.5" />
-              )}
+              <span className="text-[10px] mt-0.5 truncate max-w-full">{item.label}</span>
             </button>
           );
         })}

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { tradingFixture } from './tradingFixture';
 
 interface ApiState {
   authenticated: boolean;
@@ -133,6 +134,33 @@ async function mockApi(page: Page, state: ApiState) {
     } else if (pathname === '/api/scanner/trigger') {
       state.scannerTriggers += 1;
       body = { ok: true, accepted: true };
+    } else if (pathname === '/api/fibo-short/snapshot') {
+      body = {
+        status: 'ok',
+        branch: 'fibo_trend_short',
+        updated_at: '2026-11-01T06:28:05Z',
+        scanned_symbols_count: 50,
+        total_signals: 0,
+        fired_count: 0,
+        qualified_fired_count: 0,
+        armed_count: 2,
+        watching_count: 5,
+        items: [],
+      };
+    } else if (pathname === '/api/fibo-short/paper-oos') {
+      body = {
+        health: { code: 'OBSERVING', severity: 'ok', headline: 'Paper OOS v1 Đang Quan Sát', detail: '12 tài khoản NAV 100', heartbeat_age_sec: 5, engine_lag_sec: 10, orders_allowed: false, live_signoff: 'NOT_GRANTED' },
+        study: { version: 'paper_oos_v1', protocol_sha256: 'abc123', protocol_verified: true, start_utc: '2026-10-18T04:00:00Z', end_utc: '2028-10-16T00:00:00Z', engine_clock_utc: '2026-11-01T06:28:00Z', completed_full_weeks: 2, target_full_weeks: 104, remaining_full_weeks: 102, progress_pct: 1.9, membership_month: '2026-10', membership_count: 50, active_signal_universe_count: 50, pending_signals_count: 0, open_positions_count: 0, closed_trades_count: 0 },
+        accounts: [],
+      };
+    } else if (pathname === '/api/fibo-short/backtest') {
+      body = {
+        status: 'ok',
+        in_sample_window: { end_utc: '2025-12-31T23:59:59+00:00', oos_reserved_from_utc: '2026-01-01T00:00:00+00:00', oos_touched: false },
+        overall: { total_trades: 790, win_rate_pct: 58.2, avg_net_return_pct: 1.2, total_net_return_pct: 26.19, profit_factor: 1.85, avg_r_multiple: 0.45, tp1_hit_rate_pct: 62.0, tp2_hit_rate_pct: 38.0, tp3_hit_rate_pct: 19.0, sl_hit_rate_pct: 31.0, avg_hold_hours: 22.4 },
+      };
+    } else if (pathname === '/api/execution/dashboard') {
+      body = tradingFixture();
     } else if (pathname.startsWith('/api/coin/')) {
       body = pathname.endsWith('/deep-analysis')
         ? {}
@@ -294,4 +322,195 @@ test('V1 candidate actions, stale analysis, and refresh feedback remain operable
   await expect.poll(() => state.candidateRefreshes).toBe(1);
   await expect(page.getByTestId('candidate-refresh-status')).toContainText('Đã cập nhật', { timeout: 10_000 });
   await expect(page.getByTestId('candidate-refresh')).toBeEnabled();
+});
+
+test('4 top-level pillars (Signals, Shadow Live, Live, System) switch cleanly across sub-tabs', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('dao_vang_app_language', 'vi');
+  });
+  const state: ApiState = { authenticated: true, scannerTriggers: 0 };
+  await mockApi(page, state);
+  await page.goto('/');
+
+  // Pillar 1: Tín hiệu (Default landing on FIBO_SHORT, plus Phương pháp & Kiểm toán)
+  await expect(page.getByTestId('workspace-pillar-signals')).toBeVisible();
+  await expect(page.getByTestId('workspace-tab-fibo_short')).toBeVisible();
+  await page.getByTestId('workspace-tab-models').click();
+  await expect(page.getByText(/Phương Pháp 4 Nhân Tố/)).toBeVisible();
+
+  // Pillar 2: Shadow Live (Paper OOS v1 + Đối chiếu Phiên bản)
+  await page.getByTestId('workspace-pillar-shadow_live').click();
+  await expect(page.getByTestId('workspace-tab-paper_oos')).toBeVisible();
+  await expect(page.getByTestId('workspace-tab-shadow_compare')).toBeVisible();
+  await page.getByTestId('workspace-tab-shadow_compare').click();
+
+  // Pillar 3: Live (Real Binance Account ExecutionDashboard + Vị thế Theo dõi)
+  await page.getByTestId('workspace-pillar-live').click();
+  await expect(page.getByTestId('workspace-tab-live_account')).toBeVisible();
+  await expect(page.getByTestId('trading-dashboard')).toBeVisible();
+  await page.getByTestId('workspace-tab-watchlist').click();
+
+  // Pillar 4: Hệ thống (Cài đặt + Hạ tầng & Trạng thái)
+  await page.getByTestId('workspace-system-menu').click();
+  await expect(page.getByTestId('workspace-tab-settings')).toBeVisible();
+  await expect(page.getByTestId('workspace-tab-telemetry')).toBeVisible();
+});
+
+test('non-FIRED Fibo setup handoff renders ML probability as N/A without fabricating an actionable alert', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('dao_vang_app_language', 'vi');
+  });
+  const state: ApiState = { authenticated: true, scannerTriggers: 0 };
+  await mockApi(page, state);
+  await page.route('**/api/fibo-short/snapshot', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        status: 'ok',
+        branch: 'fibo_trend_short',
+        updated_at: '2026-11-01T06:28:05Z',
+        scanned_symbols_count: 50,
+        total_signals: 1,
+        fired_count: 0,
+        qualified_fired_count: 0,
+        armed_count: 1,
+        watching_count: 0,
+        items: [
+          {
+            id: 'fibo_sol_armed',
+            symbol: 'SOLUSDT',
+            higher_timeframe: '4h',
+            confirm_timeframe: '1h',
+            stage: 'ARMED_IN_FIBO_ZONE',
+            score: 64,
+            conviction_tier: 'B',
+            signal_time: '2026-11-01T06:00:00Z',
+            current_price: 142.5,
+            wave: {
+              symbol: 'SOLUSDT',
+              timeframe: '4h',
+              prior_low_price: 90,
+              prior_low_time: '2026-10-20T00:00:00Z',
+              prior_pump_pct: 0.65,
+              swing_high_price: 148.5,
+              swing_high_time: '2026-10-29T00:00:00Z',
+              reversal_candle_time: '2026-10-29T04:00:00Z',
+              reversal_candle_open: 147,
+              reversal_candle_close: 141,
+              reversal_candle_bearish: true,
+              impulse_low_price: 134,
+              impulse_low_time: '2026-10-31T00:00:00Z',
+              impulse_drop_pct: 0.097,
+              bars_since_swing_high: 18,
+              bars_since_impulse_low: 6,
+              wave_ker: 0.48,
+              impulse_ker: 0.56,
+              pst_pass: true,
+            },
+            fibo_levels: {
+              level_1000: 148.5,
+              level_0886: 146.85,
+              level_0786: 145.4,
+              level_0618: 142.96,
+              level_0500: 141.25,
+              level_0382: 139.54,
+              level_0236: 137.42,
+              level_0000: 134,
+              ext_1272: 130.06,
+              ext_1618: 125.04,
+              wave_range: 14.5,
+            },
+            h1_confirmation: {
+              candle_time: '2026-11-01T06:00:00Z',
+              open: 141.8,
+              high: 142.9,
+              low: 141.5,
+              close: 142.5,
+              is_red_candle: false,
+              no_gain_1h: false,
+              price_ret_1h: 0.0049,
+              touched_fibo_zone: true,
+              max_pullback_fibo_ratio: 0.614,
+              current_fibo_ratio: 0.586,
+              cond1_bearish_pattern: false,
+              pattern_name: 'NONE',
+              pattern_name_vi: 'Chưa có',
+              cond2_break_prev_low: false,
+              break_description_vi: 'Chưa phá đáy H1',
+              confirmed: false,
+              confirmation_tier: 'UNCONFIRMED',
+              reason_vi: 'Đang hồi trong vùng Fibo, chờ nến H1 đóng đỏ phá đáy.',
+            },
+            trade_setup: {
+              entry_price: 142.5,
+              entry_zone_low: 141.25,
+              entry_zone_high: 142.96,
+              entry_zone: '$141.25 - $142.96',
+              stop_loss: 149.2,
+              stop_loss_pct: 4.7,
+              sl_m6: 147.2,
+              sl_m6_pct: 3.3,
+              tp1: 134.0,
+              tp1_pct: 5.96,
+              tp2: 130.06,
+              tp2_pct: 8.73,
+              tp3: 125.04,
+              tp3_pct: 12.25,
+              rr_ratio: 2.65,
+              rr_tp1: 1.8,
+              rr_tp2: 2.65,
+              rr_tp3: 3.71,
+              rr_m6_tp1: 1.8,
+              rr_m6_tp2: 2.65,
+              atr_1h: 1.4,
+              sl_within_cap: true,
+              recommended_notional_pct: 15.1,
+            },
+            matched_policies: [],
+            primary_policy: 'watch_only',
+            explanation_vi: ['Đang chờ xác nhận H1'],
+          },
+        ],
+      }),
+    });
+  });
+  await page.route('**/api/coin/SOLUSDT*', async (route) => {
+    const p = new URL(route.request().url()).pathname;
+    if (p.endsWith('/klines')) {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ klines: [] }) });
+      return;
+    }
+    if (p.endsWith('/deep-analysis')) {
+      await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({}) });
+      return;
+    }
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        symbol: 'SOLUSDT',
+        name: 'Solana',
+        current_price: 142.5,
+        probability: null,
+        risk_level: null,
+        metrics: {},
+        chart_data: [],
+      }),
+    });
+  });
+
+  await page.goto('/');
+  await page.getByTestId('fibo-open-decision').click();
+
+  const banner = page.getByTestId('fibo-provenance-banner');
+  await expect(banner).toBeVisible();
+  await expect(banner).toContainText('ARMED_IN_FIBO_ZONE');
+  await expect(banner).toContainText('Chỉ xem biểu đồ, không tạo lệnh');
+  await expect(banner).toContainText('N/A');
+
+  // Ensure no fabricated 78% ML probability, FIRED state, or actionable trade setup card exists
+  await expect(page.getByTestId('main-workspace')).not.toContainText('78.0%');
+  await expect(page.getByTestId('main-workspace')).not.toContainText('78%');
+  await expect(page.getByText('SHORT SETUP')).toHaveCount(0);
 });

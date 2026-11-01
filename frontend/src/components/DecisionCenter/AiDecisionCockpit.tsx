@@ -123,7 +123,7 @@ export const AiDecisionCockpit: React.FC<AiDecisionCockpitProps> = ({
         <div className="text-right shrink-0">
           <div className="text-[9px] text-slate-400 uppercase font-mono">{t('ws_dump_prob_title')}</div>
           <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono">
-            {effectiveProbabilityPct != null ? `${effectiveProbabilityPct.toFixed(1)}%` : '—'}
+            {effectiveProbabilityPct != null ? `${effectiveProbabilityPct.toFixed(1)}%` : 'N/A'}
           </div>
         </div>
       </div>
