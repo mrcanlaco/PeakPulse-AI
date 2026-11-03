@@ -2911,6 +2911,32 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
     assert json.loads(sol_row["payload_json"])["telegram_sent"] is True
     assert wif_row["telegram_sent"] == 0
     assert json.loads(wif_row["payload_json"])["telegram_sent"] is False
+
+    # 6) Verify default FiboTrendShortConfig (telegram_min_prior_pump_pct=0.05) qualifies downtrend Sniper waves (+13% prior bounce)
+    default_cfg = FiboTrendShortConfig()
+    assert default_cfg.telegram_min_prior_pump_pct == 0.05
+    sig_downtrend_sniper = dataclasses.replace(
+        sig_qualified,
+        id="fibo_avax_downtrend_13",
+        symbol="AVAXUSDT",
+        wave=dataclasses.replace(sig_qualified.wave, symbol="AVAXUSDT", prior_pump_pct=0.132),
+    )
+    assert is_qualified_short_for_telegram(sig_downtrend_sniper, default_cfg) is True
+
+    # 7) Verify a wave that first fired as watch_only (unqualified) dispatches Telegram when a later H1 candle upgrades it to Sniper
+    sent_messages.clear()
+    xrp_upgraded = dataclasses.replace(
+        sig_qualified,
+        id="fibo_noise_watch_only",
+        symbol="XRPUSDT",
+        signal_time="2025-05-04T00:00:00+00:00",
+        score=85.0,
+        wave=dataclasses.replace(sig_qualified.wave, symbol="XRPUSDT", prior_pump_pct=0.68),
+    )
+    by_sym["XRPUSDT"] = [xrp_upgraded]
+    result_upgrade = run_cycle(settings, symbols=["XRPUSDT"])
+    assert result_upgrade["telegram_sent_this_cycle"] == 1
+    assert any("XRPUSDT" in m for m in sent_messages)
     assert doge_row["telegram_sent"] == 0
     assert json.loads(doge_row["payload_json"])["telegram_sent"] is False
 

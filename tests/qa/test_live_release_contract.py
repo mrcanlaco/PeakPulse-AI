@@ -133,9 +133,12 @@ def test_live_config_enforces_two_tier_fibo_primary_and_v31_ui_radar_contract():
     assert fibo["universe_mode"] == "rolling_pit_top50"
     assert fibo["telegram_enabled"] is True
     assert fibo["telegram_require_qualified_short"] is True
+    assert fibo["telegram_min_prior_pump_pct"] == 0.05
     assert set(fibo["telegram_allowed_policies"]) == {
         "elite_sniper_risk",
         "sniper_rr1_horizon24",
+        "sniper_risk",
+        "sniper_horizon24",
     }
 
     # Tier 3: Paper simulation runs at 10,000 USDT while real-money live trading stays fail-closed

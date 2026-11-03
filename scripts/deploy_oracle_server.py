@@ -26,6 +26,7 @@ SYNC_PATHS = (
     "docs/PRODUCTION_MODEL.md",
     "docs/ARCHITECTURE.md",
     "docs/DEV_LIVE_SETUP.md",
+    "scripts/fibo_research/run_paper_oos_daemon.py",
     "src/dao_vang/config/settings.py",
     "src/dao_vang/execution/engine.py",
     "src/dao_vang/execution/paper.py",
@@ -56,7 +57,7 @@ done
 sudo rm -rf "$RT/frontend/dist"
 sudo mkdir -p "$RT/frontend/dist"
 sudo tar -xzf - -C "$RT"
-sudo chown -R root:root "$RT/src" "$RT/frontend/dist" "$RT/docs" "$RT/CHANGELOG.md" "$RT/configs/live.yaml" "$RT/configs/dev.yaml" "$RT/configs/default.example.yaml"
+sudo chown -R root:root "$RT/src" "$RT/scripts" "$RT/frontend/dist" "$RT/docs" "$RT/CHANGELOG.md" "$RT/configs/live.yaml" "$RT/configs/dev.yaml" "$RT/configs/default.example.yaml"
 sudo python3 - "$RT/configs/msi-production.yaml" <<'PY'
 import os
 import pathlib
@@ -84,9 +85,12 @@ if p.exists():
         data["fibo_trend_short"]["max_candidates"] = 50
         data["fibo_trend_short"]["telegram_enabled"] = True
         data["fibo_trend_short"]["telegram_require_qualified_short"] = True
+        data["fibo_trend_short"]["telegram_min_prior_pump_pct"] = 0.05
         data["fibo_trend_short"]["telegram_allowed_policies"] = [
             "elite_sniper_risk",
             "sniper_rr1_horizon24",
+            "sniper_risk",
+            "sniper_horizon24",
         ]
     acct_mon = data.setdefault("account_monitor", {})
     if isinstance(acct_mon, dict):

@@ -648,10 +648,10 @@ class FiboTrendShortConfig(BaseModel):
         description="Only send Telegram alerts for FIRED_CONFIRMED_SHORT signals that pass all 4 v4.0.21 Short qualification gates",
     )
     telegram_min_prior_pump_pct: float = Field(
-        default=0.50,
+        default=0.05,
         ge=0.0,
         le=5.0,
-        description="Minimum prior HTF pump fraction required for Telegram dispatch (Gate 1 F1A: 0.50 = +50% pump)",
+        description="Minimum prior HTF swing pump fraction required for Telegram dispatch (default 0.05 = +5% matching detector min_prior_pump_pct)",
     )
     telegram_max_per_cycle: int = Field(
         default=3,

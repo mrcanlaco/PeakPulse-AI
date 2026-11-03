@@ -11,9 +11,9 @@ import argparse
 import hashlib
 import json
 import os
-from pathlib import Path
 import sys
 import time
+from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT = SCRIPT_DIR.parents[1]
@@ -57,8 +57,24 @@ def _resolve_cross_platform_path(raw_path: str | Path, prefer_snapshot: bool = F
 
 def _patched_read(path: str | Path):
     resolved = _resolve_cross_platform_path(path, prefer_snapshot=False)
+    if str(path).replace("\\", "/").endswith("OBSERVED_VIEWS.json"):
+        if not resolved.exists():
+            return {}
+        data = json.loads(resolved.read_text(encoding="utf8"))
+        if isinstance(data, dict):
+            filtered: dict[str, list[dict]] = {}
+            for sym, views in data.items():
+                valid_views = [
+                    v
+                    for v in (views or [])
+                    if isinstance(v, dict)
+                    and _resolve_cross_platform_path(str(v.get("path", "")), prefer_snapshot=False).exists()
+                ]
+                if valid_views:
+                    filtered[sym] = valid_views
+            return filtered
+        return {}
     return json.loads(resolved.read_text(encoding="utf8"))
-
 
 def _patched_sha(path: str | Path) -> str:
     resolved = _resolve_cross_platform_path(path, prefer_snapshot=False)
@@ -167,11 +183,17 @@ def run_daemon(once: bool = False) -> None:
                     break
                 cur_status = d.read(ART / "STATUS.json")
                 cur_sig_ms = int(cur_status.get("last_signal_ms") or 0)
+                cur_bar_ms = int(cur_status.get("last_bar_ms") or 0)
+                # Never block observer.tick() when an hourly signal_decision is due
+                signal_decision_due = (cur_sig_ms + 3_600_000) <= cur_bar_ms
                 now_mono = time.monotonic()
-                if cur_sig_ms > last_seen_signal_ms or (now_mono - last_fibo_scan_mono) >= 300.0:
+                if not signal_decision_due and (
+                    cur_sig_ms > last_seen_signal_ms or (now_mono - last_fibo_scan_mono) >= 300.0
+                ):
                     last_seen_signal_ms = max(last_seen_signal_ms, cur_sig_ms)
                     last_fibo_scan_mono = now_mono
-                    _run_live_fibo_telegram_scan()
+                    if os.environ.get("PAPER_OOS_INLINE_FIBO_SCAN", "0") == "1":
+                        _run_live_fibo_telegram_scan()
             except Exception as exc:
                 err_msg = f"{type(exc).__name__}: {exc}"
                 observer.status(err_msg)

@@ -814,8 +814,26 @@ class FiboStateStore:
                     and row["confirmation_tier"] != "UNCONFIRMED"
                 )
             )
-            newly_fired = (not was_fired) and (signal.stage == "FIRED_CONFIRMED_SHORT")
-
+            prev_outcome_status = str(row["outcome_status"] or "").strip().upper()
+            prev_matched_policies = [
+                str(p).strip()
+                for p in (prev_payload.get("matched_policies") or [])
+                if str(p).strip()
+            ]
+            upgraded_active_confirmation = bool(
+                was_fired
+                and not signal.telegram_sent
+                and signal.stage == "FIRED_CONFIRMED_SHORT"
+                and prev_outcome_status in ("ACTIVE", "PENDING_CONFIRMATION")
+                and bool(signal.matched_policies)
+                and (
+                    not prev_matched_policies
+                    or str(signal.signal_time) != str(row["signal_time"])
+                )
+            )
+            newly_fired = (
+                (not was_fired) and (signal.stage == "FIRED_CONFIRMED_SHORT")
+            ) or upgraded_active_confirmation
             if newly_fired:
                 locked_entry = signal.trade_setup.entry_price
                 locked_sl = signal.trade_setup.stop_loss
@@ -1125,22 +1143,63 @@ class FiboStateStore:
             "signals_ledger": ledger[:50],
         }
 
-    def is_already_fired(self, sig_id: str) -> bool:
+    def is_already_fired(
+        self,
+        sig_id: str,
+        *,
+        signal: FiboShortSignal | None = None,
+        cfg: FiboTrendShortConfig | None = None,
+    ) -> bool:
         """Return True if this wave ID was already persisted in FIRED_CONFIRMED_SHORT state."""
         with self._connect() as conn:
             row = conn.execute(
-                "SELECT stage, outcome_status, confirmation_tier FROM fibo_signals WHERE id = ?",
+                "SELECT stage, outcome_status, confirmation_tier, signal_time, telegram_sent, payload_json FROM fibo_signals WHERE id = ?",
                 (sig_id,),
             ).fetchone()
             if row is None:
                 return False
-            return bool(
+            was_fired = bool(
                 row["stage"] == "FIRED_CONFIRMED_SHORT"
                 or (
                     row["outcome_status"] != "PENDING_CONFIRMATION"
                     and row["confirmation_tier"] != "UNCONFIRMED"
                 )
             )
+            if not was_fired:
+                return False
+            if (
+                signal is not None
+                and not bool(row["telegram_sent"])
+                and signal.stage == "FIRED_CONFIRMED_SHORT"
+            ):
+                prev_status = str(row["outcome_status"] or "").strip().upper()
+                if prev_status in ("ACTIVE", "PENDING_CONFIRMATION") and is_qualified_short_for_telegram(signal, cfg):
+                    try:
+                        prev_payload = json.loads(row["payload_json"])
+                    except Exception:
+                        prev_payload = {}
+                    active_cfg = cfg or FiboTrendShortConfig()
+                    allowed = {
+                        str(p).strip()
+                        for p in active_cfg.telegram_allowed_policies
+                        if str(p).strip()
+                    }
+                    prev_matched = {
+                        str(p).strip()
+                        for p in (prev_payload.get("matched_policies") or [])
+                        if str(p).strip()
+                    }
+                    prev_wave = prev_payload.get("wave") or {}
+                    prev_pump_ok = float(prev_wave.get("prior_pump_pct") or 0.0) >= float(
+                        active_cfg.telegram_min_prior_pump_pct
+                    )
+                    if (
+                        not prev_matched.intersection(allowed)
+                        or not prev_pump_ok
+                        or str(signal.signal_time) != str(row["signal_time"])
+                    ):
+                        return False
+            return True
 
     def count_telegram_sent_since(self, cutoff_iso: str) -> int:
         """Count Fibo Short signals sent to Telegram since cutoff_iso (rolling 24h flood cap)."""
@@ -1533,7 +1592,7 @@ def run_cycle(
     telegram_dispatch_counts: dict[str, int] = {}
 
     for sig in signals:
-        was_already_fired = store.is_already_fired(sig.id)
+        was_already_fired = store.is_already_fired(sig.id, signal=sig, cfg=cfg)
         store.upsert_signal(sig, now_iso)
         newly_fired = (not was_already_fired) and (sig.stage == "FIRED_CONFIRMED_SHORT")
         dispatch_status = dispatch_fibo_telegram_signal(

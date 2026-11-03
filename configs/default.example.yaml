@@ -199,10 +199,12 @@ fibo_trend_short:
   telegram_enabled: false
   telegram_cooldown_minutes: 180
   telegram_require_qualified_short: true
-  telegram_min_prior_pump_pct: 0.50
+  telegram_min_prior_pump_pct: 0.05
   telegram_max_per_cycle: 3
   telegram_daily_limit: 12
   telegram_allowed_policies:
     - elite_sniper_risk
     - sniper_rr1_horizon24
+    - sniper_risk
+    - sniper_horizon24
   in_sample_end_utc: "2025-12-31T23:59:59+00:00"
