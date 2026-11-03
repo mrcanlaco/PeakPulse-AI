@@ -98,6 +98,7 @@ _commit_msg.txt
 /tmp/
 /Ngoai_le/
 /apps/fibo-alpha-short/
+/deliverables/
 # Root scratch scripts
 /update_*.py
 /format.py

@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+### Fixed — Fibo Short v4.0.21 Downtrend Telegram Qualification & Monthly Paper OOS Rollover
+- **Downtrend Sniper Telegram Qualification (`src/dao_vang/fibo_short/scanner_lane.py`, `src/dao_vang/config/settings.py`, `configs/live.yaml`, `configs/dev.yaml`)**:
+  - Aligned `telegram_min_prior_pump_pct` (`0.05`) with `detector.py` `min_prior_pump_pct` (`0.05`) and restored all 4 Sniper policies (`elite_sniper_risk`, `sniper_rr1_horizon24`, `sniper_risk`, `sniper_horizon24`) so valid 4-Factor Sniper Short setups during market-wide downtrends (+8% to +29% lower-high bounces followed by >=6% impulse drops with `Impulse KER >= 0.50` and H1 structure break) are no longer suppressed as `unqualified_short`.
+  - Updated `FiboStateStore.is_already_fired` so waves that initially triggered as `watch_only` (`telegram_sent == 0`) dispatch to Telegram when a subsequent H1 candle upgrades them to a qualified Sniper policy, while keeping original fired `entry_price`/`stop_loss`/`tp1..3`/`signal_time` and `outcome` strictly immutable in the shadow comparison ledger.
+- **Paper OOS Monthly Universe Rollover (`scripts/fibo_research/run_paper_oos_daemon.py`)**:
+  - Added graceful fallback when `OBSERVED_VIEWS.json` is absent on Linux servers so newly admitted monthly PIT Top-50 symbols (`QNTUSDT`, `AEROUSDT` in `2026-11`) warm up directly from Binance 1H klines without blocking `signal_decision` deadlines.
+
 ### Changed — Public Guest Read-Only Access & Admin Privilege Gate (`https://pulse.freqpilot.dev`)
 - **2-Role Access Model (`src/dao_vang/web/api_server.py`, `frontend/src/App.tsx`, `LockScreen.tsx`, `Header.tsx`, `MainWorkspace.tsx`, `ExecutionDashboard.tsx`, `FloatingAiAssistant.tsx`)**:
   - **Public Guest (No Login Required):** Immediate read-only access to all 4 workspace pillars (`Fibo Short v4.0.21`, `Biểu đồ & Lệnh`, `Shadow Live 12 Paper OOS`, `Live Paper 10,000 USD & Binance Account Read-Only`, `Phương pháp & Kiểm toán 6 năm`, `Phiên bản & Hạ tầng`), deep-link support (`#coin=SYMBOL`), 15-second thread-safe kline response caching, and browser-local personal watchlist (`localStorage` `dao_vang_guest_tracking_watchlist_v1`) with client-side paper trade simulation.
