@@ -814,26 +814,7 @@ class FiboStateStore:
                     and row["confirmation_tier"] != "UNCONFIRMED"
                 )
             )
-            prev_outcome_status = str(row["outcome_status"] or "").strip().upper()
-            prev_matched_policies = [
-                str(p).strip()
-                for p in (prev_payload.get("matched_policies") or [])
-                if str(p).strip()
-            ]
-            upgraded_active_confirmation = bool(
-                was_fired
-                and not signal.telegram_sent
-                and signal.stage == "FIRED_CONFIRMED_SHORT"
-                and prev_outcome_status in ("ACTIVE", "PENDING_CONFIRMATION")
-                and bool(signal.matched_policies)
-                and (
-                    not prev_matched_policies
-                    or str(signal.signal_time) != str(row["signal_time"])
-                )
-            )
-            newly_fired = (
-                (not was_fired) and (signal.stage == "FIRED_CONFIRMED_SHORT")
-            ) or upgraded_active_confirmation
+            newly_fired = (not was_fired) and (signal.stage == "FIRED_CONFIRMED_SHORT")
             if newly_fired:
                 locked_entry = signal.trade_setup.entry_price
                 locked_sl = signal.trade_setup.stop_loss
@@ -854,9 +835,17 @@ class FiboStateStore:
                 locked_time = str(row["signal_time"])
                 locked_tier = str(row["confirmation_tier"])
                 locked_stage = "FIRED_CONFIRMED_SHORT"
-                # Preserve the original fired payload setup/policies if current candle reverted to ARMED/WATCHING
-                eval_payload = prev_payload if signal.stage != "FIRED_CONFIRMED_SHORT" and prev_payload else sig_dict
+                # Preserve the original fired payload setup/policies & outcome across subsequent H1 candles
+                eval_payload = dict(prev_payload) if prev_payload else dict(sig_dict)
                 eval_payload["current_price"] = signal.current_price
+                if (
+                    not eval_payload.get("matched_policies")
+                    and signal.stage == "FIRED_CONFIRMED_SHORT"
+                    and signal.matched_policies
+                ):
+                    eval_payload["matched_policies"] = list(signal.matched_policies)
+                    eval_payload["primary_policy"] = signal.primary_policy
+                    eval_payload["eligible_milestones"] = list(signal.eligible_milestones)
                 prev_outcome = prev_payload.get("outcome") if isinstance(prev_payload.get("outcome"), dict) else {
                     "status": str(row["outcome_status"]),
                     "tp1_hit": bool(row["tp1_hit"]),
@@ -1193,11 +1182,7 @@ class FiboStateStore:
                     prev_pump_ok = float(prev_wave.get("prior_pump_pct") or 0.0) >= float(
                         active_cfg.telegram_min_prior_pump_pct
                     )
-                    if (
-                        not prev_matched.intersection(allowed)
-                        or not prev_pump_ok
-                        or str(signal.signal_time) != str(row["signal_time"])
-                    ):
+                    if not prev_matched.intersection(allowed) or not prev_pump_ok:
                         return False
             return True
 

@@ -2940,6 +2940,48 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
     assert doge_row["telegram_sent"] == 0
     assert json.loads(doge_row["payload_json"])["telegram_sent"] is False
 
+    # 8) Regression: a later unqualified H1 candle on an already-fired wave MUST NOT overwrite original entry/SL/TP/time or outcome
+    conn_before = sqlite3.connect(tmp_path / "fibo_trend_short" / "state.sqlite3")
+    conn_before.row_factory = sqlite3.Row
+    sol_before = dict(
+        conn_before.execute("SELECT * FROM fibo_signals WHERE symbol = 'SOLUSDT'").fetchone()
+    )
+    conn_before.close()
+
+    sol_later_unqualified = dataclasses.replace(
+        sig_qualified,
+        id="fibo_sol_qualified_68",
+        symbol="SOLUSDT",
+        signal_time="2025-05-04T06:00:00+00:00",
+        current_price=sig_qualified.trade_setup.tp1 * 0.99,  # hits TP1
+        matched_policies=[],
+        primary_policy="watch_only",
+        trade_setup=dataclasses.replace(
+            sig_qualified.trade_setup,
+            entry_price=999.0,
+            stop_loss=1050.0,
+            tp1=900.0,
+        ),
+    )
+    by_sym["SOLUSDT"] = [sol_later_unqualified]
+    run_cycle(settings, symbols=["SOLUSDT"])
+
+    conn_after = sqlite3.connect(tmp_path / "fibo_trend_short" / "state.sqlite3")
+    conn_after.row_factory = sqlite3.Row
+    sol_after = dict(
+        conn_after.execute("SELECT * FROM fibo_signals WHERE symbol = 'SOLUSDT'").fetchone()
+    )
+    conn_after.close()
+    assert sol_after["signal_time"] == sol_before["signal_time"]
+    assert sol_after["entry_price"] == sol_before["entry_price"]
+    assert sol_after["stop_loss"] == sol_before["stop_loss"]
+    assert sol_after["tp1"] == sol_before["tp1"]
+    assert sol_after["tp1_hit"] == 1
+    sol_before_payload = json.loads(sol_before["payload_json"])
+    sol_after_payload = json.loads(sol_after["payload_json"])
+    assert sol_after_payload["matched_policies"] == sol_before_payload["matched_policies"]
+    assert "sniper_rr1_horizon24" in sol_after_payload["matched_policies"]
+
     # Activate KillSwitch and verify subsequent newly-fired signals are blocked
     from dao_vang.scanner.operations import KillSwitch
 
