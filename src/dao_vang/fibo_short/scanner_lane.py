@@ -475,6 +475,27 @@ def _build_v421_filter_diagnostics(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _parse_fibo_signal_dt(raw: Any) -> datetime | None:
+    txt = str(raw or "").strip()
+    if not txt:
+        return None
+    try:
+        dt = datetime.fromisoformat(txt.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=SYSTEM_TIMEZONE)
+        return dt.astimezone(timezone.utc)
+    except Exception:
+        pass
+    try:
+        return (
+            datetime.strptime(txt, "%Y-%m-%d %H:%M")
+            .replace(tzinfo=SYSTEM_TIMEZONE)
+            .astimezone(timezone.utc)
+        )
+    except Exception:
+        return None
+
+
 def _evaluate_dual_shadow_outcome(
     *,
     payload: dict[str, Any],
@@ -515,6 +536,36 @@ def _evaluate_dual_shadow_outcome(
     legacy_notional_pct = 20.0
     cost_rt_pct = 0.25  # Standard VIP6 round-trip (2.5 bps fee + 10 bps slip per side)
 
+    hold_hours = float(
+        setup.get("max_hold_hours")
+        or (120.0 if str(payload.get("higher_timeframe")) == "1d" else 72.0)
+    )
+    sig_dt = _parse_fibo_signal_dt(payload.get("signal_time"))
+    now_dt = _parse_fibo_signal_dt(now_iso)
+    first_observed_at = str(prev.get("first_observed_at") or now_iso)
+    first_obs_dt = _parse_fibo_signal_dt(first_observed_at)
+    base_dt = sig_dt
+    if (
+        sig_dt is not None
+        and first_obs_dt is not None
+        and abs((first_obs_dt - sig_dt).total_seconds()) > 7 * 86400
+    ):
+        base_dt = first_obs_dt
+    expiry_dt = (base_dt + timedelta(hours=hold_hours + 1.0)) if base_dt is not None else None
+    is_past_horizon = bool(
+        prev_outcome is not None
+        and expiry_dt is not None
+        and now_dt is not None
+        and now_dt > expiry_dt
+    )
+    last_pre_expiry_price: float | None = (
+        float(prev["last_pre_expiry_price"])
+        if prev.get("last_pre_expiry_price") is not None
+        else None
+    )
+    if not is_past_horizon:
+        last_pre_expiry_price = cp
+
     # --- 1. Legacy Track (M1 Raw, SL 1.0, No Ratchet, Fixed 20% NAV) ---
     tp1_hit = bool(prev.get("tp1_hit", False))
     tp2_hit = bool(prev.get("tp2_hit", False))
@@ -523,32 +574,45 @@ def _evaluate_dual_shadow_outcome(
     status = str(prev.get("status") or "ACTIVE")
     if status == "PENDING_CONFIRMATION":
         status = "ACTIVE"
+    closed_price: float | None = (
+        float(prev["closed_price"]) if prev.get("closed_price") is not None else None
+    )
+    leg_terminal = status in ("STOPPED_OUT", "TP3_HIT", "TIME_EXIT", "EXPIRED_UNRESOLVED")
 
-    if not sl_hit and not tp3_hit:
-        if cp >= sl_leg:
-            sl_hit = True
-            status = "STOPPED_OUT"
+    if not leg_terminal and not sl_hit and not tp3_hit:
+        if is_past_horizon:
+            if last_pre_expiry_price is not None:
+                closed_price = last_pre_expiry_price
+                status = "TIME_EXIT"
+            else:
+                closed_price = entry
+                status = "EXPIRED_UNRESOLVED"
         else:
-            if cp <= tp1:
-                tp1_hit = True
-                if status == "ACTIVE":
-                    status = "TP1_HIT"
-            if cp <= tp2:
-                tp2_hit = True
-                if status in ("ACTIVE", "TP1_HIT"):
-                    status = "TP2_HIT"
-            if cp <= tp3:
-                tp3_hit = True
-                status = "TP3_HIT"
+            if cp >= sl_leg:
+                sl_hit = True
+                status = "STOPPED_OUT"
+            else:
+                if cp <= tp1:
+                    tp1_hit = True
+                    if status == "ACTIVE":
+                        status = "TP1_HIT"
+                if cp <= tp2:
+                    tp2_hit = True
+                    if status in ("ACTIVE", "TP1_HIT"):
+                        status = "TP2_HIT"
+                if cp <= tp3:
+                    tp3_hit = True
+                    status = "TP3_HIT"
 
-    leg1_px = tp1 if tp1_hit else (sl_leg if sl_hit else cp)
-    leg2_px = tp2 if tp2_hit else (sl_leg if sl_hit else cp)
-    leg3_px = tp3 if tp3_hit else (sl_leg if sl_hit else cp)
+    eff_leg_cp = closed_price if closed_price is not None else cp
+    leg1_px = tp1 if tp1_hit else (sl_leg if sl_hit else eff_leg_cp)
+    leg2_px = tp2 if tp2_hit else (sl_leg if sl_hit else eff_leg_cp)
+    leg3_px = tp3 if tp3_hit else (sl_leg if sl_hit else eff_leg_cp)
     legacy_gross_pct = (
         0.40 * (entry - leg1_px) + 0.40 * (entry - leg2_px) + 0.20 * (entry - leg3_px)
     ) / max(1e-9, entry) * 100.0
-    legacy_net_pct = round(legacy_gross_pct - cost_rt_pct, 4)
-    legacy_nav_pnl_pct = round(legacy_net_pct * (legacy_notional_pct / 100.0), 4)
+    legacy_net_pct = 0.0 if status == "EXPIRED_UNRESOLVED" else round(legacy_gross_pct - cost_rt_pct, 4)
+    legacy_nav_pnl_pct = 0.0 if status == "EXPIRED_UNRESOLVED" else round(legacy_net_pct * (legacy_notional_pct / 100.0), 4)
 
     # --- 2. Upgraded v4.0.21 Track (SL 0.886 + Ratcheted BE/TP1 Stop + Risk 0.5% NAV) ---
     prev_v4 = (prev.get("shadow_tracks") or {}).get("v4_execution") or {}
@@ -559,50 +623,70 @@ def _evaluate_dual_shadow_outcome(
     v4_be_stop_hit = bool(prev_v4.get("be_stop_hit", False))
     v4_tp1_trail_hit = bool(prev_v4.get("tp1_trail_hit", False))
     v4_status = str(prev_v4.get("status") or "ACTIVE")
+    if v4_status == "FILTERED_OUT":
+        v4_status = "ACTIVE"
+    v4_closed_price: float | None = (
+        float(prev_v4["closed_price"]) if prev_v4.get("closed_price") is not None else None
+    )
+    v4_terminal = v4_status in (
+        "STOPPED_M6_0886",
+        "TP3_HIT",
+        "TP1_LOCKED_BE_STOP",
+        "TP2_LOCKED_TP1_STOP",
+        "TIME_EXIT",
+        "EXPIRED_UNRESOLVED",
+    )
 
-    if not v4_sl_hit and not v4_be_stop_hit and not v4_tp1_trail_hit and not v4_tp3_hit:
-        # Check TP hits first if price dropped to targets
-        if cp <= tp1:
-            v4_tp1_hit = True
-            if v4_status == "ACTIVE":
-                v4_status = "TP1_HIT_RATCHET_BE"
-        if cp <= tp2:
-            v4_tp2_hit = True
-            if v4_status in ("ACTIVE", "TP1_HIT_RATCHET_BE"):
-                v4_status = "TP2_HIT_RATCHET_TP1"
-        if cp <= tp3:
-            v4_tp3_hit = True
-            v4_status = "TP3_HIT"
+    if not v4_terminal and not v4_sl_hit and not v4_be_stop_hit and not v4_tp1_trail_hit and not v4_tp3_hit:
+        if is_past_horizon:
+            if last_pre_expiry_price is not None:
+                v4_closed_price = last_pre_expiry_price
+                v4_status = "TIME_EXIT"
+            else:
+                v4_closed_price = entry
+                v4_status = "EXPIRED_UNRESOLVED"
+        else:
+            if cp <= tp1:
+                v4_tp1_hit = True
+                if v4_status == "ACTIVE":
+                    v4_status = "TP1_HIT_RATCHET_BE"
+            if cp <= tp2:
+                v4_tp2_hit = True
+                if v4_status in ("ACTIVE", "TP1_HIT_RATCHET_BE"):
+                    v4_status = "TP2_HIT_RATCHET_TP1"
+            if cp <= tp3:
+                v4_tp3_hit = True
+                v4_status = "TP3_HIT"
 
-        # Check Ratcheted Stop-Loss if not TP3
-        if not v4_tp3_hit:
-            if v4_tp2_hit and cp >= tp1:
-                v4_tp1_trail_hit = True
-                v4_status = "TP2_LOCKED_TP1_STOP"
-            elif v4_tp1_hit and cp >= entry:
-                v4_be_stop_hit = True
-                v4_status = "TP1_LOCKED_BE_STOP"
-            elif not v4_tp1_hit and cp >= sl_m6:
-                v4_sl_hit = True
-                v4_status = "STOPPED_M6_0886"
+            if not v4_tp3_hit:
+                if v4_tp2_hit and cp >= tp1:
+                    v4_tp1_trail_hit = True
+                    v4_status = "TP2_LOCKED_TP1_STOP"
+                elif v4_tp1_hit and cp >= entry:
+                    v4_be_stop_hit = True
+                    v4_status = "TP1_LOCKED_BE_STOP"
+                elif not v4_tp1_hit and cp >= sl_m6:
+                    v4_sl_hit = True
+                    v4_status = "STOPPED_M6_0886"
 
+    eff_v4_cp = v4_closed_price if v4_closed_price is not None else cp
     active_v4_sl = tp1 if v4_tp2_hit else (entry if v4_tp1_hit else sl_m6)
-    v4_p1 = tp1 if v4_tp1_hit else (sl_m6 if v4_sl_hit else cp)
-    v4_p2 = tp2 if v4_tp2_hit else (entry if v4_be_stop_hit else (sl_m6 if v4_sl_hit else cp))
+    v4_p1 = tp1 if v4_tp1_hit else (sl_m6 if v4_sl_hit else eff_v4_cp)
+    v4_p2 = tp2 if v4_tp2_hit else (entry if v4_be_stop_hit else (sl_m6 if v4_sl_hit else eff_v4_cp))
     v4_p3 = (
         tp3
         if v4_tp3_hit
         else (
             tp1
             if v4_tp1_trail_hit
-            else (entry if v4_be_stop_hit else (sl_m6 if v4_sl_hit else cp))
+            else (entry if v4_be_stop_hit else (sl_m6 if v4_sl_hit else eff_v4_cp))
         )
     )
     v4_gross_pct = (
         0.40 * (entry - v4_p1) + 0.40 * (entry - v4_p2) + 0.20 * (entry - v4_p3)
     ) / max(1e-9, entry) * 100.0
-    v4_net_pct = round(v4_gross_pct - cost_rt_pct, 4)
-    v4_exec_nav_pnl_pct = round(v4_net_pct * (rec_notional_pct / 100.0), 4)
+    v4_net_pct = 0.0 if v4_status == "EXPIRED_UNRESOLVED" else round(v4_gross_pct - cost_rt_pct, 4)
+    v4_exec_nav_pnl_pct = 0.0 if v4_status == "EXPIRED_UNRESOLVED" else round(v4_net_pct * (rec_notional_pct / 100.0), 4)
 
     diag = _build_v421_filter_diagnostics(payload)
     return {
@@ -611,6 +695,9 @@ def _evaluate_dual_shadow_outcome(
         "tp2_hit": tp2_hit,
         "tp3_hit": tp3_hit,
         "sl_hit": sl_hit,
+        "closed_price": closed_price,
+        "last_pre_expiry_price": last_pre_expiry_price,
+        "first_observed_at": first_observed_at,
         "updated_at": now_iso,
         "shadow_tracks": {
             "legacy_m1_raw": {
@@ -623,6 +710,7 @@ def _evaluate_dual_shadow_outcome(
                 "tp2_hit": tp2_hit,
                 "tp3_hit": tp3_hit,
                 "sl_hit": sl_hit,
+                "closed_price": closed_price,
                 "net_return_pct": legacy_net_pct,
                 "nav_pnl_pct": legacy_nav_pnl_pct,
             },
@@ -647,6 +735,7 @@ def _evaluate_dual_shadow_outcome(
                 "sl_hit": v4_sl_hit,
                 "be_stop_hit": v4_be_stop_hit,
                 "tp1_trail_hit": v4_tp1_trail_hit,
+                "closed_price": v4_closed_price,
                 "raw_net_return_pct": v4_net_pct,
                 "m6_nav_pnl_pct": v4_exec_nav_pnl_pct if diag["accepted_m6"] else 0.0,
                 "sniper_nav_pnl_pct": v4_exec_nav_pnl_pct if diag["accepted_sniper"] else 0.0,
@@ -1082,16 +1171,16 @@ class FiboStateStore:
                 "TP1_LOCKED_BE_STOP",
                 "TP2_LOCKED_TP1_STOP",
                 "TIME_EXIT",
+                "EXPIRED_UNRESOLVED",
             )
             for item in accepted_items:
-                sig_dt = _parse_sig_dt(str(item.get("signal_time") or ""))
-                hold_h = float(horizon_fn(item))
                 st_str = str(status_fn(item))
-                is_expired = now_dt >= (sig_dt + timedelta(hours=hold_h))
-                if is_expired or st_str in terminal_states:
+                if st_str in terminal_states:
                     closed_count += 1
                 else:
                     active_count += 1
+                if st_str == "EXPIRED_UNRESOLVED":
+                    continue
                 t_ret = float(trade_ret_fn(item))
                 n_pnl = float(nav_pnl_fn(item))
                 trade_rets.append(t_ret)
