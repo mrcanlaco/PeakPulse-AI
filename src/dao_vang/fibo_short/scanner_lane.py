@@ -548,50 +548,23 @@ def _evaluate_dual_shadow_outcome(
         and now_dt is not None
         and now_dt > expiry_dt
     )
-    prev_pre_at = prev.get("last_pre_expiry_at")
-    prev_pre_dt = _parse_fibo_signal_dt(prev_pre_at) if prev_pre_at else None
-    has_valid_pre_expiry_evidence = bool(
-        prev.get("last_pre_expiry_price") is not None
-        and prev_pre_dt is not None
-        and expiry_dt is not None
-        and prev_pre_dt <= expiry_dt
-    )
-    last_pre_expiry_price: float | None = (
-        float(prev["last_pre_expiry_price"])
-        if has_valid_pre_expiry_evidence
-        else None
-    )
-    last_pre_expiry_at: str | None = (
-        str(prev_pre_at) if has_valid_pre_expiry_evidence else None
-    )
-    if not is_past_horizon:
-        last_pre_expiry_price = cp
-        last_pre_expiry_at = now_iso
     # --- 1. Legacy Track (M1 Raw, SL 1.0, No Ratchet, Fixed 20% NAV) ---
     tp1_hit = bool(prev.get("tp1_hit", False))
     tp2_hit = bool(prev.get("tp2_hit", False))
     tp3_hit = bool(prev.get("tp3_hit", False))
     sl_hit = bool(prev.get("sl_hit", False))
     status = str(prev.get("status") or "ACTIVE")
-    if status == "PENDING_CONFIRMATION":
-        status = "ACTIVE"
+    if status in ("PENDING_CONFIRMATION", "TIME_EXIT"):
+        status = "EXPIRED_UNRESOLVED" if status == "TIME_EXIT" else "ACTIVE"
     closed_price: float | None = (
         float(prev["closed_price"]) if prev.get("closed_price") is not None else None
     )
-    leg_terminal = status in ("STOPPED_OUT", "TP3_HIT", "TIME_EXIT", "EXPIRED_UNRESOLVED")
-    if status == "TIME_EXIT" and not has_valid_pre_expiry_evidence:
-        status = "EXPIRED_UNRESOLVED"
-        closed_price = entry
-        leg_terminal = True
+    leg_terminal = status in ("STOPPED_OUT", "TP3_HIT", "EXPIRED_UNRESOLVED")
 
     if not leg_terminal and not sl_hit and not tp3_hit:
         if is_past_horizon:
-            if last_pre_expiry_price is not None:
-                closed_price = last_pre_expiry_price
-                status = "TIME_EXIT"
-            else:
-                closed_price = entry
-                status = "EXPIRED_UNRESOLVED"
+            closed_price = entry
+            status = "EXPIRED_UNRESOLVED"
         else:
             if cp >= sl_leg:
                 sl_hit = True
@@ -628,8 +601,8 @@ def _evaluate_dual_shadow_outcome(
     v4_be_stop_hit = bool(prev_v4.get("be_stop_hit", False))
     v4_tp1_trail_hit = bool(prev_v4.get("tp1_trail_hit", False))
     v4_status = str(prev_v4.get("status") or "ACTIVE")
-    if v4_status == "FILTERED_OUT":
-        v4_status = "ACTIVE"
+    if v4_status in ("FILTERED_OUT", "TIME_EXIT"):
+        v4_status = "EXPIRED_UNRESOLVED" if v4_status == "TIME_EXIT" else "ACTIVE"
     v4_closed_price: float | None = (
         float(prev_v4["closed_price"]) if prev_v4.get("closed_price") is not None else None
     )
@@ -638,22 +611,13 @@ def _evaluate_dual_shadow_outcome(
         "TP3_HIT",
         "TP1_LOCKED_BE_STOP",
         "TP2_LOCKED_TP1_STOP",
-        "TIME_EXIT",
         "EXPIRED_UNRESOLVED",
     )
-    if v4_status == "TIME_EXIT" and not has_valid_pre_expiry_evidence:
-        v4_status = "EXPIRED_UNRESOLVED"
-        v4_closed_price = entry
-        v4_terminal = True
 
     if not v4_terminal and not v4_sl_hit and not v4_be_stop_hit and not v4_tp1_trail_hit and not v4_tp3_hit:
         if is_past_horizon:
-            if last_pre_expiry_price is not None:
-                v4_closed_price = last_pre_expiry_price
-                v4_status = "TIME_EXIT"
-            else:
-                v4_closed_price = entry
-                v4_status = "EXPIRED_UNRESOLVED"
+            v4_closed_price = entry
+            v4_status = "EXPIRED_UNRESOLVED"
         else:
             if cp <= tp1:
                 v4_tp1_hit = True
@@ -705,8 +669,6 @@ def _evaluate_dual_shadow_outcome(
         "tp3_hit": tp3_hit,
         "sl_hit": sl_hit,
         "closed_price": closed_price,
-        "last_pre_expiry_price": last_pre_expiry_price,
-        "last_pre_expiry_at": last_pre_expiry_at,
         "updated_at": now_iso,
         "shadow_tracks": {
             "legacy_m1_raw": {

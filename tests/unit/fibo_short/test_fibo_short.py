@@ -2796,12 +2796,12 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert m6_bias_track["delta_nav_vs_legacy_pct"] == round(-leg_bias_track["cum_nav_pnl_pct"], 4)
     assert m6_bias_track["delta_nav_vs_legacy_pct"] < 0.0
 
-    # Regression: once a trade crosses its hold horizon (72h), it locks TIME_EXIT at last_pre_expiry_price;
-    # post-expiry prices MUST NOT change PnL or trigger new TP/SL flags.
+    # Regression: once a trade crosses its hold horizon (72h) with an unobserved interval, it marks EXPIRED_UNRESOLVED;
+    # post-expiry prices MUST NOT change PnL or trigger new TP/SL flags, and unresolved rows are excluded from closed win/loss stats.
     store_exp = FiboStateStore(tmp_path / "shadow_expiry.sqlite3")
     sig_exp = dataclasses.replace(sig, id="fibo_exp_test", symbol="AVAXUSDT")
     store_exp.upsert_signal(sig_exp, "2025-05-03T23:05:00+00:00")
-    pre_exp_px = entry_px * 0.992  # small move, does not reach TP1
+    pre_exp_px = entry_px * 0.992  # small move at May 6 20:00, does not reach TP1
     s_pre = store_exp.refresh_and_build_shadow_comparison(
         {"AVAXUSDT": pre_exp_px},
         "2025-05-06T20:00:00+00:00",  # within 72h window
@@ -2810,45 +2810,36 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert row_pre["legacy"]["status"] == "ACTIVE"
     assert row_pre["legacy"]["tp1_hit"] is False
 
-    # Now advance past 72h expiry (2025-05-08) with a crash price below TP3 -> must lock TIME_EXIT at pre_exp_px and NOT set tp1/tp2/tp3_hit
+    # Advance past 72h expiry (2025-05-08) across an unobserved gap with a crash price below TP3 ->
+    # must mark EXPIRED_UNRESOLVED (never inventing a TIME_EXIT fill from the stale May 6 20:00 mark) and NOT set tp1/tp2/tp3_hit
     s_post1 = store_exp.refresh_and_build_shadow_comparison(
         {"AVAXUSDT": sig_exp.trade_setup.tp3 * 0.50},
         "2025-05-08T02:00:00+00:00",
     )
     row_post1 = s_post1["signals_ledger"][0]
-    assert row_post1["legacy"]["status"] == "TIME_EXIT"
-    assert row_post1["v4"]["status"] == "TIME_EXIT"
+    assert row_post1["legacy"]["status"] == "EXPIRED_UNRESOLVED"
+    assert row_post1["v4"]["status"] == "EXPIRED_UNRESOLVED"
     assert row_post1["legacy"]["tp1_hit"] is False
     assert row_post1["legacy"]["tp3_hit"] is False
     assert row_post1["v4"]["tp1_hit"] is False
-    locked_leg_ret = row_post1["legacy"]["net_return_pct"]
-    locked_v4_ret = row_post1["v4"]["raw_net_return_pct"]
+    assert row_post1["legacy"]["net_return_pct"] == 0.0
+    assert row_post1["v4"]["raw_net_return_pct"] == 0.0
 
-    # Subsequent cycle with price above SL_1.0 -> must NOT change TIME_EXIT, sl_hit, or net_return_pct
+    # Subsequent cycle with price above SL_1.0 -> must NOT change EXPIRED_UNRESOLVED, sl_hit, or net_return_pct
     s_post2 = store_exp.refresh_and_build_shadow_comparison(
         {"AVAXUSDT": sig_exp.trade_setup.stop_loss * 1.50},
         "2025-05-09T02:00:00+00:00",
     )
     row_post2 = s_post2["signals_ledger"][0]
-    assert row_post2["legacy"]["status"] == "TIME_EXIT"
+    assert row_post2["legacy"]["status"] == "EXPIRED_UNRESOLVED"
     assert row_post2["legacy"]["sl_hit"] is False
     assert row_post2["v4"]["sl_hit"] is False
-    assert row_post2["legacy"]["net_return_pct"] == locked_leg_ret
-    assert row_post2["v4"]["raw_net_return_pct"] == locked_v4_ret
-
-    # Overdue row evaluated for the first time after 72h without pre-expiry evidence must be EXPIRED_UNRESOLVED
-    sig_overdue = dataclasses.replace(sig, id="fibo_overdue_no_evidence", symbol="NEARUSDT")
-    store_exp.upsert_signal(sig_overdue, "2025-05-10T00:00:00+00:00")
-    s_overdue = store_exp.refresh_and_build_shadow_comparison(
-        {"AVAXUSDT": pre_exp_px, "NEARUSDT": sig_overdue.trade_setup.tp3 * 0.50},
-        "2025-05-10T00:05:00+00:00",
-    )
-    near_row = next(x for x in s_overdue["signals_ledger"] if x["symbol"] == "NEARUSDT")
-    assert near_row["legacy"]["status"] == "EXPIRED_UNRESOLVED"
-    assert near_row["v4"]["status"] == "EXPIRED_UNRESOLVED"
-    assert near_row["legacy"]["tp1_hit"] is False
-    assert near_row["legacy"]["net_return_pct"] == 0.0
-
+    assert row_post2["legacy"]["net_return_pct"] == 0.0
+    assert row_post2["v4"]["raw_net_return_pct"] == 0.0
+    leg_exp_track = next(t for t in s_post2["tracks"] if t["track_id"] == "legacy_m1_raw")
+    assert leg_exp_track["closed_count"] == 1
+    assert leg_exp_track["win_count"] == 0
+    assert leg_exp_track["loss_count"] == 0
 
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""
