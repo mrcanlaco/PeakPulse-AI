@@ -2754,6 +2754,48 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert doge_step2["v4"]["status"] == "STOPPED_M6_0886"
     assert doge_step2["v4"]["raw_net_return_pct"] < 0.0
 
+    # Regression: a filter rejecting a +10% winner and a -1% loser must report negative signed delta_nav_vs_legacy_pct
+    store_bias = FiboStateStore(tmp_path / "shadow_unbiased.sqlite3")
+    unqualified_wave = dataclasses.replace(sig.wave, impulse_drop_pct=0.045, impulse_ker=0.20)
+    sig_rej_win = dataclasses.replace(
+        sig,
+        id="fibo_rej_winner",
+        symbol="WINUSDT",
+        wave=dataclasses.replace(unqualified_wave, symbol="WINUSDT", swing_high_time="2025-05-01T00:00:00+00:00"),
+        matched_policies=[],
+        primary_policy="watch_only",
+    )
+    sig_rej_lose = dataclasses.replace(
+        sig,
+        id="fibo_rej_loser",
+        symbol="LOSEUSDT",
+        wave=dataclasses.replace(unqualified_wave, symbol="LOSEUSDT", swing_high_time="2025-05-02T00:00:00+00:00"),
+        matched_policies=[],
+        primary_policy="watch_only",
+    )
+    store_bias.upsert_signal(sig_rej_win, "2025-05-03T23:05:00+00:00")
+    store_bias.upsert_signal(sig_rej_lose, "2025-05-03T23:05:00+00:00")
+    # WINUSDT drops 10.25% below entry (net +10.0% -> +2.0% Legacy NAV); LOSEUSDT rises 0.75% above entry (net -1.0% -> -0.2% Legacy NAV)
+    s_bias = store_bias.refresh_and_build_shadow_comparison(
+        {
+            "WINUSDT": entry_px * (1.0 - 0.1025),
+            "LOSEUSDT": entry_px * (1.0 + 0.0075),
+        },
+        "2025-05-04T01:00:00+00:00",
+    )
+    win_row = next(x for x in s_bias["signals_ledger"] if x["symbol"] == "WINUSDT")
+    lose_row = next(x for x in s_bias["signals_ledger"] if x["symbol"] == "LOSEUSDT")
+    assert win_row["v4"]["accepted_m6"] is False
+    assert lose_row["v4"]["accepted_m6"] is False
+    assert win_row["v4"]["delta_m6_vs_legacy_nav_pct"] < 0.0
+    assert lose_row["v4"]["delta_m6_vs_legacy_nav_pct"] > 0.0
+    m6_bias_track = next(t for t in s_bias["tracks"] if t["track_id"] == "m6_risk")
+    leg_bias_track = next(t for t in s_bias["tracks"] if t["track_id"] == "legacy_m1_raw")
+    assert m6_bias_track["cum_nav_pnl_pct"] == 0.0
+    assert leg_bias_track["cum_nav_pnl_pct"] > 0.0
+    assert m6_bias_track["delta_nav_vs_legacy_pct"] == round(-leg_bias_track["cum_nav_pnl_pct"], 4)
+    assert m6_bias_track["delta_nav_vs_legacy_pct"] < 0.0
+
 
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""

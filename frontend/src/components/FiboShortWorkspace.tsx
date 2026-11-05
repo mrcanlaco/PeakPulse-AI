@@ -1942,13 +1942,23 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   </div>
                 </div>
                 <div className="bg-slate-950 border border-slate-800 rounded-lg p-2.5 col-span-2 sm:col-span-1">
-                  <div className="text-[10px] text-slate-400">Chênh Lệch NAV (M6 vs Cũ)</div>
+                  <div className="text-[10px] text-slate-400">Hiệu Suất TB/Lệnh &amp; Δ NAV (M6 vs Cũ)</div>
                   {(() => {
+                    const legTrack = snapshot?.shadow_comparison?.tracks?.find((t) => t.track_id === 'legacy_m1_raw');
+                    const sniperTrack = snapshot?.shadow_comparison?.tracks?.find((t) => t.track_id === 'sniper_risk');
                     const m6Track = snapshot?.shadow_comparison?.tracks?.find((t) => t.track_id === 'm6_risk');
-                    const delta = m6Track?.delta_nav_vs_legacy_pct ?? 0;
+                    const avgEdge = (sniperTrack?.avg_trade_return_pct ?? 0) - (legTrack?.avg_trade_return_pct ?? 0);
+                    const wrEdge = (sniperTrack?.win_rate_pct ?? 0) - (legTrack?.win_rate_pct ?? 0);
+                    const deltaNav = m6Track?.delta_nav_vs_legacy_pct ?? 0;
                     return (
-                      <div className={`text-sm font-black mt-0.5 ${delta >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                        {delta >= 0 ? `+${delta.toFixed(3)}%` : `${delta.toFixed(3)}%`} NAV
+                      <div className="mt-0.5 space-y-0.5">
+                        <div className={`text-xs font-black ${avgEdge >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          {avgEdge >= 0 ? `+${avgEdge.toFixed(2)}%` : `${avgEdge.toFixed(2)}%`}/lệnh · WR{' '}
+                          {wrEdge >= 0 ? `+${wrEdge.toFixed(1)}%` : `${wrEdge.toFixed(1)}%`}
+                        </div>
+                        <div className="text-[10px] text-slate-400">
+                          Δ Tổng NAV: {deltaNav >= 0 ? `+${deltaNav.toFixed(2)}%` : `${deltaNav.toFixed(2)}%`}
+                        </div>
                       </div>
                     );
                   })()}
@@ -1988,6 +1998,8 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                 <tbody className="divide-y divide-slate-800/70">
                   {(snapshot?.shadow_comparison?.tracks || []).map((tr) => {
                     const isLegacy = tr.track_id === 'legacy_m1_raw';
+                    const legTrack = snapshot?.shadow_comparison?.tracks?.find((t) => t.track_id === 'legacy_m1_raw');
+                    const avgDiff = tr.avg_trade_return_pct - (legTrack?.avg_trade_return_pct ?? 0);
                     return (
                       <tr key={tr.track_id} className={isLegacy ? 'bg-rose-950/15 hover:bg-rose-950/25' : 'hover:bg-slate-950/60'}>
                         <td className="py-2.5 px-2.5 font-sans">
@@ -2025,15 +2037,20 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                           {tr.cum_nav_pnl_pct >= 0 ? `+${tr.cum_nav_pnl_pct.toFixed(3)}%` : `${tr.cum_nav_pnl_pct.toFixed(3)}%`}
                         </td>
                         <td className="py-2.5 px-2.5 text-right text-rose-300">{tr.max_dd_pct.toFixed(3)}%</td>
-                        <td className="py-2.5 px-2.5 text-right font-black">
+                        <td className="py-2.5 px-2.5 text-right">
                           {isLegacy ? (
-                            <span className="text-slate-500">Mốc gốc (0.000%)</span>
+                            <span className="text-slate-500 font-bold">Mốc gốc (0.000%)</span>
                           ) : (
-                            <span className={tr.delta_nav_vs_legacy_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
-                              {tr.delta_nav_vs_legacy_pct >= 0
-                                ? `+${tr.delta_nav_vs_legacy_pct.toFixed(3)}%`
-                                : `${tr.delta_nav_vs_legacy_pct.toFixed(3)}%`}
-                            </span>
+                            <div>
+                              <div className={`font-black ${tr.delta_nav_vs_legacy_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                {tr.delta_nav_vs_legacy_pct >= 0
+                                  ? `+${tr.delta_nav_vs_legacy_pct.toFixed(3)}%`
+                                  : `${tr.delta_nav_vs_legacy_pct.toFixed(3)}%`}
+                              </div>
+                              <div className={`text-[10px] ${avgDiff >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                                TB/lệnh: {avgDiff >= 0 ? `+${avgDiff.toFixed(2)}%` : `${avgDiff.toFixed(2)}%`}
+                              </div>
+                            </div>
                           )}
                         </td>
                       </tr>

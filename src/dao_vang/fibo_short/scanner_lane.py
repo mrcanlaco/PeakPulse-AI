@@ -605,14 +605,6 @@ def _evaluate_dual_shadow_outcome(
     v4_exec_nav_pnl_pct = round(v4_net_pct * (rec_notional_pct / 100.0), 4)
 
     diag = _build_v421_filter_diagnostics(payload)
-    legacy_equal_risk_nav_pnl = round(legacy_net_pct * (rec_notional_pct / 100.0), 4)
-
-    def _compute_signal_delta(accepted: bool) -> float:
-        if not accepted:
-            return round(-legacy_nav_pnl_pct, 4) if legacy_nav_pnl_pct < 0 else 0.0
-        if legacy_nav_pnl_pct < 0 and v4_exec_nav_pnl_pct > legacy_nav_pnl_pct:
-            return round(v4_exec_nav_pnl_pct - legacy_nav_pnl_pct, 4)
-        return round(v4_exec_nav_pnl_pct - legacy_equal_risk_nav_pnl, 4)
     return {
         "status": status,
         "tp1_hit": tp1_hit,
@@ -660,8 +652,14 @@ def _evaluate_dual_shadow_outcome(
                 "sniper_nav_pnl_pct": v4_exec_nav_pnl_pct if diag["accepted_sniper"] else 0.0,
                 "elite_sniper_nav_pnl_pct": v4_exec_nav_pnl_pct if diag["accepted_elite_sniper"] else 0.0,
                 "sniper_rr1_nav_pnl_pct": v4_exec_nav_pnl_pct if diag["accepted_sniper_rr1_24h"] else 0.0,
-                "delta_m6_vs_legacy_nav_pct": _compute_signal_delta(bool(diag["accepted_m6"])),
-                "delta_sniper_vs_legacy_nav_pct": _compute_signal_delta(bool(diag["accepted_sniper"])),
+                "delta_m6_vs_legacy_nav_pct": round(
+                    (v4_exec_nav_pnl_pct if diag["accepted_m6"] else 0.0) - legacy_nav_pnl_pct,
+                    4,
+                ),
+                "delta_sniper_vs_legacy_nav_pct": round(
+                    (v4_exec_nav_pnl_pct if diag["accepted_sniper"] else 0.0) - legacy_nav_pnl_pct,
+                    4,
+                ),
             },
         },
     }
@@ -1054,19 +1052,6 @@ class FiboStateStore:
             except Exception:
                 return now_dt
 
-        def _compute_track_signal_delta(
-            item: dict[str, Any],
-            accepted: bool,
-            track_nav_pnl: float,
-        ) -> float:
-            leg_nav_pnl = float(item["legacy"].get("nav_pnl_pct") or 0.0)
-            if not accepted:
-                return round(-leg_nav_pnl, 4) if leg_nav_pnl < 0 else 0.0
-            if leg_nav_pnl < 0 and track_nav_pnl > leg_nav_pnl:
-                return round(track_nav_pnl - leg_nav_pnl, 4)
-            rec_not = float(item["v4"].get("notional_pct") or 10.0)
-            leg_eq_risk = round(float(item["legacy"].get("net_return_pct") or 0.0) * (rec_not / 100.0), 4)
-            return round(track_nav_pnl - leg_eq_risk, 4)
 
         def _summarize_track(
             track_id: str,
@@ -1122,21 +1107,7 @@ class FiboStateStore:
                 if dd > max_dd:
                     max_dd = dd
 
-            delta_vs_legacy = (
-                0.0
-                if track_id == "legacy_m1_raw"
-                else round(
-                    sum(
-                        _compute_track_signal_delta(
-                            x,
-                            bool(accept_fn(x)),
-                            float(nav_pnl_fn(x)) if accept_fn(x) else 0.0,
-                        )
-                        for x in dedup_chronological
-                    ),
-                    4,
-                )
-            )
+
             judged = win_count + loss_count
             win_rate = round((win_count / judged) * 100.0, 2) if judged > 0 else 0.0
             avg_ret = round(sum(trade_rets) / len(trade_rets), 3) if trade_rets else 0.0
@@ -1156,7 +1127,6 @@ class FiboStateStore:
                 "cum_nav_pnl_pct": cum_nav,
                 "simulated_equity": round(100.0 + cum_nav, 4),
                 "max_dd_pct": round(max_dd, 4),
-                "delta_nav_vs_legacy_pct": delta_vs_legacy,
             }
 
         def _std_horizon(item: dict[str, Any]) -> float:
@@ -1207,6 +1177,16 @@ class FiboStateStore:
             lambda x: x["v4"]["status"],
             lambda x: 24.0,
         )
+
+        base_nav = legacy_summary["cum_nav_pnl_pct"]
+        base_wr = legacy_summary["win_rate_pct"]
+        base_avg_ret = legacy_summary["avg_trade_return_pct"]
+        base_dd = legacy_summary["max_dd_pct"]
+        for s in (legacy_summary, m6_summary, sniper_summary, elite_summary, rr1_summary):
+            s["delta_nav_vs_legacy_pct"] = round(s["cum_nav_pnl_pct"] - base_nav, 4)
+            s["delta_win_rate_vs_legacy_pct"] = round(s["win_rate_pct"] - base_wr, 2)
+            s["delta_avg_return_vs_legacy_pct"] = round(s["avg_trade_return_pct"] - base_avg_ret, 3)
+            s["delta_max_dd_vs_legacy_pct"] = round(s["max_dd_pct"] - base_dd, 4)
         return {
             "updated_at": now_iso,
             "total_fired_signals": len(ledger),
