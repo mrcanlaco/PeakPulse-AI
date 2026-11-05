@@ -711,8 +711,8 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
     try {
       const [snapRes, btRes, paperRes, candRes] = await Promise.all([
         fetch('/api/fibo-short/snapshot'),
-        mode === 'BACKTEST' ? fetch('/api/fibo-short/backtest') : Promise.resolve(null),
-        mode === 'PAPER_OOS' ? fetch('/api/fibo-short/paper-oos') : Promise.resolve(null),
+        mode === 'BACKTEST' || mode === 'SHADOW_COMPARE' ? fetch('/api/fibo-short/backtest') : Promise.resolve(null),
+        mode === 'PAPER_OOS' || mode === 'SHADOW_COMPARE' ? fetch('/api/fibo-short/paper-oos') : Promise.resolve(null),
         mode === 'SHADOW_COMPARE' ? fetch('/api/candidates/compare') : Promise.resolve(null),
       ]);
       if (snapRes && snapRes.ok) {
@@ -2562,7 +2562,9 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   {(paperOos?.accounts || []).map((acc) => {
                     const pm = POLICY_META[acc.policy_id] || { label: acc.policy_id, badgeCls: 'bg-slate-900 text-slate-300 border-slate-700' };
                     const isSelectedAcc = oosAccountFilter === acc.account_id;
-                    const filteredCount = Object.values(acc.filtered || {}).reduce((s: number, v: any) => s + Number(v || 0), 0);
+                    const filteredCount =
+                      Object.values(acc.filtered || {}).reduce((s: number, v: unknown) => s + Number(v || 0), 0) +
+                      Object.values(acc.rejected || {}).reduce((s: number, v: unknown) => s + Number(v || 0), 0);
                     return (
                       <tr
                         key={acc.account_id}
@@ -2799,6 +2801,116 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                 );
               })()}
             </div>
+
+            {/* Closed Trades History in Paper OOS v1 */}
+            {(paperOos?.closed_trades || []).length > 0 && (
+              <div className="mt-5 pt-4 border-t border-slate-800/80">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <div className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4" />
+                    Lịch Sử Lệnh Đã Đóng Trong Paper OOS v1 (
+                    {
+                      (paperOos?.closed_trades || []).filter((tr: Record<string, unknown>) => {
+                        if (oosAccountFilter === 'ALL') return true;
+                        if (oosAccountFilter === 'standard_vip6' || oosAccountFilter === 'stress_regular') {
+                          return tr.scenario_id === oosAccountFilter;
+                        }
+                        return tr.account_id === oosAccountFilter;
+                      }).length
+                    }{' '}
+                    lệnh hoàn tất)
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-400">
+                    Đối soát đầy đủ phí khớp lệnh, độ trượt giá và Funding thực tế trên Binance USD-M
+                  </span>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs font-mono text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-slate-800 text-slate-400 text-[11px]">
+                        <th className="py-2 px-2">Tài Khoản (Chính Sách · Kịch Bản)</th>
+                        <th className="py-2 px-2">Coin / Khung</th>
+                        <th className="py-2 px-2">Thời Gian Vào → Đóng (UTC)</th>
+                        <th className="py-2 px-2 text-right">Giá Vào → Giá Đóng</th>
+                        <th className="py-2 px-2">Lý Do Thoát Lệnh</th>
+                        <th className="py-2 px-2 text-right">Phí + Trượt + Funding</th>
+                        <th className="py-2 px-2 text-right">PnL Ròng (% NAV)</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/60">
+                      {(paperOos?.closed_trades || [])
+                        .filter((tr: Record<string, unknown>) => {
+                          if (oosAccountFilter === 'ALL') return true;
+                          if (oosAccountFilter === 'standard_vip6' || oosAccountFilter === 'stress_regular') {
+                            return tr.scenario_id === oosAccountFilter;
+                          }
+                          return tr.account_id === oosAccountFilter;
+                        })
+                        .slice(0, 30)
+                        .map((tr: Record<string, unknown>, idx: number) => {
+                          const policyIdStr = String(tr.policy_id || '');
+                          const pm = POLICY_META[policyIdStr] || {
+                            label: policyIdStr,
+                            badgeCls: 'bg-slate-900 text-slate-300 border-slate-700',
+                          };
+                          const pnl = Number(tr.nav_pnl_pct || 0);
+                          return (
+                            <tr key={`${tr.account_id}-${tr.id || idx}`} className="hover:bg-slate-950/60">
+                              <td className="py-2 px-2">
+                                <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded border ${pm.badgeCls}`}>
+                                  {pm.label}
+                                </span>
+                                <span
+                                  className={`ml-1.5 px-1.5 py-0.5 text-[10px] rounded ${
+                                    tr.scenario_id === 'standard_vip6'
+                                      ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-700/40'
+                                      : 'bg-rose-950/80 text-rose-300 border border-rose-700/40'
+                                  }`}
+                                >
+                                  {tr.scenario_id === 'standard_vip6' ? 'VIP6' : 'Stress'}
+                                </span>
+                              </td>
+                              <td className="py-2 px-2">
+                                <button
+                                  type="button"
+                                  onClick={() => onSelectCoin?.(String(tr.symbol || ''))}
+                                  className="font-black text-amber-300 hover:underline cursor-pointer"
+                                >
+                                  {String(tr.symbol || '')}
+                                </button>
+                                <span className="ml-1 px-1 py-0.5 text-[10px] rounded bg-slate-800 text-slate-300">
+                                  {String(tr.tf || '').toUpperCase()}
+                                </span>
+                              </td>
+                              <td className="py-2 px-2 text-[11px] text-slate-300">
+                                {formatUtcShort(String(tr.entry_utc || ''))} → {formatUtcShort(String(tr.exit_utc || ''))}
+                              </td>
+                              <td className="py-2 px-2 text-right text-slate-200">
+                                ${formatPrice(Number(tr.entry_price || 0))} → <span className="font-bold text-white">${formatPrice(Number(tr.exit_mark_price || 0))}</span>
+                              </td>
+                              <td className="py-2 px-2">
+                                <span className="px-1.5 py-0.5 rounded text-[10px] bg-slate-800 text-cyan-300 border border-slate-700">
+                                  {String(tr.exit_reason || 'CLOSED')}
+                                </span>
+                              </td>
+                              <td className="py-2 px-2 text-right text-[10px] text-slate-400">
+                                -{(Number(tr.fees_pct || 0) + Number(tr.slippage_pct || 0) - Number(tr.funding_pct || 0)).toFixed(3)}%
+                              </td>
+                              <td
+                                className={`py-2 px-2 text-right font-black ${
+                                  pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                                }`}
+                              >
+                                {pnl >= 0 ? `+${pnl.toFixed(3)}%` : `${pnl.toFixed(3)}%`}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Active PIT Top-50 Universe Table */}

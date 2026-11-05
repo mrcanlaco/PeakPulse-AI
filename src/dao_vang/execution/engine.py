@@ -659,6 +659,19 @@ class ExecutionEngine:
                     self.store.set(
                         "source_health", {"healthy": True, "at": utc_now().isoformat()}
                     )
+                    current_pause = self.store.get("pause", {})
+                    if (
+                        self.settings.environment == "simulation"
+                        and current_pause.get("paused")
+                        and current_pause.get("reason") == "service_error"
+                        and account.get("drawdown", 0.0)
+                        < self.settings.entry_pause_drawdown - 1e-12
+                    ):
+                        self.store.set(
+                            "pause",
+                            {"paused": False, "reason": None, "at": utc_now().isoformat()},
+                        )
+                        self.store.record("auto_resumed_after_transient_service_error", {})
                 except Exception as exc:
                     self.store.set(
                         "source_health",
