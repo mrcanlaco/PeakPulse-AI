@@ -2836,6 +2836,19 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert row_post2["legacy"]["net_return_pct"] == locked_leg_ret
     assert row_post2["v4"]["raw_net_return_pct"] == locked_v4_ret
 
+    # Overdue row evaluated for the first time after 72h without pre-expiry evidence must be EXPIRED_UNRESOLVED
+    sig_overdue = dataclasses.replace(sig, id="fibo_overdue_no_evidence", symbol="NEARUSDT")
+    store_exp.upsert_signal(sig_overdue, "2025-05-10T00:00:00+00:00")
+    s_overdue = store_exp.refresh_and_build_shadow_comparison(
+        {"AVAXUSDT": pre_exp_px, "NEARUSDT": sig_overdue.trade_setup.tp3 * 0.50},
+        "2025-05-10T00:05:00+00:00",
+    )
+    near_row = next(x for x in s_overdue["signals_ledger"] if x["symbol"] == "NEARUSDT")
+    assert near_row["legacy"]["status"] == "EXPIRED_UNRESOLVED"
+    assert near_row["v4"]["status"] == "EXPIRED_UNRESOLVED"
+    assert near_row["legacy"]["tp1_hit"] is False
+    assert near_row["legacy"]["net_return_pct"] == 0.0
+
 
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""
@@ -2985,7 +2998,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         fibo_trend_short=cfg,
     )
     scan_syms = ["SOLUSDT", "SUIUSDT", "AVAXUSDT", "WIFUSDT", "DOGEUSDT", "XRPUSDT"]
-    research_res = run_cycle(research_settings, symbols=scan_syms)
+    research_res = run_cycle(
+        research_settings,
+        symbols=scan_syms,
+        now=datetime(2025, 5, 4, 0, 5, tzinfo=timezone.utc),
+    )
     assert research_res["telegram_sent_this_cycle"] == 0
     assert research_res["telegram"]["dispatch_counts"].get("research_mode_blocked") == 6
     assert len(sent_messages) == 0
@@ -3002,7 +3019,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         web=WebConfig(public_url="https://daovang.comaygiauco.com"),
         fibo_trend_short=cfg,
     )
-    result = run_cycle(settings, symbols=scan_syms)
+    result = run_cycle(
+        settings,
+        symbols=scan_syms,
+        now=datetime(2025, 5, 4, 0, 5, tzinfo=timezone.utc),
+    )
     assert result["fired_count"] == 6
     assert result["qualified_fired_count"] == 3
     assert result["telegram_sent_this_cycle"] == 2
@@ -3011,7 +3032,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
     assert "SUIUSDT" in sent_messages[1]
 
     # Cycle 2 (+5m later on the same waves): AVAXUSDT was already fired in cycle 1, so 0 new alerts trickle out
-    result_cycle2 = run_cycle(settings, symbols=scan_syms)
+    result_cycle2 = run_cycle(
+        settings,
+        symbols=scan_syms,
+        now=datetime(2025, 5, 4, 0, 10, tzinfo=timezone.utc),
+    )
     assert result_cycle2["telegram_sent_this_cycle"] == 0
     assert len(sent_messages) == 2
 
@@ -3049,7 +3074,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         wave=dataclasses.replace(sig_qualified.wave, symbol="XRPUSDT", prior_pump_pct=0.68),
     )
     by_sym["XRPUSDT"] = [xrp_upgraded]
-    result_upgrade = run_cycle(settings, symbols=["XRPUSDT"])
+    result_upgrade = run_cycle(
+        settings,
+        symbols=["XRPUSDT"],
+        now=datetime(2025, 5, 4, 1, 5, tzinfo=timezone.utc),
+    )
     assert result_upgrade["telegram_sent_this_cycle"] == 1
     assert any("XRPUSDT" in m for m in sent_messages)
     assert doge_row["telegram_sent"] == 0
@@ -3079,7 +3108,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         ),
     )
     by_sym["SOLUSDT"] = [sol_later_unqualified]
-    run_cycle(settings, symbols=["SOLUSDT"])
+    run_cycle(
+        settings,
+        symbols=["SOLUSDT"],
+        now=datetime(2025, 5, 4, 7, 5, tzinfo=timezone.utc),
+    )
 
     conn_after = sqlite3.connect(tmp_path / "fibo_trend_short" / "state.sqlite3")
     conn_after.row_factory = sqlite3.Row
@@ -3107,7 +3140,11 @@ def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, m
         "_scan_single_symbol",
         lambda sym, base_url, c: [sig_new] if sym == "SOLUSDT" else [],
     )
-    ks_res = run_cycle(settings, symbols=["SOLUSDT"])
+    ks_res = run_cycle(
+        settings,
+        symbols=["SOLUSDT"],
+        now=datetime(2025, 5, 4, 7, 10, tzinfo=timezone.utc),
+    )
     assert ks_res["telegram_sent_this_cycle"] == 0
     assert ks_res["telegram"]["dispatch_counts"].get("kill_switch_active") == 1
 

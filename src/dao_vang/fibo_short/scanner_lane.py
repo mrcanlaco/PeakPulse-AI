@@ -542,30 +542,31 @@ def _evaluate_dual_shadow_outcome(
     )
     sig_dt = _parse_fibo_signal_dt(payload.get("signal_time"))
     now_dt = _parse_fibo_signal_dt(now_iso)
-    first_observed_at = str(prev.get("first_observed_at") or now_iso)
-    first_obs_dt = _parse_fibo_signal_dt(first_observed_at)
-    base_dt = sig_dt
-    if (
-        sig_dt is not None
-        and first_obs_dt is not None
-        and abs((first_obs_dt - sig_dt).total_seconds()) > 7 * 86400
-    ):
-        base_dt = first_obs_dt
-    expiry_dt = (base_dt + timedelta(hours=hold_hours + 1.0)) if base_dt is not None else None
+    expiry_dt = (sig_dt + timedelta(hours=hold_hours + 1.0)) if sig_dt is not None else None
     is_past_horizon = bool(
-        prev_outcome is not None
-        and expiry_dt is not None
+        expiry_dt is not None
         and now_dt is not None
         and now_dt > expiry_dt
     )
+    prev_pre_at = prev.get("last_pre_expiry_at")
+    prev_pre_dt = _parse_fibo_signal_dt(prev_pre_at) if prev_pre_at else None
+    has_valid_pre_expiry_evidence = bool(
+        prev.get("last_pre_expiry_price") is not None
+        and prev_pre_dt is not None
+        and expiry_dt is not None
+        and prev_pre_dt <= expiry_dt
+    )
     last_pre_expiry_price: float | None = (
         float(prev["last_pre_expiry_price"])
-        if prev.get("last_pre_expiry_price") is not None
+        if has_valid_pre_expiry_evidence
         else None
+    )
+    last_pre_expiry_at: str | None = (
+        str(prev_pre_at) if has_valid_pre_expiry_evidence else None
     )
     if not is_past_horizon:
         last_pre_expiry_price = cp
-
+        last_pre_expiry_at = now_iso
     # --- 1. Legacy Track (M1 Raw, SL 1.0, No Ratchet, Fixed 20% NAV) ---
     tp1_hit = bool(prev.get("tp1_hit", False))
     tp2_hit = bool(prev.get("tp2_hit", False))
@@ -578,6 +579,10 @@ def _evaluate_dual_shadow_outcome(
         float(prev["closed_price"]) if prev.get("closed_price") is not None else None
     )
     leg_terminal = status in ("STOPPED_OUT", "TP3_HIT", "TIME_EXIT", "EXPIRED_UNRESOLVED")
+    if status == "TIME_EXIT" and not has_valid_pre_expiry_evidence:
+        status = "EXPIRED_UNRESOLVED"
+        closed_price = entry
+        leg_terminal = True
 
     if not leg_terminal and not sl_hit and not tp3_hit:
         if is_past_horizon:
@@ -636,6 +641,10 @@ def _evaluate_dual_shadow_outcome(
         "TIME_EXIT",
         "EXPIRED_UNRESOLVED",
     )
+    if v4_status == "TIME_EXIT" and not has_valid_pre_expiry_evidence:
+        v4_status = "EXPIRED_UNRESOLVED"
+        v4_closed_price = entry
+        v4_terminal = True
 
     if not v4_terminal and not v4_sl_hit and not v4_be_stop_hit and not v4_tp1_trail_hit and not v4_tp3_hit:
         if is_past_horizon:
@@ -697,7 +706,7 @@ def _evaluate_dual_shadow_outcome(
         "sl_hit": sl_hit,
         "closed_price": closed_price,
         "last_pre_expiry_price": last_pre_expiry_price,
-        "first_observed_at": first_observed_at,
+        "last_pre_expiry_at": last_pre_expiry_at,
         "updated_at": now_iso,
         "shadow_tracks": {
             "legacy_m1_raw": {
@@ -1652,6 +1661,7 @@ def run_cycle(
     settings: AppSettings,
     *,
     symbols: Sequence[str] | None = None,
+    now: datetime | None = None,
 ) -> dict[str, Any]:
     """Execute one full scan cycle of the Confirmed Reversal & Fibonacci Short branch."""
     cfg = settings.fibo_trend_short
@@ -1659,7 +1669,7 @@ def run_cycle(
     snapshot_path = storage_dir / "snapshot.json"
     store = FiboStateStore(storage_dir / "state.sqlite3")
 
-    now = datetime.now(timezone.utc)
+    now = now or datetime.now(timezone.utc)
     now_iso = now.isoformat()
 
     if not cfg.enabled:
