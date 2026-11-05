@@ -1619,6 +1619,236 @@ def _scan_single_symbol(
     return results
 
 
+def format_shadow_daily_telegram_report(
+    shadow_comparison: dict[str, Any],
+    monitor_state: dict[str, Any],
+    paper_oos_summary: dict[str, Any],
+    now: datetime,
+    public_url: str = "",
+) -> str:
+    """Format a concise 6-line Vietnamese daily Telegram digest for Shadow Live & Paper OOS."""
+    from html import escape
+
+    vn_dt = as_system_timezone(now)
+    date_str = vn_dt.strftime("%d/%m/%Y")
+    tracks_by_id = {
+        str(t.get("track_id")): t for t in (shadow_comparison.get("tracks") or []) if isinstance(t, dict)
+    }
+    sniper = tracks_by_id.get("sniper_risk") or {}
+    elite = tracks_by_id.get("elite_sniper_risk") or {}
+    healthy_h = int(monitor_state.get("healthy_hours_last_24h", 1))
+    total_h = max(1, int(monitor_state.get("checked_hours_last_24h", 1)))
+    oos_status = escape(str(paper_oos_summary.get("status") or "OBSERVING"))
+    oos_rev = int(paper_oos_summary.get("revision") or 0)
+    oos_closed = int(paper_oos_summary.get("closed_trades") or 0)
+    oos_open = int(paper_oos_summary.get("open_positions") or 0)
+    sniper_wr = float(sniper.get("win_rate_pct") or 0.0)
+    sniper_wr_delta = float(sniper.get("delta_win_rate_vs_legacy_pct") or 0.0)
+    sniper_avg = float(sniper.get("avg_trade_return_pct") or 0.0)
+    sniper_dd = float(sniper.get("max_dd_pct") or 0.0)
+    elite_wr = float(elite.get("win_rate_pct") or 0.0)
+    elite_avg = float(elite.get("avg_trade_return_pct") or 0.0)
+    elite_open = int(elite.get("active_count") or 0)
+    elite_closed = int(elite.get("closed_count") or 0)
+
+    lines = [
+        f"📊 <b>BÁO CÁO SHADOW HÀNG NGÀY ({date_str})</b>",
+        f"✅ <b>Ổn định:</b> <code>{healthy_h}/{total_h}h</code> xanh · Paper OOS <code>{oos_status}</code> (rev <code>#{oos_rev}</code>)",
+        f"🎯 <b>Sniper v4.0.21:</b> WR <code>{sniper_wr:.1f}%</code> (<code>{sniper_wr_delta:+.1f}%</code> vs Cũ) · TB <code>{sniper_avg:+.2f}%/lệnh</code> · MaxDD <code>{sniper_dd:.2f}%</code>",
+        f"👑 <b>Elite Sniper:</b> WR <code>{elite_wr:.1f}%</code> · TB <code>{elite_avg:+.2f}%/lệnh</code> · Mở <code>{elite_open}</code> / Đóng <code>{elite_closed}</code>",
+        f"🧪 <b>Paper OOS (12 TK):</b> Đang mở <code>{oos_open}</code> · Đã đóng <code>{oos_closed}</code> lệnh",
+    ]
+    if public_url:
+        url = f"{public_url.rstrip('/')}/#shadow"
+        lines.append(f"🔗 <a href=\"{escape(url, quote=True)}\">Bảng Đối Chiếu Shadow Live</a>")
+    return "\n".join(lines)
+
+
+def evaluate_and_report_shadow_health(
+    settings: AppSettings,
+    storage_dir: Path,
+    shadow_comparison: dict[str, Any],
+    now: datetime,
+    *,
+    force_daily_report: bool = False,
+) -> dict[str, Any]:
+    """Run hourly Shadow stability checks, auto-heal missing artifacts, and send concise daily Telegram report."""
+    monitor_path = storage_dir / "shadow_monitor_state.json"
+    now_utc = now.astimezone(timezone.utc)
+    now_iso = now_utc.isoformat()
+    hour_bucket = now_utc.strftime("%Y-%m-%dT%H")
+    today_vn = as_system_timezone(now_utc).strftime("%Y-%m-%d")
+    vn_hour = as_system_timezone(now_utc).hour
+
+    is_initial_boot = not monitor_path.exists()
+    state: dict[str, Any] = {}
+    if not is_initial_boot:
+        try:
+            state = json.loads(monitor_path.read_text(encoding="utf-8"))
+            if not isinstance(state, dict):
+                state = {}
+        except Exception:
+            state = {}
+
+    history: list[dict[str, Any]] = [
+        h for h in (state.get("hourly_checks") or []) if isinstance(h, dict)
+    ]
+    last_daily_report_date = str(state.get("last_daily_report_date") or (today_vn if is_initial_boot else ""))
+    last_daily_report_at = state.get("last_daily_report_at")
+
+    # Auto-heal OBSERVED_VIEWS.json fallback if paper_oos_v1 exists
+    paper_oos_dir = Path("artifacts/fibo_trend_short/paper_oos_v1")
+    if not paper_oos_dir.exists():
+        paper_oos_dir = Path(__file__).resolve().parents[3] / "artifacts" / "fibo_trend_short" / "paper_oos_v1"
+    obs_views_path = paper_oos_dir.parent / "research_v4_0_21" / "OBSERVED_VIEWS.json"
+    if paper_oos_dir.exists() and not obs_views_path.exists():
+        try:
+            obs_views_path.parent.mkdir(parents=True, exist_ok=True)
+            obs_views_path.write_text("{}", encoding="utf-8")
+        except OSError:
+            pass
+
+    # Read Paper OOS v1 STATUS.json if available
+    paper_oos_summary: dict[str, Any] = {
+        "status": "OBSERVING",
+        "revision": 0,
+        "open_positions": 0,
+        "closed_trades": 0,
+        "healthy": True,
+    }
+    status_file = paper_oos_dir / "STATUS.json"
+    if status_file.is_file():
+        try:
+            st_raw = json.loads(status_file.read_text(encoding="utf-8"))
+            hb_ms = int(st_raw.get("heartbeat_ms") or 0)
+            hb_age_s = max(0.0, (now_utc.timestamp() * 1000.0 - hb_ms) / 1000.0) if hb_ms else 0.0
+            closed_map = st_raw.get("closed_trades") or {}
+            total_closed = sum(int(v or 0) for v in closed_map.values()) if isinstance(closed_map, dict) else 0
+            paper_oos_summary = {
+                "status": str(st_raw.get("status") or "OBSERVING"),
+                "revision": int(st_raw.get("revision") or 0),
+                "open_positions": int(st_raw.get("open_positions") or 0),
+                "closed_trades": total_closed,
+                "heartbeat_age_sec": round(hb_age_s, 1),
+                "healthy": bool(
+                    st_raw.get("error") is None
+                    and int(st_raw.get("critical_incidents") or 0) == 0
+                ),
+            }
+        except Exception:
+            pass
+
+    # Perform hourly stability check when entering a new hour bucket (or on first check)
+    issues: list[str] = []
+    tracks = shadow_comparison.get("tracks") or []
+    if len(tracks) < 5:
+        issues.append("missing_shadow_tracks")
+    for tr in tracks:
+        if not isinstance(tr, dict):
+            continue
+        if int(tr.get("accepted_count", 0)) + int(tr.get("rejected_noise_count", 0)) != int(tr.get("total_m1_signals", 0)):
+            issues.append(f"count_mismatch:{tr.get('track_id')}")
+        if int(tr.get("active_count", 0)) + int(tr.get("closed_count", 0)) != int(tr.get("accepted_count", 0)):
+            issues.append(f"lifecycle_mismatch:{tr.get('track_id')}")
+    if not paper_oos_summary.get("healthy", True):
+        issues.append("paper_oos_unhealthy")
+
+    is_healthy = len(issues) == 0
+    if not history or history[-1].get("hour_utc") != hour_bucket:
+        sniper_tr = next((t for t in tracks if isinstance(t, dict) and t.get("track_id") == "sniper_risk"), {})
+        history.append(
+            {
+                "hour_utc": hour_bucket,
+                "checked_at": now_iso,
+                "healthy": is_healthy,
+                "issues": issues,
+                "paper_oos_revision": paper_oos_summary.get("revision", 0),
+                "sniper_win_rate_pct": sniper_tr.get("win_rate_pct", 0.0),
+                "sniper_avg_return_pct": sniper_tr.get("avg_trade_return_pct", 0.0),
+            }
+        )
+        history = history[-48:]
+
+    recent_24 = history[-24:]
+    healthy_24 = sum(1 for h in recent_24 if h.get("healthy"))
+    summary = {
+        "status": "healthy" if is_healthy else "degraded",
+        "last_hourly_check_utc": history[-1]["checked_at"] if history else now_iso,
+        "current_hour_utc": hour_bucket,
+        "checked_hours_last_24h": len(recent_24),
+        "healthy_hours_last_24h": healthy_24,
+        "issues": issues,
+        "paper_oos": paper_oos_summary,
+        "last_daily_report_date": last_daily_report_date or None,
+        "last_daily_report_at": last_daily_report_at,
+        "daily_report_sent_this_cycle": False,
+    }
+
+    # Send concise Daily Shadow Report once per day (>= 08:00 Vietnam time) when healthy
+    cfg = settings.fibo_trend_short
+    operating_mode = (
+        str(getattr(settings.scanner, "operating_mode", "research") or "research")
+        .strip()
+        .lower()
+    )
+    should_send_daily = bool(
+        force_daily_report
+        or (
+            not is_initial_boot
+            and is_healthy
+            and last_daily_report_date
+            and today_vn > last_daily_report_date
+            and vn_hour >= 8
+        )
+    )
+    if (
+        should_send_daily
+        and cfg.telegram_enabled
+        and operating_mode != "research"
+        and settings.telegram.bot_token
+        and settings.telegram.chat_id
+    ):
+        ks_active = False
+        ks_path = getattr(settings.scanner, "kill_switch_path", None)
+        if ks_path:
+            from dao_vang.scanner.operations import KillSwitch
+
+            ks_active = KillSwitch(ks_path).active
+        if not ks_active:
+            try:
+                from dao_vang.alerts.telegram import TelegramNotifier
+
+                notifier = TelegramNotifier(
+                    settings.telegram,
+                    web_base_url=settings.web.public_url,
+                )
+                msg = format_shadow_daily_telegram_report(
+                    shadow_comparison=shadow_comparison,
+                    monitor_state=summary,
+                    paper_oos_summary=paper_oos_summary,
+                    now=now_utc,
+                    public_url=settings.web.public_url,
+                )
+                if notifier.send_message(msg, parse_mode="HTML"):
+                    last_daily_report_date = today_vn
+                    last_daily_report_at = now_iso
+                    summary["last_daily_report_date"] = last_daily_report_date
+                    summary["last_daily_report_at"] = last_daily_report_at
+                    summary["daily_report_sent_this_cycle"] = True
+                    logger.info("shadow_daily_telegram_report_sent", date_vn=today_vn)
+            except Exception as exc:
+                logger.warning("shadow_daily_telegram_report_failed", error=str(exc))
+
+    persisted = {
+        "updated_at": now_iso,
+        "last_daily_report_date": last_daily_report_date,
+        "last_daily_report_at": last_daily_report_at,
+        "hourly_checks": history,
+    }
+    _atomic_json_write(monitor_path, persisted)
+    return summary
+
+
 def run_cycle(
     settings: AppSettings,
     *,
@@ -1738,6 +1968,12 @@ def run_cycle(
 
     shadow_comparison = store.refresh_and_build_shadow_comparison(live_prices, now_iso)
 
+    shadow_health_monitor = evaluate_and_report_shadow_health(
+        settings=settings,
+        storage_dir=storage_dir,
+        shadow_comparison=shadow_comparison,
+        now=now,
+    )
     fired_count = sum(1 for s in signals if s.stage == "FIRED_CONFIRMED_SHORT")
     qualified_fired_count = sum(1 for s in signals if is_qualified_short_for_telegram(s, cfg))
     armed_count = sum(1 for s in signals if s.stage == "ARMED_IN_FIBO_ZONE")
@@ -1785,6 +2021,7 @@ def run_cycle(
             "min_active_days": 50,
         },
         "shadow_comparison": shadow_comparison,
+        "shadow_health_monitor": shadow_health_monitor,
         "config": {
             "higher_timeframes": cfg.higher_timeframes,
             "confirm_timeframe": cfg.confirm_timeframe,

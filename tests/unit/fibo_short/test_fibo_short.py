@@ -2841,6 +2841,44 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert leg_exp_track["win_count"] == 0
     assert leg_exp_track["loss_count"] == 0
 
+    # Verify Hourly Shadow Health Monitor & Concise Daily Telegram Report
+    from dao_vang.config.settings import AppSettings, PathsConfig, ScannerConfig, TelegramConfig, WebConfig
+    from dao_vang.fibo_short.scanner_lane import (
+        evaluate_and_report_shadow_health,
+        format_shadow_daily_telegram_report,
+    )
+
+    mon_dir = tmp_path / "shadow_mon"
+    mon_dir.mkdir(parents=True, exist_ok=True)
+    mon_settings = AppSettings(
+        paths=PathsConfig(data_dir=mon_dir),
+        scanner=ScannerConfig(operating_mode="shadow", shadow_telegram_enabled=False),
+        telegram=TelegramConfig(bot_token="fake_token", chat_id="fake_chat_id"),
+        web=WebConfig(public_url="https://pulse.freqpilot.dev"),
+    )
+    mon_state1 = evaluate_and_report_shadow_health(
+        settings=mon_settings,
+        storage_dir=mon_dir,
+        shadow_comparison=summary2,
+        now=datetime(2025, 5, 4, 1, 0, tzinfo=timezone.utc),
+    )
+    assert mon_state1["status"] == "healthy"
+    assert mon_state1["checked_hours_last_24h"] == 1
+    assert mon_state1["healthy_hours_last_24h"] == 1
+    assert mon_state1["daily_report_sent_this_cycle"] is False
+
+    daily_msg = format_shadow_daily_telegram_report(
+        shadow_comparison=summary2,
+        monitor_state=mon_state1,
+        paper_oos_summary={"status": "OBSERVING", "revision": 5680, "open_positions": 0, "closed_trades": 10},
+        now=datetime(2025, 5, 5, 1, 30, tzinfo=timezone.utc),
+        public_url="https://pulse.freqpilot.dev",
+    )
+    assert "📊 <b>BÁO CÁO SHADOW HÀNG NGÀY" in daily_msg
+    assert "Sniper v4.0.21:" in daily_msg
+    assert "Paper OOS (12 TK):" in daily_msg
+    assert len(daily_msg.splitlines()) <= 7
+
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""
     import dataclasses

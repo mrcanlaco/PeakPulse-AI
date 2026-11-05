@@ -27,6 +27,7 @@ SYNC_PATHS = (
     "docs/ARCHITECTURE.md",
     "docs/DEV_LIVE_SETUP.md",
     "scripts/fibo_research/run_paper_oos_daemon.py",
+    "scripts/shadow_hourly_watchdog.py",
     "src/dao_vang/config/settings.py",
     "src/dao_vang/execution/engine.py",
     "src/dao_vang/execution/paper.py",
@@ -224,6 +225,7 @@ if sudo docker ps -a --format '{{.Names}}' | grep -qx 'daovang-oracle-execution'
 else
   (cd "$COMPOSE_DIR" && sudo docker compose up -d --no-recreate execution)
 fi
+(sudo crontab -l 2>/dev/null | grep -v 'shadow_hourly_watchdog.py' || true; echo "0 * * * * python3 $RT/scripts/shadow_hourly_watchdog.py --apply --runtime-dir $RT >> /var/log/daovang-shadow-watchdog.log 2>&1") | sudo crontab -
 for i in $(seq 1 36); do
   if curl --fail --silent http://127.0.0.1:18000/api/health >/dev/null && curl --fail --silent http://127.0.0.1:18000/api/ready >/dev/null; then
     echo "DEPLOY_READY_OK (backup=$BK)"
