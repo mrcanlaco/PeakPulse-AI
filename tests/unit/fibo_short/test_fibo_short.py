@@ -2721,6 +2721,39 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
     assert row2["v4"]["status"] == "TP1_LOCKED_BE_STOP"
     assert len(summary2["tracks"]) == 5
 
+    # Regression: if price rises above v4 SL_M6 (0.886) while staying below Legacy SL (1.0), and later drops to TP1,
+    # v4's terminal STOPPED_M6_0886 loss MUST be preserved and never overwritten into a TP win.
+    import dataclasses
+
+    sig_sl_then_tp = dataclasses.replace(sig, id="fibo_doge_sl_then_tp", symbol="DOGEUSDT")
+    store.upsert_signal(sig_sl_then_tp, "2025-05-03T23:05:00+00:00")
+    sl_m6_px = sig_sl_then_tp.trade_setup.sl_m6
+    sl_leg_px = sig_sl_then_tp.trade_setup.stop_loss
+    mid_sl_px = (sl_m6_px + sl_leg_px) / 2.0
+    assert sl_m6_px < mid_sl_px < sl_leg_px
+
+    # Step 1: price touches mid_sl_px -> v4 hits STOPPED_M6_0886, Legacy stays ACTIVE
+    s_step1 = store.refresh_and_build_shadow_comparison(
+        {"SOLUSDT": entry_px * 1.001, "DOGEUSDT": mid_sl_px},
+        "2025-05-04T05:00:00+00:00",
+    )
+    doge_step1 = next(x for x in s_step1["signals_ledger"] if x["symbol"] == "DOGEUSDT")
+    assert doge_step1["v4"]["sl_hit"] is True
+    assert doge_step1["v4"]["status"] == "STOPPED_M6_0886"
+    assert doge_step1["legacy"]["sl_hit"] is False
+
+    # Step 2: price drops below TP1 -> Legacy hits TP1, v4 MUST remain STOPPED_M6_0886 (sl_hit=True, tp1_hit=False)
+    s_step2 = store.refresh_and_build_shadow_comparison(
+        {"SOLUSDT": entry_px * 1.001, "DOGEUSDT": tp1_px * 0.99},
+        "2025-05-04T06:00:00+00:00",
+    )
+    doge_step2 = next(x for x in s_step2["signals_ledger"] if x["symbol"] == "DOGEUSDT")
+    assert doge_step2["legacy"]["tp1_hit"] is True
+    assert doge_step2["v4"]["sl_hit"] is True
+    assert doge_step2["v4"]["tp1_hit"] is False
+    assert doge_step2["v4"]["status"] == "STOPPED_M6_0886"
+    assert doge_step2["v4"]["raw_net_return_pct"] < 0.0
+
 
 def test_v421_telegram_only_dispatches_qualified_short_signals(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """Verify that only fresh FIRED_CONFIRMED_SHORT signals meeting all 4 v4.0.21 Short gates & caps reach Telegram."""

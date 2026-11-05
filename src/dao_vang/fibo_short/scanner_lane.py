@@ -586,21 +586,6 @@ def _evaluate_dual_shadow_outcome(
                 v4_sl_hit = True
                 v4_status = "STOPPED_M6_0886"
 
-    # Repair historical backfill contradiction if Legacy recorded TP hit while v4 was backfilled as SL
-    if (tp1_hit or tp2_hit or tp3_hit) and v4_sl_hit and not v4_tp1_hit:
-        v4_sl_hit = False
-        v4_tp1_hit = tp1_hit
-        v4_tp2_hit = tp2_hit
-        v4_tp3_hit = tp3_hit
-        if v4_tp3_hit:
-            v4_status = "TP3_HIT"
-        elif v4_tp2_hit:
-            v4_tp1_trail_hit = bool(cp >= tp1)
-            v4_status = "TP2_LOCKED_TP1_STOP" if v4_tp1_trail_hit else "TP2_HIT_RATCHET_TP1"
-        else:
-            v4_be_stop_hit = bool(cp >= entry)
-            v4_status = "TP1_LOCKED_BE_STOP" if v4_be_stop_hit else "TP1_HIT_RATCHET_BE"
-
     active_v4_sl = tp1 if v4_tp2_hit else (entry if v4_tp1_hit else sl_m6)
     v4_p1 = tp1 if v4_tp1_hit else (sl_m6 if v4_sl_hit else cp)
     v4_p2 = tp2 if v4_tp2_hit else (entry if v4_be_stop_hit else (sl_m6 if v4_sl_hit else cp))
