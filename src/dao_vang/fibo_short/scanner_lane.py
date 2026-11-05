@@ -1054,6 +1054,20 @@ class FiboStateStore:
             except Exception:
                 return now_dt
 
+        def _compute_track_signal_delta(
+            item: dict[str, Any],
+            accepted: bool,
+            track_nav_pnl: float,
+        ) -> float:
+            leg_nav_pnl = float(item["legacy"].get("nav_pnl_pct") or 0.0)
+            if not accepted:
+                return round(-leg_nav_pnl, 4) if leg_nav_pnl < 0 else 0.0
+            if leg_nav_pnl < 0 and track_nav_pnl > leg_nav_pnl:
+                return round(track_nav_pnl - leg_nav_pnl, 4)
+            rec_not = float(item["v4"].get("notional_pct") or 10.0)
+            leg_eq_risk = round(float(item["legacy"].get("net_return_pct") or 0.0) * (rec_not / 100.0), 4)
+            return round(track_nav_pnl - leg_eq_risk, 4)
+
         def _summarize_track(
             track_id: str,
             label_vi: str,
@@ -1061,13 +1075,11 @@ class FiboStateStore:
             nav_pnl_fn: Any,
             trade_ret_fn: Any,
             status_fn: Any,
-            notional_fn: Any,
             horizon_fn: Any,
         ) -> dict[str, Any]:
             total_m1 = len(ledger)
-            candidate_items = [item for item in dedup_chronological if accept_fn(item)]
-            open_pos: list[tuple[datetime, float, str]] = []
-            accepted_items: list[dict[str, Any]] = []
+            accepted_items = [item for item in dedup_chronological if accept_fn(item)]
+            rejected_count = total_m1 - len(accepted_items)
             active_count = 0
             closed_count = 0
             win_count = 0
@@ -1086,20 +1098,10 @@ class FiboStateStore:
                 "TP2_LOCKED_TP1_STOP",
                 "TIME_EXIT",
             )
-            for item in candidate_items:
+            for item in accepted_items:
                 sig_dt = _parse_sig_dt(str(item.get("signal_time") or ""))
-                open_pos = [op for op in open_pos if op[0] > sig_dt]
-                notional = float(notional_fn(item))
-                used_margin = sum(op[1] for op in open_pos)
-                sym_str = str(item["symbol"])
-                if used_margin + notional > 100.001 or any(op[2] == sym_str for op in open_pos):
-                    continue
                 hold_h = float(horizon_fn(item))
                 st_str = str(status_fn(item))
-                slot_h = min(12.0, hold_h) if st_str in terminal_states else hold_h
-                open_pos.append((sig_dt + timedelta(hours=slot_h), notional, sym_str))
-                accepted_items.append(item)
-
                 is_expired = now_dt >= (sig_dt + timedelta(hours=hold_h))
                 if is_expired or st_str in terminal_states:
                     closed_count += 1
@@ -1120,7 +1122,21 @@ class FiboStateStore:
                 if dd > max_dd:
                     max_dd = dd
 
-            rejected_count = total_m1 - len(accepted_items)
+            delta_vs_legacy = (
+                0.0
+                if track_id == "legacy_m1_raw"
+                else round(
+                    sum(
+                        _compute_track_signal_delta(
+                            x,
+                            bool(accept_fn(x)),
+                            float(nav_pnl_fn(x)) if accept_fn(x) else 0.0,
+                        )
+                        for x in dedup_chronological
+                    ),
+                    4,
+                )
+            )
             judged = win_count + loss_count
             win_rate = round((win_count / judged) * 100.0, 2) if judged > 0 else 0.0
             avg_ret = round(sum(trade_rets) / len(trade_rets), 3) if trade_rets else 0.0
@@ -1140,6 +1156,7 @@ class FiboStateStore:
                 "cum_nav_pnl_pct": cum_nav,
                 "simulated_equity": round(100.0 + cum_nav, 4),
                 "max_dd_pct": round(max_dd, 4),
+                "delta_nav_vs_legacy_pct": delta_vs_legacy,
             }
 
         def _std_horizon(item: dict[str, Any]) -> float:
@@ -1152,28 +1169,6 @@ class FiboStateStore:
             lambda x: x["legacy"]["nav_pnl_pct"],
             lambda x: x["legacy"]["net_return_pct"],
             lambda x: x["legacy"]["status"],
-            lambda x: 20.0,
-            _std_horizon,
-        )
-        legacy_equal_risk_summary = _summarize_track(
-            "legacy_equal_risk",
-            "Legacy Equal Risk",
-            lambda x: True,
-            lambda x: round(
-                float(x["legacy"]["net_return_pct"])
-                * (
-                    min(
-                        20.0,
-                        50.0
-                        / max(0.25, float(x["legacy"].get("stop_loss_pct") or 5.0) + 0.25),
-                    )
-                    / 100.0
-                ),
-                4,
-            ),
-            lambda x: x["legacy"]["net_return_pct"],
-            lambda x: x["legacy"]["status"],
-            lambda x: 20.0,
             _std_horizon,
         )
         m6_summary = _summarize_track(
@@ -1183,7 +1178,6 @@ class FiboStateStore:
             lambda x: x["v4"]["m6_nav_pnl_pct"],
             lambda x: x["v4"]["raw_net_return_pct"],
             lambda x: x["v4"]["status"],
-            lambda x: float(x["v4"].get("notional_pct") or 10.0),
             _std_horizon,
         )
         sniper_summary = _summarize_track(
@@ -1193,7 +1187,6 @@ class FiboStateStore:
             lambda x: x["v4"]["sniper_nav_pnl_pct"],
             lambda x: x["v4"]["raw_net_return_pct"],
             lambda x: x["v4"]["status"],
-            lambda x: float(x["v4"].get("notional_pct") or 10.0),
             _std_horizon,
         )
         elite_summary = _summarize_track(
@@ -1203,7 +1196,6 @@ class FiboStateStore:
             lambda x: x["v4"]["elite_sniper_nav_pnl_pct"],
             lambda x: x["v4"]["raw_net_return_pct"],
             lambda x: x["v4"]["status"],
-            lambda x: float(x["v4"].get("notional_pct") or 10.0),
             _std_horizon,
         )
         rr1_summary = _summarize_track(
@@ -1213,15 +1205,8 @@ class FiboStateStore:
             lambda x: x["v4"]["sniper_rr1_nav_pnl_pct"],
             lambda x: x["v4"]["raw_net_return_pct"],
             lambda x: x["v4"]["status"],
-            lambda x: float(x["v4"].get("notional_pct") or 10.0),
             lambda x: 24.0,
         )
-
-        base_equal_risk_nav = legacy_equal_risk_summary["cum_nav_pnl_pct"]
-        legacy_summary["delta_nav_vs_legacy_pct"] = 0.0
-        for s in (m6_summary, sniper_summary, elite_summary, rr1_summary):
-            s["delta_nav_vs_legacy_pct"] = round(s["cum_nav_pnl_pct"] - base_equal_risk_nav, 4)
-
         return {
             "updated_at": now_iso,
             "total_fired_signals": len(ledger),
