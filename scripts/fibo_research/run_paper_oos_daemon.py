@@ -30,8 +30,10 @@ for p in (
     if p.exists() and str(p) not in sys.path:
         sys.path.insert(0, str(p))
 
+import pandas as pd  # noqa: E402
 import paper_data_v1 as d  # noqa: E402
 import paper_runner_v1 as runner  # noqa: E402
+import signal_snapshot_v423 as signals  # noqa: E402
 
 
 def _resolve_cross_platform_path(raw_path: str | Path, prefer_snapshot: bool = False) -> Path:
@@ -97,6 +99,49 @@ d.ART = ART
 d.read = _patched_read
 d.sha = _patched_sha
 runner.protocol = _patched_protocol
+
+_orig_fibo_cfg = signals.FiboTrendShortConfig
+
+
+def _patched_fibo_cfg(*args, **kwargs):
+    # Align Paper OOS v1 wave detector with v4.0.21 downtrend config (min_prior_pump_pct=0.05, pivot=1)
+    kwargs["min_prior_pump_pct"] = 0.05
+    kwargs["swing_pivot_left_bars"] = 1
+    kwargs["swing_pivot_right_bars"] = 1
+    return _orig_fibo_cfg(*args, **kwargs)
+
+
+_orig_collect_closed = signals._collect_closed
+
+
+def _patched_collect_closed(symbol, df_1h, btc_htf, *, entry_start_ts, entry_end_ts):
+    htf_cutoff = (pd.Timestamp(entry_start_ts) - pd.Timedelta(days=500)).floor("D")
+    if len(df_1h) and df_1h.index[0] < htf_cutoff:
+        df_sub = df_1h.loc[df_1h.index >= htf_cutoff]
+    else:
+        df_sub = df_1h
+    return _orig_collect_closed(
+        symbol,
+        df_sub,
+        btc_htf,
+        entry_start_ts=entry_start_ts,
+        entry_end_ts=entry_end_ts,
+    )
+
+
+_orig_resample_htf = d.history.resample_1h_to_htf
+
+
+def _patched_resample_htf(df_1h, tf):
+    if len(df_1h) > 12000:
+        htf_cutoff = (df_1h.index[-1] - pd.Timedelta(days=500)).floor("D")
+        df_1h = df_1h.loc[df_1h.index >= htf_cutoff]
+    return _orig_resample_htf(df_1h, tf)
+
+
+signals.FiboTrendShortConfig = _patched_fibo_cfg
+signals._collect_closed = _patched_collect_closed
+d.history.resample_1h_to_htf = _patched_resample_htf
 
 
 class CrossPlatformLock:

@@ -17,6 +17,7 @@ import {
   Database,
 } from 'lucide-react';
 import type { FiboHandoff, TradeSetup } from '../types';
+import { useTranslation, type Language } from '../i18n/LanguageContext';
 
 const CandlestickChart = React.lazy(() =>
   import('./CandlestickChart').then((m) => ({ default: m.CandlestickChart }))
@@ -458,47 +459,142 @@ interface FiboShortWorkspaceProps {
   onSummaryChange?: (counts: FiboSummaryCounts) => void;
 }
 
-const POLICY_META: Record<string, { label: string; badgeCls: string; desc: string }> = {
-  sniper_rr1_horizon24: {
-    label: 'SNIPER RR≥1 · 24H',
-    badgeCls: 'bg-emerald-950/90 text-emerald-300 border-emerald-500/60',
-    desc: 'Chuẩn Sniper + R:R(TP1) ≥ 1.0 + Đóng vị thế tối đa 24h (Return/MaxDD 5.74x)',
-  },
-  elite_sniper_risk: {
-    label: 'ELITE SNIPER · RISK',
-    badgeCls: 'bg-cyan-950/90 text-cyan-300 border-cyan-500/60',
-    desc: 'Chuẩn Carver PST Nghiêm Ngặt + H1 Phá Đáy + Đi vốn Risk 0.5% NAV (Return/MaxDD 4.98x)',
-  },
-  sniper_risk: {
-    label: 'SNIPER · RISK 0.5%',
-    badgeCls: 'bg-amber-950/90 text-amber-300 border-amber-500/60',
-    desc: 'Chuẩn M6 Sniper + Đi vốn theo rủi ro 0.5% NAV (2020–2025: +159.35%, MaxDD 16.57%)',
-  },
-  sniper_horizon24: {
-    label: 'SNIPER · 24H',
-    badgeCls: 'bg-indigo-950/90 text-indigo-300 border-indigo-500/50',
-    desc: 'Chuẩn M6 Sniper + Time-exit 24h (2024–2025: +61.36%, MaxDD 12.16%)',
-  },
-  m6_risk: {
-    label: 'M6 EXPANDED · RISK',
-    badgeCls: 'bg-purple-950/90 text-purple-300 border-purple-500/50',
-    desc: 'Mốc 6 SL Fibo 0.886 + Đi vốn theo rủi ro 0.5% NAV (2020–2025: +185.49%)',
-  },
-  reference_m6_fixed: {
-    label: 'M6 FIXED 20% (REF)',
-    badgeCls: 'bg-slate-900 text-slate-300 border-slate-700',
-    desc: 'Mốc 6 tham chiếu đi vốn cố định 20% NAV',
-  },
-  m4_f2_elite: {
-    label: 'M4 ELITE WAVE',
-    badgeCls: 'bg-slate-900 text-slate-400 border-slate-700',
-    desc: 'Đạt chuẩn sóng F1B + F2 nhưng chờ H1 phá đáy cấu trúc',
-  },
-  watch_only: {
-    label: 'THEO DÕI SÓNG M1',
-    badgeCls: 'bg-slate-950 text-slate-400 border-slate-800',
-    desc: 'Mới đạt điều kiện sóng M1 cơ bản, đang quan sát thêm',
-  },
+type PolicyMetaItem = { code: string; label: string; badgeCls: string; desc: string };
+
+const getPolicyMetaByLang = (lang: Language): Record<string, PolicyMetaItem> => {
+  const pick = (vi: string, en: string, zh: string, ko: string) =>
+    lang === 'en' ? en : lang === 'zh' ? zh : lang === 'ko' ? ko : vi;
+
+  return {
+    reference_m6_fixed: {
+      code: 'N1',
+      label: pick(
+        'N1 · M6 VỐN 20% (GỐC)',
+        'N1 · M6 FIXED 20% (BASE)',
+        'N1 · M6 固定 20% (基准)',
+        'N1 · M6 고정 20% (기준)'
+      ),
+      badgeCls: 'bg-slate-900 text-slate-300 border-slate-700',
+      desc: pick(
+        'Nhánh N1 (Gốc): Lọc M6 cơ bản (H1 đóng đỏ) + Đi vốn cố định 20% NAV + Giữ 72h/120h',
+        'Branch N1 (Baseline): Basic M6 filter (red H1 close) + Fixed 20% NAV sizing + Hold 72h/120h',
+        '分支 N1 (基准): 基础 M6 过滤 (H1 收阴) + 固定 20% NAV 仓位 + 持仓 72h/120h',
+        '브랜치 N1 (기준): 기본 M6 필터 (H1 음봉 마감) + 고정 20% NAV 비중 + 72h/120h 보유'
+      ),
+    },
+    m6_risk: {
+      code: 'N2',
+      label: pick(
+        'N2 · M6 RỦI RO 0.5%',
+        'N2 · M6 RISK 0.5%',
+        'N2 · M6 风险 0.5%',
+        'N2 · M6 리스크 0.5%'
+      ),
+      badgeCls: 'bg-purple-950/90 text-purple-300 border-purple-500/50',
+      desc: pick(
+        'Nhánh N2: Lọc M6 cơ bản (H1 đóng đỏ) + SL Fibo 0.886 + Rủi ro 0.5% NAV + Giữ 72h/120h',
+        'Branch N2: Basic M6 filter (red H1 close) + Fibo 0.886 SL + 0.5% NAV risk + Hold 72h/120h',
+        '分支 N2: 基础 M6 过滤 (H1 收阴) + Fibo 0.886 止损 + 0.5% NAV 风险定仓 + 持仓 72h/120h',
+        '브랜치 N2: 기본 M6 필터 (H1 음봉 마감) + Fibo 0.886 SL + 0.5% NAV 리스크 + 72h/120h 보유'
+      ),
+    },
+    sniper_risk: {
+      code: 'N3',
+      label: pick(
+        'N3 · SNIPER CHUẨN ★ LIVE',
+        'N3 · SNIPER CORE ★ LIVE',
+        'N3 · 标准狙击 ★ 实盘',
+        'N3 · 스나이퍼 표준 ★ 라이브'
+      ),
+      badgeCls: 'bg-amber-950/90 text-amber-300 border-amber-500/60',
+      desc: pick(
+        'Nhánh N3 (Đang chạy Live & Telegram): Bắt buộc H1 phá đáy (ĐK2) + Rủi ro 0.5% NAV + Giữ 72h/120h',
+        'Branch N3 (Active Live & Telegram): Mandatory H1 low break (Cond 2) + 0.5% NAV risk + Hold 72h/120h',
+        '分支 N3 (当前实盘与 Telegram): 强制 H1 破前低 (条件2) + 0.5% NAV 风险 + 持仓 72h/120h',
+        '브랜치 N3 (현재 라이브 & 텔레그램): H1 직전 저점 이탈 필수 (조건2) + 0.5% NAV 리스크 + 72h/120h 보유'
+      ),
+    },
+    elite_sniper_risk: {
+      code: 'N4',
+      label: pick(
+        'N4 · SNIPER ELITE (PST)',
+        'N4 · SNIPER ELITE (PST)',
+        'N4 · 精英狙击 (PST)',
+        'N4 · 스나이퍼 엘리트 (PST)'
+      ),
+      badgeCls: 'bg-cyan-950/90 text-cyan-300 border-cyan-500/60',
+      desc: pick(
+        'Nhánh N4: Chuẩn Sniper N3 + Bắt buộc Carver PST gãy động lượng tại đỉnh + Rủi ro 0.5% NAV + Giữ 72h/120h',
+        'Branch N4: N3 Sniper + Mandatory Carver PST peak momentum roll + 0.5% NAV risk + Hold 72h/120h',
+        '分支 N4: N3 狙击标准 + 强制 Carver PST 顶部动能衰竭 + 0.5% NAV 风险 + 持仓 72h/120h',
+        '브랜치 N4: N3 스나이퍼 + Carver PST 고점 모멘텀 꺾임 필수 + 0.5% NAV 리스크 + 72h/120h 보유'
+      ),
+    },
+    sniper_horizon24: {
+      code: 'N5',
+      label: pick(
+        'N5 · SNIPER ĐÁNH NHANH 24H',
+        'N5 · SNIPER FAST 24H',
+        'N5 · 狙击快进快出 24H',
+        'N5 · 스나이퍼 단기 24H'
+      ),
+      badgeCls: 'bg-indigo-950/90 text-indigo-300 border-indigo-500/50',
+      desc: pick(
+        'Nhánh N5: Chuẩn Sniper N3 + Rủi ro 0.5% NAV + Đóng toàn bộ vị thế sau 24 giờ',
+        'Branch N5: N3 Sniper rules + 0.5% NAV risk + Full time-exit after 24 hours',
+        '分支 N5: N3 狙击标准 + 0.5% NAV 风险 + 24小时后全部平仓',
+        '브랜치 N5: N3 스나이퍼 기준 + 0.5% NAV 리스크 + 24시간 후 전량 청산'
+      ),
+    },
+    sniper_rr1_horizon24: {
+      code: 'N6',
+      label: pick(
+        'N6 · SNIPER R:R≥1 · 24H',
+        'N6 · SNIPER R:R≥1 · 24H',
+        'N6 · 狙击 R:R≥1 · 24H',
+        'N6 · 스나이퍼 R:R≥1 · 24H'
+      ),
+      badgeCls: 'bg-emerald-950/90 text-emerald-300 border-emerald-500/60',
+      desc: pick(
+        'Nhánh N6: Chuẩn Sniper N3 + Bắt buộc TP1 có R:R ≥ 1.0 + Đóng toàn bộ vị thế sau 24 giờ',
+        'Branch N6: N3 Sniper + Mandatory TP1 R:R ≥ 1.0 + Full time-exit after 24 hours',
+        '分支 N6: N3 狙击标准 + 强制 TP1 盈亏比 R:R ≥ 1.0 + 24小时后全部平仓',
+        '브랜치 N6: N3 스나이퍼 + TP1 손익비 R:R ≥ 1.0 필수 + 24시간 후 전량 청산'
+      ),
+    },
+    m4_f2_elite: {
+      code: 'N0',
+      label: pick(
+        'N0 · CHỜ H1 PHÁ ĐÁY',
+        'N0 · AWAIT H1 LOW BREAK',
+        'N0 · 等待 H1 破底',
+        'N0 · H1 저점 이탈 대기'
+      ),
+      badgeCls: 'bg-slate-900 text-slate-400 border-slate-700',
+      desc: pick(
+        'Đạt chuẩn sóng F1B + F2 nhưng nến H1 chỉ mới đóng đỏ (ĐK1), chờ phá đáy cấu trúc để lên N3',
+        'Passed F1B + F2 wave gates with red H1 close (Cond 1); awaiting H1 low break to qualify for N3',
+        '已达 F1B + F2 波段标准但 H1 仅收阴 (条件1)，等待破前低升级至 N3',
+        'F1B + F2 파동 기준 충족 및 H1 음봉 마감(조건1), N3 진입을 위해 저점 이탈 대기'
+      ),
+    },
+    watch_only: {
+      code: 'M1',
+      label: pick(
+        'M1 · CHỈ THEO DÕI',
+        'M1 · WATCH ONLY',
+        'M1 · 仅观察',
+        'M1 · 관망 전용'
+      ),
+      badgeCls: 'bg-slate-950 text-slate-400 border-slate-800',
+      desc: pick(
+        'Mới đạt điều kiện sóng M1 cơ bản, bị bộ lọc v4.0.21 chặn vào lệnh',
+        'Basic M1 wave only; blocked from entry by v4.0.21 orthogonal filters',
+        '仅达基础 M1 波段，已被 v4.0.21 过滤器拦截',
+        '기본 M1 파동만 충족, v4.0.21 필터에 의해 진입 차단됨'
+      ),
+    },
+  };
 };
 
 const formatPrice = (val: number | undefined | null): string => {
@@ -548,7 +644,7 @@ interface SignalGateEvaluation {
 
 const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvaluation => {
   const rawPump = Number(item.wave?.prior_pump_pct ?? 0);
-  const priorPumpPct = rawPump < 25 ? rawPump * 100 : rawPump;
+  const priorPumpPct = rawPump <= 5.0 ? rawPump * 100 : rawPump;
   const rawDrop = Number(item.wave?.impulse_drop_pct ?? 0);
   const impDropPct = rawDrop < 2 ? rawDrop * 100 : rawDrop;
   const waveKer = Number(item.wave?.wave_ker ?? 0);
@@ -560,7 +656,7 @@ const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvalu
   const slCapPass = item.trade_setup?.sl_within_cap !== false;
   const matched = item.matched_policies || [];
 
-  const pumpPass50 = priorPumpPct >= 50.0;
+  const pumpPass50 = priorPumpPct >= 5.0;
   const f1ElitePass = pstPass && waveKer >= 0.35;
   const f1ExpandedPass = f1ElitePass || waveKer >= 0.65;
   const f2ImpulsePass = impDropPct >= 6.0 && impKer >= 0.50;
@@ -599,15 +695,15 @@ const evaluateSignalGateChecklist = (item: FiboShortSignalItem): SignalGateEvalu
     failReasonsVi.push('Khoảng cách SL Mốc 6 vượt trần 12%');
   }
   if (!pumpPass50) {
-    failReasonsVi.push(`Sóng tăng trước đó nhỏ (+${priorPumpPct.toFixed(1)}% < 50% chuẩn Paper OOS)`);
+    failReasonsVi.push(`Sóng tăng/hồi trước đỉnh quá nhỏ (+${priorPumpPct.toFixed(1)}% < 5.0% chuẩn v4.0.21)`);
   }
 
   const gates = [
     {
       step: 1,
-      shortLabel: `1. Bơm +${priorPumpPct.toFixed(0)}%`,
-      title: 'Cổng 1 · Sóng Bơm Trước Đó (F1A ≥ +50%)',
-      detail: `Tăng +${priorPumpPct.toFixed(1)}% trước đỉnh (${pumpPass50 ? 'Đạt chuẩn ≥ 50% của Paper OOS' : 'Dưới ngưỡng +50% của Paper OOS'})`,
+      shortLabel: `1. Sóng +${priorPumpPct.toFixed(0)}%`,
+      title: 'Cổng 1 · Sóng Bơm / Nhịp Hồi Trước Đỉnh (F1A ≥ +5%)',
+      detail: `Tăng +${priorPumpPct.toFixed(1)}% trước đỉnh (${pumpPass50 ? priorPumpPct >= 50.0 ? 'Biên độ lớn ≥ 50%' : 'Đạt chuẩn sóng downtrend ≥ 5%' : 'Dưới ngưỡng +5%'})`,
       passed: pumpPass50,
     },
     {
@@ -658,6 +754,15 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
   hideModeSwitcher = false,
   onSummaryChange,
 }) => {
+  const { language } = useTranslation();
+  const tr = (vi: string, en: string, zh?: string, ko?: string): string => {
+    if (language === 'en') return en;
+    if (language === 'zh') return zh ?? en;
+    if (language === 'ko') return ko ?? en;
+    return vi;
+  };
+  const POLICY_META = useMemo(() => getPolicyMetaByLang(language), [language]);
+
   const [snapshot, setSnapshot] = useState<FiboSnapshotResponse | null>(null);
   const [backtest, setBacktest] = useState<FiboBacktestResponse | null>(null);
   const [paperOos, setPaperOos] = useState<PaperOosResponse | null>(null);
@@ -704,6 +809,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
   const [auditWindow, setAuditWindow] = useState<'2024_2025' | '2020_2025'>('2024_2025');
   const [auditScenario, setAuditScenario] = useState<'standard_vip6' | 'stress_regular'>('standard_vip6');
   const [oosAccountFilter, setOosAccountFilter] = useState<string>('ALL');
+  const [showBranchesGuide, setShowBranchesGuide] = useState<boolean>(false);
   const [chartInterval, setChartInterval] = useState<'1h' | '4h' | '1d'>('1h');
   const [chartKlines, setChartKlines] = useState<any[]>([]);
 
@@ -930,7 +1036,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
           ci95_low_1s: entry.weekly?.ci95_low_1s,
         };
       });
-  }, [backtest, auditWindow, auditScenario]);
+  }, [backtest, auditWindow, auditScenario, POLICY_META]);
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto pr-1 pb-8 space-y-4">
@@ -940,10 +1046,16 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
-                <Sparkles className="w-3 h-3" /> Chuẩn v4.0.21 · 4-Factor Orthogonal Alpha
+                <Sparkles className="w-3 h-3" />{' '}
+                {tr(
+                  'Chuẩn v4.0.21 · 4-Factor Orthogonal Alpha',
+                  'v4.0.21 Standard · 4-Factor Orthogonal Alpha',
+                  'v4.0.21 标准 · 四因子正交 Alpha',
+                  'v4.0.21 표준 · 4팩터 직교 알파'
+                )}
               </span>
               <span className="px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-                <Lock className="w-3 h-3" /> Backtest Locked ≤ 2025 • Paper OOS v1 (2026+)
+                <Lock className="w-3 h-3" /> Backtest Locked ≤ 2025 • Paper OOS v1 (N1–N6)
               </span>
               {snapshot?.pit_universe?.month && (
                 <span className="px-2.5 py-0.5 text-[11px] font-mono font-semibold rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
@@ -953,10 +1065,35 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
             </div>
             <h2 className="text-base sm:text-lg font-extrabold text-slate-100 mt-1.5 flex items-center gap-2">
               <TrendingDown className="w-5 h-5 text-amber-400 shrink-0" />
-              Đảo Chiều Xác Nhận & Short Theo Xu Hướng Mới (Fibonacci H4/D1 → H1)
+              {tr(
+                'Đảo Chiều Xác Nhận & Short Theo Xu Hướng Mới (Fibonacci H4/D1 → H1 · Nhánh N3 ★ Live)',
+                'Confirmed Reversal & Trend-Following Short (Fibonacci H4/D1 → H1 · Branch N3 ★ Live)',
+                '确认反转与顺势做空 (斐波那契 H4/D1 → H1 · 实盘分支 N3 ★)',
+                '반전 확인 & 추세 추종 숏 (피보나치 H4/D1 → H1 · 라이브 브랜치 N3 ★)'
+              )}
             </h2>
             <p className="text-xs text-slate-300 mt-0.5">
-              Hội tụ 4 tầng độc lập: <b>F1A Sóng bơm ≥50%</b> + <b>F1B Carver EWMAC/Accel & Wave KER</b> + <b>F2 Impulse KER ≥0.50</b> + <b>F3/F4 H1 Phá Đáy & SL Mốc 6 Fibo 0.886 (Đi vốn rủi ro 0.5% NAV)</b>.
+              {language === 'en' ? (
+                <>
+                  4 Orthogonal Gates: <b>F1A Prior Move ≥5%</b> + <b>F1B Carver EWMAC/Accel &amp; Wave KER</b> +{' '}
+                  <b>F2 Impulse KER ≥0.50</b> + <b>F3/F4 H1 Low Break &amp; Fibo 0.886 SL (0.5% NAV Risk · Branch N3 ★ Live)</b>.
+                </>
+              ) : language === 'zh' ? (
+                <>
+                  四层独立门禁：<b>F1A 前置波段 ≥5%</b> + <b>F1B Carver EWMAC/Accel 与 Wave KER</b> +{' '}
+                  <b>F2 Impulse KER ≥0.50</b> + <b>F3/F4 H1 破前低与 Fibo 0.886 止损 (0.5% NAV 风险 · N3 ★ 实盘)</b>。
+                </>
+              ) : language === 'ko' ? (
+                <>
+                  4단계 독립 필터: <b>F1A 사전 파동 ≥5%</b> + <b>F1B Carver EWMAC/Accel &amp; Wave KER</b> +{' '}
+                  <b>F2 Impulse KER ≥0.50</b> + <b>F3/F4 H1 저점 이탈 &amp; Fibo 0.886 SL (0.5% NAV 리스크 · N3 ★ 라이브)</b>.
+                </>
+              ) : (
+                <>
+                  Hội tụ 4 tầng độc lập: <b>F1A Sóng bơm/hồi ≥5%</b> + <b>F1B Carver EWMAC/Accel &amp; Wave KER</b> +{' '}
+                  <b>F2 Impulse KER ≥0.50</b> + <b>F3/F4 H1 Phá Đáy &amp; SL Mốc 6 Fibo 0.886 (Đi vốn rủi ro 0.5% NAV · Nhánh N3 ★ Live)</b>.
+                </>
+              )}
             </p>
           </div>
 
@@ -973,7 +1110,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   }`}
                 >
                   <Activity className="w-3.5 h-3.5" />
-                  Radar Trực Tiếp
+                  {tr('Radar Trực Tiếp', 'Live Radar', '实时雷达', '라이브 레이더')}
                 </button>
                 <button
                   type="button"
@@ -985,7 +1122,12 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   }`}
                 >
                   <Gauge className="w-3.5 h-3.5" />
-                  Đối Chiếu Shadow (Cũ vs v4.0.21)
+                  {tr(
+                    'Đối Chiếu Nhánh (M1 Cũ vs N1–N6)',
+                    'Branch Compare (M1 vs N1–N6)',
+                    '分支对比 (旧M1 vs N1–N6)',
+                    '브랜치 비교 (구M1 vs N1–N6)'
+                  )}
                   {(snapshot?.shadow_comparison?.total_fired_signals ?? 0) > 0 && (
                     <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-slate-950/80 text-cyan-300 border border-cyan-500/40">
                       {snapshot?.shadow_comparison?.total_fired_signals}
@@ -1002,7 +1144,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   }`}
                 >
                   <Cpu className="w-3.5 h-3.5" />
-                  Paper OOS v1 (24/7)
+                  {tr('Paper OOS (12 TK · N1–N6)', 'Paper OOS (12 Acc · N1–N6)', 'Paper OOS (12账户 · N1–N6)', 'Paper OOS (12계좌 · N1–N6)')}
                 </button>
                 <button
                   type="button"
@@ -1014,10 +1156,25 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                   }`}
                 >
                   <BarChart3 className="w-3.5 h-3.5" />
-                  Kiểm Định v4.0.21 (≤ 2025)
+                  {tr('Kiểm Định v4.0.21 (≤ 2025)', 'v4.0.21 Audit (≤ 2025)', 'v4.0.21 审计 (≤ 2025)', 'v4.0.21 감사 (≤ 2025)')}
                 </button>
               </div>
             )}
+
+            <button
+              type="button"
+              onClick={() => setShowBranchesGuide((prev) => !prev)}
+              className={`px-3 py-2 rounded-lg text-xs font-bold border flex items-center gap-1.5 shadow transition cursor-pointer ${
+                showBranchesGuide
+                  ? 'bg-cyan-500 text-slate-950 border-cyan-400'
+                  : 'bg-slate-950 hover:bg-slate-800 text-cyan-300 border-cyan-500/40'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              {showBranchesGuide
+                ? tr('Ẩn Bảng Mã N1–N6', 'Hide N1–N6 Guide', '隐藏 N1–N6 指南', 'N1–N6 가이드 숨기기')
+                : tr('Bảng Mã 6 Nhánh (N1–N6)', 'N1–N6 Branch Guide', 'N1–N6 六大分支指南', 'N1–N6 6개 브랜치 가이드')}
+            </button>
 
             <button
               type="button"
@@ -1026,7 +1183,9 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
               className="px-3 py-2 rounded-lg text-xs font-bold bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white flex items-center gap-1.5 shadow transition cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${scanning ? 'animate-spin' : ''}`} />
-              {scanning ? 'Đang quét...' : 'Quét Fibo Ngay'}
+              {scanning
+                ? tr('Đang quét...', 'Scanning...', '扫描中...', '스캔 중...')
+                : tr('Quét Fibo Ngay', 'Scan Fibo Now', '立即扫描 Fibo', 'Fibo 즉시 스캔')}
             </button>
           </div>
         </div>
@@ -1034,48 +1193,59 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
         {/* Summary Counters */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 mt-3.5 pt-3 border-t border-slate-800/80">
           <div className="bg-slate-950/80 border border-slate-800 rounded-lg p-2.5">
-            <div className="text-[11px] text-slate-400">Vũ Trụ Quét Chọn Lọc</div>
+            <div className="text-[11px] text-slate-400">
+              {tr('Vũ Trụ Quét Chọn Lọc', 'Screened Universe', '筛选扫描池', '선별 스캔 유니버스')}
+            </div>
             <div className="text-xl font-black font-mono text-slate-100 mt-0.5">
               {snapshot?.scanned_symbols_count ?? 0}
-              <span className="text-xs font-normal text-slate-400 ml-1.5">cặp (Blacklist ON)</span>
+              <span className="text-xs font-normal text-slate-400 ml-1.5">
+                {tr('cặp (Blacklist ON)', 'pairs (Blacklist ON)', '交易对 (黑名单开启)', '페어 (블랙리스트 ON)')}
+              </span>
             </div>
           </div>
           <div className="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2.5">
             <div className="text-[11px] text-emerald-300 font-semibold flex items-center gap-1">
-              <Target className="w-3.5 h-3.5" /> ĐỦ CHUẨN VÀO SHORT (v4.0.21)
+              <Target className="w-3.5 h-3.5" />{' '}
+              {tr('ĐỦ CHUẨN VÀO SHORT (N3+)', 'ACTIONABLE SHORT (N3+)', '达标可做空 (N3+)', '진입 가능 숏 (N3+)')}
             </div>
             <div className="text-xl font-black font-mono text-emerald-400 mt-0.5">
               {actionableCount}
               <span className="text-xs font-normal text-slate-400 ml-1.5">
-                (H1 đỏ bị lọc: {filteredOutFiredCount} · Chờ Fibo: {snapshot?.armed_count ?? 0})
+                {tr(
+                  `(H1 đỏ bị lọc: ${filteredOutFiredCount} · Chờ Fibo: ${snapshot?.armed_count ?? 0})`,
+                  `(Filtered: ${filteredOutFiredCount} · Fibo Zone: ${snapshot?.armed_count ?? 0})`,
+                  `(已拦截: ${filteredOutFiredCount} · Fibo区: ${snapshot?.armed_count ?? 0})`,
+                  `(차단됨: ${filteredOutFiredCount} · Fibo존: ${snapshot?.armed_count ?? 0})`
+                )}
               </span>
             </div>
           </div>
           <div className="bg-slate-950/80 border border-amber-500/30 rounded-lg p-2.5">
             <div className="text-[11px] text-amber-300 font-semibold flex items-center gap-1">
-              <ShieldAlert className="w-3.5 h-3.5" /> ĐẠT CHUẨN SNIPER / ELITE
+              <ShieldAlert className="w-3.5 h-3.5" /> N3 SNIPER (LIVE) / N4 ELITE
             </div>
             <div className="text-xl font-black font-mono text-amber-300 mt-0.5">
               {snapshot?.policy_counts?.sniper_risk ?? 0}
               <span className="text-xs font-normal text-cyan-300 ml-1.5">
-                (Elite: {snapshot?.policy_counts?.elite_sniper_risk ?? 0})
+                (N4 Elite: {snapshot?.policy_counts?.elite_sniper_risk ?? 0})
               </span>
             </div>
           </div>
           <div className="bg-slate-950/80 border border-emerald-500/30 rounded-lg p-2.5">
             <div className="text-[11px] text-emerald-300 font-semibold flex items-center gap-1">
-              <Gauge className="w-3.5 h-3.5" /> SNIPER RR≥1 · 24H
+              <Gauge className="w-3.5 h-3.5" /> N6 (RR≥1·24H) / N2 (M6)
             </div>
             <div className="text-xl font-black font-mono text-emerald-300 mt-0.5">
               {snapshot?.policy_counts?.sniper_rr1_horizon24 ?? 0}
               <span className="text-xs font-normal text-slate-400 ml-1.5">
-                (M6: {snapshot?.policy_counts?.m6_risk ?? 0})
+                (N2 M6: {snapshot?.policy_counts?.m6_risk ?? 0})
               </span>
             </div>
           </div>
           <div className="bg-slate-950/80 border border-cyan-500/30 rounded-lg p-2.5">
             <div className="text-[11px] text-cyan-300 font-semibold flex items-center gap-1">
-              <Award className="w-3.5 h-3.5" /> HIỆU SUẤT v4.0.21 (24–25)
+              <Award className="w-3.5 h-3.5" />{' '}
+              {tr('HIỆU SUẤT v4.0.21 (24–25)', 'v4.0.21 EDGE (24–25)', 'v4.0.21 表现 (24–25)', 'v4.0.21 성과 (24–25)')}
             </div>
             <div className="text-xl font-black font-mono text-emerald-300 mt-0.5">
               +61.2%
@@ -1085,6 +1255,318 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
             </div>
           </div>
         </div>
+
+        {/* Collapsible 6 Shadow Branches & 2 Cost Scenarios Reference Guide */}
+        {showBranchesGuide && (
+          <div className="mt-4 pt-3.5 border-t border-cyan-500/30 bg-slate-950/95 rounded-xl p-4 border space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <div className="text-xs font-extrabold uppercase tracking-wider text-cyan-300 flex items-center gap-1.5">
+                  <Layers className="w-4 h-4 text-amber-400" />
+                  {tr(
+                    'Bảng Mã Nhớ Nhanh 6 Nhánh Shadow (N1 → N6) & 2 Kịch Bản Phí (6 × 2 = 12 Tài Khoản Độc Lập)',
+                    'Quick Reference: 6 Shadow Branches (N1 → N6) & 2 Cost Scenarios (6 × 2 = 12 Isolated Accounts)',
+                    '6大影子分支速查表 (N1 → N6) 与 2种成本场景 (6 × 2 = 12个独立账户)',
+                    '6개 섀도우 브랜치 빠른 가이드 (N1 → N6) & 2개 비용 시나리오 (6 × 2 = 12개 독립 계좌)'
+                  )}
+                </div>
+                <p className="text-[11px] text-slate-300 mt-0.5">
+                  {language === 'en' ? (
+                    <>
+                      For easy recall, the 6 branches are coded <b>N1 through N6</b> and grouped into <b>3 pairs by filter strictness &amp; holding horizon</b>. Branch <b>N3 (Sniper Core)</b> is the active branch powering <b>Live Execution &amp; Telegram alerts</b>.
+                    </>
+                  ) : language === 'zh' ? (
+                    <>
+                      为方便记忆，6个分支编号为 <b>N1 至 N6</b> 并按过滤严格度与持仓周期分为 <b>3组配对</b>。其中 <b>N3 (标准狙击)</b> 为当前驱动 <b>实盘与 Telegram 警报</b> 的主力分支。
+                    </>
+                  ) : language === 'ko' ? (
+                    <>
+                      기억하기 쉽도록 6개 브랜치를 <b>N1부터 N6까지</b> 번호를 매기고 필터 강도 및 보유 시간별로 <b>3개 그룹</b>으로 묶었습니다. 특히 <b>N3 (스나이퍼 표준)</b> 브랜치가 현재 <b>라이브 실행 및 텔레그램 알림</b>에 사용 중입니다.
+                    </>
+                  ) : (
+                    <>
+                      Để dễ nhớ, 6 nhánh được đánh mã từ <b>N1 đến N6</b> và chia làm <b>3 cặp theo độ khắt khe &amp; thời gian giữ lệnh</b>. Đặc biệt, nhánh <b>N3 (Sniper Chuẩn)</b> là nhánh đang chạy thực tế cho <b>Live &amp; bắn tín hiệu Telegram</b>.
+                    </>
+                  )}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowBranchesGuide(false)}
+                className="px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 cursor-pointer"
+              >
+                {tr('✕ Thu gọn', '✕ Collapse', '✕ 收起', '✕ 접기')}
+              </button>
+            </div>
+
+            {/* 3-Bucket Quick Memory Rule */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-[11px]">
+              <div className="bg-slate-900/90 border border-purple-500/30 rounded-lg p-2.5">
+                <div className="font-mono font-bold text-purple-300">
+                  {tr(
+                    'Nhóm A (N1 – N2) · M6 Cơ Bản (Giữ 72h/120h)',
+                    'Group A (N1 – N2) · Basic M6 (Hold 72h/120h)',
+                    'A组 (N1 – N2) · 基础 M6 (持仓 72h/120h)',
+                    '그룹 A (N1 – N2) · 기본 M6 (72h/120h 보유)'
+                  )}
+                </div>
+                <div className="text-slate-300 mt-0.5">
+                  {language === 'en' ? (
+                    <>
+                      Passes v4.0.21 wave gates + <b>enters on any confirmed red H1 close</b> (no prior H1 low break required).<br />
+                      • <b>N1:</b> Fixed 20% NAV sizing (Baseline)<br />
+                      • <b>N2:</b> 0.5% NAV risk-based sizing
+                    </>
+                  ) : language === 'zh' ? (
+                    <>
+                      通过 v4.0.21 波段门禁 + <b>H1 确认收阴即入场</b> (不强制破前一根 H1 低点)。<br />
+                      • <b>N1:</b> 固定 20% NAV 仓位 (基准对照组)<br />
+                      • <b>N2:</b> 按 0.5% NAV 止损风险定仓
+                    </>
+                  ) : language === 'ko' ? (
+                    <>
+                      v4.0.21 파동 기준 통과 + <b>H1 음봉 마감 확인 시 진입</b> (직전 H1 저점 이탈 불필요).<br />
+                      • <b>N1:</b> 고정 20% NAV 비중 (기준점)<br />
+                      • <b>N2:</b> 0.5% NAV 리스크 기반 비중
+                    </>
+                  ) : (
+                    <>
+                      Đạt chuẩn sóng v4.0.21 + <b>cứ nến H1 đóng đỏ xác nhận là vào</b> (không bắt buộc phá đáy nến trước).<br />
+                      • <b>N1:</b> Đi cố định 20% vốn (Mốc gốc)<br />
+                      • <b>N2:</b> Đi vốn theo rủi ro 0.5% NAV
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="bg-amber-950/25 border border-amber-500/50 rounded-lg p-2.5">
+                <div className="font-mono font-bold text-amber-300">
+                  {tr(
+                    'Nhóm B (N3 ★ – N4) · Sniper Giữ Dài (72h/120h)',
+                    'Group B (N3 ★ – N4) · Sniper Full Hold (72h/120h)',
+                    'B组 (N3 ★ – N4) · 狙击长持 (72h/120h)',
+                    '그룹 B (N3 ★ – N4) · 스나이퍼 장기 (72h/120h)'
+                  )}
+                </div>
+                <div className="text-slate-200 mt-0.5">
+                  {language === 'en' ? (
+                    <>
+                      Requires <b>H1 close breaking below prior H1 low (Cond 2)</b>, 0.5% NAV risk sizing.<br />
+                      • <b className="text-amber-300">N3 ★ LIVE:</b> Sniper Core (Active Live &amp; Telegram branch)<br />
+                      • <b className="text-cyan-300">N4:</b> Sniper Elite (Adds mandatory Carver PST peak roll)
+                    </>
+                  ) : language === 'zh' ? (
+                    <>
+                      强制要求 <b>H1 收盘跌破前一根 H1 最低价 (条件2)</b>，按 0.5% NAV 风险定仓。<br />
+                      • <b className="text-amber-300">N3 ★ 实盘:</b> 标准狙击 (当前实盘与 Telegram 主力分支)<br />
+                      • <b className="text-cyan-300">N4:</b> 精英狙击 (额外强制 Carver PST 顶部动能衰竭)
+                    </>
+                  ) : language === 'ko' ? (
+                    <>
+                      <b>H1 종가가 직전 H1 저점을 하향 돌파(조건2)</b> 필수, 0.5% NAV 리스크 비중.<br />
+                      • <b className="text-amber-300">N3 ★ 라이브:</b> 스나이퍼 표준 (현재 라이브 &amp; 텔레그램 주력)<br />
+                      • <b className="text-cyan-300">N4:</b> 스나이퍼 엘리트 (Carver PST 고점 둔화 필수 추가)
+                    </>
+                  ) : (
+                    <>
+                      Bắt buộc <b>nến H1 đóng cửa phá thủng đáy nến H1 trước (ĐK2)</b>, đi vốn rủi ro 0.5% NAV.<br />
+                      • <b className="text-amber-300">N3 ★ LIVE:</b> Sniper Chuẩn (Đang dùng cho Live &amp; Telegram)<br />
+                      • <b className="text-cyan-300">N4:</b> Sniper Elite (Bắt buộc thêm Carver PST gãy tại đỉnh)
+                    </>
+                  )}
+                </div>
+              </div>
+              <div className="bg-slate-900/90 border border-emerald-500/30 rounded-lg p-2.5">
+                <div className="font-mono font-bold text-emerald-300">
+                  {tr(
+                    'Nhóm C (N5 – N6) · Sniper Đánh Nhanh 24h',
+                    'Group C (N5 – N6) · Sniper Fast 24h Exit',
+                    'C组 (N5 – N6) · 狙击快进快出 24h',
+                    '그룹 C (N5 – N6) · 스나이퍼 단기 24h 청산'
+                  )}
+                </div>
+                <div className="text-slate-300 mt-0.5">
+                  {language === 'en' ? (
+                    <>
+                      Same H1 low-break Sniper filter as N3, but <b>closes all positions after 24 hours</b>.<br />
+                      • <b>N5:</b> Sniper Fast 24h<br />
+                      • <b>N6:</b> Sniper 24h + Mandatory <b>TP1 R:R ≥ 1.0</b>
+                    </>
+                  ) : language === 'zh' ? (
+                    <>
+                      与 N3 相同的 H1 破底狙击过滤，但 <b>持仓满 24 小时全部平仓</b>。<br />
+                      • <b>N5:</b> 狙击 24h 快进快出<br />
+                      • <b>N6:</b> 狙击 24h + 强制 <b>TP1 盈亏比 R:R ≥ 1.0</b>
+                    </>
+                  ) : language === 'ko' ? (
+                    <>
+                      N3와 동일한 H1 저점 이탈 스나이퍼 필터를 쓰되 <b>24시간 후 전량 청산</b>.<br />
+                      • <b>N5:</b> 스나이퍼 단기 24h<br />
+                      • <b>N6:</b> 스나이퍼 24h + <b>TP1 손익비 R:R ≥ 1.0</b> 필수
+                    </>
+                  ) : (
+                    <>
+                      Cùng bộ lọc Sniper phá đáy H1 như N3 nhưng <b>đóng toàn bộ lệnh sau đúng 24 giờ</b>.<br />
+                      • <b>N5:</b> Sniper Đánh Nhanh 24h<br />
+                      • <b>N6:</b> Sniper 24h + Bắt buộc <b>TP1 có R:R ≥ 1.0</b>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-slate-800 text-slate-400 text-[11px] font-mono">
+                    <th className="py-2 px-2.5">{tr('Mã Nhánh (N1–N6)', 'Branch Code (N1–N6)', '分支代码 (N1–N6)', '브랜치 코드 (N1–N6)')}</th>
+                    <th className="py-2 px-2.5">{tr('Điều Kiện Lọc Tín Hiệu (Entry Gate)', 'Signal Entry Gate', '信号入场门禁', '신호 진입 조건 (Entry Gate)')}</th>
+                    <th className="py-2 px-2.5">{tr('Cách Đi Vốn & Trần Rủi Ro', 'Position Sizing & Risk Cap', '仓位与风险上限', '포지션 비중 & 리스크 상한')}</th>
+                    <th className="py-2 px-2.5">{tr('Cắt Lỗ (SL) & Chốt Lời (TP)', 'Stop-Loss (SL) & Targets (TP)', '止损 (SL) 与止盈 (TP)', '손절 (SL) & 익절 (TP)')}</th>
+                    <th className="py-2 px-2.5">{tr('Thời Gian Giữ Tối Đa (Horizon)', 'Max Holding Horizon', '最大持仓时间', '최대 보유 기간 (Horizon)')}</th>
+                    <th className="py-2 px-2.5">{tr('Mục Đích & Cách Nhớ Nhanh', 'Role & Quick Recall', '核心作用与速记', '역할 & 빠른 암기 포인트')}</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/80 text-[11px]">
+                  {(
+                    [
+                      {
+                        id: 'reference_m6_fixed',
+                        gate: tr(
+                          'M6 Cơ Bản: Sóng bơm/hồi ≥ 5% + (Carver PST gãy & Wave KER ≥ 0.35 hoặc Wave KER ≥ 0.65) + Nhịp sập ≥ 6% & Impulse KER ≥ 0.50 + Nến H1 đóng đỏ xác nhận.',
+                          'Basic M6: Prior move ≥ 5% + (Carver PST roll & Wave KER ≥ 0.35 or Wave KER ≥ 0.65) + Impulse drop ≥ 6% & Impulse KER ≥ 0.50 + Red H1 close.',
+                          '基础 M6：前置波段 ≥ 5% + (Carver PST 衰竭且 Wave KER ≥ 0.35 或 Wave KER ≥ 0.65) + 下跌波 ≥ 6% 且 Impulse KER ≥ 0.50 + H1 收阴确认。',
+                          '기본 M6: 사전 파동 ≥ 5% + (Carver PST 둔화 & Wave KER ≥ 0.35 또는 Wave KER ≥ 0.65) + 하락 파동 ≥ 6% & Impulse KER ≥ 0.50 + H1 음봉 마감.'
+                        ),
+                        sizing: tr('Cố định 20% NAV / lệnh (Trần ≤ 12% NAV)', 'Fixed 20% NAV / trade (Cap ≤ 12% NAV)', '固定 20% NAV / 笔 (总上限 ≤ 12% NAV)', '고정 20% NAV / 건 (총 상한 ≤ 12% NAV)'),
+                        horizon: '72h (H4) / 120h (D1)',
+                      },
+                      {
+                        id: 'm6_risk',
+                        gate: tr(
+                          'Giống hệt N1 (M6 Cơ Bản — vào cả nến H1 đóng đỏ ĐK1 lẫn phá đáy ĐK2).',
+                          'Identical to N1 (Basic M6 — enters on both Cond 1 red H1 pattern and Cond 2 low break).',
+                          '与 N1 完全相同 (基础 M6 — H1 收阴形态或破底均入场)。',
+                          'N1과 동일 (기본 M6 — H1 음봉 패턴 및 저점 이탈 모두 진입).'
+                        ),
+                        sizing: tr('Rủi ro 0.5% NAV / lệnh (Max 20% NAV · Trần ≤ 2% NAV)', '0.5% NAV risk / trade (Max 20% NAV · Cap ≤ 2% NAV)', '0.5% NAV 风险 / 笔 (最大 20% NAV · 总上限 ≤ 2% NAV)', '0.5% NAV 리스크 / 건 (최대 20% NAV · 상한 ≤ 2% NAV)'),
+                        horizon: '72h (H4) / 120h (D1)',
+                      },
+                      {
+                        id: 'sniper_risk',
+                        gate: tr(
+                          'M6 Cơ Bản + Bắt buộc nến H1 đóng cửa phá đáy nến H1 trước (ĐK2) + Đỉnh nhịp hồi ≤ Fibo 0.786.',
+                          'Basic M6 + Mandatory H1 close below prior H1 low (Cond 2) + Max pullback ≤ Fibo 0.786.',
+                          '基础 M6 + 强制 H1 收盘跌破前一根 H1 低点 (条件2) + 最大回撤 ≤ Fibo 0.786。',
+                          '기본 M6 + H1 종가 직전 H1 저점 이탈 필수(조건2) + 최대 되돌림 ≤ Fibo 0.786.'
+                        ),
+                        sizing: tr('Rủi ro 0.5% NAV / lệnh (Max 20% NAV · Trần ≤ 2% NAV)', '0.5% NAV risk / trade (Max 20% NAV · Cap ≤ 2% NAV)', '0.5% NAV 风险 / 笔 (最大 20% NAV · 总上限 ≤ 2% NAV)', '0.5% NAV 리스크 / 건 (최대 20% NAV · 상한 ≤ 2% NAV)'),
+                        horizon: '72h (H4) / 120h (D1)',
+                      },
+                      {
+                        id: 'elite_sniper_risk',
+                        gate: tr(
+                          'Chuẩn N3 Sniper + Bắt buộc Carver PST gãy động lượng (ewmac_16_64 ≤ 0 tại đỉnh hoặc accel_4_16 ≤ -1.0 kèm Wave KER ≥ 0.35).',
+                          'N3 Sniper + Mandatory Carver PST roll (peak ewmac_16_64 ≤ 0 or accel_4_16 ≤ -1.0 with Wave KER ≥ 0.35).',
+                          'N3 狙击标准 + 强制 Carver PST 顶部动能衰竭 (ewmac_16_64 ≤ 0 或 accel_4_16 ≤ -1.0 且 Wave KER ≥ 0.35)。',
+                          'N3 스나이퍼 + Carver PST 모멘텀 둔화 필수 (고점 ewmac_16_64 ≤ 0 또는 accel_4_16 ≤ -1.0 & Wave KER ≥ 0.35).'
+                        ),
+                        sizing: tr('Rủi ro 0.5% NAV / lệnh (Max 20% NAV · Trần ≤ 2% NAV)', '0.5% NAV risk / trade (Max 20% NAV · Cap ≤ 2% NAV)', '0.5% NAV 风险 / 笔 (最大 20% NAV · 总上限 ≤ 2% NAV)', '0.5% NAV 리스크 / 건 (최대 20% NAV · 상한 ≤ 2% NAV)'),
+                        horizon: '72h (H4) / 120h (D1)',
+                      },
+                      {
+                        id: 'sniper_horizon24',
+                        gate: tr('Giống hệt N3 Sniper Chuẩn.', 'Identical to N3 Sniper Core.', '与 N3 标准狙击完全相同。', 'N3 스나이퍼 표준과 동일.'),
+                        sizing: tr('Rủi ro 0.5% NAV / lệnh', '0.5% NAV risk / trade', '0.5% NAV 风险 / 笔', '0.5% NAV 리스크 / 건'),
+                        horizon: tr('Đóng toàn bộ sau 24 giờ', 'Full exit after 24 hours', '24小时后全部平仓', '24시간 후 전량 청산'),
+                      },
+                      {
+                        id: 'sniper_rr1_horizon24',
+                        gate: tr(
+                          'Chuẩn N5 Sniper 24h + Bắt buộc tỷ lệ R:R ngay tại TP1 ≥ 1.0 (Entry → TP1 ≥ Entry → SL 0.886).',
+                          'N5 Sniper 24h + Mandatory TP1 R:R ≥ 1.0 (Entry → TP1 distance ≥ Entry → SL 0.886 distance).',
+                          'N5 狙击 24h + 强制 TP1 盈亏比 R:R ≥ 1.0 (入场至 TP1 距离 ≥ 入场至 0.886 止损距离)。',
+                          'N5 스나이퍼 24h + TP1 손익비 R:R ≥ 1.0 필수 (진입가→TP1 거리 ≥ 진입가→SL 0.886 거리).'
+                        ),
+                        sizing: tr('Rủi ro 0.5% NAV / lệnh', '0.5% NAV risk / trade', '0.5% NAV 风险 / 笔', '0.5% NAV 리스크 / 건'),
+                        horizon: tr('Đóng toàn bộ sau 24 giờ', 'Full exit after 24 hours', '24小时后全部平仓', '24시간 후 전량 청산'),
+                      },
+                    ] as const
+                  ).map((row) => {
+                    const pm = POLICY_META[row.id];
+                    const isLiveBranch = row.id === 'sniper_risk';
+                    return (
+                      <tr key={row.id} className={isLiveBranch ? 'bg-amber-950/20 hover:bg-amber-950/30' : 'hover:bg-slate-900/60'}>
+                        <td className="py-2.5 px-2.5 font-mono">
+                          <span className={`px-2 py-0.5 text-[10px] font-bold rounded border ${pm.badgeCls}`}>
+                            {pm.label}
+                          </span>
+                          <div className={`text-[10px] mt-0.5 ${isLiveBranch ? 'text-amber-300 font-bold' : 'text-slate-500'}`}>
+                            {row.id}
+                          </div>
+                        </td>
+                        <td className="py-2.5 px-2.5 text-slate-200">{row.gate}</td>
+                        <td className="py-2.5 px-2.5 font-mono text-emerald-300">{row.sizing}</td>
+                        <td className="py-2.5 px-2.5 text-slate-300">
+                          {tr(
+                            'SL Fibo 0.886 (+0.25 ATR) · Chốt 50/30/20% TP1–3 · Chạm TP1 dời SL Hòa Vốn',
+                            'Fibo 0.886 SL (+0.25 ATR) · Scale 50/30/20% TP1–3 · Breakeven SL at TP1',
+                            'Fibo 0.886 止损 (+0.25 ATR) · 分批 50/30/20% 止盈 · 触及 TP1 移至保本',
+                            'Fibo 0.886 SL (+0.25 ATR) · 50/30/20% 분할 익절 · TP1 도달 시 본절 이동'
+                          )}
+                        </td>
+                        <td className={`py-2.5 px-2.5 font-mono font-bold ${row.id.includes('24') ? 'text-cyan-300' : 'text-amber-300'}`}>
+                          {row.horizon}
+                        </td>
+                        <td className={`py-2.5 px-2.5 ${isLiveBranch ? 'text-amber-200 font-semibold' : 'text-slate-300'}`}>
+                          {pm.desc}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1 text-[11px]">
+              <div className="bg-slate-900/90 border border-emerald-500/30 rounded-lg p-2.5">
+                <div className="font-mono font-bold text-emerald-300">
+                  {tr(
+                    'Kịch Bản Phí 1 · VIP6 (`N1-VIP6` → `N6-VIP6`)',
+                    'Cost Scenario 1 · Standard VIP6 (`N1-VIP6` → `N6-VIP6`)',
+                    '成本场景 1 · 标准 VIP6 (`N1-VIP6` → `N6-VIP6`)',
+                    '비용 시나리오 1 · 표준 VIP6 (`N1-VIP6` → `N6-VIP6`)'
+                  )}
+                </div>
+                <div className="text-slate-300 mt-0.5">
+                  {tr(
+                    'Mô phỏng khớp lệnh chuẩn: phí Taker 2.5 bps (0.025%) + trượt giá 10 bps (0.10%) mỗi lần khớp + phí Funding 8h thực tế trên Binance USD-M Futures.',
+                    'Standard execution: 2.5 bps (0.025%) taker fee + 10 bps (0.10%) slippage per fill + real 8h Binance USD-M funding settlements.',
+                    '标准执行假设：每次成交 2.5 bps (0.025%) 手续费 + 10 bps (0.10%) 滑点 + 币安 USD-M 真实 8h 资金费率结算。',
+                    '표준 체결 가정: 체결당 테이커 수수료 2.5 bps (0.025%) + 슬리피지 10 bps (0.10%) + 바이낸스 USD-M 실제 8시간 펀딩비 정산.'
+                  )}
+                </div>
+              </div>
+              <div className="bg-slate-900/90 border border-rose-500/30 rounded-lg p-2.5">
+                <div className="font-mono font-bold text-rose-300">
+                  {tr(
+                    'Kịch Bản Phí 2 · Stress (`N1-Stress` → `N6-Stress`)',
+                    'Cost Scenario 2 · Stress Regular (`N1-Stress` → `N6-Stress`)',
+                    '成本场景 2 · 高压压力测试 (`N1-Stress` → `N6-Stress`)',
+                    '비용 시나리오 2 · 스트레스 테스트 (`N1-Stress` → `N6-Stress`)'
+                  )}
+                </div>
+                <div className="text-slate-300 mt-0.5">
+                  {tr(
+                    'Mô phỏng chịu tải khắc nghiệt: phí Taker 5.0 bps (0.05%) + trượt giá 50 bps (0.50%) mỗi lần khớp + Funding 8h thực tế để kiểm tra sức chịu đựng của từng nhánh N1–N6.',
+                    'Heavy friction stress test: 5.0 bps (0.05%) taker fee + 50 bps (0.50%) slippage per fill + real 8h funding to test N1–N6 resilience.',
+                    '极端摩擦压力测试：每次成交 5.0 bps (0.05%) 手续费 + 50 bps (0.50%) 滑点 + 真实 8h 资金费率，检验 N1–N6 抗压能力。',
+                    '가혹 조건 스트레스 테스트: 체결당 수수료 5.0 bps (0.05%) + 슬리피지 50 bps (0.50%) + 실제 8시간 펀딩비로 N1–N6 내구성 검증.'
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {viewMode === 'LIVE' && (
@@ -1113,10 +1595,34 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                 <div className="flex flex-wrap items-center gap-1">
                   {(
                     [
-                      { id: 'ALL', label: 'Tất cả' },
-                      { id: 'ACTIONABLE_ONLY', label: `✅ Đủ chuẩn vào lệnh (${actionableCount})` },
-                      { id: 'FIRED_CONFIRMED_SHORT', label: `H1 Đỏ (${snapshot?.fired_count ?? 0})` },
-                      { id: 'ARMED_IN_FIBO_ZONE', label: `Vùng Fibo (${snapshot?.armed_count ?? 0})` },
+                      { id: 'ALL', label: tr('Tất cả', 'All', '全部', '전체') },
+                      {
+                        id: 'ACTIONABLE_ONLY',
+                        label: tr(
+                          `✅ Đủ chuẩn vào lệnh (${actionableCount})`,
+                          `✅ Actionable (${actionableCount})`,
+                          `✅ 达标可入场 (${actionableCount})`,
+                          `✅ 진입 가능 (${actionableCount})`
+                        ),
+                      },
+                      {
+                        id: 'FIRED_CONFIRMED_SHORT',
+                        label: tr(
+                          `H1 Đỏ (${snapshot?.fired_count ?? 0})`,
+                          `Red H1 (${snapshot?.fired_count ?? 0})`,
+                          `H1 收阴 (${snapshot?.fired_count ?? 0})`,
+                          `H1 음봉 (${snapshot?.fired_count ?? 0})`
+                        ),
+                      },
+                      {
+                        id: 'ARMED_IN_FIBO_ZONE',
+                        label: tr(
+                          `Vùng Fibo (${snapshot?.armed_count ?? 0})`,
+                          `Fibo Zone (${snapshot?.armed_count ?? 0})`,
+                          `Fibo 区域 (${snapshot?.armed_count ?? 0})`,
+                          `Fibo 구간 (${snapshot?.armed_count ?? 0})`
+                        ),
+                      },
                     ] as const
                   ).map((st) => (
                     <button
@@ -1137,14 +1643,16 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
 
               {/* Policy Filter Pills */}
               <div className="flex flex-wrap items-center gap-1 pt-1">
-                <span className="text-[10px] font-bold uppercase text-slate-400 mr-1">Chính sách:</span>
+                <span className="text-[10px] font-bold uppercase text-slate-400 mr-1">
+                  {tr('Nhánh:', 'Branch:', '分支:', '브랜치:')}
+                </span>
                 {(
                   [
-                    { id: 'ALL', label: 'Tất cả' },
-                    { id: 'sniper_rr1_horizon24', label: 'Sniper RR≥1 (24h)' },
-                    { id: 'elite_sniper_risk', label: 'Elite Sniper' },
-                    { id: 'sniper_risk', label: 'Sniper Risk' },
-                    { id: 'm6_risk', label: 'M6 Expanded' },
+                    { id: 'ALL', label: tr('Tất cả', 'All', '全部', '전체') },
+                    { id: 'sniper_risk', label: tr('N3 · Sniper (LIVE)', 'N3 · Sniper (LIVE)', 'N3 · 狙击 (实盘)', 'N3 · 스나이퍼 (라이브)') },
+                    { id: 'elite_sniper_risk', label: 'N4 · Elite' },
+                    { id: 'sniper_rr1_horizon24', label: 'N6 · RR≥1 (24h)' },
+                    { id: 'm6_risk', label: tr('N2 · M6 Cơ Bản', 'N2 · Basic M6', 'N2 · 基础 M6', 'N2 · 기본 M6') },
                   ] as const
                 ).map((pol) => (
                   <button
@@ -1380,7 +1888,7 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                               KẾT LUẬN: ĐỦ CHUẨN VÀO LỆNH SHORT ({(POLICY_META[selectedSignal.primary_policy || ''] || POLICY_META.sniper_risk).label})
                             </div>
                             <div className="text-[11px] text-emerald-200/90 mt-0.5">
-                              Đã vượt qua trọn vẹn cả 4 cổng chuẩn v4.0.21 (F1A Sóng bơm ≥ 50% · F1B/C Carver/Wave · F2 Sập ≥ 6% & KER ≥ 0.50 · F3/F4 H1 Phá đáy & SL 0.886 ≤ 12%).
+                              Đã vượt qua trọn vẹn cả 4 cổng chuẩn v4.0.21 (F1A Sóng bơm/hồi ≥ 5% · F1B/C Carver/Wave · F2 Sập ≥ 6% & KER ≥ 0.50 · F3/F4 H1 Phá đáy & SL 0.886 ≤ 12%).
                             </div>
                           </div>
                           <div className="bg-slate-950/90 border border-emerald-500/40 rounded-lg px-3 py-1.5 text-right font-mono shrink-0">
@@ -1998,13 +2506,25 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                 <tbody className="divide-y divide-slate-800/70">
                   {(snapshot?.shadow_comparison?.tracks || []).map((tr) => {
                     const isLegacy = tr.track_id === 'legacy_m1_raw';
+                    const pm = POLICY_META[tr.track_id];
                     const legTrack = snapshot?.shadow_comparison?.tracks?.find((t) => t.track_id === 'legacy_m1_raw');
                     const avgDiff = tr.avg_trade_return_pct - (legTrack?.avg_trade_return_pct ?? 0);
                     return (
                       <tr key={tr.track_id} className={isLegacy ? 'bg-rose-950/15 hover:bg-rose-950/25' : 'hover:bg-slate-950/60'}>
                         <td className="py-2.5 px-2.5 font-sans">
-                          <div className={`font-bold ${isLegacy ? 'text-rose-300' : 'text-emerald-300'}`}>
-                            {tr.label_vi}
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            {isLegacy ? (
+                              <span className="px-1.5 py-0.5 text-[10px] font-mono font-bold rounded border bg-rose-950 text-rose-300 border-rose-500/50">
+                                M1 CŨ (GỐC)
+                              </span>
+                            ) : pm ? (
+                              <span className={`px-1.5 py-0.5 text-[10px] font-mono font-bold rounded border ${pm.badgeCls}`}>
+                                {pm.label}
+                              </span>
+                            ) : null}
+                            <span className={`font-bold ${isLegacy ? 'text-rose-300' : 'text-emerald-300'}`}>
+                              {tr.label_vi}
+                            </span>
                           </div>
                         </td>
                         <td className="py-2.5 px-2.5 text-right text-slate-300">{tr.total_m1_signals}</td>
@@ -2207,24 +2727,42 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
                 <Cpu className="w-4 h-4" />
-                3. Đối Chiếu Daemon Paper OOS v1 (24/7): Baseline Đi Vốn Cố Định 20% (`reference_m6_fixed`) vs. 5 Chính Sách `v4.0.21`
+                {tr(
+                  '3. Đối Chiếu 6 Nhánh Paper OOS v1 (N1 → N6): Nhánh Gốc N1 (Vốn 20%) vs. 5 Nhánh Rủi Ro 0.5% NAV (N2–N6)',
+                  '3. Paper OOS v1 6-Branch Comparison (N1 → N6): Baseline N1 (20% Fixed) vs. 5 Risk 0.5% NAV Branches (N2–N6)',
+                  '3. Paper OOS v1 六大分支对比 (N1 → N6)：基准 N1 (固定 20%) vs 5大 0.5% NAV 风险分支 (N2–N6)',
+                  '3. Paper OOS v1 6개 브랜치 비교 (N1 → N6): 기준 N1 (20% 고정) vs 5개 0.5% NAV 리스크 브랜치 (N2–N6)'
+                )}
               </h3>
-              <span className="text-[11px] font-mono text-slate-400">
-                Trạng thái Daemon: {paperOos?.health?.code || 'OBSERVING'} · Vũ trụ PIT {paperOos?.study?.membership_month || '2026-10'} ({paperOos?.study?.membership_count ?? 50} coin)
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowBranchesGuide((prev) => !prev)}
+                  className="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-slate-950 hover:bg-slate-800 text-cyan-300 border border-cyan-500/40 transition cursor-pointer"
+                >
+                  {showBranchesGuide
+                    ? tr('Ẩn bảng mã N1–N6 ▲', 'Hide N1–N6 Guide ▲', '隐藏 N1–N6 指南 ▲', 'N1–N6 가이드 숨기기 ▲')
+                    : tr('Bảng mã 6 nhánh (N1–N6) ▼', 'N1–N6 Branch Guide ▼', 'N1–N6 六大分支指南 ▼', 'N1–N6 6개 브랜치 가이드 ▼')}
+                </button>
+                <span className="text-[11px] font-mono text-slate-400">
+                  {tr('Trạng thái Daemon', 'Daemon Status', '守护进程状态', '데몬 상태')}: {paperOos?.health?.code || 'OBSERVING'} ·{' '}
+                  {tr('Vũ trụ PIT', 'PIT Universe', 'PIT 选币池', 'PIT 유니버스')} {paperOos?.study?.membership_month || '2026-10'} (
+                  {paperOos?.study?.membership_count ?? 50} coin)
+                </span>
+              </div>
             </div>
 
             <div className="overflow-x-auto">
               <table className="w-full text-xs font-mono text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-800 text-slate-400 text-[11px]">
-                    <th className="py-2 px-2.5">Chính Sách (Policy)</th>
-                    <th className="py-2 px-2.5">Cơ Chế Quản Trị Vốn & Thoát Lệnh</th>
+                    <th className="py-2 px-2.5">{tr('Mã Nhánh (N1–N6)', 'Branch (N1–N6)', '分支 (N1–N6)', '브랜치 (N1–N6)')}</th>
+                    <th className="py-2 px-2.5">{tr('Cơ Chế Quản Trị Vốn & Thoát Lệnh', 'Sizing & Exit Rules', '仓位与平仓规则', '비중 & 청산 규칙')}</th>
                     <th className="py-2 px-2.5 text-right">NAV (VIP6)</th>
                     <th className="py-2 px-2.5 text-right">Net Return (VIP6)</th>
                     <th className="py-2 px-2.5 text-right">NAV (Stress)</th>
-                    <th className="py-2 px-2.5 text-right">Mở / Đóng</th>
-                    <th className="py-2 px-2.5 text-right">Chuẩn Lịch Sử 2024–2025 (VIP6)</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Mở / Đóng', 'Open / Closed', '持仓 / 已平', '보유 / 종료')}</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Chuẩn Lịch Sử 2024–2025 (VIP6)', '2024–2025 Benchmark (VIP6)', '2024–2025 历史基准 (VIP6)', '2024–2025 벤치마크 (VIP6)')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/70">
@@ -2554,30 +3092,56 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-1.5">
                 <Cpu className="w-4 h-4" />
-                12 Tài Khoản Paper OOS Độc Lập (6 Chính Sách × 2 Kịch Bản Phí · Vốn Quy Đổi $10,000.00 / TK · NAV Gốc = 100)
+                {tr(
+                  '12 Tài Khoản Paper OOS Độc Lập (6 Nhánh N1–N6 × 2 Kịch Bản Phí · Vốn Quy Đổi $10,000.00 / TK · NAV Gốc = 100)',
+                  '12 Isolated Paper OOS Accounts (6 Branches N1–N6 × 2 Cost Scenarios · $10,000.00 Notional / Acc · Base NAV = 100)',
+                  '12个独立 Paper OOS 账户 (6大分支 N1–N6 × 2种成本场景 · 折算 $10,000.00 / 账户 · 初始 NAV = 100)',
+                  '12개 독립 Paper OOS 계좌 (6개 브랜치 N1–N6 × 2개 비용 시나리오 · 계좌당 $10,000.00 · 기준 NAV = 100)'
+                )}
               </h3>
-              <span className="text-[11px] font-mono text-slate-400">
-                Bấm vào từng dòng tài khoản để lọc riêng lệnh đang vào của tài khoản đó
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowBranchesGuide((prev) => !prev)}
+                  className="px-2.5 py-1 rounded text-[11px] font-mono font-bold bg-slate-950 hover:bg-slate-800 text-cyan-300 border border-cyan-500/40 transition cursor-pointer"
+                >
+                  {showBranchesGuide
+                    ? tr('Ẩn bảng mã N1–N6 ▲', 'Hide N1–N6 Guide ▲', '隐藏 N1–N6 指南 ▲', 'N1–N6 가이드 숨기기 ▲')
+                    : tr('Bảng mã 6 nhánh (N1–N6) ▼', 'N1–N6 Branch Guide ▼', 'N1–N6 六大分支指南 ▼', 'N1–N6 6개 브랜치 가이드 ▼')}
+                </button>
+                <span className="text-[11px] font-mono text-slate-400">
+                  {tr(
+                    'Bấm vào từng dòng tài khoản (N1..N6) để lọc riêng lệnh đang vào của tài khoản đó',
+                    'Click any account row (N1..N6) to filter its active & closed positions below',
+                    '点击任意账户行 (N1..N6) 可单独筛选该账户的持仓与历史交易',
+                    '계좌 행(N1..N6)을 클릭하면 해당 계좌의 포지션만 필터링됩니다'
+                  )}
+                </span>
+              </div>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs font-mono text-left border-collapse">
                 <thead>
                   <tr className="border-b border-slate-800 text-slate-400 text-[11px]">
-                    <th className="py-2 px-2.5">Tài Khoản / Chính Sách</th>
-                    <th className="py-2 px-2.5">Kịch Bản Phí</th>
-                    <th className="py-2 px-2.5 text-right">Tài Sản ($10k) / NAV</th>
+                    <th className="py-2 px-2.5">{tr('Mã TK / Nhánh Chiến Thuật (N1–N6)', 'Account Code / Branch (N1–N6)', '账户代码 / 分支 (N1–N6)', '계좌 코드 / 브랜치 (N1–N6)')}</th>
+                    <th className="py-2 px-2.5">{tr('Kịch Bản Phí', 'Cost Scenario', '成本场景', '비용 시나리오')}</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Tài Sản ($10k) / NAV', 'Equity ($10k) / NAV', '权益 ($10k) / NAV', '자산 ($10k) / NAV')}</th>
                     <th className="py-2 px-2.5 text-right">Net Return</th>
                     <th className="py-2 px-2.5 text-right">MaxDD</th>
-                    <th className="py-2 px-2.5 text-right">Đang Mở</th>
-                    <th className="py-2 px-2.5 text-right">Đã Khớp / Bị Lọc</th>
-                    <th className="py-2 px-2.5 text-right">Đã Đóng</th>
-                    <th className="py-2 px-2.5 text-right">Phí + Trượt + Funding</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Đang Mở', 'Open', '当前持仓', '보유 중')}</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Đã Khớp / Bị Lọc', 'Accepted / Filtered', '已成交 / 已拦截', '체결 / 차단')}</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Đã Đóng', 'Closed', '已平仓', '종료')}</th>
+                    <th className="py-2 px-2.5 text-right">{tr('Phí + Trượt + Funding', 'Fees + Slip + Funding', '手续费 + 滑点 + 资金费', '수수료 + 슬리피지 + 펀딩')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/70">
                   {(paperOos?.accounts || []).map((acc) => {
-                    const pm = POLICY_META[acc.policy_id] || { label: acc.policy_id, badgeCls: 'bg-slate-900 text-slate-300 border-slate-700' };
+                    const pm = POLICY_META[acc.policy_id] || {
+                      code: '—',
+                      label: acc.policy_id,
+                      badgeCls: 'bg-slate-900 text-slate-300 border-slate-700',
+                    };
+                    const shortAccCode = `${pm.code}-${acc.scenario_id === 'standard_vip6' ? 'VIP6' : 'Stress'}`;
                     const isSelectedAcc = oosAccountFilter === acc.account_id;
                     const filteredCount =
                       Object.values(acc.filtered || {}).reduce((s: number, v: unknown) => s + Number(v || 0), 0) +
@@ -2591,6 +3155,9 @@ export const FiboShortWorkspace: React.FC<FiboShortWorkspaceProps> = ({
                         }`}
                       >
                         <td className="py-2 px-2.5">
+                          <span className="mr-1.5 px-1.5 py-0.5 text-[10px] font-black rounded bg-slate-950 text-white border border-slate-700">
+                            {shortAccCode}
+                          </span>
                           <span className={`px-2 py-0.5 text-[10px] font-bold rounded border ${pm.badgeCls}`}>
                             {pm.label}
                           </span>

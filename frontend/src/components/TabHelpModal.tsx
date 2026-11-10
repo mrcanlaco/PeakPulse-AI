@@ -383,66 +383,66 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
         },
         FIBO_SHORT: {
           id: 'FIBO_SHORT',
-          name: 'Fibo Short (H4/D1)',
-          nameEn: 'Confirmed Reversal & Fibo Short',
+          name: 'Fibo Short v4.0 (N3 ★ Live)',
+          nameEn: 'Confirmed Reversal & Fibo Short (N3 ★ Live)',
           icon: GitPullRequest,
           category: 'TRADING',
-          badge: 'H4/D1 → H1 Trigger',
-          purpose: 'Wait for a confirmed bearish reversal wave on H4 or D1, measure Fibonacci retracement into the Golden Pocket (0.500–0.618), and enter Short on a closed H1 confirmation candle.',
+          badge: 'H4/D1 → H1 · Branch N3 ★ Live',
+          purpose: 'Wait for a confirmed bearish reversal wave on H4 or D1, measure Fibonacci retracement into the Golden Pocket (0.500–0.618), and enter Short on a closed H1 structure-break candle (Branch N3 · Sniper Risk 0.5% NAV).',
           mechanism: [
-            'HTF Reversal Wave (H4/D1): Identifies a valid Swing High (1.0) followed by a bearish reversal candle and downward impulse wave to Impulse Low (0.0).',
-            'Fibonacci Price Grid: Draws Golden Pocket (0.500–0.618), SL above Swing High (1.0 + 0.2 ATR), and TP1 (0.0), TP2 (Ext 1.272), TP3 (Ext 1.618).',
-            'H1 Confirmation Trigger (1+2): Closed H1 red candle (close < open, price_ret_1h <= 0) + Bearish Candle Pattern (Cond 1) + Break of Previous H1 Low / Fibo 0.5 (Cond 2).'
+            'HTF Reversal Wave (H4/D1): Identifies a valid Swing High (1.0, prior move >= 5%) followed by a bearish reversal candle and downward impulse wave (>= 6%, Impulse KER >= 0.50) to Impulse Low (0.0).',
+            'Fibonacci Price Grid: Draws Golden Pocket (0.500–0.618), SL at Fibo 0.886 (+0.25 ATR) with Breakeven ratchet at TP1, and TP1 (0.0), TP2 (Ext 1.272), TP3 (Ext 1.618).',
+            'H1 Confirmation Trigger (Branch N3 ★ Live): Closed H1 red candle breaking the previous H1 candle low (Cond 2) with max pullback <= Fibo 0.786 and 0.5% NAV risk sizing.'
           ],
           metrics: [
-            { label: 'Swing High (1.0) → Impulse Low (0.0)', desc: 'Defines the structural bearish wave on H4 or D1.' },
+            { label: 'Branch N3 (Sniper ★ Live)', desc: 'Primary live & Telegram qualification branch (0.5% NAV risk, H1 low break).' },
             { label: 'Golden Pocket (0.500–0.618)', desc: 'Optimal Fibonacci retracement entry zone for trend-following Short.' },
             { label: 'In-Sample Backtest (≤ 2025)', desc: 'Historical verification strictly locked at <= 2025-12-31 so 2026+ remains untouched for Out-of-Sample (OOS).' }
           ],
           playbook: [
-            'Wait for stage "FIRED_CONFIRMED_SHORT" when both H4/D1 Fibo pullback and H1 confirmation rules are satisfied.',
-            'Place Stop Loss above Swing High (Fibo 1.0 + ATR buffer) and scale out at TP1 (Fibo 0.0), TP2 (Ext 1.272), and TP3 (Ext 1.618).'
+            'Focus on signals badged N3 (Sniper ★ Live), N4 (Elite), or N6 (RR>=1 · 24h) that pass all 4 v4.0.21 gates.',
+            'Click "N1–N6 Branch Guide" at the top of the workspace to view the 6-branch comparison table at any time.'
           ]
         }
         ,
         PAPER_OOS: {
           id: 'PAPER_OOS',
-          name: 'Paper OOS v1 (12 Accounts)',
-          nameEn: 'Paper OOS v1 (12 Accounts)',
+          name: 'Paper OOS v1 (12 Acc · N1–N6)',
+          nameEn: 'Paper OOS v1 (12 Accounts · N1–N6)',
           icon: Cpu,
           category: 'LAB',
-          badge: 'Shadow Live · SHA-256 Sealed',
-          purpose: 'Prospective real-time Out-of-Sample observation running 12 isolated NAV-100 accounts (6 strategy versions × 2 cost scenarios: Standard VIP6 12.5 bps & Stress Regular 55 bps).',
+          badge: 'Shadow Live · N1–N6 × 2 Costs',
+          purpose: 'Prospective real-time Out-of-Sample observation running 12 isolated NAV-100 accounts: 6 strategy branches (N1..N6) × 2 cost scenarios (VIP6 2.5+10 bps & Stress 5+50 bps).',
           mechanism: [
-            'Protocol SHA-256 Lock: Evaluates closed H1 bars strictly forward from 2026-10-18 without touching exchange order APIs.',
-            'Full Portfolio Accounting: Tracks fees, slippage, and exact historical signed funding settlements per account.'
+            '3 Intuitive Branch Pairs (N1–N6): Group A (N1 Fixed 20%, N2 Risk 0.5% Basic M6) · Group B (N3 Sniper ★ Live, N4 Sniper Elite PST, 72h/120h) · Group C (N5 Sniper 24h, N6 Sniper RR>=1 24h).',
+            'Full Portfolio Accounting: Tracks fees, slippage on every partial fill, and real 8h Binance USD-M funding settlements per account (N1-VIP6 .. N6-Stress).'
           ],
           metrics: [
-            { label: 'NAV (Base 100)', desc: 'Normalized portfolio equity for each version under Standard vs Stress cost assumptions.' },
-            { label: 'Max Drawdown %', desc: 'Peak-to-trough equity drawdown observed in real time.' }
+            { label: 'Account Code (N1-VIP6 .. N6-Stress)', desc: 'Short identifier mapping each branch (N1–N6) and fee scenario (VIP6 vs Stress).' },
+            { label: 'NAV (Base 100 / $10k)', desc: 'Normalized portfolio equity for each branch under Standard VIP6 vs Stress Regular costs.' }
           ],
           playbook: [
-            'Compare Elite + Sniper and Sniper RR≥1 · 24h under Standard vs Stress costs before granting live auto-trading sign-off.'
+            'Compare N3-VIP6 (Live branch) against N1-VIP6 (Baseline 20%), N4-VIP6 (Elite), and N6-VIP6 (24h RR>=1).'
           ]
         },
         SHADOW_COMPARE: {
           id: 'SHADOW_COMPARE',
-          name: 'Version Comparison (Legacy vs v4.0)',
-          nameEn: 'Version Comparison (Legacy vs v4.0)',
+          name: 'Branch Comparison (Legacy vs N1–N6)',
+          nameEn: 'Branch Comparison (Legacy vs N1–N6)',
           icon: FlaskConical,
           category: 'LAB',
-          badge: 'Shadow Live · A/B Versions',
-          purpose: 'Side-by-side live comparison between unfiltered Legacy M1 signals and improved v4.0.21 Sniper policies with ratcheted Breakeven Stop-Loss.',
+          badge: 'Shadow Live · Legacy M1 vs N1–N6',
+          purpose: 'Side-by-side live comparison between unfiltered Legacy M1 signals and the 6 upgraded v4.0.21 branches (N1–N6) with Fibo 0.886 ratcheted Breakeven Stop-Loss.',
           mechanism: [
-            'Noise Rejection Counter: Measures how many premature red-H1 signals are blocked by the 4 orthogonal Sniper gates.',
-            'Ratcheted Exit Tracking: Compares Legacy static SL against v4.0.21 Breakeven SL lock after TP1 hit.'
+            'Noise Rejection Counter: Measures how many premature red-H1 signals are blocked by the 4 orthogonal Sniper gates (N3 ★ Live).',
+            'Ratcheted Exit Tracking: Compares Legacy static SL 1.0 against v4.0.21 Fibo 0.886 SL + Breakeven lock after TP1 hit.'
           ],
           metrics: [
-            { label: 'Rejected Noise', desc: 'Unqualified signals filtered out before reaching Telegram.' },
-            { label: 'TP1 Locked BE', desc: 'Trades protected from reversal loss after hitting TP1.' }
+            { label: 'Rejected Noise (N3)', desc: 'Unqualified M1 signals filtered out before reaching Telegram.' },
+            { label: 'N1–N6 Live Matrix', desc: 'Real-time comparison across all 6 branches in both 5m scanner and Paper OOS daemon.' }
           ],
           playbook: [
-            'Use this ledger to verify that v4.0.21 improvements outperform raw unfiltered Fibonacci entries in live market conditions.'
+            'Use this ledger to verify how N3 (Live Sniper) and N2–N6 outperform raw unfiltered M1 entries in live market conditions.'
           ]
         },
         LIVE_ACCOUNT: {
@@ -781,66 +781,66 @@ export const TabHelpModal: React.FC<TabHelpModalProps> = ({
       },
       FIBO_SHORT: {
         id: 'FIBO_SHORT',
-        name: 'Fibo Short (H4/D1)',
-        nameEn: 'Confirmed Reversal & Fibo Short',
+        name: 'Fibo Short v4.0 (N3 ★ Live)',
+        nameEn: 'Confirmed Reversal & Fibo Short (N3 ★ Live)',
         icon: GitPullRequest,
         category: 'TRADING',
-        badge: 'H4/D1 → H1 Xác nhận',
-        purpose: 'Nhánh chiến lược mới: chờ xác nhận đảo chiều cấu trúc trên khung lớn H4/D1, đo Fibonacci tìm vùng hồi quy Golden Pocket (0.500–0.618) và vào lệnh Short theo xu hướng mới khi nến H1 đóng cửa xác nhận.',
+        badge: 'H4/D1 → H1 · Nhánh N3 ★ Live',
+        purpose: 'Chờ xác nhận đảo chiều cấu trúc trên khung lớn H4/D1, đo Fibonacci vùng hồi quy Golden Pocket (0.500–0.618) và vào lệnh Short theo nhánh chuẩn N3 (Sniper Chuẩn · Rủi ro 0.5% NAV) khi nến H1 đóng cửa phá đáy.',
         mechanism: [
-          'Sóng Đảo Chiều Khung Lớn (H4/D1): Xác định đỉnh Swing High (1.0), nến đỏ đảo chiều và sóng đẩy giảm xuống đáy Impulse Low (0.0).',
-          'Thang Giá Fibonacci: Tự động kẻ vùng vào lệnh Golden Pocket (0.500–0.618), cài Stop Loss trên đỉnh Swing High (1.0 + 0.2 ATR), chốt lời TP1 (0.0), TP2 (Ext 1.272), TP3 (Ext 1.618).',
-          'Nến Xác Nhận H1 (1+2): Nến H1 đóng đỏ (close < open, price_ret_1h <= 0) + Mẫu hình nến đảo chiều giảm (ĐK 1) + Phá vỡ đáy nến H1 liền trước / gãy mốc Fibo 0.5 (ĐK 2).'
+          'Sóng Đảo Chiều Khung Lớn (H4/D1): Xác định đỉnh Swing High (1.0, sóng bơm/hồi ≥ 5%), nến đỏ đảo chiều và sóng đẩy giảm (≥ 6%, Impulse KER ≥ 0.50) xuống đáy Impulse Low (0.0).',
+          'Thang Giá Fibonacci Mốc 6: Kẻ vùng vào lệnh Golden Pocket (0.500–0.618), cài Stop Loss tại Fibo 0.886 (+0.25 ATR) kèm dời SL Hòa Vốn khi chạm TP1, chốt lời 50%/30%/20% tại TP1/TP2/TP3.',
+          'Nến Xác Nhận H1 (Nhánh N3 ★ Live): Nến H1 đóng đỏ phá vỡ đáy nến H1 liền trước (ĐK 2) + đỉnh nhịp hồi ≤ Fibo 0.786, đi vốn theo rủi ro 0.5% NAV.'
         ],
         metrics: [
-          { label: 'Swing High (1.0) → Impulse Low (0.0)', desc: 'Biên độ con sóng đẩy giảm đầu tiên xác nhận đảo chiều trên H4 hoặc D1.' },
+          { label: 'Nhánh N3 (Sniper Chuẩn ★ Live)', desc: 'Nhánh chủ lực đang dùng để bắn Telegram & vào lệnh Live (Rủi ro 0.5% NAV, H1 phá đáy).' },
           { label: 'Golden Pocket (0.500–0.618)', desc: 'Vùng hồi quy Fibonacci tối ưu để canh vào lệnh Short thuận xu hướng mới.' },
           { label: 'Backtest In-Sample (≤ 2025)', desc: 'Kiểm định lịch sử khóa cứng tới hết 31/12/2025 để giữ nguyên toàn bộ dữ liệu 2026+ làm Out-of-Sample (OOS).' }
         ],
         playbook: [
-          'Ưu tiên các mã ở trạng thái "ĐÃ XÁC NHẬN SHORT (H1)" có xác nhận kép (1+2) tại vùng Golden Pocket.',
-          'Đặt Stop Loss phía trên đỉnh Swing High (Fibo 1.0 + đệm ATR) và chia chốt lời từng phần tại TP1 (đáy cũ 0.0), TP2 (Ext 1.272) và TP3 (Ext 1.618).'
+          'Ưu tiên các mã đạt nhãn N3 (Sniper Chuẩn ★ Live), N4 (Sniper Elite) hoặc N6 (Sniper R:R≥1 · 24h).',
+          'Bấm nút "Bảng Mã 6 Nhánh (N1–N6)" ngay trên thanh công cụ để tra cứu nhanh 3 nhóm nhánh bất cứ lúc nào.'
         ]
       }
       ,
       PAPER_OOS: {
         id: 'PAPER_OOS',
-        name: 'Paper OOS v1 (12 Tài khoản)',
-        nameEn: 'Paper OOS v1 (12 Accounts)',
+        name: 'Paper OOS v1 (12 TK · N1–N6)',
+        nameEn: 'Paper OOS v1 (12 Accounts · N1–N6)',
         icon: Cpu,
         category: 'LAB',
-        badge: 'Shadow Live · Khóa SHA-256',
-        purpose: 'Hệ thống kiểm định Out-of-Sample thời gian thực chạy 24/7 trên 12 tài khoản độc lập (6 phiên bản chiến lược × 2 kịch bản chi phí: Chuẩn VIP6 12.5 bps & Stress 55 bps).',
+        badge: 'Shadow Live · N1–N6 × 2 Kịch Bản Phí',
+        purpose: 'Hệ thống kiểm định Out-of-Sample thời gian thực chạy 24/7 trên 12 tài khoản độc lập: 6 nhánh chiến thuật (N1 → N6) × 2 kịch bản chi phí (VIP6 2.5+10 bps & Stress 5+50 bps).',
         mechanism: [
-          'Khóa Giao thức SHA-256: Chạy hoàn toàn tiến về tương lai từ 18/10/2026 trên dữ liệu thị trường công khai, tuyệt đối không chỉnh sửa tham số hậu nghiệm.',
-          'Hạch toán Danh mục Thực chiến: Tính đầy đủ phí Taker, độ trượt giá từng lần khớp TP1/TP2/TP3 và phí Funding thực tế.'
+          '3 Cặp Nhánh Dễ Nhớ (N1–N6): Nhóm A (N1 Vốn 20% gốc, N2 Rủi ro 0.5% M6 cơ bản) · Nhóm B (N3 Sniper Chuẩn ★ Live, N4 Sniper Elite PST, giữ 72h/120h) · Nhóm C (N5 Sniper 24h, N6 Sniper R:R≥1 · 24h).',
+          'Hạch toán Danh mục Thực chiến: Tính đầy đủ phí Taker, độ trượt giá từng lần khớp TP1/TP2/TP3 và phí Funding 8h thực tế cho từng mã tài khoản (N1-VIP6 .. N6-Stress).'
         ],
         metrics: [
-          { label: 'NAV (Gốc 100.0)', desc: 'Tài sản chuẩn hóa của từng phiên bản dưới mức phí Chuẩn và Stress.' },
-          { label: 'Max Drawdown %', desc: 'Mức sụt giảm vốn tối đa từ đỉnh của từng phiên bản.' }
+          { label: 'Mã Tài Khoản (N1-VIP6 .. N6-Stress)', desc: 'Mã định danh ngắn gọn giúp nhận diện tức thì nhánh N1–N6 và kịch bản phí VIP6 / Stress.' },
+          { label: 'NAV (Gốc 100.0 / $10,000)', desc: 'Tài sản chuẩn hóa của từng nhánh dưới mức phí Chuẩn VIP6 và Stress.' }
         ],
         playbook: [
-          'Theo dõi sự chênh lệch giữa bản Chuẩn (12.5 bps) và bản Stress (55 bps) để đánh giá biên an toàn trước khi bật auto-trading.'
+          'Đối chiếu trực tiếp N3-VIP6 (nhánh đang chạy Live) với N1-VIP6 (vốn 20% cố định), N4-VIP6 (Elite) và N6-VIP6 (đánh nhanh 24h).'
         ]
       },
       SHADOW_COMPARE: {
         id: 'SHADOW_COMPARE',
-        name: 'Đối chiếu Phiên bản (Cũ vs v4.0.21)',
-        nameEn: 'Version Comparison (Legacy vs v4.0)',
+        name: 'Đối chiếu Nhánh (M1 Cũ vs N1–N6)',
+        nameEn: 'Branch Comparison (Legacy vs N1–N6)',
         icon: FlaskConical,
         category: 'LAB',
-        badge: 'Shadow Live · Các Bản Cải Tiến',
-        purpose: 'Đặt lên bàn cân thời gian thực giữa bản M1 gốc (không lọc) và các bản cải tiến v4.0.21 (Elite + Sniper, Sniper RR≥1 · 24h, dời SL hòa vốn sau TP1).',
+        badge: 'Shadow Live · M1 Cũ vs N1–N6',
+        purpose: 'Đặt lên bàn cân thời gian thực giữa bản M1 Cũ (không lọc, SL 1.0 tĩnh) và 6 nhánh cải tiến v4.0.21 (N1–N6, SL Fibo 0.886 + dời SL Hòa Vốn sau TP1).',
         mechanism: [
-          'Bộ đếm Lọc Nhiễu: Thống kê số lượng tín hiệu nến H1 đỏ yếu bị chặn lại bởi 4 cổng Sniper trước khi gửi Telegram.',
-          'Đối chứng Dời SL Hòa Vốn: So sánh trực tiếp kết quả giữ lệnh giữa SL tĩnh kiểu cũ và cơ chế khóa hòa vốn ngay khi chạm TP1.'
+          'Bộ đếm Lọc Nhiễu: Thống kê số lượng tín hiệu nến H1 đỏ yếu bị chặn lại bởi 4 cổng Sniper (N3 ★ Live) trước khi gửi Telegram.',
+          'Đối chứng Dời SL Hòa Vốn: So sánh trực tiếp kết quả giữ lệnh giữa SL tĩnh 1.0 kiểu cũ và cơ chế SL 0.886 khóa hòa vốn ngay khi chạm TP1.'
         ],
         metrics: [
-          { label: 'Tín hiệu Nhiễu đã chặn', desc: 'Số kèo rủi ro cao được loại bỏ nhờ bộ lọc F1–F4.' },
-          { label: 'Khóa Hòa Vốn (TP1 → BE)', desc: 'Số lệnh bảo toàn vốn thành công khi giá bật ngược sau TP1.' }
+          { label: 'Tín hiệu Nhiễu đã chặn (N3)', desc: 'Số kèo rủi ro cao được loại bỏ nhờ bộ lọc 4 cổng F1–F4.' },
+          { label: 'Bảng Đối Chiếu N1–N6', desc: 'So sánh trực tiếp các nhánh N1–N6 trên cả Scanner 5 phút và Daemon Paper OOS 24/7.' }
         ],
         playbook: [
-          'Kiểm tra sổ đối chứng này để thấy rõ giá trị thực tế của từng bản nâng cấp thuật toán trên dữ liệu thị trường đang chạy.'
+          'Kiểm tra sổ đối chứng này để thấy rõ hiệu quả thực tế của nhánh N3 ★ Live và các nhánh N1–N6 so với bản M1 gốc.'
         ]
       },
       LIVE_ACCOUNT: {

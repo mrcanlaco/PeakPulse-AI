@@ -69,6 +69,8 @@ interface PillarConfig {
   labelKo: string;
   subVi: string;
   subEn: string;
+  subZh: string;
+  subKo: string;
   icon: React.ElementType;
   defaultTab: WorkspaceTab;
   badge?: number | string | null;
@@ -152,7 +154,13 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
           fiboActionableCount > 0
             ? fiboActionableCount
             : fiboArmedCount > 0
-              ? `${fiboArmedCount} chờ`
+              ? language === 'en'
+                ? `${fiboArmedCount} armed`
+                : language === 'zh'
+                  ? `${fiboArmedCount} 待命`
+                  : language === 'ko'
+                    ? `${fiboArmedCount} 대기`
+                    : `${fiboArmedCount} chờ`
               : null,
         pulse: fiboActionableCount > 0,
         category: 'SIGNALS',
@@ -193,7 +201,7 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
         category: 'SIGNALS',
       },
     ],
-    [fiboActionableCount, fiboArmedCount, activeCoinSymbol, signalCount, candidateCount]
+    [fiboActionableCount, fiboArmedCount, activeCoinSymbol, signalCount, candidateCount, language]
   );
 
   const shadowLiveTabs: TabItemConfig[] = useMemo(() => {
@@ -320,15 +328,23 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
         labelEn: 'Signals',
         labelZh: '交易信号',
         labelKo: '신호 & 방법론',
-        subVi: 'Fibo v4.0 · Phương pháp',
-        subEn: 'Fibo v4.0 · Methodology',
+        subVi: 'Fibo v4.0 (N3 ★ Live)',
+        subEn: 'Fibo v4.0 (N3 ★ Live)',
+        subZh: 'Fibo v4.0 (N3 ★ 实盘)',
+        subKo: 'Fibo v4.0 (N3 ★ 라이브)',
         icon: Zap,
         defaultTab: 'FIBO_SHORT',
         badge:
           fiboActionableCount > 0
-            ? `${fiboActionableCount} Sniper`
+            ? `${fiboActionableCount} N3+`
             : fiboArmedCount > 0
-              ? `${fiboArmedCount} Chờ`
+              ? language === 'en'
+                ? `${fiboArmedCount} Armed`
+                : language === 'zh'
+                  ? `${fiboArmedCount} 待命`
+                  : language === 'ko'
+                    ? `${fiboArmedCount} 대기`
+                    : `${fiboArmedCount} Chờ`
               : null,
         badgeCls:
           fiboActionableCount > 0
@@ -344,8 +360,10 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
         labelEn: 'Shadow Live',
         labelZh: '影子实盘 (OOS)',
         labelKo: '섀도우 라이브',
-        subVi: 'Các Version & Cải tiến',
-        subEn: 'Versions & Paper OOS',
+        subVi: '6 Nhánh N1–N6 · 12 TK',
+        subEn: '6 Branches N1–N6 · 12 Acc',
+        subZh: '6大分支 N1–N6 · 12账户',
+        subKo: '6개 브랜치 N1–N6 · 12계좌',
         icon: FlaskConical,
         defaultTab: 'PAPER_OOS',
         badge: '12 OOS',
@@ -363,6 +381,8 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
         labelKo: '라이브 계좌',
         subVi: 'Tài khoản Thực & Vị thế',
         subEn: 'Real Account & Positions',
+        subZh: '币安实盘账户与持仓',
+        subKo: '바이낸스 실계좌 & 포지션',
         icon: Wallet,
         defaultTab: 'LIVE_ACCOUNT',
         badge: trackingCount > 0 ? trackingCount : null,
@@ -379,6 +399,8 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
         labelKo: '시스템',
         subVi: 'Cài đặt · Hạ tầng · Log',
         subEn: 'Settings · Telemetry · Logs',
+        subZh: '系统设置 · 监控 · 日志',
+        subKo: '설정 · 텔레메트리 · 로그',
         icon: Cpu,
         defaultTab: 'SETTINGS',
         pulseDot: isTelemetryActive,
@@ -386,7 +408,7 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
           'bg-gradient-to-r from-slate-200 to-slate-300 text-slate-950 shadow-md border-slate-300',
       },
     ],
-    [fiboActionableCount, fiboArmedCount, trackingCount, isTelemetryActive]
+    [fiboActionableCount, fiboArmedCount, trackingCount, isTelemetryActive, language]
   );
 
   const visibleSubTabs: TabItemConfig[] = useMemo(() => {
@@ -463,7 +485,13 @@ export const WorkspaceTabBar: React.FC<WorkspaceTabBarProps> = ({
                         isActive ? 'text-slate-900/85' : 'text-slate-400'
                       }`}
                     >
-                      {language === 'en' ? pillar.subEn : pillar.subVi}
+                      {language === 'en'
+                        ? pillar.subEn
+                        : language === 'zh'
+                          ? pillar.subZh
+                          : language === 'ko'
+                            ? pillar.subKo
+                            : pillar.subVi}
                     </div>
                   </div>
                 </div>
