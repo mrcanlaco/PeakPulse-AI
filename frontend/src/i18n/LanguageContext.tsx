@@ -51,6 +51,34 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   useEffect(() => {
     document.documentElement.lang = language;
+    if (typeof window === 'undefined' || typeof document === 'undefined') return undefined;
+    let cancelled = false;
+    let observer: MutationObserver | null = null;
+    let rafId: number | null = null;
+
+    void import('./domLocalizer').then(({ applyDomLocalization }) => {
+      if (cancelled) return;
+      applyDomLocalization(document.body, language);
+      if (language !== 'vi') {
+        observer = new MutationObserver(() => {
+          if (rafId !== null) return;
+          rafId = window.requestAnimationFrame(() => {
+            rafId = null;
+            if (!cancelled) applyDomLocalization(document.body, language);
+          });
+        });
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+        });
+      }
+    });
+
+    return () => {
+      cancelled = true;
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      observer?.disconnect();
+    };
   }, [language]);
 
   const t = (key: TranslationKey | (string & {}), fallback?: string): string => {

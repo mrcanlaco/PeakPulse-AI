@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Download, Smartphone, X, Share, PlusSquare, Check } from 'lucide-react';
+import { useTranslation } from '../i18n/LanguageContext';
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 export const PwaInstallButton: React.FC<{ className?: string }> = ({ className = '' }) => {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const { language } = useTranslation();
+  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isStandalone, setIsStandalone] = useState(false);
   const [isIos, setIsIos] = useState(false);
   const [showIosModal, setShowIosModal] = useState(false);
@@ -21,7 +27,7 @@ export const PwaInstallButton: React.FC<{ className?: string }> = ({ className =
     // Listen for beforeinstallprompt on Android / Chromium Desktop
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
@@ -62,7 +68,9 @@ export const PwaInstallButton: React.FC<{ className?: string }> = ({ className =
     return (
       <span className="inline-flex items-center gap-1 rounded-lg border border-emerald-500/40 bg-emerald-950/80 px-2.5 py-1.5 text-xs font-bold text-emerald-300 animate-in fade-in">
         <Check className="h-3.5 w-3.5 text-emerald-400" />
-        <span>Đã Cài Đặt</span>
+        <span>
+          {language === 'en' ? 'Installed' : language === 'zh' ? '已安装' : language === 'ko' ? '설치됨' : 'Đã Cài Đặt'}
+        </span>
       </span>
     );
   }
@@ -78,10 +86,20 @@ export const PwaInstallButton: React.FC<{ className?: string }> = ({ className =
         type="button"
         onClick={handleInstallClick}
         className={`inline-flex items-center gap-1.5 rounded-lg border border-sky-500/40 bg-gradient-to-r from-sky-950/80 to-slate-900 px-2.5 py-1.5 text-xs font-bold text-sky-300 shadow-sm transition hover:border-sky-400 hover:bg-sky-900/50 active:scale-95 ${className}`}
-        title="Cài đặt App PWA lên điện thoại/máy tính"
+        title={
+          language === 'en'
+            ? 'Install PWA App on mobile/desktop'
+            : language === 'zh'
+              ? '将 PWA 应用安装到手机/电脑'
+              : language === 'ko'
+                ? '모바일/데스크톱에 PWA 앱 설치'
+                : 'Cài đặt App PWA lên điện thoại/máy tính'
+        }
       >
         <Download className="h-3.5 w-3.5 text-sky-400 stroke-[2.5]" />
-        <span className="hidden sm:inline">Cài App PWA</span>
+        <span className="hidden sm:inline">
+          {language === 'en' ? 'Install PWA' : language === 'zh' ? '安装应用' : language === 'ko' ? '앱 설치' : 'Cài App PWA'}
+        </span>
         <span className="sm:hidden">App</span>
       </button>
 

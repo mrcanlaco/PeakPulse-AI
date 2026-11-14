@@ -1670,6 +1670,7 @@ def evaluate_and_report_shadow_health(
     shadow_comparison: dict[str, Any],
     now: datetime,
     *,
+    paper_oos_dir: Path | None = None,
     force_daily_report: bool = False,
 ) -> dict[str, Any]:
     """Run hourly Shadow stability checks, auto-heal missing artifacts, and send concise daily Telegram report."""
@@ -1697,49 +1698,65 @@ def evaluate_and_report_shadow_health(
     last_daily_report_at = state.get("last_daily_report_at")
 
     # Auto-heal OBSERVED_VIEWS.json fallback if paper_oos_v1 exists
-    paper_oos_dir = Path("artifacts/fibo_trend_short/paper_oos_v1")
-    if not paper_oos_dir.exists():
-        paper_oos_dir = Path(__file__).resolve().parents[3] / "artifacts" / "fibo_trend_short" / "paper_oos_v1"
-    obs_views_path = paper_oos_dir.parent / "research_v4_0_21" / "OBSERVED_VIEWS.json"
-    if paper_oos_dir.exists() and not obs_views_path.exists():
+    active_oos_dir = paper_oos_dir or Path("artifacts/fibo_trend_short/paper_oos_v1")
+    if paper_oos_dir is None and not active_oos_dir.exists():
+        active_oos_dir = Path(__file__).resolve().parents[3] / "artifacts" / "fibo_trend_short" / "paper_oos_v1"
+    obs_views_path = active_oos_dir.parent / "research_v4_0_21" / "OBSERVED_VIEWS.json"
+    if active_oos_dir.exists() and not obs_views_path.exists():
         try:
             obs_views_path.parent.mkdir(parents=True, exist_ok=True)
             obs_views_path.write_text("{}", encoding="utf-8")
         except OSError:
             pass
 
-    # Read Paper OOS v1 STATUS.json if available
+    # Default Paper OOS v1 to unhealthy until STATUS.json is verified fresh and valid
     paper_oos_summary: dict[str, Any] = {
-        "status": "OBSERVING",
+        "status": "MISSING",
         "revision": 0,
         "open_positions": 0,
         "closed_trades": 0,
-        "healthy": True,
+        "healthy": False,
     }
-    status_file = paper_oos_dir / "STATUS.json"
+    status_file = active_oos_dir / "STATUS.json"
+    now_ms = now_utc.timestamp() * 1000.0
     if status_file.is_file():
         try:
             st_raw = json.loads(status_file.read_text(encoding="utf-8"))
             hb_ms = int(st_raw.get("heartbeat_ms") or 0)
-            hb_age_s = max(0.0, (now_utc.timestamp() * 1000.0 - hb_ms) / 1000.0) if hb_ms else 0.0
+            last_bar_ms = int(st_raw.get("last_bar_ms") or 0)
+            last_sig_ms = int(st_raw.get("last_signal_ms") or 0)
+            hb_age_s = max(0.0, (now_ms - hb_ms) / 1000.0) if hb_ms > 0 else 999999.0
+            bar_lag_s = max(0.0, (now_ms - last_bar_ms) / 1000.0) if last_bar_ms > 0 else 999999.0
+            sig_lag_s = max(0.0, (now_ms - last_sig_ms) / 1000.0) if last_sig_ms > 0 else 999999.0
             closed_map = st_raw.get("closed_trades") or {}
             total_closed = sum(int(v or 0) for v in closed_map.values()) if isinstance(closed_map, dict) else 0
+            st_name = str(st_raw.get("status") or "UNKNOWN")
             paper_oos_summary = {
-                "status": str(st_raw.get("status") or "OBSERVING"),
+                "status": st_name,
                 "revision": int(st_raw.get("revision") or 0),
                 "open_positions": int(st_raw.get("open_positions") or 0),
                 "closed_trades": total_closed,
                 "heartbeat_age_sec": round(hb_age_s, 1),
+                "bar_lag_sec": round(bar_lag_s, 1),
+                "signal_lag_sec": round(sig_lag_s, 1),
                 "healthy": bool(
-                    st_raw.get("error") is None
+                    st_name in ("OBSERVING", "ARMED")
+                    and st_raw.get("error") is None
                     and int(st_raw.get("critical_incidents") or 0) == 0
+                    and hb_age_s <= 600.0
+                    and bar_lag_s <= 900.0
+                    and sig_lag_s <= 5400.0
                 ),
             }
         except Exception:
-            pass
+            paper_oos_summary["status"] = "MALFORMED"
 
     # Perform hourly stability check when entering a new hour bucket (or on first check)
     issues: list[str] = []
+    sc_updated_dt = _parse_fibo_signal_dt(shadow_comparison.get("updated_at"))
+    if sc_updated_dt is None or abs((now_utc - sc_updated_dt).total_seconds()) > 900.0:
+        issues.append("shadow_snapshot_stale")
+
     tracks = shadow_comparison.get("tracks") or []
     if len(tracks) < 5:
         issues.append("missing_shadow_tracks")
@@ -1750,8 +1767,8 @@ def evaluate_and_report_shadow_health(
             issues.append(f"count_mismatch:{tr.get('track_id')}")
         if int(tr.get("active_count", 0)) + int(tr.get("closed_count", 0)) != int(tr.get("accepted_count", 0)):
             issues.append(f"lifecycle_mismatch:{tr.get('track_id')}")
-    if not paper_oos_summary.get("healthy", True):
-        issues.append("paper_oos_unhealthy")
+    if not paper_oos_summary.get("healthy", False):
+        issues.append(f"paper_oos_unhealthy:{paper_oos_summary.get('status')}")
 
     is_healthy = len(issues) == 0
     if not history or history[-1].get("hour_utc") != hour_bucket:

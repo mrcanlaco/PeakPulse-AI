@@ -545,7 +545,15 @@ export const Header: React.FC<HeaderProps> = ({
                     ? 'border-emerald-500/60 bg-emerald-950/60 text-emerald-300 hover:bg-emerald-900/60'
                     : 'border-slate-700 bg-slate-800 text-slate-300 hover:bg-slate-700'
                 }`}
-                title="Công cụ & Hệ thống"
+                title={
+                  language === 'en'
+                    ? 'Tools & System'
+                    : language === 'zh'
+                      ? '工具与系统'
+                      : language === 'ko'
+                        ? '도구 및 시스템'
+                        : 'Công cụ & Hệ thống'
+                }
               >
                 <Settings className={`w-3.5 h-3.5 ${updateAvailable ? 'text-emerald-400' : 'text-slate-400'}`} />
                 {updateAvailable && (
@@ -576,11 +584,21 @@ export const Header: React.FC<HeaderProps> = ({
                         >
                           <div className="flex items-center gap-2">
                             <GitPullRequest className={`w-3.5 h-3.5 ${updateAvailable ? 'text-emerald-400' : 'text-amber-400'}`} />
-                            <span>{updateAvailable ? `Cập nhật (${commitsBehind})` : 'Nhật ký phiên bản'}</span>
+                            <span>
+                              {updateAvailable
+                                ? language === 'en'
+                                  ? `Updates (${commitsBehind})`
+                                  : language === 'zh'
+                                    ? `版本更新 (${commitsBehind})`
+                                    : language === 'ko'
+                                      ? `업데이트 (${commitsBehind})`
+                                      : `Cập nhật (${commitsBehind})`
+                                : t('ws_tab_updates')}
+                            </span>
                           </div>
                           {updateAvailable && (
                             <span className="text-[9px] bg-emerald-950 text-emerald-300 border border-emerald-700 px-1.5 py-0.2 rounded font-bold">
-                              Mới
+                              {language === 'en' ? 'New' : language === 'zh' ? '新' : language === 'ko' ? '신규' : 'Mới'}
                             </span>
                           )}
                         </button>
@@ -597,7 +615,15 @@ export const Header: React.FC<HeaderProps> = ({
                           className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
                         >
                           <Scale className="w-3.5 h-3.5 text-violet-400" />
-                          <span>So sánh A/B Engine</span>
+                          <span>
+                            {language === 'en'
+                              ? 'A/B Engine Benchmark'
+                              : language === 'zh'
+                                ? 'A/B 引擎基准对比'
+                                : language === 'ko'
+                                  ? 'A/B 엔진 벤치마크'
+                                  : 'So sánh A/B Engine'}
+                          </span>
                         </button>
                       )}
 
@@ -625,7 +651,15 @@ export const Header: React.FC<HeaderProps> = ({
                           className="flex w-full items-center gap-2 rounded-lg px-2.5 py-1.5 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
                         >
                           <Settings className="w-3.5 h-3.5 text-amber-400" />
-                          <span>Cài đặt & LLM API</span>
+                          <span>
+                            {language === 'en'
+                              ? 'Settings & LLM API'
+                              : language === 'zh'
+                                ? '系统设置与 LLM API'
+                                : language === 'ko'
+                                  ? '시스템 설정 및 LLM API'
+                                  : 'Cài đặt & LLM API'}
+                          </span>
                         </button>
                       )}
                     </div>
@@ -638,7 +672,15 @@ export const Header: React.FC<HeaderProps> = ({
                       <div className="flex items-center justify-between gap-2 text-xs">
                         <span className="text-slate-300 font-medium flex items-center gap-1">
                           <Sliders className="w-3 h-3 text-amber-400 shrink-0" />
-                          <span>Ngưỡng cảnh báo:</span>
+                          <span>
+                            {language === 'en'
+                              ? 'Alert threshold:'
+                              : language === 'zh'
+                                ? '预警阈值:'
+                                : language === 'ko'
+                                  ? '알림 임계값:'
+                                  : 'Ngưỡng cảnh báo:'}
+                          </span>
                         </span>
                         <div className="flex items-center gap-1.5 font-mono text-amber-400 font-bold text-[11px]">
                           <span>{(threshold * 100).toFixed(0)}%</span>
@@ -684,7 +726,16 @@ export const Header: React.FC<HeaderProps> = ({
                         >
                           <div className="flex items-center gap-2">
                             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                            <span>Giao diện: <strong>{guiVersion === 'v2' ? 'V2 Pro' : 'V1 Classic'}</strong></span>
+                            <span>
+                              {language === 'en'
+                                ? 'Layout:'
+                                : language === 'zh'
+                                  ? '界面布局:'
+                                  : language === 'ko'
+                                    ? '인터페이스:'
+                                    : 'Giao diện:'}{' '}
+                              <strong>{guiVersion === 'v2' ? 'V2 Pro' : 'V1 Classic'}</strong>
+                            </span>
                           </div>
                         </button>
                       )}

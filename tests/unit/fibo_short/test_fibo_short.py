@@ -2850,22 +2850,67 @@ def test_v421_parallel_shadow_comparison_ledger(tmp_path: Path) -> None:
 
     mon_dir = tmp_path / "shadow_mon"
     mon_dir.mkdir(parents=True, exist_ok=True)
+    oos_dir = tmp_path / "paper_oos_test"
+    oos_dir.mkdir(parents=True, exist_ok=True)
     mon_settings = AppSettings(
         paths=PathsConfig(data_dir=mon_dir),
         scanner=ScannerConfig(operating_mode="shadow", shadow_telegram_enabled=False),
         telegram=TelegramConfig(bot_token="fake_token", chat_id="fake_chat_id"),
         web=WebConfig(public_url="https://pulse.freqpilot.dev"),
     )
+    now_mon = datetime(2025, 5, 4, 4, 0, tzinfo=timezone.utc)
+    now_mon_ms = int(now_mon.timestamp() * 1000)
+
+    # 1) Missing STATUS.json must be flagged degraded (paper_oos_unhealthy:MISSING)
+    mon_missing = evaluate_and_report_shadow_health(
+        settings=mon_settings,
+        storage_dir=mon_dir,
+        shadow_comparison=summary2,
+        now=now_mon,
+        paper_oos_dir=oos_dir,
+    )
+    assert mon_missing["status"] == "degraded"
+    assert any("paper_oos_unhealthy:MISSING" in x for x in mon_missing["issues"])
+
+    # 2) Valid fresh STATUS.json + fresh shadow_comparison (2025-05-04T04:00) -> healthy
+    import json
+
+    (oos_dir / "STATUS.json").write_text(
+        json.dumps(
+            {
+                "status": "OBSERVING",
+                "error": None,
+                "critical_incidents": 0,
+                "revision": 5680,
+                "heartbeat_ms": now_mon_ms - 10_000,
+                "last_bar_ms": now_mon_ms - 60_000,
+                "last_signal_ms": now_mon_ms - 300_000,
+                "open_positions": 0,
+                "closed_trades": {"m6_risk__standard_vip6": 10},
+            }
+        ),
+        encoding="utf-8",
+    )
     mon_state1 = evaluate_and_report_shadow_health(
         settings=mon_settings,
         storage_dir=mon_dir,
         shadow_comparison=summary2,
-        now=datetime(2025, 5, 4, 1, 0, tzinfo=timezone.utc),
+        now=now_mon,
+        paper_oos_dir=oos_dir,
     )
     assert mon_state1["status"] == "healthy"
-    assert mon_state1["checked_hours_last_24h"] == 1
-    assert mon_state1["healthy_hours_last_24h"] == 1
-    assert mon_state1["daily_report_sent_this_cycle"] is False
+    assert mon_state1["issues"] == []
+
+    # 3) An hour-old shadow_comparison snapshot (now_mon + 1h while summary2.updated_at is 04:00) must be flagged degraded
+    mon_stale = evaluate_and_report_shadow_health(
+        settings=mon_settings,
+        storage_dir=mon_dir,
+        shadow_comparison=summary2,
+        now=now_mon + timedelta(hours=1),
+        paper_oos_dir=oos_dir,
+    )
+    assert mon_stale["status"] == "degraded"
+    assert "shadow_snapshot_stale" in mon_stale["issues"]
 
     daily_msg = format_shadow_daily_telegram_report(
         shadow_comparison=summary2,

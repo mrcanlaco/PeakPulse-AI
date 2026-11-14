@@ -178,13 +178,17 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
           <div className="grid grid-cols-2 gap-x-2.5 gap-y-1 text-[9px] font-mono flex-1 border-l border-slate-800/80 pl-2">
             {/* Row 1 */}
             <div className="flex items-center justify-between gap-1 min-w-0">
-              <span className="text-slate-500 font-sans truncate">{language === 'en' ? '24h High' : '24h Cao'}</span>
+              <span className="text-slate-500 font-sans truncate">
+                {language === 'en' ? '24h High' : language === 'zh' ? '24h 最高' : language === 'ko' ? '24h 고가' : '24h Cao'}
+              </span>
               <span className="text-emerald-400 font-bold truncate">
                 {high24h ? (high24h < 1 ? high24h.toFixed(4) : high24h.toFixed(3)) : '—'}
               </span>
             </div>
             <div className="flex items-center justify-between gap-1 min-w-0">
-              <span className="text-slate-500 font-sans truncate">{language === 'en' ? '24h OI' : 'HĐ Mở'}</span>
+              <span className="text-slate-500 font-sans truncate">
+                {language === 'en' ? '24h OI' : language === 'zh' ? '24h 持仓' : language === 'ko' ? '24h 미결제' : 'HĐ Mở'}
+              </span>
               <span className={`font-bold truncate ${oiChange.startsWith('+') ? 'text-emerald-400' : oiChange.startsWith('-') ? 'text-red-400' : 'text-slate-300'}`}>
                 {oiChange}
               </span>
@@ -192,7 +196,9 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
 
             {/* Row 2 */}
             <div className="flex items-center justify-between gap-1 min-w-0">
-              <span className="text-slate-500 font-sans truncate">{language === 'en' ? '24h Low' : '24h Thấp'}</span>
+              <span className="text-slate-500 font-sans truncate">
+                {language === 'en' ? '24h Low' : language === 'zh' ? '24h 最低' : language === 'ko' ? '24h 저가' : '24h Thấp'}
+              </span>
               <span className="text-red-400 font-bold truncate">
                 {low24h ? (low24h < 1 ? low24h.toFixed(4) : low24h.toFixed(3)) : '—'}
               </span>
@@ -204,7 +210,9 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
 
             {/* Row 3 */}
             <div className="flex items-center justify-between gap-1 min-w-0">
-              <span className="text-slate-500 font-sans truncate">{language === 'en' ? '24h Vol' : 'KL 24h'}</span>
+              <span className="text-slate-500 font-sans truncate">
+                {language === 'en' ? '24h Vol' : language === 'zh' ? '24h 成交额' : language === 'ko' ? '24h 거래대금' : 'KL 24h'}
+              </span>
               <span className="text-slate-300 font-bold truncate">{volume24h}</span>
             </div>
             <div className="flex items-center justify-between gap-1 min-w-0">
@@ -216,7 +224,9 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
 
             {/* Row 4 */}
             <div className="flex items-center justify-between gap-1 min-w-0">
-              <span className="text-slate-500 font-sans truncate">{language === 'en' ? 'MCap' : 'Vốn Hóa'}</span>
+              <span className="text-slate-500 font-sans truncate">
+                {language === 'en' ? 'MCap' : language === 'zh' ? '市值' : language === 'ko' ? '시가총액' : 'Vốn Hóa'}
+              </span>
               <a
                 href={getCoinExternalUrl(symbol, displayDetail)}
                 target="_blank"
@@ -240,7 +250,14 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
         <div className="flex items-center justify-between text-[9px] pt-1.5 mt-0.5 border-t border-slate-800/60 font-mono">
           <div className="flex items-center gap-1 min-w-0 truncate">
             <span className="text-slate-500 uppercase tracking-wider font-sans">
-              {language === 'en' ? 'Current decision' : 'Quyết định hiện tại'}:
+              {language === 'en'
+                ? 'Current decision'
+                : language === 'zh'
+                  ? '当前决策'
+                  : language === 'ko'
+                    ? '현재 판단'
+                    : 'Quyết định hiện tại'}
+              :
             </span>
             <span className="font-black text-amber-300 truncate">{stateLabel}</span>
           </div>
@@ -330,7 +347,15 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
                       ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
                       : 'bg-red-500/15 text-red-400 border-red-500/30'
                   }`}
-                  title={language === 'en' ? '24h Price Change' : 'Biến động giá 24h'}
+                  title={
+                    language === 'en'
+                      ? '24h Price Change'
+                      : language === 'zh'
+                        ? '24小时涨跌幅'
+                        : language === 'ko'
+                          ? '24시간 가격 변동'
+                          : 'Biến động giá 24h'
+                  }
                 >
                   {change24h >= 0 ? '+' : ''}{change24h.toFixed(2)}%
                 </span>
@@ -434,7 +459,7 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
           {/* 6. 24h High */}
           <div className="flex flex-col justify-center px-2.5 py-1.5 bg-slate-900/90 border border-slate-800 rounded-lg min-w-[100px]">
             <span className="text-[9px] font-sans text-slate-400 uppercase tracking-wider truncate">
-              {language === 'en' ? '24h High' : 'Giá cao 24h'}
+              {language === 'en' ? '24h High' : language === 'zh' ? '24h 最高价' : language === 'ko' ? '24h 고가' : 'Giá cao 24h'}
             </span>
             <span className="text-emerald-400 font-bold truncate">
               {high24h ? (high24h < 1 ? high24h.toFixed(5) : high24h.toFixed(4)) : '—'}
@@ -444,7 +469,7 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
           {/* 7. 24h Low */}
           <div className="flex flex-col justify-center px-2.5 py-1.5 bg-slate-900/90 border border-slate-800 rounded-lg min-w-[100px]">
             <span className="text-[9px] font-sans text-slate-400 uppercase tracking-wider truncate">
-              {language === 'en' ? '24h Low' : 'Giá thấp 24h'}
+              {language === 'en' ? '24h Low' : language === 'zh' ? '24h 最低价' : language === 'ko' ? '24h 저가' : 'Giá thấp 24h'}
             </span>
             <span className="text-red-400 font-bold truncate">
               {low24h ? (low24h < 1 ? low24h.toFixed(5) : low24h.toFixed(4)) : '—'}
@@ -454,7 +479,7 @@ export const DecisionHeader: React.FC<DecisionHeaderProps> = ({
           {/* 8. 24h Volume */}
           <div className="flex flex-col justify-center px-2.5 py-1.5 bg-slate-900/90 border border-slate-800 rounded-lg min-w-[100px]">
             <span className="text-[9px] font-sans text-slate-400 uppercase tracking-wider truncate">
-              {language === 'en' ? '24h Vol' : 'Khối lượng 24h'}
+              {language === 'en' ? '24h Vol' : language === 'zh' ? '24h 成交额' : language === 'ko' ? '24h 거래대금' : 'Khối lượng 24h'}
             </span>
             <span className="text-slate-200 font-bold truncate" title={volume24h}>
               {volume24h}

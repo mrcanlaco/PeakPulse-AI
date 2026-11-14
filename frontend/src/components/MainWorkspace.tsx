@@ -846,7 +846,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                     decisionSubTab === 'TRADE' ? 'bg-slate-800 text-amber-400 border-b-2 border-amber-400' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
                   }`}
                 >
-                  {language === 'en' ? 'Order Setup' : 'Kế Hoạch Lệnh'}
+                  {language === 'en' ? 'Order Setup' : language === 'zh' ? '交易计划' : language === 'ko' ? '주문 설정' : 'Kế Hoạch Lệnh'}
                 </button>
                 <button
                   type="button"
@@ -855,7 +855,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                     decisionSubTab === 'AI' ? 'bg-slate-800 text-amber-400 border-b-2 border-amber-400' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
                   }`}
                 >
-                  {language === 'en' ? 'AI Deep Analysis' : 'Phân Tích AI'}
+                  {language === 'en' ? 'AI Deep Analysis' : language === 'zh' ? 'AI 深度分析' : language === 'ko' ? 'AI 심층 분석' : 'Phân Tích AI'}
                 </button>
               </div>
                 <button
@@ -866,7 +866,21 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                   }`}
                 >
                   {isChartHidden ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-                  {isChartHidden ? (language === 'en' ? 'Show Chart' : 'Hiện Biểu Đồ') : (language === 'en' ? 'Hide Chart' : 'Ẩn Biểu Đồ')}
+                  {isChartHidden
+                    ? language === 'en'
+                      ? 'Show Chart'
+                      : language === 'zh'
+                        ? '显示图表'
+                        : language === 'ko'
+                          ? '차트 표시'
+                          : 'Hiện Biểu Đồ'
+                    : language === 'en'
+                      ? 'Hide Chart'
+                      : language === 'zh'
+                        ? '隐藏图表'
+                        : language === 'ko'
+                          ? '차트 숨기기'
+                          : 'Ẩn Biểu Đồ'}
                 </button>
               </div>
 
@@ -932,7 +946,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                           decisionSubTab === 'TRADE' ? 'bg-slate-800 text-amber-400 border-b-2 border-amber-400' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
                         }`}
                       >
-                        {language === 'en' ? 'Order Setup' : 'Kế Hoạch Lệnh'}
+                        {language === 'en' ? 'Order Setup' : language === 'zh' ? '交易计划' : language === 'ko' ? '주문 설정' : 'Kế Hoạch Lệnh'}
                       </button>
                       <button
                         type="button"
@@ -941,7 +955,7 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                           decisionSubTab === 'AI' ? 'bg-slate-800 text-amber-400 border-b-2 border-amber-400' : 'text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
                         }`}
                       >
-                        {language === 'en' ? 'AI Deep Analysis' : 'Phân Tích AI'}
+                        {language === 'en' ? 'AI Deep Analysis' : language === 'zh' ? 'AI 深度分析' : language === 'ko' ? 'AI 심층 분석' : 'Phân Tích AI'}
                       </button>
                     </div>
                     <button
@@ -952,7 +966,21 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                       }`}
                     >
                       {isChartHidden ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-                      {isChartHidden ? (language === 'en' ? 'Show Chart' : 'Hiện Biểu Đồ') : (language === 'en' ? 'Hide Chart' : 'Ẩn Biểu Đồ')}
+                      {isChartHidden
+                        ? language === 'en'
+                          ? 'Show Chart'
+                          : language === 'zh'
+                            ? '显示图表'
+                            : language === 'ko'
+                              ? '차트 표시'
+                              : 'Hiện Biểu Đồ'
+                        : language === 'en'
+                          ? 'Hide Chart'
+                          : language === 'zh'
+                            ? '隐藏图表'
+                            : language === 'ko'
+                              ? '차트 숨기기'
+                              : 'Ẩn Biểu Đồ'}
                     </button>
                   </div>
                   {decisionSubTab === 'TRADE' && (
@@ -1853,7 +1881,11 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                 >
                   {language === 'en'
                     ? '1. 4-Factor Trading Method & 6-Year Audit (≤ 2025)'
-                    : '1. Phương Pháp 4 Nhân Tố & Kiểm Toán 6 Năm (v4.0.21)'}
+                    : language === 'zh'
+                      ? '1. 四因子交易方法与 6 年回测审计 (v4.0.21)'
+                      : language === 'ko'
+                        ? '1. 4팩터 매매 기법 및 6년 감사 (v4.0.21)'
+                        : '1. Phương Pháp 4 Nhân Tố & Kiểm Toán 6 Năm (v4.0.21)'}
                 </button>
                 <button
                   type="button"
@@ -1866,13 +1898,21 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                 >
                   {language === 'en'
                     ? '2. 2-Tier System Architecture & Research Papers'
-                    : '2. Kiến Trúc Hệ Thống 2 Tầng & Thư Viện Nghiên Cứu'}
+                    : language === 'zh'
+                      ? '2. 双层系统架构与量化研究文库'
+                      : language === 'ko'
+                        ? '2. 2계층 시스템 아키텍처 및 리서치 라이브러리'
+                        : '2. Kiến Trúc Hệ Thống 2 Tầng & Thư Viện Nghiên Cứu'}
                 </button>
               </div>
               <span className="text-[11px] text-slate-400 font-mono px-2">
                 {language === 'en'
                   ? 'Fibo Short v4.0.21 Primary · V3.1 UI Radar'
-                  : 'Chuẩn Production: Fibo Short v4.0.21 + Radar Sớm V3.1'}
+                  : language === 'zh'
+                    ? '生产标准：Fibo Short v4.0.21 主引擎 + V3.1 早期雷达'
+                    : language === 'ko'
+                      ? '프로덕션 표준: Fibo Short v4.0.21 메인 + V3.1 조기 레이더'
+                      : 'Chuẩn Production: Fibo Short v4.0.21 + Radar Sớm V3.1'}
               </span>
             </div>
 
@@ -1923,17 +1963,31 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                 </div>
                 <div className="space-y-1.5">
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-300">
-                    {language === 'en' ? 'Administrator Area' : 'Khu Vực Quản Trị Viên'}
+                    {language === 'en'
+                      ? 'Administrator Area'
+                      : language === 'zh'
+                        ? '管理员专区'
+                        : language === 'ko'
+                          ? '관리자 전용 구역'
+                          : 'Khu Vực Quản Trị Viên'}
                   </span>
                   <h2 className="text-lg sm:text-xl font-black text-white">
                     {language === 'en'
                       ? 'System Configuration & AI LLM Settings Require Admin Access'
-                      : 'Cấu hình Hệ thống & Kết nối AI LLM yêu cầu quyền Admin'}
+                      : language === 'zh'
+                        ? '系统配置与 AI LLM 设置需要管理员权限'
+                        : language === 'ko'
+                          ? '시스템 구성 및 AI LLM 설정은 관리자 권한이 필요합니다'
+                          : 'Cấu hình Hệ thống & Kết nối AI LLM yêu cầu quyền Admin'}
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                     {language === 'en'
                       ? 'You are browsing PeakPulse AI in Public Guest (Read-Only) mode. All Fibonacci Short v4.0.21 signals, 12-account Shadow Live Paper OOS, Live 10,000 USD / Binance Account monitoring, and personal browser tracking remain open without login.'
-                      : 'Bạn đang truy cập PeakPulse AI ở chế độ Khách công khai (Read-Only). Toàn bộ Tín hiệu Fibo Short v4.0.21, Shadow Live 12 tài khoản Paper OOS, Tài khoản Live 10.000 USD / Binance và Vị thế Theo dõi lưu trên trình duyệt đều mở tự do không cần đăng nhập.'}
+                      : language === 'zh'
+                        ? '您正在以公开访客（只读）模式浏览 PeakPulse AI。所有 Fibo Short v4.0.21 信号、12 账户 Shadow Live 模拟、10,000 USD 实盘/模拟监控以及浏览器本地持仓追踪均无需登录即可自由使用。'
+                        : language === 'ko'
+                          ? '현재 공개 게스트(읽기 전용) 모드로 PeakPulse AI를 이용 중입니다. 모든 Fibo Short v4.0.21 신호, 12개 계정 Shadow Live Paper OOS, 10,000 USD 실전/모의 모니터링 및 브라우저 개인 추적은 로그인 없이 자유롭게 이용할 수 있습니다.'
+                          : 'Bạn đang truy cập PeakPulse AI ở chế độ Khách công khai (Read-Only). Toàn bộ Tín hiệu Fibo Short v4.0.21, Shadow Live 12 tài khoản Paper OOS, Tài khoản Live 10.000 USD / Binance và Vị thế Theo dõi lưu trên trình duyệt đều mở tự do không cần đăng nhập.'}
                   </p>
                 </div>
               </div>
@@ -1942,25 +1996,113 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                 <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 p-3.5 space-y-1.5">
                   <div className="flex items-center gap-1.5 font-bold text-emerald-300">
                     <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                    <span>{language === 'en' ? 'Open for All Users' : 'Mở tự do cho Người dùng'}</span>
+                    <span>
+                      {language === 'en'
+                        ? 'Open for All Users'
+                        : language === 'zh'
+                          ? '对所有访客开放'
+                          : language === 'ko'
+                            ? '모든 사용자에게 개방'
+                            : 'Mở tự do cho Người dùng'}
+                    </span>
                   </div>
                   <ul className="space-y-1 text-slate-300 text-[11px]">
-                    <li>• Tín hiệu Fibo Short v4.0.21 &amp; Radar AI</li>
-                    <li>• Shadow Live 12 TK Paper OOS &amp; Backtest 6 năm</li>
-                    <li>• Xem Live Paper 10k USD &amp; Ví Binance (Read-Only)</li>
-                    <li>• Ghim Vị thế Theo dõi riêng trên trình duyệt</li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Fibo Short v4.0.21 Signals & AI Radar'
+                        : language === 'zh'
+                          ? 'Fibo Short v4.0.21 信号与 AI 雷达'
+                          : language === 'ko'
+                            ? 'Fibo Short v4.0.21 시그널 및 AI 레이더'
+                            : 'Tín hiệu Fibo Short v4.0.21 & Radar AI'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? '12-Account Shadow Live Paper OOS & 6-Year Audit'
+                        : language === 'zh'
+                          ? '12 账户 Shadow Live Paper OOS 与 6 年审计'
+                          : language === 'ko'
+                            ? '12개 계정 Shadow Live Paper OOS 및 6년 감사'
+                            : 'Shadow Live 12 TK Paper OOS & Backtest 6 năm'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Live 10k Paper & Binance Wallet (Read-Only)'
+                        : language === 'zh'
+                          ? '10k 模拟盘与币安实盘账户（只读）'
+                          : language === 'ko'
+                            ? '10k 모의투자 및 바이낸스 실계좌 (읽기 전용)'
+                            : 'Xem Live Paper 10k USD & Ví Binance (Read-Only)'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Personal Browser Watchlist & Paper Simulator'
+                        : language === 'zh'
+                          ? '浏览器私人持仓关注与模拟交易'
+                          : language === 'ko'
+                            ? '브라우저 개인 관심종목 및 모의 매매'
+                            : 'Ghim Vị thế Theo dõi riêng trên trình duyệt'}
+                    </li>
                   </ul>
                 </div>
                 <div className="rounded-xl border border-amber-500/20 bg-amber-950/20 p-3.5 space-y-1.5">
                   <div className="flex items-center gap-1.5 font-bold text-amber-300">
                     <KeyRound className="h-4 w-4 text-amber-400" />
-                    <span>{language === 'en' ? 'Admin Privileges' : 'Đặc quyền Admin'}</span>
+                    <span>
+                      {language === 'en'
+                        ? 'Admin Privileges'
+                        : language === 'zh'
+                          ? '管理员专属权限'
+                          : language === 'ko'
+                            ? '관리자 전용 권한'
+                            : 'Đặc quyền Admin'}
+                    </span>
                   </div>
                   <ul className="space-y-1 text-slate-300 text-[11px]">
-                    <li>• Hỏi đáp Trợ lý AI Định lượng &amp; Cấu hình LLM</li>
-                    <li>• Đổi chế độ quét, danh sách quét &amp; Quét thủ công</li>
-                    <li>• Bắn tin Telegram &amp; Lưu Vị thế Theo dõi trên Server</li>
-                    <li>• Dừng / Tiếp tục / Đóng lệnh trên Tài khoản Live</li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'AI Quant Assistant Chat & LLM Configuration'
+                        : language === 'zh'
+                          ? 'AI 量化助手问答与 LLM 模型配置'
+                          : language === 'ko'
+                            ? 'AI 퀀트 어시스턴트 채팅 및 LLM 설정'
+                            : 'Hỏi đáp Trợ lý AI Định lượng & Cấu hình LLM'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Scan Mode, Server Watchlist & Manual Scan Trigger'
+                        : language === 'zh'
+                          ? '扫描模式、服务器监控列表与手动触发扫描'
+                          : language === 'ko'
+                            ? '스캔 모드, 서버 워치리스트 및 수동 스캔 실행'
+                            : 'Đổi chế độ quét, danh sách quét & Quét thủ công'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Telegram Dispatches & Server Tracking Sync'
+                        : language === 'zh'
+                          ? 'Telegram 信号推送与服务器持仓同步'
+                          : language === 'ko'
+                            ? '텔레그램 알림 발송 및 서버 추적 동기화'
+                            : 'Bắn tin Telegram & Lưu Vị thế Theo dõi trên Server'}
+                    </li>
+                    <li>
+                      •{' '}
+                      {language === 'en'
+                        ? 'Pause / Resume / Manual Close on Live Account'
+                        : language === 'zh'
+                          ? '实盘/模拟账户暂停、恢复与手动平仓控制'
+                          : language === 'ko'
+                            ? '실계좌/모의계좌 일시정지, 재개 및 수동 청산'
+                            : 'Dừng / Tiếp tục / Đóng lệnh trên Tài khoản Live'}
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -1971,7 +2113,13 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                   onClick={() => setActiveTab('UPDATES')}
                   className="rounded-xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition cursor-pointer"
                 >
-                  {language === 'en' ? 'View Version History' : 'Xem Lịch sử Phiên bản'}
+                  {language === 'en'
+                    ? 'View Version History'
+                    : language === 'zh'
+                      ? '查看版本更新历史'
+                      : language === 'ko'
+                        ? '버전 업데이트 이력 보기'
+                        : 'Xem Lịch sử Phiên bản'}
                 </button>
                 <button
                   type="button"
@@ -1980,14 +2128,24 @@ export const MainWorkspace: React.FC<MainWorkspaceProps> = ({
                     onRequireAdmin?.(
                       language === 'en'
                         ? 'Sign in as Administrator to unlock System Configuration & AI LLM.'
-                        : 'Đăng nhập Quản trị viên (Admin) để mở khóa Cấu hình Hệ thống & Trợ lý AI.'
+                        : language === 'zh'
+                          ? '请登录管理员账户以解锁系统配置与 AI LLM。'
+                          : language === 'ko'
+                            ? '시스템 구성 및 AI LLM을 잠금 해제하려면 관리자로 로그인하세요.'
+                            : 'Đăng nhập Quản trị viên (Admin) để mở khóa Cấu hình Hệ thống & Trợ lý AI.'
                     )
                   }
                   className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 px-5 py-2.5 text-xs font-bold text-slate-950 shadow-lg shadow-amber-500/20 transition cursor-pointer"
                 >
                   <KeyRound className="h-4 w-4" />
                   <span>
-                    {language === 'en' ? 'Sign In as Admin' : 'Đăng nhập Quản trị viên (Admin)'}
+                    {language === 'en'
+                      ? 'Sign In as Admin'
+                      : language === 'zh'
+                        ? '管理员登录'
+                        : language === 'ko'
+                          ? '관리자 로그인'
+                          : 'Đăng nhập Quản trị viên (Admin)'}
                   </span>
                 </button>
               </div>

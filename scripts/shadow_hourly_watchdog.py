@@ -118,12 +118,23 @@ def run_check(*, runtime_dir: Path, api_base: str, apply: bool) -> dict:
         restart_targets.append("daovang-oracle-paper_oos")
     else:
         health = paper.get("health") or {}
-        hb_age = float(health.get("heartbeat_age_sec") or 0.0)
-        if health.get("code") != "ACTIVE_OK" or hb_age > 360.0:
-            issues.append(f"paper_oos_unhealthy:{health.get('code')}:age={hb_age:.0f}s")
+        study = paper.get("study") or {}
+        hb_age = float(health.get("heartbeat_age_sec") or 9999.0)
+        eng_utc = str(study.get("engine_clock_utc") or "")
+        bar_lag = 0.0
+        if eng_utc:
+            try:
+                eng_dt = datetime.fromisoformat(eng_utc.replace("Z", "+00:00"))
+                bar_lag = max(0.0, now_ts - eng_dt.timestamp())
+            except Exception:
+                bar_lag = 9999.0
+        if health.get("code") != "ACTIVE_OK" or hb_age > 360.0 or bar_lag > 900.0:
+            issues.append(
+                f"paper_oos_unhealthy:{health.get('code')}:age={hb_age:.0f}s:lag={bar_lag:.0f}s"
+            )
             restart_targets.append("daovang-oracle-paper_oos")
 
-    # 2. Check Fibo Short Snapshot & Shadow Comparison
+    # 2. Check Fibo Short Snapshot & Shadow Comparison freshness
     snap = _http_json(f"{api_base}/api/fibo-short/snapshot")
     if not snap or snap.get("status") not in ("ok", "waiting"):
         issues.append("fibo_snapshot_unavailable")
@@ -131,10 +142,17 @@ def run_check(*, runtime_dir: Path, api_base: str, apply: bool) -> dict:
     else:
         sc = snap.get("shadow_comparison") or {}
         tracks = sc.get("tracks") or []
-        if len(tracks) < 5:
-            issues.append("shadow_comparison_tracks_missing")
+        upd_raw = str(sc.get("updated_at") or snap.get("updated_at") or "")
+        snap_age = 9999.0
+        if upd_raw:
+            try:
+                upd_dt = datetime.fromisoformat(upd_raw.replace("Z", "+00:00"))
+                snap_age = max(0.0, now_ts - upd_dt.timestamp())
+            except Exception:
+                snap_age = 9999.0
+        if len(tracks) < 5 or snap_age > 900.0:
+            issues.append(f"shadow_comparison_stale_or_incomplete:tracks={len(tracks)}:age={snap_age:.0f}s")
             restart_targets.append("daovang-oracle-scanner")
-
     # 3. Check 10k Paper Execution Dashboard
     exec_dash = _http_json(f"{api_base}/api/execution/dashboard?period=7d")
     if not exec_dash or not exec_dash.get("healthy"):
