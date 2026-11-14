@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — Footer FreqPilot cho cảnh báo Telegram
+- Thêm liên kết FreqPilot có UTM riêng cho cảnh báo phân phối, cảnh báo chấm điểm, tổng hợp radar và tín hiệu hai tầng `FIRED`; không thay đổi điều kiện gửi tín hiệu.
+- Footer mặc định bật; đặt biến môi trường `FREQPILOT_UTM_FOOTER=0` để tắt. Cấu hình Telegram hiện vẫn chỉ nhận `vi`/`en`; hàm tạo footer có thêm bản dịch `zh`/`ko`.
+
 
 ### Fixed — Fibo Short v4.0.21 Downtrend Telegram Qualification & Monthly Paper OOS Rollover
 - **Downtrend Sniper Telegram Qualification (`src/dao_vang/fibo_short/scanner_lane.py`, `src/dao_vang/config/settings.py`, `configs/live.yaml`, `configs/dev.yaml`)**:

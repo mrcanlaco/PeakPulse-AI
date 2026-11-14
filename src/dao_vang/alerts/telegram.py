@@ -10,6 +10,7 @@ Security: never logs the full bot token — only first 4 chars + ***.
 
 from __future__ import annotations
 
+import os
 from typing import Any, Mapping
 from urllib.parse import quote
 
@@ -36,6 +37,21 @@ def _display_time(value: str, lang: str = "vi") -> str:
     converted = system_iso(value)
     formatted = converted[:19].replace("T", " ") if converted else str(value)[:19]
     return f"{formatted} UTC+7"
+
+def _ecosystem_utm_footer(lang: str = "vi", campaign: str = "radar_alert") -> str:
+    """Return a 1-line UTM-tracked FreqPilot Studio & Free SHA-256 Bundle footer (vi/en/zh/ko)."""
+    if os.environ.get("FREQPILOT_UTM_FOOTER", "1").strip() == "0":
+        return ""
+    norm = (lang or "vi").strip().lower()
+    lang_code = norm if norm in {"vi", "en", "zh", "ko"} else "vi"
+    url = f"https://freqpilot.dev/?utm_source=telegram_{lang_code}&utm_medium=alert_footer&utm_campaign={campaign}#pricing"
+    copy = {
+        "vi": f"🧪 [Tải miễn phí Gói Chiến Lược Freqtrade SHA-256 & Studio Kiểm Định]({url})",
+        "en": f"🧪 [Free SHA-256 Verified Freqtrade Bundle & Quant Studio]({url})",
+        "zh": f"🧪 [免费领取 SHA-256 验证 Freqtrade 策略包与量化工作台]({url})",
+        "ko": f"🧪 [무료 SHA-256 검증 Freqtrade 전략 번들 & 퀀트 스튜디오]({url})",
+    }
+    return copy[lang_code]
 
 
 _RISK_EMOJI = {
@@ -390,6 +406,9 @@ class TelegramNotifier:
                 lines.append(f"[🔗 Mở trang phân tích {symbol}]({detail_url})")
             lines.extend(["", "_Báo cáo tham khảo; hãy tự kiểm tra trước khi quyết định._"])
 
+        utm_line = _ecosystem_utm_footer(self._lang, "distribution_alert")
+        if utm_line:
+            lines.append(utm_line)
         text = "\n".join(lines)
         return self.send_message(text)
 
@@ -476,6 +495,9 @@ class TelegramNotifier:
             if detail_url:
                 lines.append(f"[🔗 Mở Biểu Đồ & Phân Tích {symbol}]({detail_url})")
             lines.extend(["", "_Báo cáo phân tích xác suất phân phối từ Đảo Vàng AI._"])
+        utm_line = _ecosystem_utm_footer(self._lang, "scored_alert")
+        if utm_line:
+            lines.append(utm_line)
         text = "\n".join(lines)
         return self.send_message(text)
 
@@ -979,6 +1001,9 @@ class TelegramNotifier:
                     lines.append("")
 
             lines.extend(["", "_Báo cáo tự động từ Đảo Vàng AI — Phục vụ mục đích tham khảo & phân tích._"])
+        utm_line = _ecosystem_utm_footer(self._lang, "radar_digest")
+        if utm_line:
+            lines.append(utm_line)
         text = "\n".join(lines)
         return self.send_message(text)
 
@@ -1025,6 +1050,9 @@ class TelegramNotifier:
                 lines.append(f"[🔗 Mở Biểu Đồ & Phân Tích {symbol}]({detail_url})")
 
         lines.extend(["", "_Báo cáo phân tích xác suất từ Đảo Vàng AI._"])
+        utm_line = _ecosystem_utm_footer(self._lang, "two_tier_fired")
+        if utm_line:
+            lines.append(utm_line)
         text = "\n".join(lines)
         return self.send_message(text)
 
