@@ -26,7 +26,7 @@ export function ExecutionDashboard({
   const [clock, setClock] = useState(Date.now());
   const request = useRef<AbortController | null>(null);
   const refresh = useCallback(async () => {
-    request.current?.abort();
+    if (request.current) return;
     const controller = new AbortController();
     request.current = controller;
     setLoading(true);
@@ -35,16 +35,27 @@ export function ExecutionDashboard({
       if (!response.ok) throw new Error(response.status === 401 ? 'Phiên đăng nhập đã hết hạn.' : `Không đọc được tài khoản (${response.status}).`);
       const snapshot = await response.json() as TradingSnapshot;
       if (!snapshot.totals || !snapshot.progress || !snapshot.setup || !Array.isArray(snapshot.trades) || !Array.isArray(snapshot.equity_curve)) throw new Error('Dữ liệu tài khoản chưa sẵn sàng.');
+      if (controller.signal.aborted) return;
       setData(snapshot); setError(''); setClock(Date.now());
     } catch (err) {
       if (!controller.signal.aborted) setError(err instanceof Error ? err.message : 'Mất kết nối');
-    } finally { if (!controller.signal.aborted) setLoading(false); }
+    } finally {
+      if (request.current === controller) {
+        request.current = null;
+        setLoading(false);
+      }
+    }
   }, [period]);
   useEffect(() => {
     void refresh();
     const timer = window.setInterval(() => { void refresh(); }, 10000);
     const ticker = window.setInterval(() => setClock(Date.now()), 1000);
-    return () => { request.current?.abort(); window.clearInterval(timer); window.clearInterval(ticker); };
+    return () => {
+      request.current?.abort();
+      request.current = null;
+      window.clearInterval(timer);
+      window.clearInterval(ticker);
+    };
   }, [refresh]);
   const command = async (action: string, tradeId?: string) => {
     setBusy(true); setNotice('');
@@ -69,6 +80,12 @@ export function ExecutionDashboard({
     { label: 'Lãi/lỗ chưa chốt', value: money(data?.account?.unrealized), hint: data?.read_only ? `${data.unmanaged_positions.length} vị thế trên tài khoản` : `${active.length}/${data?.config.max_positions ?? 1} vị thế bot`, signed: data?.account?.unrealized },
     { label: 'Giảm từ đỉnh', value: data?.account ? `${(data.account.drawdown * 100).toFixed(2)}%` : '—', hint: `Đỉnh tài sản: ${money(data?.account?.peak)}` },
   ];
+  if (loading && !data) {
+    return <section aria-label="Giao dịch tự động" data-testid="trading-dashboard" className="flex min-h-64 items-center justify-center gap-3 p-5 text-sm text-slate-400">
+      <RefreshCw size={18} className="animate-spin" />
+      <p role="status">Đang tải dữ liệu tài khoản…</p>
+    </section>;
+  }
   return <section aria-label="Giao dịch tự động" data-testid="trading-dashboard" className="min-w-0 space-y-5 p-3 sm:p-5 text-sm text-slate-300">
     <header className="flex flex-wrap items-start justify-between gap-4">
       <div>

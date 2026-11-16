@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed — Dữ liệu tài khoản Live tải chậm
+- Dashboard không còn hủy yêu cầu đang tải ở mỗi nhịp làm mới 10 giây; chỉ hủy khi đổi khung thời gian hoặc rời màn hình. Phản hồi chậm vẫn cập nhật số dư, biểu đồ và vị thế.
+- Hiển thị trạng thái đang tải ở lần đầu thay vì báo chưa có tài khoản khi API chưa phản hồi.
+
 ### Added — Footer FreqPilot cho cảnh báo Telegram
 - Thêm liên kết FreqPilot có UTM riêng cho cảnh báo phân phối, cảnh báo chấm điểm, tổng hợp radar và tín hiệu hai tầng `FIRED`; không thay đổi điều kiện gửi tín hiệu.
 - Footer mặc định bật; đặt biến môi trường `FREQPILOT_UTM_FOOTER=0` để tắt. Cấu hình Telegram hiện vẫn chỉ nhận `vi`/`en`; hàm tạo footer có thêm bản dịch `zh`/`ko`.

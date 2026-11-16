@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page, type Route } from '@playwright/test';
 import { tradingFixture } from './tradingFixture';
 
 interface ApiState {
@@ -405,6 +405,32 @@ test('4 top-level pillars (Signals, Shadow Live, Live, System) switch cleanly ac
   await page.getByTestId('workspace-system-menu').click();
   await expect(page.getByTestId('workspace-tab-settings')).toBeVisible();
   await expect(page.getByTestId('workspace-tab-telemetry')).toBeVisible();
+});
+
+test('Live displays an account response slower than the polling interval', async ({ page }) => {
+  await page.addInitScript(() => {
+    localStorage.setItem('dao_vang_app_language', 'vi');
+  });
+  await mockApi(page, { authenticated: false, scannerTriggers: 0 });
+  let pending: Route | undefined;
+  await page.route('**/api/execution/dashboard?*', route => {
+    pending ??= route;
+  });
+  await page.goto('/');
+  await page.clock.install();
+  await page.getByTestId('workspace-pillar-live').click();
+  const dashboard = page.getByTestId('trading-dashboard');
+  await expect(dashboard.getByRole('status')).toHaveText('Đang tải dữ liệu tài khoản…');
+  await expect(dashboard.getByText('Chưa có dữ liệu tài khoản', { exact: true })).toHaveCount(0);
+  await expect.poll(() => pending !== undefined).toBe(true);
+  await page.clock.runFor(21000);
+  await pending!.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify(tradingFixture()),
+  });
+  await expect(dashboard.getByText('480.00 USDT', { exact: true })).toBeVisible();
+  await expect(dashboard.getByText('ABCUSDT', { exact: true })).toBeVisible();
 });
 
 test('non-FIRED Fibo setup handoff renders ML probability as N/A without fabricating an actionable alert', async ({ page }) => {
